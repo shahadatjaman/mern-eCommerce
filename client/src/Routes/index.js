@@ -1,4 +1,4 @@
-import Layout from "../Pages/Home/Layout";
+import Layout from "../Pages/Layout";
 
 export const routes = [
   {

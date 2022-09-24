@@ -3,9 +3,10 @@ import styled from "styled-components";
 export const Container = styled.div`
   justify-content: space-between;
   align-items: center;
-  max-width: ${(props) => (props.fluid ? "100%" : "1450px")};
+  max-width: ${(props) => (props.fluid ? "100%" : "1200px")};
   margin: auto;
   position: relative;
+  padding: ${(props) => props.fluid && " 0 80px"};
   flex-direction: ${(props) => (props.direction === "column" ? "column" : "")};
   @media (max-width: 1200px) {
     max-width: ${(props) => (props.fluid ? "100%" : "960")};

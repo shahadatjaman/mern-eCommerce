@@ -8,7 +8,7 @@ export const GlobalStyles = createGlobalStyle`
     text-decoration: none;
 }
 body{
-    font-family: 'Lato', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     user-select: none;
     overflow: auto ;
 }
@@ -25,7 +25,7 @@ h5,
 h6,
 p,
 span,a{
-    font-family: 'Lato', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 button{
     border: none;

@@ -46,7 +46,7 @@ const NavBar = () => {
   ];
   return (
     <HeaderWrapper>
-      <Container>
+      <Container fluid>
         <Header>
           <Logo>
             <H3>CMS.</H3>

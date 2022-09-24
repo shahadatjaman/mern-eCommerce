@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  background: #dddddd21;
-  height: 500px;
-  //overflow: hidden;
+  background: #dddddd61;
+  height: 450px;
+  overflow: hidden;
 `;
 
 // Single Slide
@@ -19,6 +19,13 @@ export const Image = styled.div``;
 
 export const Img = styled.img`
   width: 100%;
+`;
+export const LeftSlide = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-left: 4rem;
 `;
 
 // Next and Previus button
