@@ -5,7 +5,7 @@ import Tdata from "./Tdata";
 
 const CartTable = () => {
   const { lists } = useSelector((state) => state.wishList);
-  console.log(lists);
+
   return (
     <Row>
       <Col lg_width="100">

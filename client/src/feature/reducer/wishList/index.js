@@ -30,6 +30,11 @@ export const wishListSlice = createSlice({
     addWishList: (state, { payload }) => {
       state.lists = payload;
     },
+    remove: (state, { payload }) => {
+      state.lists = payload;
+      localStorage.removeItem("wistList");
+      localStorage.setItem("wistList", JSON.stringify(payload));
+    },
     clearCart: (state, action) => {
       state.lists = [];
 
@@ -38,6 +43,7 @@ export const wishListSlice = createSlice({
   },
 });
 
-export const { wistList, addWishList, clearCart } = wishListSlice.actions;
+export const { wistList, addWishList, clearCart, remove } =
+  wishListSlice.actions;
 
 export default wishListSlice.reducer;

@@ -24,6 +24,8 @@ import { useState } from "react";
 
 import { wistList } from "../../../../feature/reducer/wishList";
 
+import ProductRatting from "../Ratting";
+
 const Product = ({ product }) => {
   const [isHovere, setHover] = useState(false);
 
@@ -44,7 +46,7 @@ const Product = ({ product }) => {
   return (
     <ProductWrap onMouseEnter={mouseEnter} onMouseLeave={mouseEnter}>
       <ProductImage>
-        <ImgLink to={"/"}>
+        <ImgLink to={"/product/5dgdg4dg4"}>
           {isHovere ? (
             <Image src={product.imageOne} />
           ) : (
@@ -64,13 +66,7 @@ const Product = ({ product }) => {
       </ProductImage>
       <ProductContent>
         <Title>Lorem ipsum fashion jacket</Title>
-        <Ratting>
-          <FaRegStar />
-          <FaRegStar />
-          <FaRegStar />
-          <FaRegStar />
-          <FaRegStar />
-        </Ratting>
+        <ProductRatting />
         <Price>
           <Span>${product.price} - </Span>
           <Old>${product.old}</Old>

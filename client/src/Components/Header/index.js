@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   AiOutlineSearch,
   AiOutlineUserAdd,
-  AiOutlineSync,
   AiOutlineHeart,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
@@ -22,11 +21,11 @@ import {
 } from "./styles";
 
 import { Container } from "../../Styles/Gride";
-
 import { addWishList } from "../../feature/reducer/wishList";
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShuffle } from "@fortawesome/free-solid-svg-icons";
 const NavBar = () => {
   const menuList = [
     {
@@ -88,8 +87,10 @@ const NavBar = () => {
             <Icon>
               <AiOutlineUserAdd />
             </Icon>
+
             <Icon>
-              <AiOutlineSync />
+              <Count>0</Count>
+              <FontAwesomeIcon icon={faShuffle} />
             </Icon>
             <NavLink to={"/wishlist"}>
               <Icon>
@@ -99,6 +100,7 @@ const NavBar = () => {
             </NavLink>
 
             <Icon>
+              <Count>0</Count>
               <AiOutlineShoppingCart />
             </Icon>
           </HeaderRightWrapper>

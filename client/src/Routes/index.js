@@ -4,6 +4,8 @@ import Wishlist from "../Pages/Wishlist";
 
 import Home from "../Pages/Home";
 
+import Details from "../Pages/ProductDetails";
+
 export const routes = [
   {
     path: "/",
@@ -13,5 +15,9 @@ export const routes = [
   {
     path: "wishlist",
     element: <Wishlist />,
+  },
+  {
+    path: "product/:id",
+    element: <Details />,
   },
 ];

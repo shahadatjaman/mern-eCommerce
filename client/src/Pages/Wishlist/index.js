@@ -2,15 +2,12 @@ import { useSelector, useDispatch } from "react-redux";
 
 import {
   AddItem,
-  BreadCrumb,
   Button,
   CartMain,
   ItemEmpty,
   ItemEmptyIcon,
   ItemEmptyText,
-  Link,
   ShoppingUpdate,
-  Span,
   Wrapper,
 } from "./Styles";
 import { Col, Container, Row } from "../../Styles/Gride";
@@ -26,9 +23,9 @@ import { AiOutlineHeart } from "react-icons/ai";
 
 import { clearCart } from "../../feature/reducer/wishList";
 
-const Wishlist = () => {
-  const [isEmpty, setIsEmpty] = useState(false);
+import BreadCrumb from "../../Components/Shared/Components/BreadCrumb";
 
+const Wishlist = () => {
   const { lists } = useSelector((state) => state.wishList);
 
   const dispatch = useDispatch();
@@ -40,14 +37,7 @@ const Wishlist = () => {
   return (
     <Layout>
       <Wrapper>
-        <BreadCrumb>
-          <Link to={"/"}>
-            <Span>Home</Span>
-          </Link>
-          <Span>/</Span>
-          <Span active>Wishlist</Span>
-        </BreadCrumb>
-
+        <BreadCrumb pathName="wishlist" />
         <CartMain>
           {/* If Wishlist is empty! */}
           {lists.length === 0 && (
@@ -56,7 +46,7 @@ const Wishlist = () => {
                 <AiOutlineHeart />
               </ItemEmptyIcon>
               <ItemEmptyText>No items found in wishlist</ItemEmptyText>
-              <AddItem>Add Items</AddItem>
+              <AddItem to={"/"}>Add Items</AddItem>
             </ItemEmpty>
           )}
 

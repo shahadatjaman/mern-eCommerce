@@ -99,6 +99,11 @@ aside.emoji-picker-react .content-wrapper:before {
   100% { -webkit-transform: rotate(360deg); }
 }
 
+@media (min-width: 1400px){
+.container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    max-width: 1200px;
+}
+}
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }

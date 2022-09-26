@@ -33,7 +33,7 @@ export const HeaderRightWrapper = styled.div`
   width: 20%;
   display: flex;
   margin-top: 32px;
-  justify-content: space-around;
+  justify-content: end;
 `;
 
 // Header main Menu list
@@ -65,6 +65,7 @@ export const Icon = styled.button`
   color: #000;
   cursor: pointer;
   position: relative;
+  margin-left: 15px;
 `;
 
 export const Count = styled.div`

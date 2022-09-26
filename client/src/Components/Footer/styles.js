@@ -16,6 +16,11 @@ export const Text = styled.p`
 
 export const H4 = styled.h4`
   margin-bottom: 1rem;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+  margin: 0 0 16px;
+  color: #313131;
 `;
 
 export const Ul = styled.ul``;

@@ -4,15 +4,6 @@ import { NavLink } from "react-router-dom";
 
 export const Wrapper = styled.div``;
 
-export const BreadCrumb = styled.div`
-  padding-bottom: 35px;
-  padding-top: 35px;
-  background-color: #f7f7f7;
-  text-align: center;
-  font-size: 16px;
-  font-weight: 500;
-`;
-
 export const Link = styled(NavLink)`
   font-weight: 600;
 `;
