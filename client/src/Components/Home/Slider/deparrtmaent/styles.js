@@ -13,7 +13,7 @@ export const Head = styled.div`
 export const Text = styled.h5``;
 
 export const Body = styled.div`
-  padding: 0 1rem;
+  padding: 4px 8px 7px 12px;
 `;
 
 export const Ul = styled.ul``;
@@ -42,12 +42,12 @@ export const H4 = styled.h4``;
 
 export const ChildWrapper = styled.div`
   position: absolute;
-  right: -125%;
+  right: -83%;
   top: -92px;
   background: #fff;
   box-shadow: 5px 7px 20px 1px #dddddd80;
   padding: 1rem 0.5rem;
-  padding-left: 4rem;
+  padding-left: 2rem;
   z-index: 9;
   display: none;
 `;

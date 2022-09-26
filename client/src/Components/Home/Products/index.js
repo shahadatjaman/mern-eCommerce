@@ -3,52 +3,9 @@ import Filter from "./Filter";
 import { Wrapper, Title, H3 } from "../../Shared/Styles/styles";
 
 import Product from "../../Shared/Components/Product/Product";
-import { ProductWrap } from "./styles";
+import { products } from "./data";
 
 const Products = () => {
-  const products = [
-    {
-      title: "Lorem ipsum fashion jacket",
-      imageOne:
-        "https://flone.jamstacktemplates.dev/assets/img/product/fashion/9.jpg",
-      imageTwo:
-        "https://flone.jamstacktemplates.dev/assets/img/product/fashion/6.jpg",
-      ratting: 0,
-      price: 24.54,
-      old: 20.57,
-    },
-    {
-      title: "Lorem ipsum fashion jacket",
-      imageOne:
-        "https://flone.jamstacktemplates.dev/assets/img/product/fashion/9.jpg",
-      imageTwo:
-        "https://flone.jamstacktemplates.dev/assets/img/product/fashion/6.jpg",
-      ratting: 0,
-      price: 24.54,
-      old: 20.57,
-    },
-    {
-      title: "Lorem ipsum fashion jacket",
-      imageOne:
-        "https://flone.jamstacktemplates.dev/assets/img/product/fashion/9.jpg",
-      imageTwo:
-        "https://flone.jamstacktemplates.dev/assets/img/product/fashion/6.jpg",
-      ratting: 0,
-      price: 24.54,
-      old: 20.57,
-    },
-    {
-      title: "Lorem ipsum fashion jacket",
-      imageOne:
-        "https://flone.jamstacktemplates.dev/assets/img/product/fashion/9.jpg",
-      imageTwo:
-        "https://flone.jamstacktemplates.dev/assets/img/product/fashion/6.jpg",
-      ratting: 0,
-      price: 24.54,
-      old: 20.57,
-    },
-  ];
-
   return (
     <Wrapper>
       <Container>

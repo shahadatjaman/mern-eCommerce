@@ -19,7 +19,9 @@ export const Logo = styled.div`
   width: 10%;
 `;
 
-export const H3 = styled.h3``;
+export const H3 = styled.h3`
+  font-size: 35px;
+`;
 
 // Main Menu
 export const MainMenu = styled.div`
@@ -62,4 +64,20 @@ export const Icon = styled.button`
   font-size: 23px;
   color: #000;
   cursor: pointer;
+  position: relative;
+`;
+
+export const Count = styled.div`
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background: #000;
+  border-radius: 50%;
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  top: -12px;
+  right: -75%;
 `;

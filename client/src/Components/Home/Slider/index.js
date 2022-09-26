@@ -6,7 +6,7 @@ import SingleSlide from "./SingleSlide";
 
 import { Container, Row, Col } from "../../../Styles/Gride";
 
-import Departments from "../../Header/deparrtmaent/Departments";
+import Departments from "../../Home/Slider/deparrtmaent/Departments";
 
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
@@ -35,10 +35,10 @@ const Slider = () => {
     <Wrapper>
       <Container>
         <Row>
-          <Col lg_width="20">
+          <Col lg_width="25">
             <Departments />
           </Col>
-          <Col lg_width="80">
+          <Col lg_width="75">
             <RightSlide>
               <SingleSlide sliderData={sliders[changer]} />
             </RightSlide>

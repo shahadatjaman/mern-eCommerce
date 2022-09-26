@@ -1,6 +1,9 @@
+import { useSelector, useDispatch } from "react-redux";
+
+import { FaRegStar } from "react-icons/fa";
+
 import {
   Action,
-  HoverdImg,
   Icon,
   Image,
   ImgLink,
@@ -16,30 +19,40 @@ import {
 } from "./Styles";
 
 import { AiOutlineHeart } from "react-icons/ai";
+
 import { useState } from "react";
 
-const Product = ({ product }) => {
-  const [isHover, setHover] = useState(false);
+import { wistList } from "../../../../feature/reducer/wishList";
 
-  const mouseOver = () => {
-    setHover(true);
+const Product = ({ product }) => {
+  const [isHovere, setHover] = useState(false);
+
+  const mouseEnter = () => {
+    if (isHovere) {
+      setHover(false);
+    } else {
+      setHover(true);
+    }
   };
-  const mouseOut = () => {
-    setHover(false);
+
+  const dispatch = useDispatch();
+
+  const addToWishlist = () => {
+    dispatch(wistList(product));
   };
 
   return (
-    <ProductWrap onMouseOver={mouseOver} onMouseOut={mouseOut}>
+    <ProductWrap onMouseEnter={mouseEnter} onMouseLeave={mouseEnter}>
       <ProductImage>
         <ImgLink to={"/"}>
-          {isHover ? (
+          {isHovere ? (
             <Image src={product.imageOne} />
           ) : (
             <Image src={product.imageTwo} />
           )}
         </ImgLink>
         <ProductAction className="action">
-          <Action width="48">
+          <Action width="48" onClick={addToWishlist}>
             <AiOutlineHeart />
           </Action>
 
@@ -52,11 +65,11 @@ const Product = ({ product }) => {
       <ProductContent>
         <Title>Lorem ipsum fashion jacket</Title>
         <Ratting>
-          <Icon>*</Icon>
-          <Icon>*</Icon>
-          <Icon>*</Icon>
-          <Icon>*</Icon>
-          <Icon>*</Icon>
+          <FaRegStar />
+          <FaRegStar />
+          <FaRegStar />
+          <FaRegStar />
+          <FaRegStar />
         </Ratting>
         <Price>
           <Span>${product.price} - </Span>

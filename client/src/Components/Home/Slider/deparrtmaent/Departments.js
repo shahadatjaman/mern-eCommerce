@@ -1,4 +1,4 @@
-import { Body, Head, Wrapper, Text, Ul, Li } from "./styles";
+import { Body, Head, Wrapper, Text, Ul } from "./styles";
 
 import { FaAlignLeft } from "react-icons/fa";
 

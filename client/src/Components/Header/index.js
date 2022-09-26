@@ -1,3 +1,4 @@
+import { useDispatch, useSelector } from "react-redux";
 //import { NavLink } from "react-router-dom";
 import {
   AiOutlineSearch,
@@ -17,9 +18,14 @@ import {
   Ul,
   Icon,
   HeaderWrapper,
+  Count,
 } from "./styles";
 
 import { Container } from "../../Styles/Gride";
+
+import { addWishList } from "../../feature/reducer/wishList";
+import { useEffect } from "react";
+import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
   const menuList = [
@@ -44,12 +50,27 @@ const NavBar = () => {
       link: "#",
     },
   ];
+
+  const { lists } = useSelector((state) => state.wishList);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const wishlist = JSON.parse(localStorage.getItem("wistList"));
+
+    if (wishlist) {
+      dispatch(addWishList(wishlist));
+    }
+  }, [dispatch]);
+
   return (
     <HeaderWrapper>
       <Container fluid>
         <Header>
           <Logo>
-            <H3>CMS.</H3>
+            <NavLink to={"/"}>
+              <H3>Flone.</H3>
+            </NavLink>
           </Logo>
           <MainMenu>
             <Ul>
@@ -70,9 +91,13 @@ const NavBar = () => {
             <Icon>
               <AiOutlineSync />
             </Icon>
-            <Icon>
-              <AiOutlineHeart />
-            </Icon>
+            <NavLink to={"/wishlist"}>
+              <Icon>
+                <Count>{lists.length}</Count>
+                <AiOutlineHeart />
+              </Icon>
+            </NavLink>
+
             <Icon>
               <AiOutlineShoppingCart />
             </Icon>

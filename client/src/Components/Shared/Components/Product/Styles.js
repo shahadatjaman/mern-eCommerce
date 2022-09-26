@@ -11,6 +11,9 @@ export const ProductWrap = styled.div`
     opacity: 1;
     transition: all 0.3s ease 0s;
   }
+  &:hover .hide {
+    display: block;
+  }
 `;
 
 export const ProductImage = styled.div`
@@ -21,6 +24,7 @@ export const ProductImage = styled.div`
 export const Image = styled.img`
   width: 100%;
   transition: all 0.3s ease 0s;
+  display: ${(props) => props.hide === "true" && "none"};
 `;
 
 export const ProductContent = styled.div`
@@ -72,7 +76,14 @@ export const Action = styled.button`
   }
 `;
 
-export const Ratting = styled.div``;
+export const Ratting = styled.div`
+  margin: 8px 0;
+  svg {
+    font-size: 17px;
+    margin: 0 3px;
+    color: #ffa900;
+  }
+`;
 
 export const Icon = styled.i`
   margin: 0 4px;
