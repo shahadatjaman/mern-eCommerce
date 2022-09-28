@@ -14,16 +14,14 @@ import { Col, Container, Row } from "../../Styles/Gride";
 
 import Layout from "../Layout";
 
-import { useState } from "react";
-
-import CartTable from "./Table";
-
 // React Icon
 import { AiOutlineHeart } from "react-icons/ai";
 
 import { clearCart } from "../../feature/reducer/wishList";
 
 import BreadCrumb from "../../Components/Shared/Components/BreadCrumb";
+
+import Tabel from "../../Components/Shared/Components/Tabel/Table";
 
 const Wishlist = () => {
   const { lists } = useSelector((state) => state.wishList);
@@ -34,13 +32,15 @@ const Wishlist = () => {
     dispatch(clearCart());
   };
 
+  console.log(lists);
+
   return (
     <Layout>
       <Wrapper>
         <BreadCrumb pathName="wishlist" />
         <CartMain>
           {/* If Wishlist is empty! */}
-          {lists.length === 0 && (
+          {lists.items.length === 0 && (
             <ItemEmpty>
               <ItemEmptyIcon>
                 <AiOutlineHeart />
@@ -52,9 +52,9 @@ const Wishlist = () => {
 
           <Container>
             {/* if wishList is not empty */}
-            {lists.length !== 0 && <CartTable />}
+            {lists.items.length !== 0 && <Tabel data={lists} />}
 
-            {lists.length !== 0 && (
+            {lists.items.length !== 0 && (
               <Row>
                 <Col>
                   <ShoppingUpdate>

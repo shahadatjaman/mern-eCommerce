@@ -1,7 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  lists: [],
+  lists: {
+    name: "wishlist",
+    head: ["image", "product name", "unit price", "add to cart", "action"],
+    items: [],
+  },
 };
 
 export const wishListSlice = createSlice({
@@ -24,19 +28,19 @@ export const wishListSlice = createSlice({
           "wistList",
           JSON.stringify([...wishListItem, payload])
         );
-        state.lists = [...state.lists, payload];
+        state.lists.items = [...state.lists.items, payload];
       }
     },
     addWishList: (state, { payload }) => {
-      state.lists = payload;
+      state.lists.items = payload;
     },
     remove: (state, { payload }) => {
-      state.lists = payload;
+      state.lists.items = payload;
       localStorage.removeItem("wistList");
       localStorage.setItem("wistList", JSON.stringify(payload));
     },
     clearCart: (state, action) => {
-      state.lists = [];
+      state.lists.items = [];
 
       localStorage.removeItem("wistList");
     },

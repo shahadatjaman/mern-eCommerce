@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { NavLink } from "react-router-dom";
+
 export const GalleryWrapper = styled.div`
   padding-bottom: 100px;
   padding-top: 100px;
@@ -17,11 +19,14 @@ export const SmallImageWrapper = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
+  margin-top: 8px;
 `;
 
 export const SmallWrapper = styled.div`
   max-width: 100px;
   cursor: pointer;
+  margin-right: 10px;
+  border: ${(props) => props.bordered && "2px solid #ddd"};
 `;
 
 export const SmallImg = styled.img`
@@ -201,12 +206,12 @@ export const Small = styled.span`
   margin: 0 0 15px;
 `;
 
-export const ColorContent = styled.div``;
+export const ColorContent = styled.div`
+  display: flex !important;
+`;
 
-export const Label = styled.label`
+export const Label = styled.div`
   position: relative;
-  margin-right: 15px;
-  margin-right: ${(props) => props.size && "4px"};
 `;
 
 export const Input = styled.input`
@@ -214,6 +219,7 @@ export const Input = styled.input`
   display: inline-block;
   width: 25px;
   height: 25px;
+  position: relative;
   &&[type="radio"]:after {
     width: 20px;
     height: 20px;
@@ -229,14 +235,34 @@ export const Input = styled.input`
   }
 `;
 
+export const ColorSelector = styled.span`
+  /* position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 30px;
+  height: 30px; */
+  background-color: ${(props) => props.bg && props.bg};
+  border-radius: 50%;
+`;
+
+export const CurcleBorder = styled.div`
+  width: 42px;
+  height: 42px;
+  background: transparent;
+
+  border-radius: 50%;
+  margin-right: 4px;
+  display: flex;
+  justify-content: center !important;
+  align-items: center !important;
+`;
+
 export const Colored = styled.span`
   position: absolute;
-  width: 10px;
-  height: 10px;
-  background: red;
+  width: 35px;
+  height: 35px;
+  background-color: ${(props) => props.bg && props.bg};
   border-radius: 50%;
-  left: 1px;
-  top: 25%;
 `;
 
 export const Size = styled.div`
@@ -248,7 +274,7 @@ export const SizeContent = styled.div``;
 export const Selected = styled.span`
   position: absolute;
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 700;
   width: 100%;
   margin-bottom: 0;
   padding: 8px;
@@ -263,4 +289,41 @@ export const InputSize = styled.input`
   width: 30px;
   height: 25px;
   opacity: 0;
+`;
+
+// Description and review styles
+export const DescReview = styled.div`
+  padding-bottom: 90px;
+`;
+
+export const NavPills = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column !important;
+`;
+
+export const ProductInfo = styled.div``;
+
+export const Lists = styled.ul``;
+
+export const List = styled.li`
+  font-size: 16px;
+  margin: 0 0 13px;
+  list-style: outside none none;
+  color: #333;
+`;
+
+export const InfoKey = styled.span`
+  font-weight: 600;
+  display: inline-block;
+  min-width: 85px;
+  margin: 0 26px 0 0;
+  color: #000;
+`;
+
+// Products Wrpper Style
+
+export const ProductsWrappper = styled.div`
+  padding-top: 55px;
 `;

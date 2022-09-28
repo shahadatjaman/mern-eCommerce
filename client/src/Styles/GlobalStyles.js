@@ -53,6 +53,10 @@ ul{
   width: 100%;
   height: 100%;
 }
+span.sc-bxSTMQ.dujOJd.active {
+    border: 2px solid #000 !important;
+    margin: 0px;
+}
 .swiper-slide{
     background: transparent
 }
@@ -109,5 +113,32 @@ aside.emoji-picker-react .content-wrapper:before {
   100% { transform: rotate(360deg); }
 }
 
+// Tabs style of product details
+button.nav-link {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1;
+    margin: 0 15px;
+    padding: 0 0 13px;
+    color: #666;
+    border-bottom: 3px solid transparent;
+    background-color: transparent;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    border : #fff;
+    font-weight: 600;
+    border-bottom: 3px solid #000;
+    color: #000;
+}
+.tab-content {
+    width: 100%;
+    padding: 33px 0 0;
+}
 
+ul.mb-3.nav.nav-tabs {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 `;

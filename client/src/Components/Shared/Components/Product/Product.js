@@ -1,6 +1,4 @@
-import { useSelector, useDispatch } from "react-redux";
-
-import { FaRegStar } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 
 import {
   Action,
@@ -13,7 +11,6 @@ import {
   ProductContent,
   ProductImage,
   ProductWrap,
-  Ratting,
   Span,
   Title,
 } from "./Styles";
@@ -48,9 +45,9 @@ const Product = ({ product }) => {
       <ProductImage>
         <ImgLink to={"/product/5dgdg4dg4"}>
           {isHovere ? (
-            <Image src={product.imageOne} />
+            <Image src={product.thumbnail_image} />
           ) : (
-            <Image src={product.imageTwo} />
+            <Image src={product.hover_image} />
           )}
         </ImgLink>
         <ProductAction className="action">
@@ -68,8 +65,8 @@ const Product = ({ product }) => {
         <Title>Lorem ipsum fashion jacket</Title>
         <ProductRatting />
         <Price>
-          <Span>${product.price} - </Span>
-          <Old>${product.old}</Old>
+          <Span>${product.pricing.current_price} - </Span>
+          <Old>${product.pricing.old_price}</Old>
         </Price>
       </ProductContent>
     </ProductWrap>

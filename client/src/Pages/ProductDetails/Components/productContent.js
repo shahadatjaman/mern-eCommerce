@@ -2,9 +2,6 @@ import {
   AddToCart,
   AddToCompare,
   AddToWishList,
-  Button,
-  CartPlusMinus,
-  Count,
   H4,
   Icon,
   Li,
@@ -29,8 +26,9 @@ import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faShuffle } from "@fortawesome/free-solid-svg-icons";
 
 import ProducrColor from "./ProducrColor";
+import Quantity from "../../../Components/Shared/Components/ProductQuantity";
 
-const ProductContent = ({ content }) => {
+const ProductContent = ({ img_info, content }) => {
   return (
     <ProductContentWrapper>
       {/* Product Details Ttile */}
@@ -38,25 +36,24 @@ const ProductContent = ({ content }) => {
 
       {/* Product Prices */}
       <ProductPrice>
-        <Span>${content.price}</Span>
-        <OldPrice>${content.old}</OldPrice>
+        <Span>${content.pricing.current_price}</Span>
+        <OldPrice>${content.pricing.old_price}</OldPrice>
       </ProductPrice>
 
       {/* Product Ratting */}
       <ProductRatting />
 
       {/* Product Short Description */}
-      <Text>{content.shortDesc}</Text>
+      <Text>{content.short_description}</Text>
 
       {/* Product Color */}
-      <ProducrColor />
+      <ProducrColor
+        selectedColor={img_info}
+        product_colors={content.small_images}
+      />
       {/* Product Quantity */}
       <ProductQuantity>
-        <CartPlusMinus>
-          <Button decrement>-</Button>
-          <Count>0</Count>
-          <Button increment>+</Button>
-        </CartPlusMinus>
+        <Quantity />
         <AddToCart>Add To Cart</AddToCart>
         <WishList>
           <AddToWishList>
@@ -72,9 +69,7 @@ const ProductContent = ({ content }) => {
       <ProductMeta>
         <MetaText>Categories :</MetaText>
         <Ul>
-          {content.categories.map((fashion, index) => (
-            <Li key={index}>{fashion.name}</Li>
-          ))}
+          <Li>{content.categorie}</Li>
         </Ul>
       </ProductMeta>
 
@@ -83,7 +78,7 @@ const ProductContent = ({ content }) => {
         <MetaText>Tags :</MetaText>
         <Ul>
           {content.tags.map((tag, index) => (
-            <Li key={index}>{tag.name}</Li>
+            <Li key={index}>{tag}</Li>
           ))}
         </Ul>
       </ProductMeta>
@@ -91,7 +86,7 @@ const ProductContent = ({ content }) => {
       {/* Social Media */}
       <SocialMedia>
         <Ul>
-          {content.social.map((social, index) => (
+          {content.share_link.map((social, index) => (
             <Li marginRight="40" key={index}>
               <Icon className={social.icon}></Icon>
             </Li>

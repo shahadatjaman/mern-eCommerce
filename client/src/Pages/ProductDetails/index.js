@@ -1,3 +1,5 @@
+import { useSelector, useDispatch } from "react-redux";
+
 import Layout from "../Layout";
 
 import BreadCrumb from "../../Components/Shared/Components/BreadCrumb";
@@ -14,113 +16,87 @@ import {
 } from "./styles";
 import { useEffect, useState } from "react";
 import ProductContent from "./Components/productContent";
+import DescriptionReview from "./Components/DescriptionReview";
+//mport { products } from "./data";
 
-const products = {
-  _id: "dgg4g5dg5dggkf",
-  title: "Lorem ipsum fashion jacket",
-  imageOne:
-    "https://flone.jamstacktemplates.dev/assets/img/product/electronics/1.jpg",
-  imageTwo:
-    "https://flone.jamstacktemplates.dev/assets/img/product/electronics/2.jpg",
-  ratting: 0,
-  price: 24.54,
-  old: 20.57,
-  shortDesc:
-    "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.",
-  categories: [
-    {
-      name: "fashion",
-      path: "/product/fashion",
-    },
-    {
-      name: "men",
-      path: "/product/fashion",
-    },
-  ],
-  tags: [
-    {
-      name: "jacket",
-      path: "/product/fashion",
-    },
-    {
-      name: "full sleeve",
-      path: "/product/fashion",
-    },
-  ],
-  social: [
-    {
-      icon: "fa-brands fa-facebook-f",
-      url: "https://www.facebook.com/",
-    },
-    {
-      icon: "fa-brands fa-dribbble",
-      url: "https://dribbble.com/",
-    },
-    {
-      icon: "fa-brands fa-pinterest",
-      url: "https://www.pinterest.com/",
-    },
-  ],
-  gallery: [
-    {
-      _id: "6464646d444",
-      url: "https://flone.jamstacktemplates.dev/assets/img/product/fashion/29.jpg",
-    },
-    {
-      _id: "5464564554",
-      url: "https://flone.jamstacktemplates.dev/assets/img/product/fashion/30.jpg",
-    },
-    {
-      _id: "4564544444",
-      url: "https://flone.jamstacktemplates.dev/assets/img/product/fashion/23.jpg",
-    },
-    {
-      _id: "f54f6g4f44",
-      url: "https://flone.jamstacktemplates.dev/assets/img/product/fashion/24.jpg",
-    },
-  ],
-};
+import ReletedProduct from "./Components/ReletedProduct";
+
+import { fetchProducts } from "../../feature/reducer/product";
 
 const Details = () => {
   const [image, setImaage] = useState(null);
 
-  useEffect(() => {
-    setImaage(products.gallery[0].url);
-  }, []);
+  const [isActive, setActive] = useState(null);
 
-  const changeImage = (url) => {
-    setImaage(url);
+  // Get products
+  const { products } = useSelector((state) => state.product);
+
+  // Product Details
+  const { currentImage } = useSelector((state) => state.productDetails);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (products) {
+      setImaage(products[0].small_images[0]);
+    }
+  }, [products]);
+
+  const changeImage = (img) => {
+    setImaage(img);
+    setActive(img);
   };
 
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
+  console.log(currentImage);
+
+  useEffect(() => {
+    if (currentImage) {
+      setImaage(currentImage);
+    }
+  }, [currentImage]);
+
+  console.log(isActive);
   return (
     <Layout>
       <BreadCrumb pathName="Details" />
       <GalleryWrapper>
         <Container>
           <Row>
-            <Col className="col-lg-6 col-md-6">
+            <Col className="col-lg-6 col-md-6 col-sm-12" col-12>
               <Gallery>
                 <LargeImageWrapper>
-                  {image && <Image src={image} />}
+                  {image && <Image src={image.url} />}
                 </LargeImageWrapper>
                 <SmallImageWrapper>
-                  {products.gallery.map((img, index) => (
-                    <SmallWrapper
-                      onClick={() => changeImage(img.url)}
-                      key={index}
-                    >
-                      <SmallImg src={img.url} />
-                    </SmallWrapper>
-                  ))}
+                  {products &&
+                    products[0].small_images.map((img, index) => (
+                      <SmallWrapper
+                        onClick={() => changeImage(img)}
+                        key={index}
+                        bordered={
+                          isActive && isActive.color === img.color && "active"
+                        }
+                      >
+                        <SmallImg src={img.url} />
+                      </SmallWrapper>
+                    ))}
                 </SmallImageWrapper>
               </Gallery>
             </Col>
-            <Col className="col-lg-6 col-md-6">
-              <ProductContent content={products} />
+            <Col className="col-lg-6 col-md-6 col-sm-12 col-12">
+              {products && (
+                <ProductContent img_info={image} content={products[0]} />
+              )}
             </Col>
           </Row>
         </Container>
       </GalleryWrapper>
+      {products && <DescriptionReview data={products[0]} />}
+      <ReletedProduct />
     </Layout>
   );
 };

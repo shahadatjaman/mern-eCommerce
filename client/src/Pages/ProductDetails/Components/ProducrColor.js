@@ -1,9 +1,12 @@
+import { useDispatch } from "react-redux";
+
+import { useState } from "react";
 import {
   Color,
   ColorContent,
   Colored,
   ColorSizeWrapper,
-  Input,
+  CurcleBorder,
   InputSize,
   Label,
   Selected,
@@ -12,38 +15,49 @@ import {
   Small,
 } from "../styles";
 
-const ProducrColor = () => {
+import { setImage } from "../../../feature/reducer/productDetails";
+
+const ProducrColor = ({ selectedColor, product_colors }) => {
+  const [isActive, setActive] = useState(null);
+
+  const dispatch = useDispatch();
+
+  const imageChanger = (color) => {
+    dispatch(setImage(color));
+  };
+
+  const changeColorHandler = (e) => {
+    setActive(e);
+  };
+
   return (
     <ColorSizeWrapper>
       <Color>
         <Small>Color</Small>
         <ColorContent>
-          <Label>
-            <Input bg="red" type={"radio"} />
-          </Label>
-          <Label>
-            <Input bg="#000" type={"radio"} />
-          </Label>
-          <Label>
-            <Input bg="green" type={"radio"} />
-          </Label>
+          {product_colors?.map((color, index) => (
+            <Label onClick={() => imageChanger(color)}>
+              <CurcleBorder
+                style={{
+                  border: isActive === color.color && "2px solid green",
+                }}
+                onClick={() => changeColorHandler(color.color)}
+              >
+                <Colored bg={color.color}></Colored>
+              </CurcleBorder>
+            </Label>
+          ))}
         </ColorContent>
       </Color>
       <Size>
         <Small>Size</Small>
         <SizeContent>
-          <Label size>
-            <InputSize type={"radio"} />
-            <Selected>M</Selected>
-          </Label>
-          <Label size>
-            <InputSize type={"radio"} />
-            <Selected>X</Selected>
-          </Label>
-          <Label size>
-            <InputSize type={"radio"} />
-            <Selected>L</Selected>
-          </Label>
+          {selectedColor && (
+            <Label size>
+              <InputSize type={"radio"} />
+              <Selected>{selectedColor.size}</Selected>
+            </Label>
+          )}
         </SizeContent>
       </Size>
     </ColorSizeWrapper>

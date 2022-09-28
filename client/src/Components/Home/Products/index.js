@@ -1,11 +1,22 @@
+import { useDispatch, useSelector } from "react-redux";
 import { Col, Container, Row } from "../../../Styles/Gride";
 import Filter from "./Filter";
 import { Wrapper, Title, H3 } from "../../Shared/Styles/styles";
 
 import Product from "../../Shared/Components/Product/Product";
-import { products } from "./data";
+
+import { fetchProducts } from "../../../feature/reducer/product/";
+import { useEffect } from "react";
 
 const Products = () => {
+  const { products } = useSelector((state) => state.product);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
   return (
     <Wrapper>
       <Container>

@@ -94,7 +94,7 @@ const NavBar = () => {
             </Icon>
             <NavLink to={"/wishlist"}>
               <Icon>
-                <Count>{lists.length}</Count>
+                <Count>{lists.items.length}</Count>
                 <AiOutlineHeart />
               </Icon>
             </NavLink>
