@@ -1,3 +1,5 @@
+import { useDispatch, useSelector } from "react-redux";
+
 import {
   AddToCart,
   AddToCompare,
@@ -28,35 +30,78 @@ import { faShuffle } from "@fortawesome/free-solid-svg-icons";
 import ProducrColor from "./ProducrColor";
 import Quantity from "../../../Components/Shared/Components/ProductQuantity";
 
-const ProductContent = ({ img_info, content }) => {
+import { wistList } from "../../../feature/reducer/wishList";
+
+import { addToCart } from "../../../feature/reducer/addToCart";
+
+const ProductContent = () => {
+  const dispatch = useDispatch();
+
+  // get product
+  const { product, priceColorAndSize, selectedProduct } = useSelector(
+    (state) => state.productDetails
+  );
+
+  const addToWishList = () => {
+    dispatch(wistList(product));
+  };
+
+  const addItemToCart = () => {
+    const cartItem = {
+      _id: product._id,
+      url: selectedProduct.url,
+      product_name: product.title,
+      unit_price: priceColorAndSize.price,
+      qty: 1,
+      size: priceColorAndSize.size,
+      subtotal: priceColorAndSize.price,
+    };
+    dispatch(addToCart(cartItem));
+
+    const cartLists = localStorage.getItem("cartLists")
+      ? JSON.parse(localStorage.getItem("cartLists"))
+      : null;
+
+    if (cartLists) {
+      let cart = cartLists.findIndex(
+        (cart) =>
+          cart._id === product._id && cart.size === priceColorAndSize.size
+      );
+
+      cartLists[cart].qty = cartLists[cart].qty + 1;
+      cartLists[cart].subtotal =
+        cartLists[cart].subtotal + priceColorAndSize.price;
+
+      localStorage.setItem("cartLists", JSON.stringify(cartLists));
+    } else {
+      localStorage.setItem("cartLists", JSON.stringify([cartItem]));
+    }
+  };
+
   return (
     <ProductContentWrapper>
       {/* Product Details Ttile */}
-      <H4>{content.title}</H4>
+      <H4>{product && product.title}</H4>
 
       {/* Product Prices */}
       <ProductPrice>
-        <Span>${content.pricing.current_price}</Span>
-        <OldPrice>${content.pricing.old_price}</OldPrice>
+        <Span>${priceColorAndSize && priceColorAndSize.price}</Span>
       </ProductPrice>
 
       {/* Product Ratting */}
       <ProductRatting />
 
       {/* Product Short Description */}
-      <Text>{content.short_description}</Text>
+      <Text>{product && product.short_description}</Text>
 
       {/* Product Color */}
-      <ProducrColor
-        selectedColor={img_info}
-        product_colors={content.small_images}
-      />
+      <ProducrColor />
       {/* Product Quantity */}
       <ProductQuantity>
         <Quantity />
-        <AddToCart>Add To Cart</AddToCart>
+        <AddToCart onClick={addItemToCart}>Add To Cart</AddToCart>
         <WishList>
-          <AddToWishList>
+          <AddToWishList onClick={addToWishList}>
             <FontAwesomeIcon icon={faHeart} />
           </AddToWishList>
         </WishList>
@@ -69,7 +114,7 @@ const ProductContent = ({ img_info, content }) => {
       <ProductMeta>
         <MetaText>Categories :</MetaText>
         <Ul>
-          <Li>{content.categorie}</Li>
+          <Li>{product && product.categorie}</Li>
         </Ul>
       </ProductMeta>
 
@@ -77,20 +122,20 @@ const ProductContent = ({ img_info, content }) => {
       <ProductMeta>
         <MetaText>Tags :</MetaText>
         <Ul>
-          {content.tags.map((tag, index) => (
-            <Li key={index}>{tag}</Li>
-          ))}
+          {product &&
+            product.tags.map((tag, index) => <Li key={index}>{tag}</Li>)}
         </Ul>
       </ProductMeta>
 
       {/* Social Media */}
       <SocialMedia>
         <Ul>
-          {content.share_link.map((social, index) => (
-            <Li marginRight="40" key={index}>
-              <Icon className={social.icon}></Icon>
-            </Li>
-          ))}
+          {product &&
+            product.share_link.map((social, index) => (
+              <Li marginRight="40" key={index}>
+                <Icon className={social.icon}></Icon>
+              </Li>
+            ))}
         </Ul>
       </SocialMedia>
     </ProductContentWrapper>

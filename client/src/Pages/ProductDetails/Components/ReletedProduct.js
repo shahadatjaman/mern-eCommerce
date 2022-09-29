@@ -16,8 +16,8 @@ const ReletedProduct = () => {
       <ProductsWrappper>
         <Container>
           <Row>
-            {products?.map((product) => (
-              <Col className="col-lg-3">
+            {products?.map((product, index) => (
+              <Col key={index} className="col-lg-3">
                 <Product product={product} />
               </Col>
             ))}

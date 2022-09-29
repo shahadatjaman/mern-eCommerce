@@ -32,8 +32,6 @@ const Wishlist = () => {
     dispatch(clearCart());
   };
 
-  console.log(lists);
-
   return (
     <Layout>
       <Wrapper>

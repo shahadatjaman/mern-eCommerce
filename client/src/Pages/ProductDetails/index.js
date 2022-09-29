@@ -1,5 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 
+import { useParams } from "react-router-dom";
+
 import Layout from "../Layout";
 
 import BreadCrumb from "../../Components/Shared/Components/BreadCrumb";
@@ -23,35 +25,53 @@ import ReletedProduct from "./Components/ReletedProduct";
 
 import { fetchProducts } from "../../feature/reducer/product";
 
+import {
+  getProduct,
+  getSelectedProduct,
+  fetchProduct,
+} from "../../feature/reducer/productDetails";
+
 const Details = () => {
   const [image, setImaage] = useState(null);
 
   const [isActive, setActive] = useState(null);
 
+  // Get product id by params
+  const { id } = useParams();
+
   // Get products
   const { products } = useSelector((state) => state.product);
 
   // Product Details
-  const { currentImage } = useSelector((state) => state.productDetails);
+  const { currentImage, selectedProduct, product } = useSelector(
+    (state) => state.productDetails
+  );
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (products) {
-      setImaage(products[0].small_images[0]);
-    }
-  }, [products]);
-
   const changeImage = (img) => {
+    // const cartData = { image, _id: "" };
+
+    dispatch(getSelectedProduct(img));
+
     setImaage(img);
+
+    // selected image to gallery
     setActive(img);
+
+    // Set Single product to state
+    dispatch(getSelectedProduct(img));
   };
 
+  // Get Products
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  console.log(currentImage);
+  // Get Product
+  useEffect(() => {
+    dispatch(fetchProduct(id));
+  }, [dispatch, id]);
 
   useEffect(() => {
     if (currentImage) {
@@ -59,7 +79,33 @@ const Details = () => {
     }
   }, [currentImage]);
 
-  console.log(isActive);
+  // Set single product to state
+  useEffect(() => {
+    if (product) {
+      dispatch(getProduct(product));
+    }
+  }, [dispatch, product]);
+
+  // Get selected product
+  useEffect(() => {
+    if (product) {
+      dispatch(getSelectedProduct(product.small_images[0]));
+    }
+  }, [dispatch, product]);
+
+  useEffect(() => {
+    if (product) {
+      dispatch(getSelectedProduct(product.small_images[0]));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product]);
+
+  useEffect(() => {
+    if (product) {
+      setActive(product.small_images[0]);
+    }
+  }, [product]);
+
   return (
     <Layout>
       <BreadCrumb pathName="Details" />
@@ -69,11 +115,11 @@ const Details = () => {
             <Col className="col-lg-6 col-md-6 col-sm-12" col-12>
               <Gallery>
                 <LargeImageWrapper>
-                  {image && <Image src={image.url} />}
+                  {selectedProduct && <Image src={selectedProduct.url} />}
                 </LargeImageWrapper>
                 <SmallImageWrapper>
-                  {products &&
-                    products[0].small_images.map((img, index) => (
+                  {product &&
+                    product.small_images.map((img, index) => (
                       <SmallWrapper
                         onClick={() => changeImage(img)}
                         key={index}
@@ -81,21 +127,19 @@ const Details = () => {
                           isActive && isActive.color === img.color && "active"
                         }
                       >
-                        <SmallImg src={img.url} />
+                        <SmallImg src={img.url} alt="product" />
                       </SmallWrapper>
                     ))}
                 </SmallImageWrapper>
               </Gallery>
             </Col>
             <Col className="col-lg-6 col-md-6 col-sm-12 col-12">
-              {products && (
-                <ProductContent img_info={image} content={products[0]} />
-              )}
+              {products && <ProductContent />}
             </Col>
           </Row>
         </Container>
       </GalleryWrapper>
-      {products && <DescriptionReview data={products[0]} />}
+      {product && <DescriptionReview data={product} />}
       <ReletedProduct />
     </Layout>
   );

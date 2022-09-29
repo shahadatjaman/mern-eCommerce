@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const Product = require("../models/Product");
 
 const productValidator = require("../validation/productValidator");
@@ -57,6 +59,29 @@ module.exports = {
 
     res.status(200).json({
       products,
+    });
+  },
+  async product(req, res) {
+    const { id } = req.params;
+
+    const isValid = mongoose.Types.ObjectId.isValid(id);
+
+    if (!isValid) {
+      return res.status(400).json({
+        message: "Invalid product id",
+      });
+    }
+
+    const product = await Product.findById(id);
+
+    if (!product) {
+      return res.status(404).json({
+        message: "Product not found",
+      });
+    }
+
+    res.status(200).json({
+      product,
     });
   },
 };

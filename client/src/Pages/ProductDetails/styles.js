@@ -212,6 +212,8 @@ export const ColorContent = styled.div`
 
 export const Label = styled.div`
   position: relative;
+  margin-right: 7px;
+  cursor: pointer;
 `;
 
 export const Input = styled.input`
@@ -236,11 +238,6 @@ export const Input = styled.input`
 `;
 
 export const ColorSelector = styled.span`
-  /* position: absolute;
-  top: -2px;
-  left: -2px;
-  width: 30px;
-  height: 30px; */
   background-color: ${(props) => props.bg && props.bg};
   border-radius: 50%;
 `;
@@ -269,17 +266,19 @@ export const Size = styled.div`
   margin-left: 1rem;
 `;
 
-export const SizeContent = styled.div``;
-
+export const SizeContent = styled.div`
+  display: flex;
+`;
+const color = "#000";
 export const Selected = styled.span`
   position: absolute;
   font-size: 12px;
   font-weight: 700;
-  width: 100%;
   margin-bottom: 0;
   padding: 8px;
-  background: #fed700;
+  background-color: ${(props) => props.bg};
   left: 0;
+  color: ${(props) => props.bg === color && "#fff"};
   z-index: -1;
 `;
 
