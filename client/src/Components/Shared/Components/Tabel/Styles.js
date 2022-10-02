@@ -6,11 +6,15 @@ export const Wrapper = styled.div``;
 
 export const Link = styled(NavLink)`
   font-weight: 600;
+  display: block;
+  text-align: ${(props) => (props.textleft ? "left" : "center")};
 `;
 export const Text = styled.span`
   font-weight: 600;
   text-decoration: ${(props) => props.line_through && "line-through"};
   margin-right: ${(props) => props.line_through && "8px"};
+  display: ${(props) => (props.disblock ? "block" : "inline-block")};
+  text-align: left;
 `;
 
 export const Span = styled.span`

@@ -5,6 +5,7 @@ import Wishlist from "../Pages/Wishlist";
 import Home from "../Pages/Home";
 
 import Details from "../Pages/ProductDetails";
+import Cart from "../Pages/Cart";
 
 export const routes = [
   {
@@ -19,5 +20,9 @@ export const routes = [
   {
     path: "product/:id",
     element: <Details />,
+  },
+  {
+    path: "cartitems",
+    element: <Cart />,
   },
 ];

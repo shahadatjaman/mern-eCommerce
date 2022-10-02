@@ -13,18 +13,18 @@ import {
   Size,
   SizeContent,
   Small,
-} from "../styles";
+} from "./Styles";
 
 import {
   getSelectedProduct,
-  getPriceSize,
+  getDimension,
 } from "../../../feature/reducer/productDetails";
 
 const ProducrColor = () => {
   const [isActiveColor, setActive] = useState(null);
-  const [isActiveSize, setActiveSise] = useState(null);
+  const [isActiveSize, setActiveSize] = useState(null);
 
-  const { product, selectedProduct } = useSelector(
+  const { product, selectedProduct, dimension } = useSelector(
     (state) => state.productDetails
   );
 
@@ -34,33 +34,60 @@ const ProducrColor = () => {
     dispatch(getSelectedProduct(color));
   };
 
-  const changeColorHandler = (hex) => {
-    setActive(hex);
+  // Change color to global state
+  const changeColorHandler = (color) => {
+    setActive(color.hex);
+    if (dimension) {
+      const newDimension = {
+        _id: dimension._id,
+        title: dimension.title,
+        img_url: dimension.img_url,
+        color,
+        qty: dimension.qty,
+        size: dimension.size,
+        price: dimension.price,
+        subtotal: dimension.subtotal,
+      };
+      dispatch(getDimension(newDimension));
+    }
   };
 
   useEffect(() => {
-    if (selectedProduct && product) {
-      if (selectedProduct.color.hex === product.small_images[0].color.hex) {
-        setActive(selectedProduct.color.hex);
+    if (selectedProduct && dimension) {
+      if (selectedProduct.color.hex === dimension.color.hex) {
+        setActive(dimension.color.hex);
       }
     }
-  }, [selectedProduct, product]);
+  }, [selectedProduct, dimension]);
 
+  // Product size hanler
   const productPriceHandler = (size) => {
-    dispatch(getPriceSize({ size: size.size, price: size.price }));
-    setActiveSise(size.size);
+    if (dimension) {
+      const newDimension = {
+        _id: dimension._id,
+        title: dimension.title,
+        img_url: dimension.img_url,
+        color: dimension.color,
+        qty: dimension.qty,
+        size: size.size,
+        price: size.price,
+        subtotal: size.price,
+      };
+      dispatch(getDimension(newDimension));
+      setActiveSize(newDimension);
+    }
   };
 
   useEffect(() => {
-    if (selectedProduct) {
-      dispatch(getPriceSize(selectedProduct.sizes[0]));
-      setActiveSise(selectedProduct.sizes[0].size);
+    if (dimension) {
+      setActiveSize(dimension);
     }
-  }, [dispatch, selectedProduct]);
+  }, [dispatch, dimension]);
 
   return (
     <ColorSizeWrapper>
       <Color>
+        {/* Product Color */}
         <Small>Color</Small>
         <ColorContent>
           {product &&
@@ -72,7 +99,7 @@ const ProducrColor = () => {
                       border:
                         isActiveColor === color.color.hex && "2px solid green",
                     }}
-                    onClick={() => changeColorHandler(color.color.hex)}
+                    onClick={() => changeColorHandler(color.color)}
                   >
                     <Colored bg={color.color.hex}></Colored>
                   </CurcleBorder>
@@ -81,15 +108,20 @@ const ProducrColor = () => {
             })}
         </ColorContent>
       </Color>
+
+      {/* Product sizes */}
       <Size>
         <Small>Size</Small>
         <SizeContent>
           {selectedProduct &&
+            isActiveSize &&
             selectedProduct.sizes.map((size, index) => (
               <Label key={index} onClick={() => productPriceHandler(size)}>
                 <InputSize type={"radio"} />
 
-                <Selected bg={isActiveSize === size.size ? "#000" : "#fed700"}>
+                <Selected
+                  bg={isActiveSize.size === size.size ? "#000" : "#fed700"}
+                >
                   {size.size}
                 </Selected>
               </Label>

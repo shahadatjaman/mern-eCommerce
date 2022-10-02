@@ -9,7 +9,7 @@ const initialState = {
 };
 
 export const wishListSlice = createSlice({
-  name: "addToCart",
+  name: "Wish",
   initialState,
   reducers: {
     wistList: (state, { payload }) => {

@@ -17,11 +17,11 @@ import {
   SmallWrapper,
 } from "./styles";
 import { useEffect, useState } from "react";
-import ProductContent from "./Components/productContent";
-import DescriptionReview from "./Components/DescriptionReview";
+import ProductContent from "../../Components/ProductDetails/ProductContent/productContent";
+import DescriptionReview from "../../Components/ProductDetails/Review/DescriptionReview";
 //mport { products } from "./data";
 
-import ReletedProduct from "./Components/ReletedProduct";
+import ReletedProduct from "../../Components/ProductDetails/ReletedProducts/ReletedProduct";
 
 import { fetchProducts } from "../../feature/reducer/product";
 
@@ -29,6 +29,7 @@ import {
   getProduct,
   getSelectedProduct,
   fetchProduct,
+  getDimension,
 } from "../../feature/reducer/productDetails";
 
 const Details = () => {
@@ -43,24 +44,37 @@ const Details = () => {
   const { products } = useSelector((state) => state.product);
 
   // Product Details
-  const { currentImage, selectedProduct, product } = useSelector(
+  const { currentImage, selectedProduct, product, dimension } = useSelector(
     (state) => state.productDetails
   );
 
   const dispatch = useDispatch();
 
-  const changeImage = (img) => {
-    // const cartData = { image, _id: "" };
+  const changeDimension = (dimension) => {
+    dispatch(getSelectedProduct(dimension));
 
-    dispatch(getSelectedProduct(img));
-
-    setImaage(img);
+    setImaage(dimension);
 
     // selected image to gallery
-    setActive(img);
+    setActive(dimension);
 
     // Set Single product to state
-    dispatch(getSelectedProduct(img));
+    dispatch(getSelectedProduct(dimension));
+
+    // Set Dimension product to state
+    if (product) {
+      const { size, price } = dimension.sizes[0];
+      const newDimension = {
+        _id: product._id,
+        title: product.title,
+        color: dimension.color,
+        size: size,
+        price: price,
+        subtotal: price,
+      };
+
+      dispatch(getDimension(newDimension));
+    }
   };
 
   // Get Products
@@ -73,11 +87,33 @@ const Details = () => {
     dispatch(fetchProduct(id));
   }, [dispatch, id]);
 
+  // Default selected product
   useEffect(() => {
     if (currentImage) {
       setImaage(currentImage);
     }
   }, [currentImage]);
+
+  // Default Selected Dimensions
+
+  useEffect(() => {
+    if (product && selectedProduct) {
+      const { color, sizes } = product.small_images[0];
+      const { price, size } = sizes[0];
+      const dimenstion = {
+        _id: product._id,
+        title: product.title,
+        img_url: selectedProduct.url,
+        color,
+        qty: 1,
+        size,
+        price,
+        subtotal: price,
+      };
+
+      dispatch(getDimension(dimenstion));
+    }
+  }, [dispatch, product, selectedProduct]);
 
   // Set single product to state
   useEffect(() => {
@@ -101,10 +137,10 @@ const Details = () => {
   }, [product]);
 
   useEffect(() => {
-    if (product) {
-      setActive(product.small_images[0]);
+    if (dimension) {
+      setActive(dimension.img_url);
     }
-  }, [product]);
+  }, [dimension]);
 
   return (
     <Layout>
@@ -112,22 +148,20 @@ const Details = () => {
       <GalleryWrapper>
         <Container>
           <Row>
-            <Col className="col-lg-6 col-md-6 col-sm-12" col-12>
+            <Col className="col-lg-6 col-md-6 col-sm-12 col-12">
               <Gallery>
                 <LargeImageWrapper>
                   {selectedProduct && <Image src={selectedProduct.url} />}
                 </LargeImageWrapper>
                 <SmallImageWrapper>
                   {product &&
-                    product.small_images.map((img, index) => (
+                    product.small_images.map((item, index) => (
                       <SmallWrapper
-                        onClick={() => changeImage(img)}
+                        onClick={() => changeDimension(item)}
                         key={index}
-                        bordered={
-                          isActive && isActive.color === img.color && "active"
-                        }
+                        bordered={isActive && isActive === item.url && "active"}
                       >
-                        <SmallImg src={img.url} alt="product" />
+                        <SmallImg src={item.url} alt="product" />
                       </SmallWrapper>
                     ))}
                 </SmallImageWrapper>

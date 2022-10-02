@@ -7,7 +7,7 @@ const CartTable = ({ data }) => {
   return (
     <Row>
       <Col lg_width="100">
-        <Title>Your wishlist items</Title>
+        <Title>Your {data.name}</Title>
         <TableContent>
           <Table>
             <Thead>

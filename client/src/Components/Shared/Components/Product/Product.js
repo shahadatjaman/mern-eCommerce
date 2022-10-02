@@ -39,7 +39,6 @@ const Product = ({ product }) => {
 
   const addToWishlist = () => {
     dispatch(wistList(product));
-    console.log(product);
   };
 
   return (

@@ -5,15 +5,11 @@ import {
   Lists,
   NavPills,
   ProductInfo,
-} from "../styles";
+} from "./Styles";
 
-import { Container, Row, Col, Tab, Tabs } from "react-bootstrap";
-
-import { products } from "../data";
+import { Container, Tab, Tabs } from "react-bootstrap";
 
 const DescriptionReview = ({ data }) => {
-  const { materials, otherinfo } = products.shipping;
-
   return (
     <DescReview>
       <Container>
@@ -35,14 +31,7 @@ const DescriptionReview = ({ data }) => {
                     {data.options.dimensions.w} x {data.options.dimensions.h} x{" "}
                     {data.options.dimensions.l} cm
                   </List>
-                  <List>
-                    <InfoKey>Materials</InfoKey>
-                    {materials}
-                  </List>
-                  <List>
-                    <InfoKey>Other Info</InfoKey>
-                    {otherinfo}
-                  </List>
+
                   <List></List>
                 </Lists>
               </ProductInfo>

@@ -6,7 +6,7 @@ const initialState = {
   product: null,
   isLoading: false,
   selectedProduct: null,
-  priceColorAndSize: null,
+  dimension: null,
 };
 
 // Fetch products
@@ -33,12 +33,11 @@ const productDetailsSlice = createSlice({
     getProduct: (state, { payload }) => {
       state.product = payload;
     },
-
     getSelectedProduct: (state, { payload }) => {
       state.selectedProduct = payload;
     },
-    getPriceSize: (state, { payload }) => {
-      state.priceColorAndSize = payload;
+    getDimension: (state, { payload }) => {
+      state.dimension = payload;
     },
   },
   extraReducers: {
@@ -56,7 +55,7 @@ const productDetailsSlice = createSlice({
   },
 });
 
-export const { getProduct, getSelectedProduct, getPriceSize } =
+export const { getProduct, getSelectedProduct, getDimension } =
   productDetailsSlice.actions;
 
 export default productDetailsSlice.reducer;
