@@ -21,8 +21,8 @@ require("dotenv").config();
 
 const PORT = 5000;
 
-app.use("/auth", require("./routes/auth"));
-app.use("/api", require("./routes/product"));
+app.use("/auth", require("./routes/auth/"));
+app.use("/api", require("./routes/admin/product"));
 mongoose.connect(process.env.DB_URL).then(() => {
   console.log("MongoDB Connected...");
   httpServer.listen({ port: process.env.PORT || PORT });

@@ -1,5 +1,15 @@
+// Hooks
 import { useSelector, useDispatch } from "react-redux";
 
+// Reducer functions
+import { clearCart } from "../../feature/reducer/wishList";
+
+// Components
+import Layout from "../Layout";
+import BreadCrumb from "../../Components/Shared/BreadCrumb";
+import Tabel from "../../Components/Shared/Tabel/Table";
+
+// Styled Components
 import {
   AddItem,
   Button,
@@ -10,18 +20,10 @@ import {
   ShoppingUpdate,
   Wrapper,
 } from "./Styles";
-import { Col, Container, Row } from "../../Styles/Gride";
+import { Col, Container, Row } from "react-bootstrap";
 
-import Layout from "../Layout";
-
-// React Icon
+// React Icons
 import { AiOutlineHeart } from "react-icons/ai";
-
-import { clearCart } from "../../feature/reducer/wishList";
-
-import BreadCrumb from "../../Components/Shared/Components/BreadCrumb";
-
-import Tabel from "../../Components/Shared/Components/Tabel/Table";
 
 const Wishlist = () => {
   const { lists } = useSelector((state) => state.wishList);

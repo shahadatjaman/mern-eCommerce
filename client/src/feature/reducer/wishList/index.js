@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { removeLocalstorage, setLocalstorage } from "../../../utils/";
+
 const initialState = {
   lists: {
     name: "wishlist",
@@ -36,8 +38,8 @@ export const wishListSlice = createSlice({
     },
     remove: (state, { payload }) => {
       state.lists.items = payload;
-      localStorage.removeItem("wistList");
-      localStorage.setItem("wistList", JSON.stringify(payload));
+      removeLocalstorage("wistList");
+      setLocalstorage("wistList", payload);
     },
     clearCart: (state, action) => {
       state.lists.items = [];

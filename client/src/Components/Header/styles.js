@@ -9,14 +9,21 @@ export const HeaderWrapper = styled.div`
 
 export const Header = styled.header`
   display: flex;
-  align-items: center;
+  /* align-items: center;
   justify-content: space-between;
-  position: relative;
+  position: relative; */
 `;
 
 // Nav LOGO
 export const Logo = styled.div`
   width: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Img = styled.img`
+  width: 70px;
 `;
 
 export const H3 = styled.h3`
@@ -25,15 +32,15 @@ export const H3 = styled.h3`
 
 // Main Menu
 export const MainMenu = styled.div`
-  width: 70%;
+  width: 68%;
 `;
 
 // Header Right
 export const HeaderRightWrapper = styled.div`
   width: 20%;
   display: flex;
-  margin-top: 32px;
   justify-content: end;
+  align-items: center;
 `;
 
 // Header main Menu list
@@ -72,7 +79,7 @@ export const Count = styled.div`
   position: absolute;
   width: 22px;
   height: 22px;
-  background: #000;
+  background: ${(props) => props.theme.colors.primary};
   border-radius: 50%;
   font-size: 15px;
   display: flex;

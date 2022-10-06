@@ -4,9 +4,9 @@ import { Buttons, Next, Previus, RightSlide, Wrapper } from "./styles";
 
 import SingleSlide from "./SingleSlide";
 
-import { Container, Row, Col } from "../../../Styles/Gride";
+import { Container, Row, Col } from "react-bootstrap";
 
-import Departments from "../../Home/Slider/deparrtmaent/Departments";
+import Sidebar from "./Sidebar/Sidebar";
 
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
@@ -16,11 +16,11 @@ const Slider = () => {
   let sliders = [
     {
       name: "Slider 1",
-      url: "https://res.cloudinary.com/dza2t1htw/image/upload/v1663907155/png-transparent-kawasaki-ninja-300-kawasaki-motorcycles-sport-bike-digital-electronic-products-exhaust-system-car-mode-of-transport_pxj8si.png",
+      url: "https://cdn.shopify.com/s/files/1/1613/0177/files/shop13_home_slider1.jpg?v=1614324723",
     },
     {
       name: "Slider 2",
-      url: "https://res.cloudinary.com/dza2t1htw/image/upload/v1663906914/iphone_12_PNG35_nvbwx2.png",
+      url: "https://cdn.shopify.com/s/files/1/1613/0177/files/shop13_home_slider2.jpg?v=1614324723",
     },
   ];
 
@@ -35,10 +35,7 @@ const Slider = () => {
     <Wrapper>
       <Container>
         <Row>
-          <Col lg_width="25">
-            <Departments />
-          </Col>
-          <Col lg_width="75">
+          <Col md="10">
             <RightSlide>
               <SingleSlide sliderData={sliders[changer]} />
             </RightSlide>
@@ -63,6 +60,9 @@ const Slider = () => {
                 </Next>
               )}
             </Buttons>
+          </Col>
+          <Col md="2">
+            <Sidebar />
           </Col>
         </Row>
       </Container>

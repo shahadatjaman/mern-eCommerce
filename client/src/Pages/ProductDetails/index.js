@@ -1,12 +1,24 @@
+//<=== Hooks ====>
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
 import { useParams } from "react-router-dom";
 
+//<====  Redux Toolkit || Reducer functions   ====>
+import {
+  getSelectedProduct,
+  fetchProduct,
+  getDimension,
+} from "../../feature/reducer/productDetails";
+
+//<=== Components  ====>
 import Layout from "../Layout";
-
+import ProductContent from "../../Components/ProductDetails/ProductContent/productContent";
+import DescriptionReview from "../../Components/ProductDetails/Review/DescriptionReview";
+import ReletedProduct from "../../Components/ProductDetails/ReletedProducts/ReletedProduct";
 import BreadCrumb from "../../Components/Shared/Components/BreadCrumb";
-
 import { Container, Row, Col } from "react-bootstrap";
+
+//<==== Styled Components  ====>
 import {
   Gallery,
   GalleryWrapper,
@@ -16,52 +28,29 @@ import {
   SmallImg,
   SmallWrapper,
 } from "./styles";
-import { useEffect, useState } from "react";
-import ProductContent from "../../Components/ProductDetails/ProductContent/productContent";
-import DescriptionReview from "../../Components/ProductDetails/Review/DescriptionReview";
-//mport { products } from "./data";
-
-import ReletedProduct from "../../Components/ProductDetails/ReletedProducts/ReletedProduct";
-
-import { fetchProducts } from "../../feature/reducer/product";
-
-import {
-  getProduct,
-  getSelectedProduct,
-  fetchProduct,
-  getDimension,
-} from "../../feature/reducer/productDetails";
 
 const Details = () => {
-  const [image, setImaage] = useState(null);
-
   const [isActive, setActive] = useState(null);
 
-  // Get product id by params
+  // Get product id by params ===>
   const { id } = useParams();
 
-  // Get products
-  const { products } = useSelector((state) => state.product);
-
-  // Product Details
-  const { currentImage, selectedProduct, product, dimension } = useSelector(
+  //  Product state ===>
+  const { selectedProduct, product, dimension } = useSelector(
     (state) => state.productDetails
   );
 
   const dispatch = useDispatch();
 
+  // Product dimenstion handler ===>
   const changeDimension = (dimension) => {
+    // which product will be selected to global state
     dispatch(getSelectedProduct(dimension));
 
-    setImaage(dimension);
-
-    // selected image to gallery
+    // Active product ==>
     setActive(dimension);
 
-    // Set Single product to state
-    dispatch(getSelectedProduct(dimension));
-
-    // Set Dimension product to state
+    // Create Dimension Object and store it to global state ===>
     if (product) {
       const { size, price } = dimension.sizes[0];
       const newDimension = {
@@ -77,25 +66,12 @@ const Details = () => {
     }
   };
 
-  // Get Products
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
-
   // Get Product
   useEffect(() => {
     dispatch(fetchProduct(id));
   }, [dispatch, id]);
 
-  // Default selected product
-  useEffect(() => {
-    if (currentImage) {
-      setImaage(currentImage);
-    }
-  }, [currentImage]);
-
-  // Default Selected Dimensions
-
+  //Create default dimensions when this componet will be render
   useEffect(() => {
     if (product && selectedProduct) {
       const { color, sizes } = product.small_images[0];
@@ -110,32 +86,19 @@ const Details = () => {
         price,
         subtotal: price,
       };
-
+      // Store dimentions in global state
       dispatch(getDimension(dimenstion));
     }
   }, [dispatch, product, selectedProduct]);
 
-  // Set single product to state
-  useEffect(() => {
-    if (product) {
-      dispatch(getProduct(product));
-    }
-  }, [dispatch, product]);
-
-  // Get selected product
+  // Which product'll be Selected when first time render
   useEffect(() => {
     if (product) {
       dispatch(getSelectedProduct(product.small_images[0]));
     }
   }, [dispatch, product]);
 
-  useEffect(() => {
-    if (product) {
-      dispatch(getSelectedProduct(product.small_images[0]));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [product]);
-
+  // Which product'll be active when first time render
   useEffect(() => {
     if (dimension) {
       setActive(dimension.img_url);
@@ -168,11 +131,13 @@ const Details = () => {
               </Gallery>
             </Col>
             <Col className="col-lg-6 col-md-6 col-sm-12 col-12">
-              {products && <ProductContent />}
+              {product && <ProductContent />}
             </Col>
           </Row>
         </Container>
       </GalleryWrapper>
+
+      {/* Product Review and Description */}
       {product && <DescriptionReview data={product} />}
       <ReletedProduct />
     </Layout>

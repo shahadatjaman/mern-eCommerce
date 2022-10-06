@@ -52,10 +52,9 @@ export const ColorSelector = styled.span`
 `;
 
 export const CurcleBorder = styled.div`
-  width: 42px;
-  height: 42px;
+  width: 50px;
+  height: 50px;
   background: transparent;
-
   border-radius: 50%;
   margin-right: 4px;
   display: flex;
@@ -78,16 +77,17 @@ export const Size = styled.div`
 export const SizeContent = styled.div`
   display: flex;
 `;
-const color = "#000";
+
 export const Selected = styled.span`
   position: absolute;
   font-size: 12px;
   font-weight: 700;
   margin-bottom: 0;
   padding: 8px;
-  background-color: ${(props) => props.bg};
+  background-color: ${(props) =>
+    props.bg ? "#000" : props.theme.colors.primary};
   left: 0;
-  color: ${(props) => props.bg === color && "#fff"};
+  color: ${(props) => (props.bg ? "#fff" : "#fff")};
   z-index: -1;
 `;
 

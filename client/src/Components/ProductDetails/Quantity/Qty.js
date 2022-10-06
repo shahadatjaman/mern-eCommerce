@@ -1,11 +1,17 @@
+// <===== Hooks =====>
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { useState } from "react";
+// <==== Reducer functions ====>
+import { addCartItems, addcartTotal } from "../../../feature/reducer/addToCart";
+
+// <==== Helper functions ====>
+import { getLocalstorage, setLocalstorage, indexOfCart } from "../../../utils";
+
+//<==== Styled components ====>
 import { CartPlusMinus, Button, Count, AddToCart } from "./Styles";
 
-import { addCartItems, cartTotal } from "../../../feature/reducer/addToCart";
-
-const Quantity = ({ qty }) => {
+const Quantity = () => {
   const [counter, setCounter] = useState(1);
 
   const { dimension } = useSelector((state) => state.productDetails);
@@ -21,58 +27,46 @@ const Quantity = ({ qty }) => {
 
   // Save cart to local storage
   const addTocart = () => {
-    const cartItems = localStorage.getItem("cart_Items")
-      ? JSON.parse(localStorage.getItem("cart_Items"))
-      : [];
+    const cartItems = getLocalstorage("cart_Items");
 
-    const cartIndex = cartItems?.findIndex(
-      (item) => item._id === dimension._id && item.size === dimension.size
-    );
+    const cartIndex = indexOfCart(cartItems, dimension);
 
     // if exist or doesn't exist
     if (cartIndex > -1) {
-      cartItems[cartIndex].qty = cartItems[cartIndex].qty + counter;
+      cartItems[cartIndex].qty += counter;
       cartItems[cartIndex].color = dimension.color;
       cartItems[cartIndex].img_url = dimension.img_url;
-      cartItems[cartIndex].subtotal =
-        cartItems[cartIndex].subtotal + dimension.price * counter;
-      localStorage.setItem("cart_Items", JSON.stringify([...cartItems]));
+      cartItems[cartIndex].subtotal += dimension.price;
+
+      setLocalstorage("cart_Items", [...cartItems]);
       dispatch(addCartItems(cartItems));
 
       // Store total price
-      const totalPrice = localStorage.getItem("cartTotal")
-        ? JSON.parse(localStorage.getItem("cartTotal"))
-        : null;
+      const totalPrice = getLocalstorage("cartTotal");
 
       // Update total price
-      totalPrice.total = totalPrice.total + dimension.price;
-      totalPrice.totalQty = totalPrice.totalQty + counter;
-      localStorage.setItem("cartTotal", JSON.stringify(totalPrice));
-      dispatch(cartTotal(totalPrice));
+
+      totalPrice.total += +dimension.price;
+      totalPrice.totalQty += counter;
+
+      setLocalstorage("cartTotal", totalPrice);
+      dispatch(addcartTotal(totalPrice));
     } else {
-      //Store cart items in localStorage
-      localStorage.setItem(
-        "cart_Items",
-        JSON.stringify([...cartItems, dimension])
-      );
+      setLocalstorage("cart_Items", [...cartItems, dimension]);
       dispatch(addCartItems(cartItems));
 
       // Store cart total price in localStorage
-      const totalPrice = localStorage.getItem("cartTotal")
-        ? JSON.parse(localStorage.getItem("cartTotal"))
-        : null;
+      const totalPrice = getLocalstorage("cartTotal");
 
-      if (totalPrice) {
-        totalPrice.total = totalPrice.total + dimension.price;
-        totalPrice.totalQty = totalPrice.totalQty + counter;
-        localStorage.setItem("cartTotal", JSON.stringify(totalPrice));
-        dispatch(cartTotal(totalPrice));
+      if (Object.keys(totalPrice).length > 0) {
+        totalPrice.total += dimension.price;
+        totalPrice.totalQty += counter;
+
+        setLocalstorage("cartTotal", totalPrice);
+        dispatch(addcartTotal(totalPrice));
       } else {
-        localStorage.setItem(
-          "cartTotal",
-          JSON.stringify({ total: dimension.price, totalQty: 1 })
-        );
-        dispatch(cartTotal(totalPrice));
+        setLocalstorage("cartTotal", { total: dimension.price, totalQty: 1 });
+        dispatch(addcartTotal(totalPrice));
       }
     }
     setCounter(1);

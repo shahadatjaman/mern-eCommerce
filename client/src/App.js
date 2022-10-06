@@ -4,8 +4,10 @@ import "./App.css";
 
 import { routes } from "./Routes";
 
+import Theme from "./Theme";
+
 function App() {
-  return useRoutes(routes);
+  return <Theme>{useRoutes(routes)}</Theme>;
 }
 
 export default App;

@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { removeLocalstorage, setLocalstorage } from "../../../utils/";
+
 const initialState = {
   lists: {
     name: "cartList",
@@ -19,12 +21,19 @@ const cartSlice = createSlice({
     addToCart: (state, { payload }) => {
       state.lists.items = [...state.lists.items, payload];
     },
-    cartTotal: (state, { payload }) => {
+    addcartTotal: (state, { payload }) => {
       state.total = payload;
+    },
+    clearAddToCart: (state, { payload }) => {
+      state.lists.items = [];
+      state.total = null;
+      removeLocalstorage("cart_Items");
+      removeLocalstorage("cartTotal");
     },
   },
 });
 
-export const { addToCart, addCartItems, cartTotal } = cartSlice.actions;
+export const { addToCart, addCartItems, addcartTotal, clearAddToCart } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;

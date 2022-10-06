@@ -1,5 +1,16 @@
+// <=== Hooks ====>
 import { useDispatch, useSelector } from "react-redux";
 
+// <=== Reducer functions =====>
+import { wistList } from "../../../feature/reducer/wishList";
+
+//<==== Components ====>
+import ProductRatting from "../../Shared/Components/Ratting";
+import ProducrColor from "../ColorVariation/ProducrColor";
+import SocialLink from "../SocialLink";
+import ProductQty from "../Quantity";
+
+// <=== Styled Components  ====>
 import {
   H4,
   Li,
@@ -11,17 +22,6 @@ import {
   Text,
   Ul,
 } from "./Styles";
-
-import ProductRatting from "../../Shared/Components/Ratting";
-
-import ProducrColor from "../ColorVariation/ProducrColor";
-
-import { wistList } from "../../../feature/reducer/wishList";
-
-import { addToCart } from "../../../feature/reducer/addToCart";
-
-import SocialLink from "../SocialLink";
-import ProductQty from "../Quantity";
 
 const ProductContent = () => {
   const dispatch = useDispatch();

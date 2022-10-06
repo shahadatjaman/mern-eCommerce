@@ -5,7 +5,7 @@ import Wishlist from "../Pages/Wishlist";
 import Home from "../Pages/Home";
 
 import Details from "../Pages/ProductDetails";
-import Cart from "../Pages/Cart";
+import Cart from "../Pages/Shopping/";
 
 export const routes = [
   {

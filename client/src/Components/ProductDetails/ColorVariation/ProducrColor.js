@@ -97,7 +97,8 @@ const ProducrColor = () => {
                   <CurcleBorder
                     style={{
                       border:
-                        isActiveColor === color.color.hex && "2px solid green",
+                        isActiveColor === color.color.hex &&
+                        "4px solid #ee3d43",
                     }}
                     onClick={() => changeColorHandler(color.color)}
                   >
@@ -119,11 +120,11 @@ const ProducrColor = () => {
               <Label key={index} onClick={() => productPriceHandler(size)}>
                 <InputSize type={"radio"} />
 
-                <Selected
-                  bg={isActiveSize.size === size.size ? "#000" : "#fed700"}
-                >
-                  {size.size}
-                </Selected>
+                {isActiveSize.size === size.size ? (
+                  <Selected bg>{size.size}</Selected>
+                ) : (
+                  <Selected>{size.size}</Selected>
+                )}
               </Label>
             ))}
         </SizeContent>

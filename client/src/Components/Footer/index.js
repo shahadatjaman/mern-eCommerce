@@ -1,10 +1,10 @@
-import { Container, Row, Col } from "../../Styles/Gride";
-
-import { FooterWrapper, H4, Li, Text, Ul } from "./styles";
-
-import { H3 } from "../Header/styles";
-
+// Data
 import { footerMenu } from "./data";
+
+// Styled Components
+import { Container, Row, Col } from "../../Styles/Gride";
+import { FooterWrapper, H4, Li, Text, Ul } from "./styles";
+import { H3 } from "../Header/styles";
 
 const Footer = () => {
   return (

@@ -1,7 +1,5 @@
-import Home from "./Home";
-
+// Components
 import NavBar from "../Components/Header";
-
 import Footer from "../Components/Footer";
 
 const Layout = ({ children }) => {

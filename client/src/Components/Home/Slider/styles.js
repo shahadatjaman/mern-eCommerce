@@ -1,13 +1,14 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  background: #dddddd61;
-  height: 450px;
   overflow: hidden;
+  margin-top: 1.5rem;
 `;
 
 // Single Slide
-export const SingleSlideWrapper = styled.div``;
+export const SingleSlideWrapper = styled.div`
+  height: 320px;
+`;
 
 export const H4 = styled.h4``;
 
@@ -36,6 +37,7 @@ export const Buttons = styled.div`
   justify-content: space-between;
   align-items: center;
   top: 50%;
+  right: 0;
 `;
 export const Previus = styled.button`
   cursor: pointer;

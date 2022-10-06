@@ -141,4 +141,12 @@ ul.mb-3.nav.nav-tabs {
     justify-content: center;
     align-items: center;
 }
+
+// Bootstrap 
+@media (min-width: 1400px){
+
+.container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    max-width: 1420px;
+}
+}
 `;
