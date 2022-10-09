@@ -8,11 +8,18 @@ import productDetailsReducer from "./reducer/productDetails";
 
 import addToCartReducer from "./reducer/addToCart";
 
+import userReducer from "./reducer/user/";
+
 export const store = configureStore({
   reducer: {
     wishList: wishListReducer,
     product: productReducer,
     productDetails: productDetailsReducer,
     cart: addToCartReducer,
+    user: userReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });

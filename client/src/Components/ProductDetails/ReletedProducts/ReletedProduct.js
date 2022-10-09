@@ -1,11 +1,11 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "reactstrap";
 import { H3, Title, Wrapper } from "../../Shared/Styles/styles";
 
 import { ProductsWrappper } from "./Styles";
 
 import { products } from "../../Home/Products/data";
 
-import Product from "../../Shared/Components/Product/Product";
+import Product from "../../Shared/Product/Product";
 
 const ReletedProduct = () => {
   return (

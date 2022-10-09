@@ -19,10 +19,9 @@ import { AiOutlineHeart } from "react-icons/ai";
 
 import { useState } from "react";
 
-import { wistList } from "../../../../feature/reducer/wishList";
+import { wistList } from "../../../feature/reducer/wishList/";
 
 import ProductRatting from "../Ratting";
-import { Link } from "react-router-dom";
 
 const Product = ({ product }) => {
   const [isHovere, setHover] = useState(false);

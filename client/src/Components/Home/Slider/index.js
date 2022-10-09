@@ -4,7 +4,7 @@ import { Buttons, Next, Previus, RightSlide, Wrapper } from "./styles";
 
 import SingleSlide from "./SingleSlide";
 
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col } from "reactstrap";
 
 import Sidebar from "./Sidebar/Sidebar";
 

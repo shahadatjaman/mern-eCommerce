@@ -3,7 +3,7 @@ import { Col, Container, Row } from "../../../Styles/Gride";
 import Filter from "./Filter";
 import { Wrapper, Title, H3 } from "../../Shared/Styles/styles";
 
-import Product from "../../Shared/Components/Product/Product";
+import Product from "../../Shared/Product/Product";
 
 import { fetchProducts } from "../../../feature/reducer/product/";
 import { useEffect } from "react";

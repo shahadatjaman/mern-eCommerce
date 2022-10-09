@@ -15,7 +15,7 @@ import Layout from "../Layout";
 import ProductContent from "../../Components/ProductDetails/ProductContent/productContent";
 import DescriptionReview from "../../Components/ProductDetails/Review/DescriptionReview";
 import ReletedProduct from "../../Components/ProductDetails/ReletedProducts/ReletedProduct";
-import BreadCrumb from "../../Components/Shared/Components/BreadCrumb";
+import BreadCrumb from "../../Components/Shared/BreadCrumb";
 import { Container, Row, Col } from "react-bootstrap";
 
 //<==== Styled Components  ====>

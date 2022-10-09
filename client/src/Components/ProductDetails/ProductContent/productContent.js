@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { wistList } from "../../../feature/reducer/wishList";
 
 //<==== Components ====>
-import ProductRatting from "../../Shared/Components/Ratting";
+import ProductRatting from "../../Shared/Ratting/";
 import ProducrColor from "../ColorVariation/ProducrColor";
 import SocialLink from "../SocialLink";
 import ProductQty from "../Quantity";

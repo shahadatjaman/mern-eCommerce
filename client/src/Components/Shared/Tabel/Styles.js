@@ -123,10 +123,10 @@ export const Options = styled(NavLink)`
   margin: 0 auto;
   padding: 10px 15px;
   text-transform: uppercase;
-  color: #000;
+  color: #fff;
   border: none;
   border-radius: 50px;
-  background-color: #fed700;
+  background-color: ${(props) => props.theme.colors.primary};
   &&:hover {
     background: #000;
     color: #fff;

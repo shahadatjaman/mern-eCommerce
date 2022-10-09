@@ -1,11 +1,12 @@
-import Layout from "../Pages/Layout";
-
 import Wishlist from "../Pages/Wishlist";
 
 import Home from "../Pages/Home";
 
 import Details from "../Pages/ProductDetails";
 import Cart from "../Pages/Shopping/";
+import Login from "../Pages/auth/Login";
+import Auth from "../Pages/auth";
+import Register from "../Pages/auth/Register";
 
 export const routes = [
   {
@@ -24,5 +25,19 @@ export const routes = [
   {
     path: "cartitems",
     element: <Cart />,
+  },
+  {
+    path: "",
+    element: <Auth />,
+    children: [
+      {
+        path: "register",
+        element: <Register />,
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+    ],
   },
 ];

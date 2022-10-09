@@ -1,10 +1,39 @@
-import { InputField, Label } from "./Styles";
+import Toolpit from "../Tooltip";
+import { InputField, InputGroup, Label, P } from "./Styles";
 
-const Input = ({ label, name, value, onChange, error }) => {
+/**
+ *
+ * @param {string} param0
+ */
+
+const Input = ({
+  error,
+  label,
+  name,
+  type,
+  value,
+  onChange,
+  placeHolder,
+  onFocus,
+  onBlur,
+}) => {
   return (
     <>
-      <Label>{label}</Label>
-      <InputField name={name} value={value} onChange={onChange} />
+      <InputGroup>
+        <Label>{label}</Label>
+        <InputField
+          name={name}
+          type={type}
+          value={value}
+          placeholder={placeHolder}
+          error={error}
+          invalid={error}
+          onChange={onChange}
+          onFocus={onFocus}
+          onBlur={onBlur}
+        />
+        <P>{error}</P>
+      </InputGroup>
     </>
   );
 };

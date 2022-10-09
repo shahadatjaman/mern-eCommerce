@@ -152,6 +152,7 @@ export const Button = styled.div`
   cursor: pointer;
   background-color: #f2f2f2;
   &&:hover {
-    background: #fed700;
+    background: ${(props) => props.theme.colors.primary};
+    color: #fff;
   }
 `;

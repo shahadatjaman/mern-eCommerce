@@ -1,6 +1,4 @@
-import { SingleSlideWrapper, H4, Image, Img, LeftSlide } from "./styles";
-
-import { Container, Row, Col } from "react-bootstrap";
+import { SingleSlideWrapper, Image, Img } from "./styles";
 
 const SingleSlide = ({ sliderData }) => {
   return (

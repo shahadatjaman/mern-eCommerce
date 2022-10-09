@@ -1,4 +1,4 @@
-import { Head, Wrapper, Text } from "./styles";
+import { Wrapper } from "./styles";
 import Banner from "./Banner";
 
 const Sidebar = () => {

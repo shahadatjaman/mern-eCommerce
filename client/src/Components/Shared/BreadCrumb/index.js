@@ -1,4 +1,9 @@
 import { Link, Span, BreadCrumb as Bread } from "./styles";
+/**
+ *
+ * @param {string} param0
+ * @returns JSX element
+ */
 
 const BreadCrumb = ({ pathName }) => {
   return (

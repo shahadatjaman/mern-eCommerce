@@ -5,6 +5,11 @@ import { NavLink } from "react-router-dom";
 export const HeaderWrapper = styled.div`
   background-color: rgba(255, 255, 255, 0.9);
   box-shadow: 0 8px 20px 0 rgb(0 0 0 / 10%);
+  position: ${(props) => props.height > 500 && "fixed"};
+  width: 100%;
+  z-index: 99;
+  transition: all 0.5s;
+  top: 0;
 `;
 
 export const Header = styled.header`

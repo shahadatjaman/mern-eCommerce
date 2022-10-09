@@ -9,3 +9,5 @@ console.log(indexOfObject); // 👉️ 1
 arr.splice(indexOfObject, 1);
 
 console.log(arr); // 👉️ [{id: 1}, {id: 5}]
+
+// Alert text : Your account is linked to your social network. Click on the social media button to access.

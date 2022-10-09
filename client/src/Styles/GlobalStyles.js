@@ -17,6 +17,10 @@ a{
     color: #000;
     display: inline-block;
 }
+a:hover {
+    text-decoration: none !important;
+    color:  #000;
+  }
 h1,
 h2,
 h3,

@@ -1,4 +1,4 @@
-import { Container, Row, Col } from "../../../Styles/Gride";
+import { Container, Row, Col } from "reactstrap";
 
 import { Item, Items, TextOne, TextTwo, Wrapper, Text, Img } from "./styles";
 
@@ -30,7 +30,7 @@ const Support = () => {
     <Wrapper>
       <Container>
         <Row>
-          <Col lg_width="100">
+          <Col className="col-lg-100">
             <Items>
               {supprtData?.map((item, index) => (
                 <Item key={index}>

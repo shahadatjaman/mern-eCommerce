@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const { mongoose } = require("mongoose");
 const cors = require("cors");
 const passport = require("passport");
+const commonMiddleware = require("./middleware/commonMid");
 
 app.use(cors());
 // parse application/x-www-form-urlencoded
@@ -21,8 +22,11 @@ require("dotenv").config();
 
 const PORT = 5000;
 
-app.use("/auth", require("./routes/auth/"));
+app.use("/auth", require("./routes/users"));
 app.use("/api", require("./routes/admin/product"));
+
+app.use(commonMiddleware);
+
 mongoose.connect(process.env.DB_URL).then(() => {
   console.log("MongoDB Connected...");
   httpServer.listen({ port: process.env.PORT || PORT });

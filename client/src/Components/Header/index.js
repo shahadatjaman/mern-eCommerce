@@ -1,5 +1,5 @@
 //<=== Hooks ====>
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
@@ -9,7 +9,6 @@ import { addWishList } from "../../feature/reducer/wishList";
 
 //<=== Styled Components ====>
 import {
-  H3,
   Header,
   HeaderRightWrapper,
   Li,
@@ -22,7 +21,7 @@ import {
   Count,
   Img,
 } from "./styles";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "reactstrap";
 
 //<===  React Icons ===>
 import {
@@ -35,6 +34,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShuffle } from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = () => {
+  const [height, setHeight] = useState(0);
+
   const menuList = [
     {
       name: "Home",
@@ -85,12 +86,13 @@ const NavBar = () => {
   // Sticky Header
   useEffect(() => {
     window.addEventListener("scroll", () => {
-      const height = Math.floor(window.scrollY);
-      console.log(height);
+      const windowHeight = Math.floor(window.scrollY);
+      setHeight(windowHeight);
     });
   }, []);
+
   return (
-    <HeaderWrapper>
+    <HeaderWrapper height={height}>
       <Container>
         <Row>
           <Col>
@@ -117,9 +119,11 @@ const NavBar = () => {
                 <Icon>
                   <AiOutlineSearch />
                 </Icon>
-                <Icon>
-                  <AiOutlineUserAdd />
-                </Icon>
+                <NavLink to={"/login"}>
+                  <Icon>
+                    <AiOutlineUserAdd />
+                  </Icon>
+                </NavLink>
 
                 <Icon>
                   <Count>0</Count>
