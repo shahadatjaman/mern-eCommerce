@@ -4,6 +4,7 @@ import {
   isEmptyObject,
   mapStateToKeys,
   mapValuesToState,
+  objToArray,
 } from "../utils";
 
 /**
@@ -17,8 +18,8 @@ import {
  */
 export const useForm = ({ init, validate }) => {
   const [state, setState] = useState(mapValuesToState(deepClone(init)));
+  const [isValidForm, setIsValidForm] = useState(false);
 
-  // console.log(isValid);
   const handleChange = (e) => {
     const { name: key, value, type } = e.target;
 
@@ -70,6 +71,18 @@ export const useForm = ({ init, validate }) => {
 
     oldState[key].focused = false;
     setState(oldState);
+
+    let { hasValues, hasErrors } = checkFormValidate(oldState);
+
+    if (hasValues && hasErrors) {
+      setIsValidForm(false);
+    }
+    if (hasValues && !hasErrors) {
+      setIsValidForm(true);
+    }
+    if (!hasValues && hasErrors) {
+      setIsValidForm(false);
+    }
   };
 
   const handleSubmit = (e, cb) => {
@@ -108,17 +121,22 @@ export const useForm = ({ init, validate }) => {
     };
   };
 
-  // Check validities for all input fields
-  const oldState = deepClone(state);
-  const values = mapStateToKeys(oldState, "value");
-  let isValid = false;
-  Object.keys(values).forEach((k, i) => {
-    if (values[k] === "") {
-      isValid = true;
-    } else {
-      isValid = false;
-    }
-  });
+  const checkFormValidate = (oldState) => {
+    let values = mapStateToKeys(oldState, "value");
+    let errors = mapStateToKeys(oldState, "error");
+
+    let hasValues = Object.values(values).filter((val, i) => {
+      return val === "";
+    });
+    let hasErrors = Object.values(errors).filter((val, i) => {
+      return val !== "";
+    });
+
+    return {
+      hasValues: hasValues.length === 0,
+      hasErrors: hasErrors.length !== 0,
+    };
+  };
 
   return {
     formState: state,
@@ -127,6 +145,6 @@ export const useForm = ({ init, validate }) => {
     handleBlur,
     handleSubmit,
     clear,
-    isValid,
+    isValidForm,
   };
 };

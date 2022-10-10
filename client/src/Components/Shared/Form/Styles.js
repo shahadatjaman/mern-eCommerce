@@ -52,5 +52,7 @@ export const InputGroup = styled.div`
 export const P = styled.p`
   color: red;
   font-weight: 500;
+  font-size: 12px;
+  font-weight: 500;
   margin: 0;
 `;

@@ -1,6 +1,10 @@
 const router = require("express").Router();
 
-const { adduser, login } = require("../../controller/user/");
+const {
+  addCustomUser,
+  addSocialUser,
+  login,
+} = require("../../controller/user/");
 
 const {
   addUserValidators,
@@ -9,7 +13,14 @@ const {
 } = require("../../middleware/users/userValidator");
 
 // Add user
-router.post("/register", addUserValidators, addUserValidatorHandler, adduser);
+router.post(
+  "/register",
+  addSocialUser,
+  addUserValidators,
+  addUserValidatorHandler,
+
+  addCustomUser
+);
 
 router.post("/login", loginValidator, login);
 

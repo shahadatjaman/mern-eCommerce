@@ -13,7 +13,7 @@ const addUserValidators = [
       try {
         const user = await User.findOne({ username: value });
         if (user) {
-          throw createError("User already is use!");
+          throw createError("username is not available!");
         }
       } catch (error) {
         throw createError(error.message);
@@ -38,7 +38,7 @@ const addUserValidators = [
   check("password")
     .isStrongPassword()
     .withMessage(
-      "Password already must be at least 8 and should contain at least 1 lowercase, 1 upperCase, 1 number and 1 symbol!"
+      "Password must be at least 8 and should contain at least 1 lowercase, 1 upperCase, 1 number and 1 symbol!"
     ),
 ];
 
@@ -50,7 +50,9 @@ const addUserValidatorHandler = (req, res, next) => {
     next();
   } else {
     res.status(400).json({
-      errors: mappedErrors,
+      errors: {
+        errors: mappedErrors,
+      },
     });
   }
 };

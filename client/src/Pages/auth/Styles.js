@@ -89,3 +89,11 @@ export const SignWith = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+export const resourcesError = styled.div``;
+
+export const Error = styled.p`
+  color: red;
+  font-weight: 500;
+  margin: 0;
+`;

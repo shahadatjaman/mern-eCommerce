@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTheme } from "styled-components";
-
+import jwt_decode from "jwt-decode";
 // get localstorage values
 export const getLocalstorage = (name) => {
   const items = localStorage.getItem(name)
@@ -56,6 +56,10 @@ export const useColor = () => {
   return theme.colors;
 };
 
+export const objToArray = (obj) => {
+  return new Array(obj);
+};
+
 //<=== Helper functions ====>
 export const mapValuesToState = (values, shouldClear = false) => {
   return Object.keys(values).reduce((acc, cur) => {
@@ -81,4 +85,12 @@ export const deepClone = (state) => {
 };
 export const isEmptyObject = (values) => {
   return Object.keys(values).length === 0;
+};
+
+export const jwtDecoder = (token) => {
+  if (!token) {
+    throw new Error("Invalid token: " + token);
+  }
+
+  return jwt_decode(token);
 };

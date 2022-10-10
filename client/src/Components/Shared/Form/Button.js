@@ -10,12 +10,12 @@ import { Btn } from "./Styles";
 function Button({ type, text, hoverColor, activeColor, isDisabled }) {
   return (
     <>
-      {isDisabled ? (
+      {!isDisabled ? (
         <Btn disabled activeColor={activeColor} type={type}>
           {text}
         </Btn>
       ) : (
-        <Btn activeColor={activeColor} hoverColor={hoverColor} type={type}>
+        <Btn hoverColor={hoverColor} activeColor={activeColor} type={type}>
           {text}
         </Btn>
       )}

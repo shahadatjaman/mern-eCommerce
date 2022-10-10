@@ -7,7 +7,7 @@ import { Checkmark, FormWrape, Label, P, ShowPassword } from "./Styles";
 import Button from "../../Components/Shared/Form/Button";
 import { useTheme } from "styled-components";
 import Form from "../../Components/Shared/Form/Form";
-import { addNewUser } from "../../feature/reducer/user";
+import { login } from "../../feature/reducer/user";
 import Or from "./Or";
 import { useColor } from "../../utils";
 
@@ -20,7 +20,7 @@ const Login = () => {
   const [values, setValues] = useState({ ...init });
   const [type, setType] = useState("password");
 
-  const { errors, user } = useSelector((state) => state.user);
+  const { errors } = useSelector((state) => state.user);
 
   const changeHandler = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -30,7 +30,7 @@ const Login = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(addNewUser(values));
+    dispatch(login(values));
   };
 
   // password visibility
@@ -55,7 +55,7 @@ const Login = () => {
           onChange={changeHandler}
           value={values.username}
           placeHolder="Username"
-          error={errors.username}
+          // error={errors.username}
         />
         <Input
           name="password"
@@ -63,7 +63,7 @@ const Login = () => {
           onChange={changeHandler}
           value={values.password}
           placeHolder="Password"
-          error={errors.password}
+          // error={errors.password}
         />
 
         <ShowPassword>

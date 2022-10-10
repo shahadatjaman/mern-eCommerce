@@ -10,7 +10,7 @@ import { authentication } from "../../firebase";
 
 import { AiFillGooglePlusCircle } from "react-icons/ai";
 
-import { addGoogleUser } from "../../feature/reducer/user/";
+import { register } from "../../feature/reducer/user/";
 
 const Google = () => {
   const dispatch = useDispatch();
@@ -19,16 +19,17 @@ const Google = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(authentication, provider)
       .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-
         const userInfo = result.user;
 
         const user = {
-          username: userInfo.displayName,
+          username:
+            userInfo.displayName.toLowerCase().split(" ").join("") +
+            "" +
+            Date.now(),
           email: userInfo.email,
           avatar: userInfo.photoURL,
         };
+        dispatch(register(user));
         console.log(userInfo);
       })
       .catch((error) => {
