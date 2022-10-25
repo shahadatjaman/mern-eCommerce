@@ -107,6 +107,7 @@ export const useForm = ({ init, validate }) => {
       errors = mapStateToKeys(state, "error");
     } else if (typeof validate === "function") {
       const { errors: errorsFromCB } = validate(values);
+
       hasError = !isEmptyObject(errorsFromCB);
 
       errors = errorsFromCB;

@@ -80,9 +80,9 @@ const Register = () => {
           placeHolder="Username"
           value={username.value}
           error={username.error}
-          onChange={handleChange}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
+          handleChange={handleChange}
+          handleFocus={handleFocus}
+          handleBlur={handleBlur}
         />
 
         <Input
@@ -91,9 +91,9 @@ const Register = () => {
           placeHolder="Email"
           value={email.value}
           error={email.error}
-          onChange={handleChange}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
+          handleChange={handleChange}
+          handleFocus={handleFocus}
+          handleBlur={handleBlur}
         />
 
         <Input
@@ -102,9 +102,9 @@ const Register = () => {
           placeHolder="Password"
           value={password.value}
           error={password.error}
-          onChange={handleChange}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
+          handleChange={handleChange}
+          handleFocus={handleFocus}
+          handleBlur={handleBlur}
         />
 
         <ShowPassword>

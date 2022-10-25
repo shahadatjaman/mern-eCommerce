@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs");
 
 const createError = require("http-errors");
 
-const User = require("../../models/User");
+const User = require("../../models/User/User");
 
 const tokenGenerate = require("../../helper/jwtGenerator ");
 const { serverError, clientError } = require("../../utils/error");
@@ -26,6 +26,7 @@ module.exports = {
       _id: user._id,
       username,
       email,
+      role: user.role,
     });
 
     return res.status(200).json({
@@ -34,30 +35,39 @@ module.exports = {
     });
   },
   async addSocialUser(req, res, next) {
-    let { username, email, password } = req.body;
+    let { username, email, password, avatar } = req.body;
 
     if (password) {
       next();
     } else {
-      const user = await User.findOne({ email });
+      const user = await User.findOne({
+        email,
+      });
 
       if (user) {
-        const token = tokenGenerate({ _id: user._id });
-        return clientError(res, "user alredy exist");
+        let { _id, username, email, avatar, role } = user;
+
+        const token = tokenGenerate({ _id, username, email, avatar, role });
+        return res.status(200).json({
+          message: "Successful",
+          token,
+        });
       } else {
         const newUser = new User({
           username,
           email,
-          avatar: "",
+          avatar,
           createdAt: new Date().toISOString(),
         });
 
-        const saveUer = await newUser.save();
+        const { _id, role } = await newUser.save();
 
         const token = tokenGenerate({
-          _id: saveUer._id,
+          _id,
           username,
           email,
+          avatar,
+          role,
         });
 
         return res.status(200).json({

@@ -1,7 +1,11 @@
 import { OptionElement } from "./Styles";
 
-const Option = ({ label, option }) => {
-  return <OptionElement>{option} Bangladehs</OptionElement>;
+const Option = ({ option, disabled, selected, value }) => {
+  return (
+    <OptionElement disabled={disabled} value={value} selected={selected}>
+      {option}
+    </OptionElement>
+  );
 };
 
 export default Option;

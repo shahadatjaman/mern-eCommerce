@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 // Styles a Product
 export const ProductWrap = styled.div`
   margin-bottom: 2rem;
+  position: relative;
   &&:hover .action {
     bottom: 0;
     visibility: visible;

@@ -1,4 +1,3 @@
-import Toolpit from "../Tooltip";
 import { InputField, InputGroup, Label, P } from "./Styles";
 
 /**
@@ -10,12 +9,14 @@ const Input = ({
   error,
   label,
   name,
+  height,
   type,
   value,
-  onChange,
+  handleChange,
   placeHolder,
-  onFocus,
-  onBlur,
+  handleFocus,
+  handleBlur,
+  autoFocus,
 }) => {
   return (
     <>
@@ -23,14 +24,16 @@ const Input = ({
         <Label>{label}</Label>
         <InputField
           name={name}
+          autoFocus={autoFocus}
+          height={height}
           type={type}
           value={value}
           placeholder={placeHolder}
           error={error}
           invalid={error}
-          onChange={onChange}
-          onFocus={onFocus}
-          onBlur={onBlur}
+          onChange={handleChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
         />
         <P>{error}</P>
       </InputGroup>

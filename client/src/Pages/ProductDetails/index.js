@@ -24,6 +24,7 @@ import {
   GalleryWrapper,
   Image,
   LargeImageWrapper,
+  SeffContainer,
   SmallImageWrapper,
   SmallImg,
   SmallWrapper,
@@ -109,7 +110,7 @@ const Details = () => {
     <Layout>
       <BreadCrumb pathName="Details" />
       <GalleryWrapper>
-        <Container>
+        <SeffContainer>
           <Row>
             <Col className="col-lg-6 col-md-6 col-sm-12 col-12">
               <Gallery>
@@ -134,7 +135,7 @@ const Details = () => {
               {product && <ProductContent />}
             </Col>
           </Row>
-        </Container>
+        </SeffContainer>
       </GalleryWrapper>
 
       {/* Product Review and Description */}

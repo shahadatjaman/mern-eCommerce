@@ -16,6 +16,7 @@ export const Cuntinue = styled(Link)`
   text-transform: uppercase;
   color: #363f4d;
   border-radius: 50px;
+  text-align: center;
   cursor: pointer;
   background: #f2f2f2;
   &&:hover {

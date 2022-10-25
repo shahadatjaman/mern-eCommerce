@@ -1,12 +1,13 @@
 import { useSelector } from "react-redux";
+import { useColor } from "../../../utils";
 import Button from "../../Shared/Form/Button";
 
-import { H4, TitleWrap, Wrapper } from "../Styles";
+import { Cuntinue, H4, TitleWrap, Wrapper } from "../Styles";
 import { GrandTotalTitle, H5, Price, Span } from "./Styles";
 
 const GrandTotal = () => {
   const { total } = useSelector((state) => state.cart);
-  console.log(total);
+
   return (
     total && (
       <Wrapper>
@@ -19,7 +20,7 @@ const GrandTotal = () => {
         <GrandTotalTitle>
           Grand Total <Price>${total.total}</Price>
         </GrandTotalTitle>
-        <Button text="Proceed to Checkout" />
+        <Cuntinue to={`/billing`}>PROCEED TO CHECKOUT</Cuntinue>
       </Wrapper>
     )
   );

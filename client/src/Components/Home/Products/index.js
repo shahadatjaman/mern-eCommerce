@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Col, Container, Row } from "../../../Styles/Gride";
+import { Col, Container, Row } from "reactstrap";
 import Filter from "./Filter";
 import { Wrapper, Title, H3 } from "../../Shared/Styles/styles";
 
@@ -21,7 +21,7 @@ const Products = () => {
     <Wrapper>
       <Container>
         <Row>
-          <Col lg_width="100">
+          <Col md="100">
             <Title>
               <H3>DAILY DEALS!</H3>
               <Filter />
@@ -30,7 +30,7 @@ const Products = () => {
         </Row>
         <Row>
           {products?.map((product, index) => (
-            <Col key={index} lg_width="25">
+            <Col key={index} md="3">
               <Product product={product} />
             </Col>
           ))}

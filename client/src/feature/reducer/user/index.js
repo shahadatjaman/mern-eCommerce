@@ -1,11 +1,24 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { jwtDecoder, setLocalstorage } from "../../../utils/";
-import jwt_decode from "jwt-decode";
+import {
+  getLocalstorage,
+  jwtDecoder,
+  removeLocalstorage,
+  setLocalstorage,
+} from "../../../utils/";
 const initialState = {
   user: null,
   errors: {},
   isLoading: false,
+  userAddress: {
+    company_name: "",
+    street_address: "",
+    town_city: "",
+    postcode_zip: "",
+    state_country: "",
+    phone: "",
+    country: "",
+  },
 };
 
 export const login = createAsyncThunk(
@@ -38,6 +51,46 @@ export const register = createAsyncThunk(
   }
 );
 
+export const createUserAddress = createAsyncThunk(
+  "auth/useraddress",
+  async ({ navigate, values }, thunkAPI) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/auth/useraddress`,
+        values,
+        {
+          headers: {
+            Authorization: "Bearer " + getLocalstorage("user_info"),
+          },
+        }
+      );
+      navigate("/order");
+      return response.data;
+    } catch (error) {
+      return await error.response.data.errors;
+    }
+  }
+);
+export const getUserAddress = createAsyncThunk(
+  "auth/getuseraddress",
+  async (_, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/auth/getuseraddress`,
+
+        {
+          headers: {
+            Authorization: "Bearer " + getLocalstorage("user_info"),
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return await error.response.data.errors;
+    }
+  }
+);
+
 const loginSlice = createSlice({
   name: "login",
   initialState,
@@ -49,8 +102,13 @@ const loginSlice = createSlice({
     addGoogleUser: (state, { payload }) => {
       console.log(payload);
     },
+    logout: (state, { payload }) => {
+      removeLocalstorage("user_info");
+      state.user = null;
+    },
   },
   extraReducers: {
+    // User Login
     [login.pending]: (state, { payload }) => {
       state.isLoading = true;
     },
@@ -64,11 +122,12 @@ const loginSlice = createSlice({
         setLocalstorage("user_info", payload.token);
       }
     },
-    [login.rejected]: (state, { payload }) => {
+    [login.rejected]: (state) => {
       state.isLoading = false;
     },
 
-    [register.pending]: (state, { payload }) => {
+    // User Register
+    [register.pending]: (state) => {
       state.isLoading = true;
     },
     [register.fulfilled]: (state, { payload }) => {
@@ -82,12 +141,24 @@ const loginSlice = createSlice({
         setLocalstorage("user_info", payload.token);
       }
     },
-    [register.rejected]: (state, { payload }) => {
+    [register.rejected]: (state) => {
+      state.isLoading = false;
+    },
+
+    // Get User Address
+    [getUserAddress.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getUserAddress.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.userAddress = payload.user_address;
+    },
+    [getUserAddress.rejected]: (state) => {
       state.isLoading = false;
     },
   },
 });
 
-export const { addUser, addGoogleUser } = loginSlice.actions;
+export const { addUser, addGoogleUser, logout } = loginSlice.actions;
 
 export default loginSlice.reducer;

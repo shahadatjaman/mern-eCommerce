@@ -42,16 +42,12 @@ input:focus{
     /* border: none !important; */
    outline: none;
 }
-textarea:focus{
-    border: none !important;
-   outline: none;
-   overflow-y: scroll;
-   scrollbar-width: none !important;
-}
+
 ul{
-    margin: 0;
-    padding: 0;
-    list-style: none;
+   
+margin: 0;
+  padding: 0;
+  list-style: outside none none;
 }
 .swiper {
   width: 100%;
@@ -69,6 +65,12 @@ span.sc-bxSTMQ.dujOJd.active {
 }
 .notload {
     cursor: pointer;
+}
+.m-0 {
+    margin : 0 !important;
+}
+.p-0 {
+    padding : 0 !important;
 }
 .notiLogin{
     margin-left: 4px;
@@ -146,11 +148,20 @@ ul.mb-3.nav.nav-tabs {
     align-items: center;
 }
 
+// Margin
+.mb-1{
+ margin-bottom: 1r3em;
+}
+
 // Bootstrap 
 @media (min-width: 1400px){
 
 .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
     max-width: 1420px;
 }
+}
+.active{
+   // background: #f1f2f3;
+    color: #000;
 }
 `;

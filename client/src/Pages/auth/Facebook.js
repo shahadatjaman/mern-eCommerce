@@ -9,6 +9,8 @@ import { GoogleWrape } from "./Styles";
 import { authentication } from "../../firebase";
 
 import { BsFacebook } from "react-icons/bs";
+import { register } from "../../feature/reducer/user";
+import { makeUserObj } from "../../utils";
 
 const Facebook = () => {
   const dispatch = useDispatch();
@@ -17,11 +19,12 @@ const Facebook = () => {
     const provider = new FacebookAuthProvider();
     signInWithPopup(authentication, provider)
       .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = FacebookAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        const user = result.user;
-        console.log(user);
+        const userInfo = result.user;
+
+        let { displayName, email, photoURL } = userInfo;
+        let user = makeUserObj({ displayName, email, photoURL });
+
+        dispatch(register(user));
       })
       .catch((error) => {
         console.log(error);

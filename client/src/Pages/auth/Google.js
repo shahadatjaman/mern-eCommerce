@@ -11,6 +11,7 @@ import { authentication } from "../../firebase";
 import { AiFillGooglePlusCircle } from "react-icons/ai";
 
 import { register } from "../../feature/reducer/user/";
+import { makeUserObj } from "../../utils";
 
 const Google = () => {
   const dispatch = useDispatch();
@@ -20,17 +21,11 @@ const Google = () => {
     signInWithPopup(authentication, provider)
       .then((result) => {
         const userInfo = result.user;
-
-        const user = {
-          username:
-            userInfo.displayName.toLowerCase().split(" ").join("") +
-            "" +
-            Date.now(),
-          email: userInfo.email,
-          avatar: userInfo.photoURL,
-        };
-        dispatch(register(user));
         console.log(userInfo);
+        let { displayName, email, photoURL } = userInfo;
+        let user = makeUserObj({ displayName, email, photoURL });
+
+        dispatch(register(user));
       })
       .catch((error) => {
         console.log(error);

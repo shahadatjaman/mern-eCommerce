@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const Product = require("../../models/Product");
+const Product = require("../../models/Product/Product");
 
 const productValidator = require("../../validation/productValidator");
 

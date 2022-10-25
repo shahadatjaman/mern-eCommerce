@@ -20,8 +20,11 @@ import {
   HeaderWrapper,
   Count,
   Img,
+  User,
+  UserImg,
+  Account,
 } from "./styles";
-import { Col, Container, Row } from "reactstrap";
+import { Alert, Col, Container, Row } from "reactstrap";
 
 //<===  React Icons ===>
 import {
@@ -32,9 +35,12 @@ import {
 } from "react-icons/ai";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShuffle } from "@fortawesome/free-solid-svg-icons";
+import { getLocalstorage, wHeigth } from "../../utils";
+import AccountDropDown from "./AccountDropDown";
 
 const NavBar = () => {
   const [height, setHeight] = useState(0);
+  const [toggle, setToggle] = useState(false);
 
   const menuList = [
     {
@@ -62,21 +68,22 @@ const NavBar = () => {
   const { lists } = useSelector((state) => state.wishList);
 
   const { total } = useSelector((state) => state.cart);
+  const { user } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const wishlist = JSON.parse(localStorage.getItem("wistList"));
-
-    if (wishlist) {
+    const wishlist = getLocalstorage("wistList");
+    if (wishlist.length !== 0) {
       dispatch(addWishList(wishlist));
     }
   }, [dispatch]);
 
   useEffect(() => {
-    const cartList = JSON.parse(localStorage.getItem("cartTotal"))
-      ? JSON.parse(localStorage.getItem("cartTotal"))
-      : null;
+    const cartList =
+      getLocalstorage("cartTotal").length !== 0
+        ? getLocalstorage("cartTotal")
+        : null;
 
     if (cartList) {
       dispatch(addcartTotal(cartList));
@@ -90,6 +97,14 @@ const NavBar = () => {
       setHeight(windowHeight);
     });
   }, []);
+
+  const handleTogle = () => {
+    if (toggle) {
+      setToggle(false);
+    } else {
+      setToggle(true);
+    }
+  };
 
   return (
     <HeaderWrapper height={height}>
@@ -119,11 +134,20 @@ const NavBar = () => {
                 <Icon>
                   <AiOutlineSearch />
                 </Icon>
-                <NavLink to={"/login"}>
-                  <Icon>
-                    <AiOutlineUserAdd />
-                  </Icon>
-                </NavLink>
+                {user ? (
+                  <Account>
+                    <User onClick={handleTogle}>
+                      <UserImg src={user.avatar} />
+                    </User>
+                    <AccountDropDown toggle={toggle} />
+                  </Account>
+                ) : (
+                  <NavLink to={"/login"}>
+                    <Icon>
+                      <AiOutlineUserAdd />
+                    </Icon>
+                  </NavLink>
+                )}
 
                 <Icon>
                   <Count>0</Count>

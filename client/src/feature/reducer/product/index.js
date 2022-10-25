@@ -45,7 +45,9 @@ const productSlice = createSlice({
     },
     [fetchProducts.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      state.products = payload.products;
+      if (payload && payload.products) {
+        state.products = payload.products;
+      }
     },
     [fetchProducts.rejected]: (state, { payload }) => {
       state.isError = true;

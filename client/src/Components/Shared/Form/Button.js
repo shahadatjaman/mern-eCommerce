@@ -1,5 +1,5 @@
 import React from "react";
-import { Btn } from "./Styles";
+import { Btn, ButtonWrap } from "./Styles";
 
 /**
  *
@@ -7,20 +7,44 @@ import { Btn } from "./Styles";
  * @returns
  */
 
-function Button({ type, text, hoverColor, activeColor, isDisabled }) {
+const Button = ({
+  type,
+  text,
+  hoverColor,
+  activeColor,
+  isDisabled,
+  alignMent,
+  radius,
+  width,
+  height,
+}) => {
   return (
-    <>
+    <ButtonWrap alignMent={alignMent}>
       {!isDisabled ? (
-        <Btn disabled activeColor={activeColor} type={type}>
+        <Btn
+          disabled
+          radius={radius}
+          width={width}
+          height={height}
+          activeColor={activeColor}
+          type={type}
+        >
           {text}
         </Btn>
       ) : (
-        <Btn hoverColor={hoverColor} activeColor={activeColor} type={type}>
+        <Btn
+          hoverColor={hoverColor}
+          radius={radius}
+          activeColor={activeColor}
+          type={type}
+          width={width}
+          height={height}
+        >
           {text}
         </Btn>
       )}
-    </>
+    </ButtonWrap>
   );
-}
+};
 
 export default Button;

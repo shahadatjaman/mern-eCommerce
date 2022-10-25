@@ -68,10 +68,12 @@ export const Colored = styled.span`
   height: 35px;
   background-color: ${(props) => props.bg && props.bg};
   border-radius: 50%;
+  transition: all 0.5s ease 0s;
 `;
 
 export const Size = styled.div`
   margin-left: 1rem;
+  transition: all 0.5s ease 0s;
 `;
 
 export const SizeContent = styled.div`
@@ -97,4 +99,5 @@ export const InputSize = styled.input`
   width: 30px;
   height: 25px;
   opacity: 0;
+  transition: all 0.5s ease 0s;
 `;

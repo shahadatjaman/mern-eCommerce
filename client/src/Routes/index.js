@@ -7,6 +7,13 @@ import Cart from "../Pages/Shopping/";
 import Login from "../Pages/auth/Login";
 import Auth from "../Pages/auth";
 import Register from "../Pages/auth/Register";
+import Billing from "../Pages/Checkout/Billing";
+import Checkout from "../Pages/Checkout";
+import Order from "../Pages/Checkout/Order";
+import { Private, Public } from "./protectRouter";
+import Layout from "../Pages/Layout";
+import Sidebar from "../Dashboard/Components/Sidebar/Sidebar";
+import Product from "../Dashboard/Pages/Products";
 
 export const routes = [
   {
@@ -28,15 +35,59 @@ export const routes = [
   },
   {
     path: "",
+    element: (
+      <Private>
+        <Checkout />
+      </Private>
+    ),
+    children: [
+      {
+        path: "billing",
+        element: (
+          <Private>
+            <Billing />
+          </Private>
+        ),
+      },
+      {
+        path: "order",
+        element: (
+          <Private>
+            <Order />
+          </Private>
+        ),
+      },
+    ],
+  },
+  {
+    path: "",
     element: <Auth />,
     children: [
       {
         path: "register",
-        element: <Register />,
+        element: (
+          <Public>
+            <Register />
+          </Public>
+        ),
       },
       {
         path: "login",
-        element: <Login />,
+        element: (
+          <Public>
+            <Login />
+          </Public>
+        ),
+      },
+    ],
+  },
+  {
+    path: "admin/:username",
+    element: <Sidebar />,
+    children: [
+      {
+        path: "products",
+        element: <Product />,
       },
     ],
   },

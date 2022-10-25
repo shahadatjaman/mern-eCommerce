@@ -1,15 +1,13 @@
 const { Schema, model } = require("mongoose");
 
-const ordersChema = new Schema({
-  fristName: {
-    type: String,
+const { ObjectId } = Schema.Types;
+
+const userAddressSchema = new Schema({
+  user_id: {
+    type: ObjectId,
     required: true,
   },
-  lastName: {
-    type: String,
-    required: true,
-  },
-  company: {
+  company_name: {
     type: String,
     required: true,
   },
@@ -17,7 +15,7 @@ const ordersChema = new Schema({
     type: String,
     required: true,
   },
-  street: {
+  street_address: {
     type: String,
     required: true,
   },
@@ -37,14 +35,8 @@ const ordersChema = new Schema({
     type: Number,
     require: true,
   },
-  email: {
-    type: Number,
-    require: true,
-  },
-  order_note: {
-    type: String,
-    required: true,
-  },
+  order_note: String,
+  createdAt: String,
 });
 
-module.exports = User = ("order", ordersChema);
+module.exports = UserAddress = model("user-address", userAddressSchema);

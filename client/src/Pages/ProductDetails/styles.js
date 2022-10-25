@@ -1,12 +1,17 @@
 import styled from "styled-components";
-
+import { Container } from "react-bootstrap";
 export const GalleryWrapper = styled.div`
   padding-bottom: 100px;
   padding-top: 100px;
 `;
 
+export const SeffContainer = styled(Container)`
+  max-width: 1200px !important;
+`;
+
 export const LargeImageWrapper = styled.div`
   max-width: 440px;
+  border: 1px solid #ddd;
 `;
 
 export const Image = styled.img`

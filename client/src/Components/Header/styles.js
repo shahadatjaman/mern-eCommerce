@@ -8,7 +8,7 @@ export const HeaderWrapper = styled.div`
   position: ${(props) => props.height > 500 && "fixed"};
   width: 100%;
   z-index: 99;
-  transition: all 0.5s;
+  transition: all 0.5s ease 0s;
   top: 0;
 `;
 
@@ -77,7 +77,7 @@ export const Icon = styled.button`
   color: #000;
   cursor: pointer;
   position: relative;
-  margin-left: 15px;
+  margin-right: 15px;
 `;
 
 export const Count = styled.div`
@@ -93,4 +93,59 @@ export const Count = styled.div`
   color: #fff;
   top: -12px;
   right: -75%;
+`;
+
+export const Account = styled.div`
+  position: relative;
+  cursor: pointer;
+`;
+
+export const User = styled.div`
+  width: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 1rem;
+  position: relative;
+`;
+
+export const UserImg = styled.img`
+  width: 100%;
+`;
+
+export const AccountWrap = styled.div`
+  position: absolute;
+  z-index: 220;
+  top: 170%;
+  left: 0;
+  width: 200px;
+  background: #fff none repeat scroll 0 0;
+  padding: 8px 12px 10px;
+  box-shadow: 0 1px 7px -2px rgb(0 0 0 / 30%);
+  transition: all 0.5s ease 0s;
+  transform-origin: center top 0;
+  transform: rotateX(${(props) => !props.toggle && "90deg"});
+  text-align: left;
+  background: #fff none repeat scroll 0 0;
+`;
+
+export const UList = styled.ul``;
+
+export const List = styled.li`
+  transition: all 0.5s ease 0s;
+  &&:hover {
+    padding-left: 0.5rem;
+    color: ${(props) => props.theme.colors.primary};
+  }
+`;
+export const Href = styled(NavLink)`
+  font-size: 13px;
+  line-height: 30px;
+  display: block;
+  padding: 0;
+  text-transform: capitalize;
+  color: #000;
+  font-weight: 500;
+  &&:hover {
+    color: ${(props) => props.theme.colors.primary};
+  }
 `;
