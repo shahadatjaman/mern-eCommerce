@@ -34,10 +34,12 @@ export const Ul = styled.ul`
 `;
 
 export const Li = styled.li`
-  margin-bottom: 1rem;
   border-top: 1px solid #ededed;
   padding: 16px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  &:hover {
+    background: #eaf7ff;
+  }
 `;

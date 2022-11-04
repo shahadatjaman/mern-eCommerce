@@ -14,6 +14,10 @@ export const SidebarWrape = styled.div`
 
 export const Fixed = styled.div`
   position: fixed;
+  position: fixed;
+  width: 250px;
+  background: #131720;
+  height: 100%;
 `;
 
 export const TopSection = styled.div`
@@ -39,13 +43,13 @@ export const SelfContainer = styled(contain)`
 
 export const Link = styled(NavLink)`
   display: flex;
-  color: #000;
+  color: #fff;
   padding: 10px 15px;
   gap: 15px;
   transition: all 0.5s;
   &&:hover {
-    background: #f1f2f3;
-    color: #000;
+    background: #42454c;
+    color: #fff;
     transition: all 0.5s;
   }
 `;
@@ -53,6 +57,7 @@ export const Link = styled(NavLink)`
 export const LinkText = styled.div`
   font-size: 16px;
   font-weight: 600;
+  color: #fff;
   svg {
     font-size: 18px;
   }

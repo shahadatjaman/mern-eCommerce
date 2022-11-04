@@ -2,6 +2,7 @@ const { check, validationResult } = require("express-validator");
 const createError = require("http-errors");
 const User = require("../../models/User/User");
 
+// Express validation
 const addUserValidators = [
   check("username")
     .isLength({ min: 4 })
@@ -57,6 +58,7 @@ const addUserValidatorHandler = (req, res, next) => {
   }
 };
 
+// Normal Validation
 const loginValidator = (req, res, next) => {
   const { username, password } = req.body;
   const errors = {};

@@ -162,3 +162,5 @@ const loginSlice = createSlice({
 export const { addUser, addGoogleUser, logout } = loginSlice.actions;
 
 export default loginSlice.reducer;
+
+// Akjon manus e pare r akjon manuser jibone prithibite sorgo r norog kore dite, valobasa holo obvase porinoto hoaer akta jinis, kintu ata mathay rakhte hobe je obvas hoye gele jeno valobasa kokhonoi kome na jay. karon manus hisebe amara prithibite sob kichu orjon korte parleo somoy kokhono orjon korte pari na ba ferot ante pari na. jar fole apnar valobasar mansutir jotno nin, karon valobasar jotno nile balobas kokhono rong bodlay na.

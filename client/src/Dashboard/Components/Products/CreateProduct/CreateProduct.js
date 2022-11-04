@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import Form from "../../../../Components/Shared/Form/Form";
 import Media from "../Upload/Media";
 import {
@@ -14,19 +15,35 @@ import {
 import { useCheckbox } from "../../../../hooks/useCheckbox";
 import ProductOptions from "../Options/ProductOptions";
 import { useSelector } from "react-redux";
-import { H5, Li, Ul } from "../../../Shared/Styles";
+import { Ul } from "../../../Shared/Styles";
 import List from "./List";
-import { useCreateElement } from "../../../../hooks/useCreateElement";
+import { useState } from "react";
+import { useEffect } from "react";
+import Modal from "../../../Shared/Modal";
 
 const CreateProduct = () => {
+  const [toggleForm, setToggleForm] = useState(true);
   const { handleChange, isChecked } = useCheckbox();
-
-  // Add Options Hook
-  const { array, addElement } = useCreateElement();
+  const [isOpen, setisOpen] = useState(false);
 
   const { alt_id, color: colorOptions } = useSelector(
     (state) => state.createproduct
   );
+
+  const handleToggleForm = () => {
+    if (toggleForm) {
+      setToggleForm(false);
+    } else {
+      setToggleForm(true);
+    }
+  };
+
+  const openModal = () => {
+    setisOpen(true);
+  };
+  const closeModal = () => {
+    setisOpen(false);
+  };
 
   return (
     <Wrapper>
@@ -43,25 +60,27 @@ const CreateProduct = () => {
         />
         This product has options, like size or color
       </Options>
-      <ItemWrapper>
+      {/* <ItemWrapper>
         <Ul>
           {colorOptions?.map((item, index) => (
             <List key={index} item={item} />
           ))}
         </Ul>
       </ItemWrapper>
-      {isChecked &&
-        array?.map((item, index) => (
-          <ProductOptions fieldId={item} key={index} />
-        ))}
+      {isChecked && toggleForm && (
+        <ProductOptions handleToggleForm={handleToggleForm} />
+      )} */}
       {isChecked && (
         <AddAnotherOption>
-          <H6 onClick={addElement}>
+          <H6 onClick={openModal}>
             <Plus>+</Plus>
-            Add another options
+            Add options
           </H6>
         </AddAnotherOption>
       )}
+      <Modal title="Add product option" isOpen={isOpen} closeModal={closeModal}>
+        Hello
+      </Modal>
     </Wrapper>
   );
 };

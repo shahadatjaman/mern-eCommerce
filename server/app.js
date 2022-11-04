@@ -24,7 +24,7 @@ const PORT = 5000;
 
 app.use("/auth", require("./routes/users/"));
 app.use("/api", require("./routes/admin/product"));
-
+app.use("/vendor", require("./routes/Vendor/product"));
 app.use(commonMiddleware);
 
 mongoose.connect(process.env.DB_URL).then(() => {
