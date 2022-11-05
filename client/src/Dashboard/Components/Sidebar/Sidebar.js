@@ -37,7 +37,7 @@ const Sidebar = ({ children }) => {
       icon: <BsFillInboxFill />,
     },
     {
-      path: "/admin/dsd/products",
+      path: "/dashboard/shahadat/collections",
       name: "Products",
       icon: <BsFillTagFill />,
     },
@@ -61,7 +61,7 @@ const Sidebar = ({ children }) => {
     <Wrapper>
       <SelfContainer fluid>
         <SidebarWrape
-          style={{ width: isOpen ? "250px" : "50px" }}
+          style={{ width: isOpen ? "14%" : "50px" }}
           className="sidebar"
         >
           <Fixed>

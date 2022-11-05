@@ -3,19 +3,18 @@ import { Container as contain } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
 export const Wrapper = styled.div`
-  background: #f6f6f7;
+  background: #f0f4f7;
+  height: 100vh;
 `;
 export const SidebarWrape = styled.div`
   color: #000;
-  height: 100vh;
-  width: 350px;
-  transition: all 0.5s; ;
+  transition: all 0.5s;
 `;
 
 export const Fixed = styled.div`
   position: fixed;
   position: fixed;
-  width: 250px;
+  width: 230px;
   background: #131720;
   height: 100%;
 `;
@@ -39,6 +38,7 @@ export const Bars = styled.div`
 export const SelfContainer = styled(contain)`
   padding: 0 !important;
   display: flex;
+  height: 100vh;
 `;
 
 export const Link = styled(NavLink)`
@@ -63,6 +63,6 @@ export const LinkText = styled.div`
   }
 `;
 export const Main = styled.div`
-  width: 80%;
-  border-left: 1px solid #ddd;
+  width: 96%;
+  //background: #f0f4f7;
 `;

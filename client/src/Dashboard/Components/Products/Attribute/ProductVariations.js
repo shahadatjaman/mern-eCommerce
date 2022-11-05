@@ -5,7 +5,7 @@ import CreateProduct from "../CreateProduct/CreateProduct";
 const ProductVariations = () => {
   return (
     <Cart>
-      <H5>Media</H5>
+      <H5>Images and videos</H5>
       <CreateProduct />
     </Cart>
   );

@@ -20,7 +20,7 @@ import { Col, Container, Row } from "reactstrap";
 // <=== Components  ====>
 
 import { ObjectId } from "../../../utils";
-import Pricing from "../../Components/Products/Attribute/Pricing";
+import Pricing from "../../Components/Products/Pricing/Pricing";
 import ProductOrga from "../../Components/Products/Category/ProductOrga";
 import ProductStatus from "../../Components/Products/Status/ProductStatus";
 import ProductVariations from "../../Components/Products/Attribute/ProductVariations";

@@ -15,7 +15,7 @@ export const Label = styled.label`
 
 export const InputField = styled(Input)`
   background-color: transparent;
-  border: 1px solid ${(props) => (props.error ? "red" : "#ddd")} !important;
+  border: 1px solid ${(props) => (props.error ? "red" : "#c1e4fe")} !important;
   color: #333;
   font-size: 14px;
   //height: 45px;
@@ -24,7 +24,7 @@ export const InputField = styled(Input)`
 
   padding: ${(props) =>
     props.height ? "17px 20px" : "0px 15px"}px !important ;
-  width: 100%;
+  width: ${(props) => (props.width ? props.width : `100`)}%;
   &&:focus {
     box-shadow: none !important;
   }
@@ -52,9 +52,8 @@ export const Btn = styled.button`
     color: ${(props) => (props.hoverColor ? "#fff" : "#000")};
   }
 `;
-
 export const InputGroup = styled.div`
-  margin-bottom: 1rem;
+  margin-bottom: ${(props) => props.mb && props.mb}rem;
   position: relative;
   width: ${(props) => (props.width ? props.width : 100)}%;
   display: inline-block;

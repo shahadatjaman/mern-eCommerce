@@ -14,6 +14,7 @@ import { Private, Public } from "./protectRouter";
 import Layout from "../Pages/Layout";
 import Sidebar from "../Dashboard/Components/Sidebar/Sidebar";
 import Product from "../Dashboard/Pages/Products";
+import Collection from "../Dashboard/Pages/Collection";
 
 export const routes = [
   {
@@ -82,12 +83,16 @@ export const routes = [
     ],
   },
   {
-    path: "admin/:username",
+    path: "dashboard/:username",
     element: <Sidebar />,
     children: [
       {
-        path: "products",
+        path: "newproduct",
         element: <Product />,
+      },
+      {
+        path: "collections",
+        element: <Collection />,
       },
     ],
   },

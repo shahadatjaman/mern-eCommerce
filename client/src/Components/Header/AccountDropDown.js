@@ -12,7 +12,7 @@ const AccountDropDown = ({ toggle }) => {
     <AccountWrap toggle={toggle}>
       <UList>
         <List>
-          <Href to="/admin/user">Dashboard</Href>
+          <Href to="/dashboard/user">Dashboard</Href>
         </List>
         <List>
           <Href to="" onClick={logoutHandler}>

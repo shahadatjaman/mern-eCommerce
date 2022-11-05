@@ -17,12 +17,16 @@ const Input = ({
   handleFocus,
   handleBlur,
   autoFocus,
+  width,
+  mb = 1,
 }) => {
   return (
     <>
       <InputGroup>
         <Label>{label}</Label>
         <InputField
+          width={width}
+          mb={mb}
           name={name}
           autoFocus={autoFocus}
           height={height}

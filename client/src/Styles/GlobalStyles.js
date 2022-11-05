@@ -9,8 +9,9 @@ export const GlobalStyles = createGlobalStyle`
 }
 body{
     font-family: 'Montserrat', sans-serif;
-    user-select: none;
+   // user-select: none;
     overflow: auto ;
+    background: #f0f4f7;
 }
 a{
     text-decoration: none;

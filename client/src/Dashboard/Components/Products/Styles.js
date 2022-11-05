@@ -28,6 +28,7 @@ export const MediaWrapper = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
+  background: #eaf7ff;
 `;
 
 export const AddFile = styled.div`

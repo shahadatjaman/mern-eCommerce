@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   padding: 30px 65px;
-  background: #f6f6f7;
+  background: transparent;
   width: 100%;
   height: 100%;
 `;
@@ -23,7 +23,7 @@ export const Cart = styled.div`
   background: #fff;
   margin-top: 1.5rem;
   border-radius: 10px;
-  border: 1px solid #ddd;
+  //  border: 1px solid #ddd;
 `;
 
 export const Hr = styled.hr``;
@@ -42,4 +42,26 @@ export const Li = styled.li`
   &:hover {
     background: #eaf7ff;
   }
+`;
+
+export const Title = styled.h2`
+  font-weight: 600;
+`;
+
+export const Span = styled.span`
+  color: #868aa5;
+  margin-left: 1rem;
+`;
+
+export const Button = styled.div`
+  color: #fff;
+  background: #116dff;
+  height: 2.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
+  border-radius: 50px;
+  font-weight: 500;
+  cursor: pointer;
 `;
