@@ -32,6 +32,14 @@ p,
 span,a{
     font-family: 'Montserrat', sans-serif;
 }
+
+.pretty.p-switch input:checked~.state label:after {
+    background-color: #259de7!important;
+    left: 1em;
+}
+.pretty.p-switch input:checked~.state:before {
+    border-color: #69c3ff;
+}
 button{
     border: none;
     background: transparent;

@@ -6,7 +6,7 @@ import Select from "../../../../Components/Shared/Form/Select/Select";
 import { InputArea, Submit } from "../Styles";
 import { useForm } from "../../../../hooks/useForm";
 import { useSelect } from "../../../../hooks/useSelect";
-import { createColor } from "../../../feature/reducer";
+import { createColor } from "../../../feature/reducer/createProduct";
 import {
   colorValidation,
   sizeValidation,

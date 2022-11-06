@@ -18,8 +18,9 @@ import { useSelector } from "react-redux";
 import { Ul } from "../../../Shared/Styles";
 import List from "./List";
 import { useState } from "react";
-import { useEffect } from "react";
 import Modal from "../../../Shared/Modal";
+import { Switch } from "pretty-checkbox-react";
+import { Span } from "./Styles";
 
 const CreateProduct = () => {
   const [toggleForm, setToggleForm] = useState(true);
@@ -52,13 +53,13 @@ const CreateProduct = () => {
       </H6>
       <Media />
       <Options>
-        <CheckBox
+        <Switch
           type="checkbox"
           onChange={handleChange}
           name="checkbox"
           value={isChecked}
         />
-        This product has options, like size or color
+        <Span>This product has options, like size or color</Span>
       </Options>
       {/* <ItemWrapper>
         <Ul>

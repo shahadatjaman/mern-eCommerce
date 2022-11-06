@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../../hooks/useForm";
 
 //<=== Reducer Functions ====>
-import { createInitProduct } from "../../feature/reducer";
-import { createId } from "../../feature/reducer";
+import { createInitProduct } from "../../feature/reducer/createProduct";
+import { createId } from "../../feature/reducer/createProduct";
 
 //<===Styled Components ====>
 import Button from "../../../Components/Shared/Form/Button";

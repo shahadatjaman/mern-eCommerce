@@ -2,13 +2,28 @@ import React from "react";
 import Input from "../../../../Components/Shared/Form/Input";
 import { useCheckbox } from "../../../../hooks/useCheckbox";
 import PriceInput from "../../../Shared/Input/discount/PriceInput";
-import Radio from "../../../Shared/Input/Radio";
+import { Switch } from "pretty-checkbox-react";
 import { Cart, H5 } from "../../../Shared/Styles";
-import { CheckBox } from "../Styles";
+
 import { Button, OnsaleWrapper, SalePrices, Span } from "./Styles";
 
+import { handleDiscount } from "../../../feature/reducer/productPricing";
+
+import { useState } from "react";
+import useNumber from "../../../../hooks/useNumber";
+
 const Pricing = () => {
+  const [discount, setDiscount] = useState(0);
+
   const { handleChange, isChecked } = useCheckbox();
+
+  const { value } = useNumber(discount);
+  console.log(value);
+
+  const discountChange = (e) => {
+    let value = e.target.value;
+    setDiscount(value);
+  };
 
   return (
     <Cart>
@@ -17,12 +32,13 @@ const Pricing = () => {
 
       <OnsaleWrapper>
         <Button>
-          <CheckBox
+          <Switch
             type="checkbox"
             onChange={handleChange}
             name="checkbox"
             value={isChecked}
           />
+
           <Span>On sale</Span>
         </Button>
 
@@ -30,9 +46,12 @@ const Pricing = () => {
           <SalePrices>
             <PriceInput
               width="40"
-              name={"Discount"}
+              label={"Discount"}
               currency="true"
               parsent="true"
+              handleChange={discountChange}
+              value={discount}
+              name="discount"
             />
             <Input
               width="40"

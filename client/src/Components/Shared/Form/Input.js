@@ -39,7 +39,7 @@ const Input = ({
           onFocus={handleFocus}
           onBlur={handleBlur}
         />
-        <P>{error}</P>
+        {error && <P>{error}</P>}
       </InputGroup>
     </>
   );

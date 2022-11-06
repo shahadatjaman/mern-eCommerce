@@ -10,7 +10,10 @@ import addToCartReducer from "./reducer/addToCart";
 
 import userReducer from "./reducer/user/";
 
-import productSliceReducer from "../Dashboard/feature/reducer/";
+import productSliceReducer from "../Dashboard/feature/reducer/createProduct";
+
+import priceReducer from "../Dashboard/feature/reducer/productPricing";
+
 export const store = configureStore({
   reducer: {
     wishList: wishListReducer,
@@ -19,6 +22,7 @@ export const store = configureStore({
     cart: addToCartReducer,
     user: userReducer,
     createproduct: productSliceReducer,
+    pricing: priceReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

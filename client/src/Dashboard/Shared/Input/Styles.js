@@ -25,16 +25,20 @@ export const PInput = styled.input`
 `;
 
 export const Name = styled.div`
-  margin: 0.4rem 0;
+  margin: 0.3rem 0;
+  font-size: 14px;
+  color: #242424;
+  display: inline-block;
+  font-weight: 500;
 `;
 
 export const Label = styled.label`
   position: absolute;
   right: 0;
-  bottom: -6px;
+  bottom: -8px;
   background: #eaf7ff;
   width: 75px;
-  height: 52%;
+  height: 60%;
   border-radius: 0px 6px 5px 0px;
   border: 1px solid #c1e4fe;
   display: flex;

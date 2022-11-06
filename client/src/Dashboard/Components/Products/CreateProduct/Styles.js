@@ -18,3 +18,7 @@ export const Del = styled.div`
 `;
 
 export const Attribute = styled.div``;
+
+export const Span = styled.span`
+  margin-left: 0.5rem;
+`;

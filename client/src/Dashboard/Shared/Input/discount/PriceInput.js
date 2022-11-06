@@ -2,15 +2,18 @@ import React from "react";
 import { Label, Name, PInput, PriceWrapper, Span } from "../Styles";
 
 const PriceInput = ({
-  name,
+  label,
   parsent = false,
   currency = false,
   width,
-  placeholder = 0,
+  placeholder,
+  handleChange,
+  name,
+  value,
 }) => {
   return (
     <PriceWrapper width={width}>
-      <Name> {name} </Name>
+      <Name> {label} </Name>
       <Label>
         {currency && <Span>৳</Span>}
 
@@ -20,7 +23,14 @@ const PriceInput = ({
           </Span>
         )}
       </Label>
-      <PInput type={"number"} width={width} placeholder={placeholder} />
+      <PInput
+        type={"number"}
+        width={width}
+        name={name}
+        value={value}
+        placeholder={placeholder}
+        onChange={handleChange}
+      />
     </PriceWrapper>
   );
 };
