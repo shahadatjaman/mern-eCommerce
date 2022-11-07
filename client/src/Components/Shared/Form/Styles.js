@@ -4,7 +4,35 @@ import { Input } from "reactstrap";
 
 export const FormWraaper = styled.form``;
 
+export const InputWrapper = styled.div`
+  position: relative;
+  width: ${(props) => (props.width ? props.width : `100`)}%;
+`;
+
 export const Label = styled.label`
+  position: absolute;
+  right: 0;
+  bottom: -9px;
+  background: #eaf7ff;
+  width: 75px;
+  height: 100%;
+  border-radius: 0px 6px 5px 0px;
+  border: 1px solid #c1e4fe;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Span = styled.span`
+  background: ${(props) => (props.bg ? props.bg : "#3899ec")};
+  color: ${(props) => (props.bg ? "#fff" : "#fff")};
+  padding: 4px 8px;
+  margin-left: ${(props) => (props.ml ? props.ml : "8")}px;
+  display: inline-block;
+  border-radius: 8px;
+`;
+
+export const Name = styled.label`
   font-size: 14px;
   margin: 0 0 5px;
   color: #242424;
@@ -24,7 +52,6 @@ export const InputField = styled(Input)`
 
   padding: ${(props) =>
     props.height ? "17px 20px" : "0px 15px"}px !important ;
-  width: ${(props) => (props.width ? props.width : `100`)}%;
   &&:focus {
     box-shadow: none !important;
   }

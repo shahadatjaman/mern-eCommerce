@@ -13,7 +13,7 @@ export const PriceWrapper = styled.div`
 `;
 
 export const PInput = styled.input`
-  border: 1px solid #c1e4fe !important;
+  border: 1px solid #c1e4fe;
   background: transparent;
   padding: 6px 12px;
   border-radius: 0.25rem;
@@ -47,11 +47,10 @@ export const Label = styled.label`
 `;
 
 export const Span = styled.span`
-  background: ${(props) => props.bg && props.bg};
+  background: ${(props) => (props.bg ? props.bg : "#ddd")};
   color: ${(props) => (props.bg ? "#fff" : "#000")};
   padding: 4px 8px;
-  margin-left: ${(props) => props.ml && props.ml}px;
+  margin-left: ${(props) => (props.ml ? props.ml : "8")}px;
   display: inline-block;
   border-radius: 8px;
-  cursor: pointer;
 `;

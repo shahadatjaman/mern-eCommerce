@@ -1,5 +1,5 @@
 import { SelectInput } from "./Styles";
-import { InputGroup, Label, P } from "../Styles";
+import { InputGroup, Name, P } from "../Styles";
 const Select = ({
   children,
   label,
@@ -15,7 +15,7 @@ const Select = ({
   return (
     <>
       <InputGroup width={width}>
-        <Label>{label}</Label>
+        <Name>{label}</Name>
         <SelectInput
           name={name}
           value={value}

@@ -1,4 +1,12 @@
-import { InputField, InputGroup, Label, P } from "./Styles";
+import {
+  InputField,
+  InputGroup,
+  InputWrapper,
+  Label,
+  Name,
+  P,
+  Span,
+} from "./Styles";
 
 /**
  *
@@ -19,26 +27,33 @@ const Input = ({
   autoFocus,
   width,
   mb = 1,
+  currency = false,
 }) => {
   return (
     <>
       <InputGroup>
-        <Label>{label}</Label>
-        <InputField
-          width={width}
-          mb={mb}
-          name={name}
-          autoFocus={autoFocus}
-          height={height}
-          type={type}
-          value={value}
-          placeholder={placeHolder}
-          error={error}
-          invalid={error}
-          onChange={handleChange}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-        />
+        <Name>{label}</Name>
+        <InputWrapper width={width}>
+          <InputField
+            mb={mb}
+            name={name}
+            autoFocus={autoFocus}
+            height={height}
+            type={type}
+            value={value}
+            placeholder={placeHolder}
+            error={error}
+            invalid={error}
+            onChange={handleChange}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+          />
+          {currency && (
+            <Label>
+              <Span>৳</Span>
+            </Label>
+          )}
+        </InputWrapper>
         {error && <P>{error}</P>}
       </InputGroup>
     </>
