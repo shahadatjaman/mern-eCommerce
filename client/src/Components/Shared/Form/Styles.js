@@ -13,19 +13,21 @@ export const Label = styled.label`
   position: absolute;
   right: 0;
   bottom: -9px;
-  background: #eaf7ff;
+  background: ${(props) => (props.disabled ? "#e9ecef" : "#eaf7ff")};
   width: 75px;
   height: 100%;
   border-radius: 0px 6px 5px 0px;
-  border: 1px solid #c1e4fe;
+  border: 1px solid ${(props) => (props.disabled ? "#e9ecef" : "#c1e4fe")};
   display: flex;
   justify-content: center;
   align-items: center;
+  span {
+    background: ${(props) => (props.disabled ? "#e9ecef" : "#3899ec")};
+    color: ${(props) => (props.disabled ? "#000" : "#fff")};
+  }
 `;
 
 export const Span = styled.span`
-  background: ${(props) => (props.bg ? props.bg : "#3899ec")};
-  color: ${(props) => (props.bg ? "#fff" : "#fff")};
   padding: 4px 8px;
   margin-left: ${(props) => (props.ml ? props.ml : "8")}px;
   display: inline-block;
@@ -47,9 +49,9 @@ export const InputField = styled(Input)`
   color: #333;
   font-size: 14px;
   //height: 45px;
+  width: 100%;
   height: ${(props) => (props.height ? props.height : 45)}px !important;
   font-weight: 500;
-
   padding: ${(props) =>
     props.height ? "17px 20px" : "0px 15px"}px !important ;
   &&:focus {

@@ -5,10 +5,19 @@ import PriceInput from "../../../Shared/Input/discount/PriceInput";
 import { Switch } from "pretty-checkbox-react";
 import { Cart, H5 } from "../../../Shared/Styles";
 
-import { Button, OnsaleWrapper, SalePrices, Span } from "./Styles";
+import {
+  Button,
+  CostWrapper,
+  Discount,
+  OnsaleWrapper,
+  Prices,
+  Space,
+  Span,
+} from "./Styles";
 
 import { useState } from "react";
 import useNumber from "../../../../hooks/useNumber";
+import Cost from "./Cost";
 
 const Pricing = () => {
   const [discount, setDiscount] = useState(0);
@@ -49,7 +58,7 @@ const Pricing = () => {
       <Input
         handleChange={priceChange}
         name="price"
-        width="40"
+        width="32"
         type="number"
         label="Price (BDT)"
         placeHolder="0"
@@ -70,17 +79,18 @@ const Pricing = () => {
         </Button>
 
         {isChecked && (
-          <SalePrices>
-            <PriceInput
-              width="40"
+          <Discount>
+            <Input
+              width="32"
               label={"Discount"}
-              parsent="true"
               handleChange={discountChange}
               value={validDiscount}
               name="discount"
+              parsent="true"
             />
+            <Space width="2"></Space>
             <Input
-              width="40"
+              width="32"
               type="number"
               label="Sale price"
               name="saleprice"
@@ -89,9 +99,12 @@ const Pricing = () => {
               value={salePrice === 0 ? price - validDiscount : validSalePrice}
               currency={true}
             />
-          </SalePrices>
+          </Discount>
         )}
       </OnsaleWrapper>
+      <CostWrapper>
+        <Cost />
+      </CostWrapper>
     </Cart>
   );
 };

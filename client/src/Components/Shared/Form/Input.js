@@ -28,18 +28,21 @@ const Input = ({
   width,
   mb = 1,
   currency = false,
+  parsent = false,
+  disabled = false,
 }) => {
   return (
     <>
-      <InputGroup>
+      <InputGroup width={width}>
         <Name>{label}</Name>
-        <InputWrapper width={width}>
+        <InputWrapper>
           <InputField
             mb={mb}
             name={name}
             autoFocus={autoFocus}
             height={height}
             type={type}
+            disabled={disabled}
             value={value}
             placeholder={placeHolder}
             error={error}
@@ -49,8 +52,13 @@ const Input = ({
             onBlur={handleBlur}
           />
           {currency && (
-            <Label>
+            <Label disabled={disabled}>
               <Span>৳</Span>
+            </Label>
+          )}
+          {parsent && (
+            <Label disabled={disabled}>
+              <Span>%</Span>
             </Label>
           )}
         </InputWrapper>
