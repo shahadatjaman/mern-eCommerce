@@ -12,7 +12,7 @@ export const InputWrapper = styled.div`
 export const Label = styled.label`
   position: absolute;
   right: 0;
-  bottom: -9px;
+  bottom: -8px;
   background: ${(props) => (props.disabled ? "#e9ecef" : "#eaf7ff")};
   width: 75px;
   height: 100%;
@@ -23,7 +23,7 @@ export const Label = styled.label`
   align-items: center;
   span {
     background: ${(props) => (props.disabled ? "#e9ecef" : "#3899ec")};
-    color: ${(props) => (props.disabled ? "#000" : "#fff")};
+    color: ${(props) => (props.disabled ? "#5f5858" : "#fff")};
   }
 `;
 
@@ -57,6 +57,8 @@ export const InputField = styled(Input)`
   &&:focus {
     box-shadow: none !important;
   }
+
+  margin-bottom: ${(props) => props.mb && props.mb};
 `;
 
 export const ButtonWrap = styled.div`
@@ -68,7 +70,7 @@ export const Btn = styled.button`
   font-weight: 600;
   transition: all 0.3s ease 0s;
   text-transform: uppercase;
-  color: #000;
+  color: ${(props) => (props.color ? props.color : "#5e5c5c")};
   border: none;
   width: ${(props) => props.width && props.width}%;
   height: ${(props) => props.height && props.height}px;
@@ -78,7 +80,7 @@ export const Btn = styled.button`
   &&:hover {
     background: ${(props) =>
       props.hoverColor ? props.hoverColor : props.activeColor};
-    color: ${(props) => (props.hoverColor ? "#fff" : "#000")};
+    color: ${(props) => (props.is ? "#fff" : "#fff")};
   }
 `;
 export const InputGroup = styled.div`

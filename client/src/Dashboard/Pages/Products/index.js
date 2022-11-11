@@ -1,16 +1,13 @@
 //<=== Hooks ====>
-import React, { useState } from "react";
+import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../../hooks/useForm";
 
 //<=== Reducer Functions ====>
-import { createInitProduct } from "../../feature/reducer/createProduct";
 import { createId } from "../../feature/reducer/createProduct";
 
 //<===Styled Components ====>
-import Button from "../../../Components/Shared/Form/Button";
-import Form from "../../../Components/Shared/Form/Form";
 import Input from "../../../Components/Shared/Form/Input";
 import { ButtonWrap } from "../../Components/Products/Styles";
 
@@ -25,25 +22,28 @@ import ProductOrga from "../../Components/Products/Category/ProductOrga";
 import ProductStatus from "../../Components/Products/Status/ProductStatus";
 import ProductVariations from "../../Components/Products/Attribute/ProductVariations";
 import Back from "../../Shared/Backbutton/Back";
-import { Cart, H3, Hr, Wrapper } from "../../Shared/Styles";
+import { Cart, CustomButton, H3, Hr, Wrapper } from "../../Shared/Styles";
 //import RichTextEditor from "../../Components/Products/Descriptions/Editor";
-import { PageHeader } from "./Styles";
-import App from "../../Shared/Modal";
+import { PageHeader, Button } from "./Styles";
+
 import Modal from "../../Shared/Modal";
+import { productInitValidation } from "../../Validation/prductInitValid";
 
 const _id = ObjectId();
-
 const Product = () => {
-  // const [value, setValue] = useState("");
+  const { productInit } = useSelector((state) => state.createproduct);
 
-  // // const { gray } = useColor();
-  // const getValue = (value) => {
-  //   setValue(value);
-  // };
-
-  const { product } = useSelector((state) => state.createproduct);
-
-  const { handleSubmit } = useForm({ init: "", validate: true });
+  const {
+    formState,
+    isValidForm,
+    handleSubmit,
+    handleChange,
+    handleFocus,
+    handleBlur,
+  } = useForm({
+    init: productInit,
+    validate: productInitValidation,
+  });
 
   const dispatch = useDispatch();
 
@@ -51,26 +51,16 @@ const Product = () => {
     dispatch(createId(_id));
   }, [dispatch]);
 
-  useEffect(() => {
-    const unloadCallback = (event) => {
-      event.preventDefault();
-      event.returnValue = "";
-      return "";
-    };
+  const submitForm = () => {
+    alert(formState.name.value);
+  };
 
-    window.addEventListener("beforeunload", unloadCallback);
-    return () => window.removeEventListener("beforeunload", unloadCallback);
-  }, []);
+  const { name, price } = formState;
 
-  // Create Initialia Product
-  // useEffect(() => {
-  //   dispatch(createInitProduct());
-  // }, [dispatch]);
-
-  console.log(product);
   return (
     <Wrapper>
       <Modal />
+
       <Container className="p-0">
         <PageHeader>
           <Back />
@@ -79,18 +69,35 @@ const Product = () => {
         <Row>
           <Col md="8">
             <Cart>
-              <Input label="Title" placeHolder="Short sleeve t-shirt" />
-              <br />
+              <Input
+                mb="1"
+                name={"name"}
+                type="text"
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+                handleFocus={handleFocus}
+                value={name.value}
+                label="Name"
+                placeHolder="Short sleeve t-shirt"
+                error={name.error}
+              />
+
               {/* <RichTextEditor initialValue="" getValue={getValue} /> */}
               <Input
+                name="price"
                 type="textarea"
-                //label="Description"
+                label="Description"
                 placeHolder="Description"
                 height="100"
               />
             </Cart>
             <ProductVariations />
-            <Pricing />
+            <Pricing
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              handleFocus={handleFocus}
+              value={price}
+            />
           </Col>
           <Col md="4">
             <ProductStatus />
@@ -99,14 +106,9 @@ const Product = () => {
         </Row>
         <Hr />
         <ButtonWrap>
-          <Button
-            text="Save"
-            type="submit"
-            activeColor="#f1f1f1"
-            radius="8"
-            width="10"
-            height="38"
-          />
+          <CustomButton isValid={isValidForm} disabled={!isValidForm}>
+            Save
+          </CustomButton>
         </ButtonWrap>
       </Container>
     </Wrapper>

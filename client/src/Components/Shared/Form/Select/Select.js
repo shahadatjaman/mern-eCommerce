@@ -11,10 +11,11 @@ const Select = ({
   handleBlur,
   defaultValue,
   width,
+  mb,
 }) => {
   return (
     <>
-      <InputGroup width={width}>
+      <InputGroup mb={mb} width={width}>
         <Name>{label}</Name>
         <SelectInput
           name={name}

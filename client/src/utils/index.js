@@ -111,3 +111,23 @@ export const ObjectId = (
   h = 16,
   s = (s) => m.floor(s).toString(h)
 ) => s(d.now() / 1000) + " ".repeat(h).replace(/./g, () => s(m.random() * h));
+
+/**
+ *
+ * @param {*} price
+ * @param {*} salePrice
+ * @returns {} discount
+ */
+export const percentageOfNumber = (price, salePrice, discount) => {
+  if (price > 0) {
+    const amount = (discount / 100) * price;
+    return amount;
+  }
+
+  if (salePrice > 0) {
+    const amount = (discount / 100) * salePrice;
+    return amount;
+  }
+
+  return 0;
+};

@@ -12,11 +12,13 @@ const Button = ({
   text,
   hoverColor,
   activeColor,
-  isDisabled,
+  isDisabled = false,
   alignMent,
   radius,
+  color,
   width,
   height,
+  onClick,
 }) => {
   return (
     <ButtonWrap alignMent={alignMent}>
@@ -39,6 +41,8 @@ const Button = ({
           type={type}
           width={width}
           height={height}
+          onClick={onClick}
+          color={color}
         >
           {text}
         </Btn>

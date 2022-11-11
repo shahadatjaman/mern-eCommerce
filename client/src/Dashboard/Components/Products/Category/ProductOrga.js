@@ -8,11 +8,11 @@ const ProductOrga = () => {
   return (
     <Cart>
       <H5>Product Organizations</H5>
-      <Select label="Product Category">
-        <Option option={"Animals & Pet Supplies"} />
+      <Select mb="1" label="Product Category">
+        <Option option={"Furniture"} />
       </Select>
       <Input label="Product Type" placeHolder="e.g., T-Shirt" />
-      <Input label="Tags" placeHolder="Find or create tags" />
+      <Input label="Tags" placeHolder="create tags" />
     </Cart>
   );
 };

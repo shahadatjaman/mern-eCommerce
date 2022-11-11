@@ -33,7 +33,7 @@ const Input = ({
 }) => {
   return (
     <>
-      <InputGroup width={width}>
+      <InputGroup mb={mb} width={width}>
         <Name>{label}</Name>
         <InputWrapper>
           <InputField

@@ -1,9 +1,22 @@
 import React from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import Input from "../../../../Components/Shared/Form/Input";
-import PriceInput from "../../../Shared/Input/discount/PriceInput";
+import useNumber from "../../../../hooks/useNumber";
 import { Prices } from "./Styles";
+import { percentageOfNumber } from "../../../../utils/index";
 
 const Cost = () => {
+  const [cost, setCost] = useState(0);
+  const { price } = useSelector((state) => state.pricing);
+
+  const validCost = useNumber(cost);
+
+  const costChangeHandler = (e) => {
+    const value = e.target.value;
+    setCost(value);
+  };
+
   return (
     <Prices>
       <Input
@@ -13,6 +26,8 @@ const Cost = () => {
         // disabled={true}
         name="saleprice"
         placeHolder="0"
+        handleChange={costChangeHandler}
+        value={validCost}
         currency={true}
       />
       <Input
@@ -21,7 +36,7 @@ const Cost = () => {
         label="Profit"
         disabled={true}
         name="saleprice"
-        placeHolder="0"
+        placeHolder={price - validCost}
         currency={true}
       />
       <Input
@@ -30,8 +45,8 @@ const Cost = () => {
         label="Margin"
         disabled={true}
         name="saleprice"
-        placeHolder="0"
-        currency={true}
+        placeHolder={price}
+        parsent={true}
       />
     </Prices>
   );

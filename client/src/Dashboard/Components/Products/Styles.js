@@ -22,13 +22,38 @@ export const H6 = styled.h6`
 
 export const MediaWrapper = styled.div`
   width: 100%;
-  height: 150px;
+  //height: 150px;
   border: 2px dashed #ddd;
+
+  border-radius: 10px;
+  background: #eaf7ff;
+`;
+
+export const Actions = styled.div`
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 1rem 0;
+`;
+export const Images = styled.div`
+  width: 100%;
+  padding: 1rem;
+
+  display: flex;
+  flex-wrap: wrap-reverse;
+`;
+
+export const ImgWrapper = styled.div`
+  max-width: 100px;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  background: #ddd;
+  border: 1px solid #ddd;
   border-radius: 10px;
-  background: #eaf7ff;
+`;
+export const Image = styled.img`
+  width: 100%;
 `;
 
 export const AddFile = styled.div`
@@ -52,7 +77,9 @@ export const AddUrl = styled.div`
   }
 `;
 
-export const Span = styled.span``;
+export const Span = styled.span`
+  cursor: pointer;
+`;
 
 export const InputArea = styled.div`
   margin-top: 2rem;
@@ -72,6 +99,7 @@ export const CheckBox = styled.input`
 
 export const ButtonWrap = styled.div`
   text-align: right;
+  padding-bottom: 5rem;
 `;
 
 export const Submit = styled.span`
@@ -100,3 +128,7 @@ export const Value = styled.span`
 `;
 
 export const AddAnotherOption = styled.div``;
+
+export const Butttons = styled.div`
+  text-align: right;
+`;
