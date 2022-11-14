@@ -5,7 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../../hooks/useForm";
 
 //<=== Reducer Functions ====>
-import { createId } from "../../feature/reducer/createProduct";
+import {
+  createId,
+  createInitProduct,
+  addProductFormState,
+  createProduct,
+} from "../../feature/reducer/createProduct";
 
 //<===Styled Components ====>
 import Input from "../../../Components/Shared/Form/Input";
@@ -28,22 +33,22 @@ import { PageHeader, Button } from "./Styles";
 
 import Modal from "../../Shared/Modal";
 import { productInitValidation } from "../../Validation/prductInitValid";
+import { useState } from "react";
+import Layout from "../Layout/Layout";
 
 const _id = ObjectId();
 const Product = () => {
-  const { productInit } = useSelector((state) => state.createproduct);
+  const [discount, setDiscount] = useState(0);
 
-  const {
-    formState,
-    isValidForm,
-    handleSubmit,
-    handleChange,
-    handleFocus,
-    handleBlur,
-  } = useForm({
-    init: productInit,
-    validate: productInitValidation,
-  });
+  const { productInit, productFormState, product } = useSelector(
+    (state) => state.createproduct
+  );
+
+  const { formState, isValidForm, handleChange, handleFocus, handleBlur } =
+    useForm({
+      init: productInit,
+      validate: productInitValidation,
+    });
 
   const dispatch = useDispatch();
 
@@ -51,12 +56,36 @@ const Product = () => {
     dispatch(createId(_id));
   }, [dispatch]);
 
-  const submitForm = () => {
-    alert(formState.name.value);
+  const { name, price, short_desc } = formState;
+
+  useEffect(() => {
+    dispatch(createInitProduct());
+  }, [dispatch]);
+
+  const getDiscount = (dis) => {
+    setDiscount(dis);
   };
 
-  const { name, price } = formState;
+  useEffect(() => {
+    dispatch(
+      addProductFormState({
+        product_id: product ? product._id : "",
+        name: name.value,
+        price: price.value,
+        short_desc: short_desc.value,
+        discount,
+        isValid: true,
+      })
+    );
+  }, [dispatch, price, name, short_desc, discount, product]);
 
+  const submitForm = () => {
+    if (isValidForm) {
+      dispatch(createProduct(productFormState));
+    }
+  };
+
+  console.log(isValidForm);
   return (
     <Wrapper>
       <Modal />
@@ -84,11 +113,15 @@ const Product = () => {
 
               {/* <RichTextEditor initialValue="" getValue={getValue} /> */}
               <Input
-                name="price"
+                name="short_desc"
                 type="textarea"
-                label="Description"
+                label="Short description"
                 placeHolder="Description"
                 height="100"
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+                handleFocus={handleFocus}
+                value={short_desc.value}
               />
             </Cart>
             <ProductVariations />
@@ -97,16 +130,21 @@ const Product = () => {
               handleBlur={handleBlur}
               handleFocus={handleFocus}
               value={price}
+              getDiscount={getDiscount}
             />
           </Col>
           <Col md="4">
-            <ProductStatus />
+            {/* <ProductStatus /> */}
             <ProductOrga />
           </Col>
         </Row>
         <Hr />
         <ButtonWrap>
-          <CustomButton isValid={isValidForm} disabled={!isValidForm}>
+          <CustomButton
+            isValid={isValidForm}
+            onClick={submitForm}
+            disabled={!isValidForm}
+          >
             Save
           </CustomButton>
         </ButtonWrap>
@@ -115,4 +153,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default React.memo(Product);

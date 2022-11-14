@@ -17,6 +17,7 @@ const Pricing = ({
   value,
   handleFocus,
   handleBlur,
+  getDiscount,
 }) => {
   const [discount, setDiscount] = useState(0);
 
@@ -44,6 +45,10 @@ const Pricing = ({
     }
   }, [isChecked]);
   const discountedAmount = percentageOfNumber(value.value, salePrice, discount);
+
+  useEffect(() => {
+    getDiscount(validDiscount);
+  }, [validDiscount, getDiscount]);
 
   return (
     <Cart>

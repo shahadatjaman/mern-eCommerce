@@ -131,3 +131,31 @@ export const percentageOfNumber = (price, salePrice, discount) => {
 
   return 0;
 };
+
+/**
+ *
+ * @param {*} value
+ * @param {number} length
+ * @param {number} start
+ * @param {number} end
+ * @returns
+ */
+export const shortText = (value, length, start, end) => {
+  if (value.trim().length > length) {
+    const text = value.slice(start, end);
+    return text + "...";
+  } else {
+    return value;
+  }
+};
+
+export const isEmptyArray = (arr) => {
+  return arr.length > 0;
+};
+
+export const randomId = () => {
+  return Math.random()
+    .toString(36)
+    .replace(/[^a-z]+/g, "")
+    .substr(2, 10);
+};

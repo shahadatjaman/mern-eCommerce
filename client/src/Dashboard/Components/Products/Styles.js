@@ -51,6 +51,12 @@ export const ImgWrapper = styled.div`
   background: #ddd;
   border: 1px solid #ddd;
   border-radius: 10px;
+  position: relative;
+  &&:hover {
+    div {
+      visibility: visible;
+    }
+  }
 `;
 export const Image = styled.img`
   width: 100%;
@@ -131,4 +137,31 @@ export const AddAnotherOption = styled.div``;
 
 export const Butttons = styled.div`
   text-align: right;
+`;
+
+export const DeleteAction = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(22, 45, 61, 0.48);
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+`;
+
+export const Delete = styled.div`
+  background: #fff;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  svg {
+    font-size: 20px;
+    color: red;
+  }
 `;

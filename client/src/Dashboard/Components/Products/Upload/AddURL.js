@@ -1,14 +1,16 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CustomButton } from "../../../Shared/Styles";
 import Input from "../../../../Components/Shared/Form/Input";
 import Modal from "../../../Shared/Modal";
 import { Butttons } from "../Styles";
-import { createFileOrOption } from "../../../feature/reducer/createProduct";
+import { createFileOrVariation } from "../../../feature/reducer/productVariation";
 
 const AddFileURL = ({ closeModal, isOpen }) => {
   const [value, setValue] = useState("");
+
+  const { product } = useSelector((state) => state.createproduct);
 
   const dispatch = useDispatch();
 
@@ -21,8 +23,8 @@ const AddFileURL = ({ closeModal, isOpen }) => {
 
   const submitHandler = (e) => {
     dispatch(
-      createFileOrOption({
-        product_id: "6335e41f3990c94f56c3ab4b",
+      createFileOrVariation({
+        product_id: product._id,
         variation_img: value,
       })
     );

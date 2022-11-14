@@ -14,6 +14,8 @@ import productSliceReducer from "../Dashboard/feature/reducer/createProduct";
 
 import priceReducer from "../Dashboard/feature/reducer/productPricing";
 
+import productVariation from "../Dashboard/feature/reducer/productVariation";
+
 export const store = configureStore({
   reducer: {
     wishList: wishListReducer,
@@ -23,6 +25,7 @@ export const store = configureStore({
     user: userReducer,
     createproduct: productSliceReducer,
     pricing: priceReducer,
+    variation: productVariation,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

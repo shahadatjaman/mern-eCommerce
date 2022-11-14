@@ -5,16 +5,26 @@ const Tag = require("../../models/Vendor/Product/Tag");
 const ShareLinks = require("../../models/Vendor/Product/Share_link");
 const ProductVariation = require("../../models/Vendor/Product/Products_variations");
 const VariationOption = require("../../models/Vendor/Product/Product_variations_options");
+const Product_variations_options = require("../../models/Vendor/Product/Product_variations_options");
 module.exports = {
   // Create initial product
   async createEmptyProduct(req, res) {
     const { _id } = req.user;
 
+    await Product.findOneAndDelete({ isValid: false });
+
     const newProduct = new Product({
       user_id: _id,
       name: "_",
+      price: 0.0,
       short_desc: "_",
       long_desc: "_",
+      product_status: "_",
+      product_type: "_",
+      category_name: "_",
+      category_id: "_",
+      discount: 0.0,
+      isValid: false,
       createdAt: newTime(),
       updatedAt: newTime(),
     });
@@ -28,7 +38,6 @@ module.exports = {
   },
   // New Product creation
   async createProduct(req, res) {
-    const { _id } = req.user;
     const { product_id } = req.body;
 
     const product = await Product.findByIdAndUpdate(
@@ -46,32 +55,35 @@ module.exports = {
   },
   // Porduct category
   async createCategories(req, res) {
-    let { product_id, category_name } = req.body;
+    let { category_name } = req.body;
 
-    let product = await Product.findById(product_id);
+    const categoriesName = await Categories.findOne({ category_name });
 
-    if (product) {
-      const newCategory = new Categories({
-        product_id: product_id,
-        category_name,
-      });
-
-      const category = await newCategory.save();
-
-      await Product.findOneAndUpdate(
-        { _id: product_id },
-        { categories_id: category._id },
-        { new: true }
-      );
-      return res.status(200).json({
-        message: "Product category created successfully",
-        category,
-      });
-    } else {
+    if (categoriesName) {
       return res.status(400).json({
-        message: "Invalid product",
+        message: "Categories name is already used!",
       });
     }
+
+    const newCategory = new Categories({
+      category_name,
+    });
+
+    const category = await newCategory.save();
+
+    return res.status(200).json({
+      message: "Product category created successfully",
+      category,
+    });
+  },
+  // Get category
+  async getCategories(req, res) {
+    const category = await Categories.find();
+
+    res.status(200).json({
+      message: "Categories",
+      category,
+    });
   },
   // Product tag
   async createTag(req, res) {
@@ -89,6 +101,28 @@ module.exports = {
       tag,
     });
   },
+  async removeTag(req, res) {
+    const { tag_id } = req.body;
+    if (!tag_id) {
+      return res.status(400).json({
+        error: "tag_id is required!",
+      });
+    }
+
+    const isvalid = isValidID({ product_id: tag_id });
+
+    if (!isvalid) {
+      return res.status(400).json({
+        error: "Tag id must be valid!",
+      });
+    }
+    const removedTag = await Tag.findByIdAndDelete({ _id: tag_id });
+
+    res.status(200).json({
+      message: "Tag successfuly deleted!",
+      removedTag,
+    });
+  },
   // Product variation
   async productVariations(req, res) {
     let { product_id, variation_img } = req.body;
@@ -103,6 +137,33 @@ module.exports = {
     res.status(200).json({
       message: "Product variants saved successfully",
       variation,
+    });
+  },
+  // Remove variants
+  async removeVariation(req, res) {
+    const { variation_id } = req.body;
+
+    const isvalid = isValidID({ product_id: variation_id });
+
+    if (!isvalid) {
+      return res.status(400).json({
+        error: "Variation id must be valid!",
+      });
+    }
+
+    const removedVariation = await ProductVariation.findByIdAndDelete({
+      _id: variation_id,
+    });
+
+    const removedVariationOptions =
+      await Product_variations_options.findOneAndDelete({
+        product_variations_id: variation_id,
+      });
+
+    return res.status(200).json({
+      message: "Product variant deleted!",
+      removedVariation,
+      removedVariationOptions,
     });
   },
   // Product variants options

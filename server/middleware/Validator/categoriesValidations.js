@@ -5,10 +5,6 @@ const categoreisValidator = [
     .isLength({ min: 1 })
     .withMessage("Product categiry name is required!")
     .trim(),
-  check("product_id")
-    .isMongoId()
-    .withMessage("Product id should be valid!")
-    .trim(),
 ];
 
 const categoriesValidatorHandler = (req, res, next) => {

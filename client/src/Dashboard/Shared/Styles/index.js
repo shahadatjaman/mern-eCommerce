@@ -55,7 +55,7 @@ export const Span = styled.span`
 
 export const Button = styled.div`
   color: #fff;
-  background: #116dff;
+  background: ${(props) => (props.bg ? props.bg : "#116dff")};
   height: 2.2rem;
   display: flex;
   justify-content: center;

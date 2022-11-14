@@ -13,10 +13,10 @@ const productValidator = [
     .isLength({ min: 1 })
     .withMessage("short_desc is required!")
     .trim(),
-  check("long_desc")
-    .isLength({ min: 1 })
-    .withMessage("long_desc is required!")
-    .trim(),
+  // check("long_desc")
+  //   .isLength({ min: 1 })
+  //   .withMessage("long_desc is required!")
+  //   .trim(),
 ];
 
 const productValidatorHandler = (req, res, next) => {

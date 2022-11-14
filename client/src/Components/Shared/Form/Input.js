@@ -5,6 +5,7 @@ import {
   Label,
   Name,
   P,
+  Searched,
   Span,
 } from "./Styles";
 
@@ -27,20 +28,30 @@ const Input = ({
   autoFocus,
   width,
   mb = 1,
+  radius,
   currency = false,
   parsent = false,
   disabled = false,
+  search = false,
 }) => {
   return (
     <>
       <InputGroup mb={mb} width={width}>
         <Name>{label}</Name>
         <InputWrapper>
+          {search && (
+            <Searched>
+              <i className="fa-solid fa-magnifying-glass"></i>
+            </Searched>
+          )}
+
           <InputField
             mb={mb}
             name={name}
             autoFocus={autoFocus}
             height={height}
+            radius={radius}
+            search={search}
             type={type}
             disabled={disabled}
             value={value}

@@ -19,7 +19,7 @@ import Img from "./Img";
 const Media = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { files, loading } = useSelector((state) => state.createproduct);
+  const { files, loading } = useSelector((state) => state.variation);
 
   const openModal = () => {
     setIsOpen(true);

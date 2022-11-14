@@ -1,41 +1,13 @@
 import React from "react";
 
-import { useNavigate } from "react-router-dom";
-import {
-  ActionBar,
-  HeaderTitle,
-  PageHeaderContainer,
-  Plus,
-  ProducrWrapper,
-  //Wrapper,
-} from "./Styles";
-import { Title, Span, Button, Wrapper } from "../../Shared/Styles";
+import { Wrapper } from "../../Shared/Styles";
+import Header from "./Header";
+import Table from "./Table";
 
 const Collection = () => {
-  const navigate = useNavigate();
-
-  const navigateHandler = () => {
-    navigate("/dashboard/shahadat/newproduct");
-  };
-
   return (
     <Wrapper>
-      <ProducrWrapper>
-        <PageHeaderContainer>
-          <HeaderTitle>
-            <Title>
-              Product
-              <Span>3</Span>
-            </Title>
-          </HeaderTitle>
-          <ActionBar>
-            <Button onClick={navigateHandler}>
-              <Plus>+</Plus>
-              New Product
-            </Button>
-          </ActionBar>
-        </PageHeaderContainer>
-      </ProducrWrapper>
+      <Header />
     </Wrapper>
   );
 };

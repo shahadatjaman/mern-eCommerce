@@ -45,15 +45,16 @@ export const Name = styled.label`
 
 export const InputField = styled(Input)`
   background-color: transparent;
-  border: 1px solid ${(props) => (props.error ? "red" : "#c1e4fe")} !important;
+  border: 1px solid ${(props) => (props.error ? "red" : "#221ecd29")} !important;
   color: #333;
   font-size: 14px;
-  //height: 45px;
+  border-radius: ${(props) => (props.radius ? props.radius : ".375")}rem;
   width: 100%;
   height: ${(props) => (props.height ? props.height : 45)}px !important;
   font-weight: 500;
-  padding: ${(props) =>
-    props.height ? "17px 20px" : "0px 15px"}px !important ;
+  /* padding: ${(props) =>
+    props.height ? "17px 20px" : "0px 15px"}px !important ; */
+  padding-left: ${(props) => props.search && "3.4"}rem;
   &&:focus {
     box-shadow: none !important;
   }
@@ -99,3 +100,19 @@ export const P = styled.p`
 `;
 
 export const TextArea = styled.div``;
+
+export const Searched = styled.div`
+  position: absolute;
+  width: 20%;
+  background: #fff;
+  top: 5%;
+  left: 2%;
+  height: 92%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4rem 1px 1px 4rem;
+  i {
+    color: #221ecd;
+  }
+`;

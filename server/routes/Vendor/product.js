@@ -8,6 +8,9 @@ const {
   deleteProduct,
   createProduct,
   productVariationsOptions,
+  getCategories,
+  removeTag,
+  removeVariation,
 } = require("../../controller/Vendor/product");
 
 // Authentication checks middleware
@@ -75,8 +78,14 @@ router.post(
   createCategories
 );
 
+// Get categories
+router.get("/getcategories", checkVendor, getCategories);
+
 // Create a product tag
 router.post("/createtag", tagValidator, tagValidatorHandler, createTag);
+
+// Remove tag
+router.post("/romvetag", checkVendor, removeTag);
 
 // Create share_link
 router.post(
@@ -95,6 +104,9 @@ router.post(
   variationValidatorHandler,
   productVariations
 );
+
+// Remove variation
+router.post("/removevariation", checkVendor, removeVariation);
 
 // Product variation Options
 router.post(

@@ -11,6 +11,7 @@ export const SelectInput = styled.select`
   box-shadow: none !important;
   background: transparent;
   -webkit-appearance: none;
+  border-radius: 0.375rem;
   &&:focus {
     border-color: #2a6dc9 !important;
     box-shadow: none !important;

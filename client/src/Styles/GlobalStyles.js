@@ -173,4 +173,16 @@ ul.mb-3.nav.nav-tabs {
    // background: #f1f2f3;
     color: #000;
 }
+
+.pretty .state label:before {
+    border-color: #221ecd;
+    border-radius: 5px;
+    transition: all 0.5s;
+}
+
+.pretty.p-default input:checked~.state label:after {
+    background-color: #221ecd!important;
+    border-radius: 5px;
+    transition: all 0.5s;
+}
 `;
