@@ -7,7 +7,7 @@ export const SelectInput = styled.select`
   padding: 0 50px 0 15px;
   cursor: pointer;
   color: #242424;
-  border: 1px solid ${(props) => (props.error ? "red" : "#c1e4fe")} !important;
+  border: 1px solid ${(props) => (props.isError ? "red" : "#221ecd29")} !important;
   box-shadow: none !important;
   background: transparent;
   -webkit-appearance: none;

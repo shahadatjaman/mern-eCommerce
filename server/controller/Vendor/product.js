@@ -6,6 +6,9 @@ const ShareLinks = require("../../models/Vendor/Product/Share_link");
 const ProductVariation = require("../../models/Vendor/Product/Products_variations");
 const VariationOption = require("../../models/Vendor/Product/Product_variations_options");
 const Product_variations_options = require("../../models/Vendor/Product/Product_variations_options");
+const Discount = require("../../models/Vendor/Product/Discount");
+const ProductInventory = require("../../models/Vendor/Product/Product_inventory");
+
 module.exports = {
   // Create initial product
   async createEmptyProduct(req, res) {
@@ -21,9 +24,8 @@ module.exports = {
       long_desc: "_",
       product_status: "_",
       product_type: "_",
-      category_name: "_",
+      SKU: "_",
       category_id: "_",
-      discount: 0.0,
       isValid: false,
       createdAt: newTime(),
       updatedAt: newTime(),
@@ -201,18 +203,143 @@ module.exports = {
 
   // Delete Oparation
   async deleteProduct(req, res) {
-    const { product_id, product_variations_id } = req.body;
+    const { product_id } = req.params;
+
+    const isvalid = isValidID({ product_id });
+    if (!isvalid) {
+      return res.status(400).json({
+        error: "Product ID not valid",
+      });
+    }
 
     await Categories.deleteMany({ product_id: { $in: [product_id] } });
     await Tag.deleteMany({ product_id: { $in: [product_id] } });
     await ShareLinks.deleteMany({ product_id: { $in: [product_id] } });
     await ProductVariation.deleteMany({ product_id: { $in: [product_id] } });
+    await Discount.deleteMany({ product_id: { $in: [product_id] } });
     await VariationOption.deleteMany({
-      product_variations_id: { $in: [product_variations_id] },
+      product_id: { $in: [product_id] },
     });
+    await ProductInventory.deleteMany({ product_id: { $in: [product_id] } });
 
     res.status(200).json({
       message: "Deleted product successfully",
+    });
+  },
+
+  // Create Discount
+  async createDiscount(req, res) {
+    const { product_id } = req.params;
+    const { discount_percent } = req.body;
+    console.log(product_id);
+    const newDiscount = new Discount({
+      product_id,
+      discount_percent,
+      active: true,
+      createdAt: newTime(),
+      updatedAt: newTime(),
+    });
+
+    const discount = await newDiscount.save();
+
+    res.status(200).json({
+      message: "Product discount created successfully",
+      discount,
+    });
+  },
+
+  // Create product inventory
+  async inventory(req, res) {
+    const { product_id } = req.params;
+
+    const isvalid = isValidID({ product_id });
+
+    if (!isvalid) {
+      return res.status(400).json({
+        error: "Product ID is not valid",
+      });
+    }
+
+    const existedInventory = await ProductInventory.find({
+      product_id: product_id,
+    });
+
+    if (existedInventory.length > 0) {
+      const updatedInventory = await ProductInventory.findOneAndUpdate(
+        { product_id: product_id },
+        req.body,
+        {
+          new: true,
+        }
+      );
+
+      return res.status(200).json({ inventory: updatedInventory });
+    }
+
+    const { quantity, weight } = req.body;
+
+    const newInventory = new ProductInventory({
+      product_id,
+      quantity,
+      weight,
+      createdAt: newTime(),
+      updatedAt: newTime(),
+    });
+
+    const inventory = await newInventory.save();
+
+    res.status(200).json({
+      message: "Product Inventory successfuly created!",
+      inventory,
+    });
+  },
+
+  // Get all products
+  async getProducts(req, res) {
+    const { _id } = req.user;
+
+    const products = await Product.find({ user_id: _id, isValid: true });
+
+    res.status(200).json({
+      products,
+    });
+  },
+
+  // Get inventories
+  async getInventory(req, res) {
+    const { product_id } = req.params;
+
+    const isValid = isValidID({ product_id });
+
+    if (!isValid) {
+      return res.status(400).json({
+        message: "Product ID is not valid!",
+      });
+    }
+
+    const inventory = await ProductInventory.find({ product_id });
+
+    return res.status(200).json({
+      inventory,
+    });
+  },
+
+  // Get Product discount
+  async getDiscount(req, res) {
+    const { product_id } = req.params;
+
+    const isValid = isValidID({ product_id });
+
+    if (!isValid) {
+      return res.status(400).json({
+        message: "Product ID is not valid!",
+      });
+    }
+
+    const discount = await Discount.find({ product_id: product_id });
+
+    return res.status(200).json({
+      discount,
     });
   },
 };

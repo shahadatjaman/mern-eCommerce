@@ -31,6 +31,8 @@ h6,
 p,
 span,a{
     font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 .pretty.p-switch input:checked~.state label:after {

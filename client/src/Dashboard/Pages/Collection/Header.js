@@ -16,9 +16,12 @@ import {
 import { Button } from "../../Shared/Styles";
 import Query from "./Query";
 import Table from "./Table";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const navigate = useNavigate();
+
+  const { products } = useSelector((state) => state.getProducts);
 
   const navigateHandler = () => {
     navigate("/dashboard/shahadat/newproduct");
@@ -30,7 +33,7 @@ const Header = () => {
           <i className="fa-solid fa-bars"></i>
         </Icon>
         <Text>All Products</Text>
-        <Amount>5</Amount>
+        <Amount>{products.length}</Amount>
       </Menu>
       <ProducrWrapper>
         <PageHeaderContainer>

@@ -16,7 +16,7 @@ import {
 
 const Input = ({
   error,
-  label,
+  label = false,
   name,
   height,
   type,
@@ -33,14 +33,17 @@ const Input = ({
   parsent = false,
   disabled = false,
   search = false,
+  weight = false,
+  searchWidth,
 }) => {
   return (
     <>
       <InputGroup mb={mb} width={width}>
-        <Name>{label}</Name>
+        {label && <Name>{label}</Name>}
+
         <InputWrapper>
           {search && (
-            <Searched>
+            <Searched searchWidth={searchWidth}>
               <i className="fa-solid fa-magnifying-glass"></i>
             </Searched>
           )}
@@ -65,6 +68,11 @@ const Input = ({
           {currency && (
             <Label disabled={disabled}>
               <Span>৳</Span>
+            </Label>
+          )}
+          {weight && (
+            <Label disabled={disabled}>
+              <Span>kg</Span>
             </Label>
           )}
           {parsent && (

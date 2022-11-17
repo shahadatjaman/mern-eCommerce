@@ -27,7 +27,8 @@ const productSchema = new Schema({
     required: true,
     trim: true,
   },
-  category_name: {
+
+  SKU: {
     type: String,
     required: true,
     trim: true,
@@ -37,10 +38,7 @@ const productSchema = new Schema({
     required: true,
     trim: true,
   },
-  discount: {
-    type: Decimal128,
-    trim: true,
-  },
+
   category_id: {
     type: String,
     required: true,

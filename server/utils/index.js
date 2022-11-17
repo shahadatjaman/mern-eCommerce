@@ -18,4 +18,11 @@ module.exports = {
       return ObjectId.isValid(product_id);
     }
   },
+
+  requiremnet() {
+    return {
+      required: true,
+      trim: true,
+    };
+  },
 };

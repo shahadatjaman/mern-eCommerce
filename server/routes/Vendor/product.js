@@ -11,6 +11,11 @@ const {
   getCategories,
   removeTag,
   removeVariation,
+  createDiscount,
+  inventory,
+  getProducts,
+  getInventory,
+  getDiscount,
 } = require("../../controller/Vendor/product");
 
 // Authentication checks middleware
@@ -50,6 +55,18 @@ const {
   variationOptionsValidator,
   variationOptionsValidatorHandler,
 } = require("../../middleware/Validator/variationOptions");
+
+// Discount Validation middleware
+const {
+  discountValidatorHandler,
+  discountValidation,
+} = require("../../middleware/Validator/discountValidations");
+
+// Qunatity validation middleware
+const {
+  quantityValidation,
+  quantityValidatorHandler,
+} = require("../../middleware/Validator/invantoryValidation");
 
 // Delete product
 const {
@@ -117,12 +134,40 @@ router.post(
   productVariationsOptions
 );
 
-// Delete a product
+// Create a new discount
 router.post(
-  "/deleteproduct",
+  "/creatediscount/:product_id",
+  checkVendor,
+  discountValidation,
+  discountValidatorHandler,
+  createDiscount
+);
+
+// Create a inventory
+router.post(
+  "/inventory/:product_id",
+  checkVendor,
+  quantityValidation,
+  quantityValidatorHandler,
+  inventory
+);
+
+// Delete a product
+router.delete(
+  "/deleteproduct/:product_id",
   checkVendor,
   delProductValidator,
   delPorductValidatorHandler,
   deleteProduct
 );
+
+// get products
+router.get("/getproducts", checkVendor, getProducts);
+
+// Get inventory
+router.get("/getinventory/:product_id", checkVendor, getInventory);
+
+// Get product discount
+router.get("/getdiscount/:product_id", checkVendor, getDiscount);
+
 module.exports = router;

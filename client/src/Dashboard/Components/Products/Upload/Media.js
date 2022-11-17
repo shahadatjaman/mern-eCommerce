@@ -49,7 +49,6 @@ const Media = () => {
   });
   // How to send API call before page reload or close using ReactJS
 
-  console.log(files);
   return (
     <MediaWrapper isEmpty={files.length < 0}>
       <Actions>

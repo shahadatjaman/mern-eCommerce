@@ -24,21 +24,26 @@ import { Col, Container, Row } from "reactstrap";
 import { ObjectId } from "../../../utils";
 import Pricing from "../../Components/Products/Pricing/Pricing";
 import ProductOrga from "../../Components/Products/Category/ProductOrga";
-import ProductStatus from "../../Components/Products/Status/ProductStatus";
 import ProductVariations from "../../Components/Products/Attribute/ProductVariations";
 import Back from "../../Shared/Backbutton/Back";
 import { Cart, CustomButton, H3, Hr, Wrapper } from "../../Shared/Styles";
 //import RichTextEditor from "../../Components/Products/Descriptions/Editor";
-import { PageHeader, Button } from "./Styles";
+import { PageHeader, Save } from "./Styles";
 
 import Modal from "../../Shared/Modal";
 import { productInitValidation } from "../../Validation/prductInitValid";
 import { useState } from "react";
-import Layout from "../Layout/Layout";
+import Inventory from "../../Components/Products/Inventory";
+import { createInventory } from "../../feature/reducer/inventory";
+import Button from "../../../Components/Shared/Form/Button";
+import { createProductDiscount } from "../../feature/reducer/productPricing";
 
 const _id = ObjectId();
 const Product = () => {
   const [discount, setDiscount] = useState(0);
+  const [status, setStatus] = useState("");
+  const [sku, setSku] = useState("");
+  const [weight, setWeight] = useState(0.0);
 
   const { productInit, productFormState, product } = useSelector(
     (state) => state.createproduct
@@ -65,6 +70,15 @@ const Product = () => {
   const getDiscount = (dis) => {
     setDiscount(dis);
   };
+  const getStatus = (sta) => {
+    setStatus(sta);
+  };
+  const getSku = (SKU) => {
+    setSku(SKU);
+  };
+  const getWeight = (WEIGHT) => {
+    setWeight(WEIGHT);
+  };
 
   useEffect(() => {
     dispatch(
@@ -73,23 +87,41 @@ const Product = () => {
         name: name.value,
         price: price.value,
         short_desc: short_desc.value,
-        discount,
         isValid: true,
+        SKU: sku,
       })
     );
-  }, [dispatch, price, name, short_desc, discount, product]);
+  }, [dispatch, price, name, short_desc, product, sku]);
 
   const submitForm = () => {
     if (isValidForm) {
       dispatch(createProduct(productFormState));
     }
+
+    if (status.trim().length !== 0) {
+      const values = {
+        quantity: status,
+        weight,
+      };
+      dispatch(createInventory({ values, product_id: product._id }));
+    }
+
+    if (discount > 0) {
+      const values = {
+        discount_percent: discount,
+      };
+      dispatch(
+        createProductDiscount({
+          values,
+          product_id: product._id,
+        })
+      );
+    }
   };
 
-  console.log(isValidForm);
   return (
     <Wrapper>
       <Modal />
-
       <Container className="p-0">
         <PageHeader>
           <Back />
@@ -132,6 +164,11 @@ const Product = () => {
               value={price}
               getDiscount={getDiscount}
             />
+            <Inventory
+              getStatus={getStatus}
+              getSku={getSku}
+              getWeight={getWeight}
+            />
           </Col>
           <Col md="4">
             {/* <ProductStatus /> */}
@@ -140,13 +177,30 @@ const Product = () => {
         </Row>
         <Hr />
         <ButtonWrap>
-          <CustomButton
+          {/* <Button
             isValid={isValidForm}
             onClick={submitForm}
-            disabled={!isValidForm}
+            //   disabled={isValidForm}
+            color={"red"}
+            height="45"
+            width="10"
+            text="Save"
+            activeColor="#221ecd"
+            radius="10"
+          /> */}
+          <Save
+            onClick={submitForm}
+            isValid={isValidForm}
+            disabled={!isValidForm ? true : false}
+            color={"red"}
+            height="45"
+            width="10"
+            text="Save"
+            activeColor="#221ecd"
+            radius="10"
           >
             Save
-          </CustomButton>
+          </Save>
         </ButtonWrap>
       </Container>
     </Wrapper>

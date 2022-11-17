@@ -150,7 +150,7 @@ export const shortText = (value, length, start, end) => {
 };
 
 export const isEmptyArray = (arr) => {
-  return arr.length > 0;
+  return arr.length === 0;
 };
 
 export const randomId = () => {
@@ -158,4 +158,11 @@ export const randomId = () => {
     .toString(36)
     .replace(/[^a-z]+/g, "")
     .substr(2, 10);
+};
+
+export const arrayToObject = (arr) => {
+  var mapped = arr.map((item) => ({ [item.key]: item.value }));
+
+  var newObj = Object.assign({}, ...mapped);
+  return newObj;
 };

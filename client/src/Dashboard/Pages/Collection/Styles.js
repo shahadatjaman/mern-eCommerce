@@ -24,7 +24,10 @@ export const Plus = styled.span`
   font-weight: 400;
 `;
 
-export const HeaderWrapper = styled.div``;
+export const HeaderWrapper = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+`;
 
 export const Menu = styled.div`
   background: #fff;

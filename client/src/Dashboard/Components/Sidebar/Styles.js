@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 export const Wrapper = styled.div`
   background: #f0f4f7;
   height: 100vh;
-  margin-top: 4rem;
+  margin-top: 3rem;
 `;
 export const SidebarWrape = styled.div`
   color: #000;

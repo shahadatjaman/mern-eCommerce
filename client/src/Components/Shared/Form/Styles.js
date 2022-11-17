@@ -13,7 +13,7 @@ export const Label = styled.label`
   position: absolute;
   right: 0;
   bottom: -8px;
-  background: ${(props) => (props.disabled ? "#e9ecef" : "#eaf7ff")};
+  background: ${(props) => (props.disabled ? "#e9ecef" : "#221ecd0f")};
   width: 75px;
   height: 100%;
   border-radius: 0px 6px 5px 0px;
@@ -22,13 +22,13 @@ export const Label = styled.label`
   justify-content: center;
   align-items: center;
   span {
-    background: ${(props) => (props.disabled ? "#e9ecef" : "#3899ec")};
+    background: ${(props) => (props.disabled ? "#e9ecef" : "#221ecd")};
     color: ${(props) => (props.disabled ? "#5f5858" : "#fff")};
   }
 `;
 
 export const Span = styled.span`
-  padding: 4px 8px;
+  padding: 4px 15px;
   margin-left: ${(props) => (props.ml ? props.ml : "8")}px;
   display: inline-block;
   border-radius: 8px;
@@ -71,18 +71,19 @@ export const Btn = styled.button`
   font-weight: 600;
   transition: all 0.3s ease 0s;
   text-transform: uppercase;
-  color: ${(props) => (props.color ? props.color : "#5e5c5c")};
+  color: ${(props) => (props.isValid ? "#fff" : "#5e5c5c")};
   border: none;
   width: ${(props) => props.width && props.width}%;
   height: ${(props) => props.height && props.height}px;
   border-radius: ${(props) => props.radius}px;
   margin-top: 1rem;
-  background: ${(props) => props.activeColor};
-  &&:hover {
-    background: ${(props) =>
-      props.hoverColor ? props.hoverColor : props.activeColor};
-    color: ${(props) => (props.is ? "#fff" : "#fff")};
-  }
+  background: ${(props) => (props.isValid ? props.activeColor : "#fff")};
+
+  /* &&:hover {
+    background: ${(props) => props.isValid && props.hoverColor};
+  } */
+
+  cursor: ${(props) => props.isValid && "pointer"};
 `;
 export const InputGroup = styled.div`
   margin-bottom: ${(props) => props.mb && props.mb}rem;
@@ -103,7 +104,7 @@ export const TextArea = styled.div``;
 
 export const Searched = styled.div`
   position: absolute;
-  width: 20%;
+  width: ${(props) => (props.searchWidth ? props.searchWidth : 20)}%;
   background: #fff;
   top: 5%;
   left: 2%;

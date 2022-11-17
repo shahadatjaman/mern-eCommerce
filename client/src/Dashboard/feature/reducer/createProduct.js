@@ -164,6 +164,7 @@ export const productSlice = createSlice({
     [createInitProduct.fulfilled]: (state, { payload }) => {
       state.loading = false;
       state.product = payload.product;
+      console.log(payload);
     },
     [createInitProduct.rejected]: (state) => {
       state.loading = false;

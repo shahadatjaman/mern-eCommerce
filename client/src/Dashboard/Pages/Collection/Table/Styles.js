@@ -34,8 +34,8 @@ export const StatusWrapper = styled.div`
 `;
 
 export const Status = styled.div`
-  background: #def1dd;
-  color: #389f38;
+  background: ${(props) => (props.draft ? "#ff000040" : "#def1dd")};
+  color: ${(props) => (props.draft ? "#ff0000c7" : "#389f38")};
   display: flex;
   align-items: center;
   padding: 4px 8px;
@@ -45,7 +45,7 @@ export const Status = styled.div`
 export const Circle = styled.div`
   width: 10px;
   height: 10px;
-  background: #389f38;
+  background: ${(props) => (props.draft ? "red" : "#389f38")};
   border-radius: 50%;
   margin-right: 0.4rem;
 `;
