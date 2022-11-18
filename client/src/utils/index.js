@@ -166,3 +166,9 @@ export const arrayToObject = (arr) => {
   var newObj = Object.assign({}, ...mapped);
   return newObj;
 };
+
+export const getSalePrice = ({ price, discount }) => {
+  const amount = (discount / 100) * price;
+
+  return price - amount;
+};

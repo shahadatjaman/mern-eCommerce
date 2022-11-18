@@ -66,3 +66,11 @@ export const Actions = styled.div`
     cursor: pointer;
   }
 `;
+
+export const SalePrice = styled.span`
+  display: block;
+`;
+
+export const OldPrice = styled.span`
+  text-decoration: line-through;
+`;

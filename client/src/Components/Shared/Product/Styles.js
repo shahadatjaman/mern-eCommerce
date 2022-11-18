@@ -30,10 +30,6 @@ export const Image = styled.img`
 
 export const ProductContent = styled.div`
   margin: 20px 0 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
 `;
 
 export const ImgLink = styled(Link)``;
@@ -67,12 +63,13 @@ export const Action = styled.button`
   cursor: pointer;
   font-size: 16px;
   line-height: 48px;
+  font-weight: 600;
   color: #fff;
   &:hover {
-    background: #000;
-    color: #fff;
+    background: #fff;
+    color: #000;
     i {
-      color: #fff;
+      color: #000;
     }
   }
 `;
@@ -108,4 +105,44 @@ export const Old = styled.span`
   font-size: 16px;
   color: #000;
   font-weight: 500;
+`;
+
+export const ColorWrapper = styled.div`
+  margin: 1rem 0;
+  display: flex;
+`;
+
+export const Color = styled.div`
+  margin-right: 1rem;
+  border: ${(props) => props.active && `1px solid #221ecd`};
+  border-radius: 50%;
+  padding: 3px;
+`;
+
+export const MainColor = styled.div`
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: ${(props) => props.bg && props.bg};
+`;
+
+export const SizeWrapper = styled.div`
+  margin: 1rem 0;
+  display: flex;
+`;
+
+export const Size = styled.div`
+  margin-right: 1rem;
+`;
+
+export const MainSize = styled.div`
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: ${(props) => (props.active ? `#221ecd` : "#ddd")};
+  color: ${(props) => (props.active ? `#fff` : "#000")};
+  font-weight: 600;
+  border-radius: 5px;
 `;

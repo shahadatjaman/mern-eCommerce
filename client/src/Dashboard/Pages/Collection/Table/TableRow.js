@@ -3,17 +3,28 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { arrayToObject, isEmptyArray, shortText } from "../../../../utils";
+import {
+  arrayToObject,
+  getSalePrice,
+  isEmptyArray,
+  isEmptyObject,
+  shortText,
+} from "../../../../utils";
 import { getInventories } from "../../../feature/reducer/inventory";
 import Poper from "../Poper";
 import { ImageWrapper, Img } from "../Styles";
 
-import { addSelectedProductInfo } from "../../../feature/reducer/products";
+import {
+  addSelectedProductInfo,
+  getDiscount,
+} from "../../../feature/reducer/products";
 
 import {
   Actions,
   Circle,
   Name,
+  OldPrice,
+  SalePrice,
   Status,
   StatusWrapper,
   TableRow,
@@ -25,10 +36,12 @@ const img =
 
 const TRow = ({ product }) => {
   const [inventories, setInventories] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
+  const [salePrice, setSalePrice] = useState(0);
 
   const dispatch = useDispatch();
-  const { selectedProductInfo } = useSelector((state) => state.getProducts);
+  const { selectedProductInfo, discount } = useSelector(
+    (state) => state.getProducts
+  );
 
   const { inventory } = useSelector((state) => state.inventory);
 
@@ -50,6 +63,20 @@ const TRow = ({ product }) => {
       setInventories(obj);
     }
   }, [inventory]);
+
+  useEffect(() => {
+    dispatch(getDiscount(product._id));
+  }, [dispatch, product]);
+
+  useEffect(() => {
+    if (discount && !isEmptyObject(discount)) {
+      const getprice = getSalePrice({
+        price: product.price.$numberDecimal,
+        discount: Math.floor(discount.discount_percent.$numberDecimal),
+      });
+      setSalePrice(getprice);
+    }
+  }, [discount, product]);
 
   return (
     <TableRow>
@@ -85,7 +112,10 @@ const TRow = ({ product }) => {
         <Name>{shortText(product.SKU, 15, 0, 15)}</Name>
       </Td>
       <Td width="200">
-        <Name> {product.price.$numberDecimal} $</Name>
+        <Name>
+          <SalePrice>{salePrice > 0 && salePrice} $</SalePrice>
+          <OldPrice>{product.price.$numberDecimal} $</OldPrice>
+        </Name>
       </Td>
       <Td>
         <Name>{inventories && inventories.quantity}</Name>

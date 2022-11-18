@@ -98,7 +98,7 @@ const ProducrColor = () => {
                     style={{
                       border:
                         isActiveColor === color.color.hex &&
-                        "4px solid #ee3d43",
+                        "4px solid #221ecd",
                     }}
                     onClick={() => changeColorHandler(color.color)}
                   >

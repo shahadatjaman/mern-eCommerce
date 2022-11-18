@@ -2,15 +2,19 @@ import { useDispatch } from "react-redux";
 
 import {
   Action,
+  Color,
+  ColorWrapper,
   Icon,
   Image,
   ImgLink,
+  MainColor,
   Old,
   Price,
   ProductAction,
   ProductContent,
   ProductImage,
   ProductWrap,
+  SizeWrapper,
   Span,
   Title,
 } from "./Styles";
@@ -22,6 +26,8 @@ import { useState } from "react";
 import { wistList } from "../../../feature/reducer/wishList/";
 
 import ProductRatting from "../Ratting";
+import ColorVariation from "./Color";
+import SizeVariation from "./Size";
 
 const Product = ({ product }) => {
   const [isHovere, setHover] = useState(false);
@@ -63,11 +69,24 @@ const Product = ({ product }) => {
       </ProductImage>
       <ProductContent>
         <Title>Lorem ipsum fashion jacket</Title>
-        <ProductRatting />
+        {/* <ProductRatting /> */}
         <Price>
           <Span>${product.pricing.current_price} - </Span>
           <Old>${product.pricing.old_price}</Old>
         </Price>
+        {/* Color Variations */}
+        <ColorWrapper>
+          <ColorVariation bg="red" />
+          <ColorVariation bg="green" />
+          <ColorVariation bg="blue" active="true" />
+          <ColorVariation bg="black" />
+        </ColorWrapper>
+
+        {/* Size Variations */}
+        <SizeWrapper>
+          <SizeVariation size={"X"} />
+          <SizeVariation size={"X"} active="true" />
+        </SizeWrapper>
       </ProductContent>
     </ProductWrap>
   );
