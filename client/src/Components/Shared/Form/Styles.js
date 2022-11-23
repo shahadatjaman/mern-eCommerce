@@ -44,9 +44,8 @@ export const Name = styled.label`
 `;
 
 export const InputField = styled(Input)`
-  background-color: transparent;
   border: 1px solid ${(props) => (props.error ? "red" : "#221ecd29")} !important;
-  color: #333;
+  color: ${(props) => (props.bg ? "#fff" : "#333")};
   font-size: 14px;
   border-radius: ${(props) => (props.radius ? props.radius : ".375")}rem;
   width: 100%;
@@ -57,8 +56,9 @@ export const InputField = styled(Input)`
   padding-left: ${(props) => props.search && "3.4"}rem;
   &&:focus {
     box-shadow: none !important;
+    color: ${(props) => (props.bg ? "#fff" : "#333")} !important;
   }
-
+  background: ${(props) => (props.bg ? props.bg : "transparent")};
   margin-bottom: ${(props) => props.mb && props.mb};
 `;
 
@@ -105,15 +105,15 @@ export const TextArea = styled.div``;
 export const Searched = styled.div`
   position: absolute;
   width: ${(props) => (props.searchWidth ? props.searchWidth : 20)}%;
-  background: #fff;
+  background: ${(props) => (props.bg ? props.bg : "#ff")};
   top: 5%;
-  left: 2%;
+  left: 1%;
   height: 92%;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 4rem 1px 1px 4rem;
   i {
-    color: #221ecd;
+    color: ${(props) => (props.bg ? "#fff" : "#221ecd")};
   }
 `;

@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getLocalstorage } from "../../../utils";
 
-const initialState = { files: [], loading: false };
+const initialState = { productVariations: [], loading: false };
 
 // Create product files
 export const createFileOrVariation = createAsyncThunk(
@@ -54,7 +54,7 @@ const variationSlice = createSlice({
   initialState,
   reducers: {
     removeFile: (state, { payload }) => {
-      state.files = payload;
+      state.productVariations = payload;
     },
   },
   extraReducers: {
@@ -63,7 +63,7 @@ const variationSlice = createSlice({
       state.loading = true;
     },
     [createFileOrVariation.fulfilled]: (state, { payload }) => {
-      state.files = [...state.files, payload.variation];
+      state.productVariations = [...state.productVariations, payload.variation];
     },
     [createFileOrVariation.rejected]: (state) => {
       state.loading = false;

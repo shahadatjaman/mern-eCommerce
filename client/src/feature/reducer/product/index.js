@@ -8,12 +8,6 @@ const initialState = {
   product: null,
 };
 
-// const headerOption = {
-//   headers: {
-//     "Content-Type": "application/json",
-//   },
-// };
-// Fetch products
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async () => {

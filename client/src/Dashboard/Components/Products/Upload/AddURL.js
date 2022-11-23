@@ -31,7 +31,12 @@ const AddFileURL = ({ closeModal, isOpen }) => {
   };
 
   return (
-    <Modal title="Add file from URL" isOpen={isOpen} closeModal={closeModal}>
+    <Modal
+      width="600"
+      title="Add file from URL"
+      isOpen={isOpen}
+      closeModal={closeModal}
+    >
       <Input
         placeHolder="https://example.com"
         handleChange={changeHandler}

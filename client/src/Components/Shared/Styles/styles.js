@@ -3,6 +3,7 @@ import styled from "styled-components";
 // Section Wrapper
 export const Wrapper = styled.div`
   padding: 4rem 0;
+  background: #fff;
 `;
 
 // Section Title

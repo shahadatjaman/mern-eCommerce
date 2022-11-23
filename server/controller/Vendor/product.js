@@ -141,6 +141,24 @@ module.exports = {
       variation,
     });
   },
+  // get Product variants
+  async getVariants(req, res) {
+    const { product_id } = req.params;
+
+    const isvalid = isValidID({ product_id });
+
+    if (!isvalid) {
+      return res.status(400).json({
+        error: "product_id is not a valid ID",
+      });
+    }
+
+    const variants = await ProductVariation.find({ product_id });
+
+    res.status(200).json({
+      variants,
+    });
+  },
   // Remove variants
   async removeVariation(req, res) {
     const { variation_id } = req.body;
@@ -170,17 +188,59 @@ module.exports = {
   },
   // Product variants options
   async productVariationsOptions(req, res) {
-    const { product_variations_id, variations_name, price } = req.body;
+    const { product_variations_id, variation_type, value, price } = req.body;
 
     const variationOption = new VariationOption({
-      product_variations_id,
-      variations_name,
+      product_variations_id: product_variations_id,
+      variation_type,
+      value,
       price,
     });
 
+    const createdOption = await variationOption.save();
     res.status(200).json({
       message: "Variation option successfully created",
-      variationOption,
+      createdOption,
+    });
+  },
+  // Get product variants option
+  async getOptions(req, res) {
+    const { variation_id } = req.params;
+    const isvalid = isValidID({ product_id: variation_id });
+
+    if (!isvalid) {
+      return res.status(400).json({
+        message: "variation_id is not a valid ID",
+      });
+    }
+
+    const options = await VariationOption.find({
+      product_variations_id: variation_id,
+    });
+
+    res.status(200).json({
+      options,
+    });
+  },
+  // Delete product variation option
+  async deleteOption(req, res) {
+    const { option_id } = req.params;
+
+    const isvalid = isValidID({ product_id: option_id });
+
+    if (!isvalid) {
+      return res.status(400).json({
+        message: "option_id is not a valid ID",
+      });
+    }
+
+    const deletedOption = await VariationOption.findOneAndDelete({
+      _id: option_id,
+    });
+
+    res.status(200).json({
+      message: "Product variation option successfully deleted",
+      deletedOption,
     });
   },
   // Create share link

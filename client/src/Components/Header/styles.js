@@ -1,151 +1,173 @@
 import styled from "styled-components";
 
+import { Nav, Navbar } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
 export const HeaderWrapper = styled.div`
-  background-color: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 8px 20px 0 rgb(0 0 0 / 10%);
-  position: ${(props) => props.height > 500 && "fixed"};
+  background: #fff;
+  padding: 0 1.5rem;
+  @media (max-width: 990px) {
+    padding: 0 1rem;
+  }
+  position: ${(props) => (props.isSticky ? "fixed" : "relative")};
   width: 100%;
-  z-index: 99;
-  transition: all 0.5s ease 0s;
-  top: 0;
+  z-index: 999;
+  transition: all 0.8s;
+  box-shadow: ${(props) => props.isSticky && "1px 6px 16px 1px #0000001c"};
 `;
 
-export const Header = styled.header`
-  display: flex;
-  /* align-items: center;
-  justify-content: space-between;
-  position: relative; */
+// Logo
+export const Logo = styled.span`
+  font-size: 34px;
+  font-weight: 600;
 `;
 
-// Nav LOGO
-export const Logo = styled.div`
-  width: 10%;
+export const Toggler = styled.div`
+  margin-right: 0.8rem;
+
+  @media (min-width: 1200px) {
+    display: none;
+  }
+
+  svg {
+    font-size: 22px;
+  }
+`;
+
+export const Searchpanle = styled.input`
+  /* border: 1px solid #e2e2e2 !important;
+  border-radius: 25.5px;
+  box-sizing: border-box;
+  height: 51px; */
+`;
+
+export const NavbarBrand = styled(Navbar.Brand)`
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-export const Img = styled.img`
-  width: 70px;
-`;
-
-export const H3 = styled.h3`
-  font-size: 35px;
-`;
-
-// Main Menu
-export const MainMenu = styled.div`
-  width: 68%;
-`;
-
-// Header Right
 export const HeaderRightWrapper = styled.div`
-  width: 20%;
   display: flex;
-  justify-content: end;
-  align-items: center;
+  @media (max-width: 1199px) {
+    display: none !important;
+  }
 `;
 
-// Header main Menu list
-export const Ul = styled.ul`
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const Li = styled.li`
+export const Item = styled.div`
+  margin-left: 18px;
   position: relative;
-  display: inline-block;
-  padding: 0 15px;
+
+  svg {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  span {
+    font-weight: 500;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 16.94px;
+    letter-spacing: 1%;
+  }
 `;
 
-export const Link = styled(NavLink)`
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 94px;
-  display: inline-block;
-  letter-spacing: 0.8px;
-  color: #555252;
-`;
-
-export const Icon = styled.button`
-  font-size: 23px;
-  color: #000;
+export const Action = styled.div`
   cursor: pointer;
-  position: relative;
-  margin-right: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const Count = styled.div`
   position: absolute;
-  width: 22px;
-  height: 22px;
-  background: ${(props) => props.theme.colors.primary};
+  top: -26%;
+  right: -84%;
+  width: 26px;
+  height: 25px;
+  background: #221ecd;
+  color: #fff;
   border-radius: 50%;
-  font-size: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #fff;
-  top: -12px;
-  right: -75%;
+  transition: all 0.5s;
 `;
 
-export const Account = styled.div`
-  position: relative;
-  cursor: pointer;
-`;
-
-export const User = styled.div`
-  width: 40px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin: 0 1rem;
-  position: relative;
-`;
-
-export const UserImg = styled.img`
-  width: 100%;
-`;
-
-export const AccountWrap = styled.div`
-  position: absolute;
-  z-index: 220;
-  top: 170%;
-  left: 0;
-  width: 200px;
-  background: #fff none repeat scroll 0 0;
-  padding: 8px 12px 10px;
-  box-shadow: 0 1px 7px -2px rgb(0 0 0 / 30%);
-  transition: all 0.5s ease 0s;
-  transform-origin: center top 0;
-  transform: rotateX(${(props) => !props.toggle && "90deg"});
-  text-align: left;
-  background: #fff none repeat scroll 0 0;
-`;
-
-export const UList = styled.ul``;
-
-export const List = styled.li`
-  transition: all 0.5s ease 0s;
-  &&:hover {
-    padding-left: 0.5rem;
-    color: ${(props) => props.theme.colors.primary};
+export const CategoriesWrapper = styled.div`
+  background: #fff;
+  @media (max-width: 1200px) {
+    display: none !important;
   }
 `;
-export const Href = styled(NavLink)`
-  font-size: 13px;
-  line-height: 30px;
-  display: block;
-  padding: 0;
-  text-transform: capitalize;
-  color: #000;
+
+export const NabvarToggle = styled(Navbar.Toggle)`
+  border: none;
+  svg {
+    color: #453b3b;
+    margin-right: 6px;
+  }
+  span {
+    font-weight: 500;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 16.94px;
+    letter-spacing: 1%;
+    color: #453b3b;
+  }
+`;
+
+export const NavLinks = styled.div`
+  a:hover {
+    color: #221ecd !important;
+    transition: 0.1s;
+  }
+
+  @media (max-width: 768px) {
+    /* position: fixed;
+    height: 100%;
+    left: -2%;
+    top: 0%;
+    z-index: 999;
+    background: #ddd;
+    overflow: hidden; */
+  }
+`;
+
+export const LinkName = styled(NavLink)`
   font-weight: 500;
-  &&:hover {
-    color: ${(props) => props.theme.colors.primary};
+  font-style: normal;
+  font-size: 14px;
+  line-height: 16.94px;
+  letter-spacing: 1% !important;
+  color: #453b3b !important;
+  margin: 0px 14px;
+  cursor: pointer;
+  svg {
+    color: #221ecd;
+    margin-left: 2px;
+    font-weight: 500;
   }
+`;
+
+export const Categries = styled.div`
+  display: flex;
+`;
+
+export const Ul = styled.ul``;
+
+export const Li = styled.li`
+  margin-bottom: 0.4rem;
+
+  a {
+    display: block !important;
+  }
+  &&:hover {
+    a {
+      color: #221ecd;
+    }
+  }
+`;
+
+export const Link = styled(NavLink)`
+  font-weight: 500;
 `;

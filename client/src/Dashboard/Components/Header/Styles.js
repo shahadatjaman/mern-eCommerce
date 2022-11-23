@@ -11,7 +11,11 @@ export const HeaderWrapper = styled.div`
   box-shadow: 12px 8px 19px -22px #000;
 `;
 
-export const Headerr = styled.div``;
+export const Headerr = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+`;
 
 export const AccountWrapper = styled.div`
   display: flex;
@@ -83,7 +87,7 @@ export const Left = styled.div`
 
 export const SiteWrapper = styled.div`
   background: #221ecd17;
-  height: 100%;
+  height: 110%;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -8,12 +8,12 @@ import {
 } from "../../../feature/reducer/productVariation";
 
 const Img = ({ file }) => {
-  const { files } = useSelector((state) => state.variation);
+  const { productVariations } = useSelector((state) => state.variation);
 
   const dispatch = useDispatch();
 
   const removeHandler = (id) => {
-    const removed = files.filter((item) => item._id !== id);
+    const removed = productVariations.filter((item) => item._id !== id);
     dispatch(removeFile(removed));
     dispatch(removeVariation({ variation_id: id }));
   };

@@ -5,13 +5,13 @@ const variationOptionsValidator = [
     .isMongoId()
     .withMessage("Product variations id should be valid!")
     .trim(),
-  check("variations_name")
+  check("variation_type")
     .isLength({ min: 1 })
     .withMessage("Variation options name is required!")
     .trim(),
-  check("price")
+  check("value")
     .isLength({ min: 1 })
-    .withMessage("Variation options price is required!")
+    .withMessage("Variation value is required!")
     .trim(),
 ];
 

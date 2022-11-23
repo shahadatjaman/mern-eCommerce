@@ -16,6 +16,9 @@ const {
   getProducts,
   getInventory,
   getDiscount,
+  deleteOption,
+  getOptions,
+  getVariants,
 } = require("../../controller/Vendor/product");
 
 // Authentication checks middleware
@@ -134,6 +137,9 @@ router.post(
   productVariationsOptions
 );
 
+// Delete product variation option
+router.delete("/deleteoption/:option_id", checkVendor, deleteOption);
+
 // Create a new discount
 router.post(
   "/creatediscount/:product_id",
@@ -169,5 +175,11 @@ router.get("/getinventory/:product_id", checkVendor, getInventory);
 
 // Get product discount
 router.get("/getdiscount/:product_id", checkVendor, getDiscount);
+
+// Get product  variations
+router.get("/getvariations/:product_id", checkVendor, getVariants);
+
+// Get variation options
+router.get("/getoptions/:variation_id", checkVendor, getOptions);
 
 module.exports = router;

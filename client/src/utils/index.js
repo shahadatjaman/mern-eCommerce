@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useTheme } from "styled-components";
+import styled, { useTheme } from "styled-components";
 import jwt_decode from "jwt-decode";
 // get localstorage values
 export const getLocalstorage = (name) => {
@@ -171,4 +171,8 @@ export const getSalePrice = ({ price, discount }) => {
   const amount = (discount / 100) * price;
 
   return price - amount;
+};
+
+export const findIndex = (arrOfObj, target) => {
+  return arrOfObj.findIndex((item) => item.cart._id.toString() === target);
 };

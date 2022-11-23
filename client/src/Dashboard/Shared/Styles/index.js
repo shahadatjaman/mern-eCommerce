@@ -84,3 +84,7 @@ export const CustomButton = styled.button`
   background: ${(props) => (props.isValid ? "#3899ec" : "#f0f4f7")};
   color: ${(props) => (props.isValid ? "#fff" : "#d1d1d1")};
 `;
+
+export const Space = styled.div`
+  width: ${(props) => props.width && props.width}%;
+`;

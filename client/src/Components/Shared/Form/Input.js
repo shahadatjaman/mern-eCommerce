@@ -35,6 +35,7 @@ const Input = ({
   search = false,
   weight = false,
   searchWidth,
+  bg = false,
 }) => {
   return (
     <>
@@ -43,7 +44,7 @@ const Input = ({
 
         <InputWrapper>
           {search && (
-            <Searched searchWidth={searchWidth}>
+            <Searched searchWidth={searchWidth} bg={bg}>
               <i className="fa-solid fa-magnifying-glass"></i>
             </Searched>
           )}
@@ -54,6 +55,7 @@ const Input = ({
             autoFocus={autoFocus}
             height={height}
             radius={radius}
+            bg={bg}
             search={search}
             type={type}
             disabled={disabled}

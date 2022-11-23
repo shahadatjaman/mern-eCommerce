@@ -1,10 +1,16 @@
 const { Schema, model, Decimal128 } = require("mongoose");
 const { ObjectId } = Schema.Types;
-
+const { requiremnet } = require("../../../utils/");
 const product_variations_options_schema = new Schema({
   product_variations_id: ObjectId,
-  variations_name: String,
-  sku: Object,
+  variation_type: {
+    type: String,
+    ...requiremnet,
+  },
+  value: {
+    type: String,
+    ...requiremnet,
+  },
   price: Decimal128,
 });
 

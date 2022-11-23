@@ -19,7 +19,9 @@ import Img from "./Img";
 const Media = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { files, loading } = useSelector((state) => state.variation);
+  const { productVariations, loading } = useSelector(
+    (state) => state.variation
+  );
 
   const openModal = () => {
     setIsOpen(true);
@@ -50,7 +52,7 @@ const Media = () => {
   // How to send API call before page reload or close using ReactJS
 
   return (
-    <MediaWrapper isEmpty={files.length < 0}>
+    <MediaWrapper isEmpty={productVariations.length < 0}>
       <Actions>
         <AddFile>
           <Span>Add files</Span>
@@ -60,8 +62,10 @@ const Media = () => {
         </AddUrl>
       </Actions>
       <Images>
-        {files.length > 0 &&
-          files?.map((file, index) => <Img index={index} file={file} />)}
+        {productVariations.length > 0 &&
+          productVariations?.map((file, index) => (
+            <Img index={index} file={file} />
+          ))}
       </Images>
       <AddFileURL isOpen={isOpen} closeModal={closeModal} />
     </MediaWrapper>
