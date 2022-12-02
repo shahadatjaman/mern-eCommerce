@@ -35,6 +35,10 @@ span,a{
     padding: 0;
 }
 
+.slick-arrow.slick-next {
+  display: none !important;
+}
+
 .pretty.p-switch input:checked~.state label:after {
     background-color: #259de7!important;
     left: 1em;
@@ -86,6 +90,22 @@ span.sc-bxSTMQ.dujOJd.active {
 }
 .p-0 {
     padding : 0 !important;
+}
+
+#tab .css-jpln7h-MuiTabs-scroller {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 @media (min-width: 1400px){

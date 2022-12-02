@@ -1,48 +1,48 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { getLocalstorage } from "../../../utils";
 
-const initialState = { productVariations: [], loading: false };
+import { getLocalstorage, requestToServerWithPost } from "../../../utils";
+
+const initialState = {
+  productVariations: [],
+  loading: false,
+  variation: null,
+};
 
 // Create product files
 export const createFileOrVariation = createAsyncThunk(
   "vendor/file",
-  async (values, thunkAPI) => {
-    try {
-      const response = await axios.post(
-        `http://localhost:5000/vendor/productvariation`,
-        values,
-
-        {
-          headers: {
-            Authorization: "Bearer " + getLocalstorage("user_info"),
-          },
-        }
-      );
-      return response.data;
-    } catch (error) {
-      return await error.response.data.errors;
-    }
-  }
+  requestToServerWithPost({
+    url: "http://localhost:5000/vendor/productvariation",
+  })
 );
 
 // Create product files
 
 export const removeVariation = createAsyncThunk(
   "vendor/removeVariation",
-  async (values, thunkAPI) => {
+  requestToServerWithPost({
+    url: "http://localhost:5000/vendor/removevariation",
+  })
+);
+
+// Get Inventory
+export const getVariation = createAsyncThunk(
+  "vendor/getvariations",
+  async ({ product_id }) => {
     try {
-      const response = await axios.post(
-        `http://localhost:5000/vendor/removevariation`,
-        values,
+      let response = await axios.get(
+        `http://localhost:5000/vendor/getvariations/${product_id}`,
 
         {
+          method: "GET",
           headers: {
             Authorization: "Bearer " + getLocalstorage("user_info"),
           },
         }
       );
-      return response.data;
+
+      return await response.data;
     } catch (error) {
       return await error.response.data.errors;
     }
@@ -77,6 +77,19 @@ const variationSlice = createSlice({
       state.loading = false;
     },
     [removeVariation.rejected]: (state) => {
+      state.loading = false;
+    },
+
+    // Get product variations
+    [getVariation.pending]: (state) => {
+      state.loading = true;
+    },
+    [getVariation.fulfilled]: (state, { payload }) => {
+      if (payload.variants) {
+        state.variation = payload.variants;
+      }
+    },
+    [getVariation.rejected]: (state) => {
       state.loading = false;
     },
   },

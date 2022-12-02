@@ -1,6 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { getLocalstorage } from "../../../utils";
+
+import {
+  requestToServerWithGet,
+  requestToServerWithPost,
+} from "../../../utils";
 
 const init = {
   name: "",
@@ -22,109 +25,33 @@ const initialState = {
 // Product initial
 export const createInitProduct = createAsyncThunk(
   "vendor/product",
-  async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:5000/vendor/createemptyproduct`,
-
-        {
-          headers: {
-            Authorization: "Bearer " + getLocalstorage("user_info"),
-          },
-        }
-      );
-      return response.data;
-    } catch (error) {
-      return await error.response.data.errors;
-    }
-  }
+  requestToServerWithGet({
+    url: `http://localhost:5000/vendor/createemptyproduct`,
+  })
 );
 
 // Create a new product
 export const createProduct = createAsyncThunk(
   "vendor/newproduct",
-  async (values) => {
-    try {
-      const response = await axios.post(
-        `http://localhost:5000/vendor/createproduct`,
-        values,
-
-        {
-          headers: {
-            Authorization: "Bearer " + getLocalstorage("user_info"),
-          },
-        }
-      );
-      return response.data;
-    } catch (error) {
-      return await error.response.data.errors;
-    }
-  }
+  requestToServerWithPost({ url: "http://localhost:5000/vendor/createproduct" })
 );
 
 // get product all categories
 export const fetchAllCategories = createAsyncThunk(
   "vendor/getCategories",
-  async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:5000/vendor/getcategories`,
-
-        {
-          headers: {
-            Authorization: "Bearer " + getLocalstorage("user_info"),
-          },
-        }
-      );
-      return response.data;
-    } catch (error) {
-      return await error.response.data.errors;
-    }
-  }
+  requestToServerWithGet({ url: "http://localhost:5000/vendor/getcategories" })
 );
 
 // Create tags
 export const createTags = createAsyncThunk(
   "vendor/createtag",
-  async (values, thunkAPI) => {
-    try {
-      const response = await axios.post(
-        `http://localhost:5000/vendor/createtag`,
-        values,
-
-        {
-          headers: {
-            Authorization: "Bearer " + getLocalstorage("user_info"),
-          },
-        }
-      );
-      return response.data;
-    } catch (error) {
-      return await error.response.data.errors;
-    }
-  }
+  requestToServerWithPost({ url: "http://localhost:5000/vendor/createtag" })
 );
 
 // Delete or remove tag
 export const deleteTag = createAsyncThunk(
   "vendor/deletetag",
-  async (values, thunkAPI) => {
-    try {
-      const response = await axios.post(
-        `http://localhost:5000/vendor/romvetag`,
-        values,
-
-        {
-          headers: {
-            Authorization: "Bearer " + getLocalstorage("user_info"),
-          },
-        }
-      );
-      return response.data;
-    } catch (error) {
-      return await error.response.data.errors;
-    }
-  }
+  requestToServerWithPost({ url: "http://localhost:5000/vendor/romvetag" })
 );
 
 // Product Silce

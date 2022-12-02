@@ -18,6 +18,9 @@ export const Fixed = styled.div`
   width: 230px;
   background: #131720;
   height: 100%;
+  @media (max-width: 1200px) {
+    width: inherit;
+  }
 `;
 
 export const TopSection = styled.div`

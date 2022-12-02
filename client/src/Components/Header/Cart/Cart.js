@@ -1,7 +1,11 @@
 import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addCartItems } from "../../../feature/reducer/addToCart";
 import { useAddToCart } from "../../../hooks/useAddToCart";
+import { requestTServer } from "../../../utils";
+import Quantity from "../../Shared/Quantity";
 
 import {
   CartWrapper,
@@ -17,29 +21,54 @@ import {
 } from "./Styles";
 
 const Cart = ({ cart }) => {
+  const [variation, setVariation] = useState(null);
+
   const { removeCart } = useAddToCart();
 
   const dispatch = useDispatch();
 
   const removeHandler = (id) => {
-    const carts = removeCart({ _id: id });
-    dispatch(addCartItems(carts));
+    if (variation) {
+      const carts = removeCart({ _id: cart.product_id });
+      dispatch(addCartItems(carts));
+    }
   };
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await requestTServer({
+        product_id: cart.product_id,
+      });
+
+      if (data.variants) {
+        setVariation(data.variants);
+      }
+    })();
+  }, [cart]);
 
   return (
     <CartWrapper>
       <Left>
         <ImgWrapper>
-          <Img src={cart.img_url} alt="img" />
+          {variation ? (
+            <Img src={variation.variation_img} alt="img" />
+          ) : (
+            <Img
+              src="https://res.cloudinary.com/dza2t1htw/image/upload/v1669222568/no-image_je9opq.jpg"
+              alt="image"
+            />
+          )}
         </ImgWrapper>
       </Left>
       <Middle>
-        <Name>{cart.name}</Name>
-        <Qty>Qty : 1</Qty>
-        <Price> 1.00$</Price>
+        <Name>Purple NX Mini F1 aparat </Name>
+        <Quantity cart={cart} />
+        <Price>
+          ${cart.price} X {cart.qty}
+        </Price>
       </Middle>
       <Right>
-        <Close onClick={() => removeHandler(cart._id)}>X</Close>
+        <Close onClick={() => removeHandler(cart.product_id)}>X</Close>
       </Right>
     </CartWrapper>
   );

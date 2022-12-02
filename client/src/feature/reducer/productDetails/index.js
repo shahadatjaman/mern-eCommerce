@@ -4,19 +4,21 @@ import axios from "axios";
 
 const initialState = {
   product: null,
+  variations: null,
+  discount: null,
   isLoading: false,
   selectedProduct: null,
   dimension: null,
 };
 
-// Fetch products
+// Fetch Single products
 export const fetchProduct = createAsyncThunk(
   "product/fetchProduct",
-  async (id) => {
+  async ({ product_id }) => {
     try {
       //Your Axios code part.
       const response = await axios.get(
-        `http://localhost:5000/api/product/${id}`
+        `http://localhost:5000/vendor/getproduct/${product_id}`
       ); //where you want to fetch data
 
       return await response.data;
@@ -47,6 +49,8 @@ const productDetailsSlice = createSlice({
     [fetchProduct.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
       state.product = payload.product;
+      state.variations = payload.variations;
+      state.discount = payload.discount;
     },
     [fetchProduct.rejected]: (state, { payload }) => {
       state.isLoading = false;

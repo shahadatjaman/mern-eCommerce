@@ -175,7 +175,7 @@ export const ShoppingTitle = styled.div`
     font-weight: 700;
     font-size: 15px;
     color: #453b3b;
-    margin-top: 1.7rem;
+    margin-top: 1rem;
     text-align: left;
   }
 `;
@@ -186,8 +186,8 @@ export const Content = styled.div`
 
 export const DiscountWrapper = styled.div`
   position: absolute;
-  left: 10%;
-  top: 10%;
+  left: 6%;
+  top: 5%;
 `;
 
 export const Discount = styled.div`

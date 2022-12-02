@@ -21,6 +21,7 @@ import Select from "../../../../Components/Shared/Form/Select/Select";
 import { Cart, H5 } from "../../../Shared/Styles";
 import Form from "../../../../Components/Shared/Form/Form";
 import Tag from "../Tag";
+import { Col, Row } from "react-bootstrap";
 
 const initial = {
   status: "active",
@@ -58,46 +59,56 @@ const ProductOrga = () => {
 
   return (
     <Form>
-      <Cart>
-        <H5>Product status</H5>
-        <Select
-          name="status"
-          handleChange={handleChange}
-          handleFocus={handleFocus}
-          handleBlur={handleBlur}
-          value={status.value}
-        >
-          <Option option="Active" value={"active"} />
-          <Option option="Draft" value={"draft"} />
-        </Select>
-      </Cart>
-      <Cart>
-        <H5>Product Organizations</H5>
-        <Select
-          mb="1"
-          label="Product Category"
-          name="category"
-          handleChange={handleChange}
-          handleFocus={handleFocus}
-          handleBlur={handleBlur}
-          value={category._id}
-        >
-          {allCategories &&
-            allCategories.map((cat, index) => (
-              <Option key={index} option={cat.category_name} value={cat._id} />
-            ))}
-        </Select>
-        <Input
-          name="product_type"
-          label="Product Type"
-          placeHolder="e.g., T-Shirt"
-          handleChange={handleChange}
-          handleFocus={handleFocus}
-          handleBlur={handleBlur}
-          value={product_type.value}
-        />
-        <Tag />
-      </Cart>
+      <Row>
+        <Col className="col-md-12 col-12">
+          <Cart>
+            <H5>Product status</H5>
+            <Select
+              name="status"
+              handleChange={handleChange}
+              handleFocus={handleFocus}
+              handleBlur={handleBlur}
+              value={status.value}
+            >
+              <Option option="Active" value={"active"} />
+              <Option option="Draft" value={"draft"} />
+            </Select>
+          </Cart>
+        </Col>
+        <Col className="col-md-12 col-12">
+          <Cart>
+            <H5>Product Organizations</H5>
+            <Select
+              mb="1"
+              label="Product Category"
+              name="category"
+              handleChange={handleChange}
+              handleFocus={handleFocus}
+              handleBlur={handleBlur}
+              value={category._id}
+            >
+              {allCategories &&
+                allCategories.map((cat, index) => (
+                  <Option
+                    key={index}
+                    option={cat.category_name}
+                    value={cat._id}
+                  />
+                ))}
+            </Select>
+            <Input
+              name="product_type"
+              label="Product Type"
+              placeHolder="e.g., T-Shirt"
+              handleChange={handleChange}
+              handleFocus={handleFocus}
+              handleBlur={handleBlur}
+              value={product_type.value}
+            />
+            <Tag />
+          </Cart>
+        </Col>
+      </Row>
     </Form>
   );
 };

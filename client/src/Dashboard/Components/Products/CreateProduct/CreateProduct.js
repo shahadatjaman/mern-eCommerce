@@ -1,12 +1,8 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import Form from "../../../../Components/Shared/Form/Form";
 import Media from "../Upload/Media";
 import {
   AddAnotherOption,
-  CheckBox,
   H6,
-  InputArea,
   ItemWrapper,
   Options,
   Plus,
@@ -51,7 +47,6 @@ const CreateProduct = () => {
     setisOpen(false);
   };
 
-  console.log(productVariations);
   return (
     <Wrapper>
       <H6>

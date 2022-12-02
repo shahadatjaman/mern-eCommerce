@@ -67,12 +67,7 @@ const Sidebar = ({ children }) => {
             className="sidebar"
           >
             <Fixed>
-              <TopSection>
-                {/* <Logo style={{ display: isOpen ? "block" : "none" }}>Logo</Logo> */}
-                <Bars style={{ marginLeft: isOpen ? "50px" : "0px" }}>
-                  <FaBars onClick={toggle} />
-                </Bars>
-              </TopSection>
+              <TopSection></TopSection>
               {menuItem.map((item, index) => (
                 <Link to={item.path} key={index} activeclassName="active">
                   <LinkText className="icon">{item.icon}</LinkText>

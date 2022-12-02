@@ -1,5 +1,5 @@
 import React from "react";
-import { Billing, Circle, Order, TabLink, TabWrapper } from "./Styles";
+import { Billing, Circle, Order, TabLink, TabWrapper } from "../Styles";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { useLocation } from "react-router-dom";
 const Tab = () => {
@@ -14,7 +14,7 @@ const Tab = () => {
           ) : (
             <BsFillCheckCircleFill />
           )}
-          Billing & Shippning
+          Delivery Address
         </TabLink>
       </Billing>
       <Order>

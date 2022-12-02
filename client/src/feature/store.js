@@ -20,6 +20,8 @@ import getProductReducer from "../Dashboard/feature/reducer/products";
 
 import getInventoryReducer from "../Dashboard/feature/reducer/inventory";
 
+import orderReducer from "../feature/reducer/order/index";
+
 export const store = configureStore({
   reducer: {
     wishList: wishListReducer,
@@ -32,6 +34,7 @@ export const store = configureStore({
     variation: productVariation,
     getProducts: getProductReducer,
     inventory: getInventoryReducer,
+    order: orderReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -7,20 +7,34 @@ import { HeaderWrapper, Logo, NavbarBrand, Toggler } from "./Styles";
 import { useWindowHeight } from "../../hooks/useWindowHeight";
 import { useWindowWidth } from "../../hooks/userWindowWidth";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import MobileNav from "./MobileNav";
 
 const Header = () => {
+  const [isOpenNav, setIsOpenNav] = useState(false);
+
   const isMatched = useWindowHeight({ height: 400 });
 
   const isMatchedWidth = useWindowWidth({ width: 768 });
 
   const isFluid = useWindowWidth({ width: 1400 });
 
+  const openNavHandler = () => {
+    setIsOpenNav(true);
+  };
+
+  const clsoeNavHandler = () => {
+    setIsOpenNav(false);
+  };
+
   return (
     <HeaderWrapper isSticky={isMatched}>
-      <Navbar expand="lg" className="border-bottom">
+      <MobileNav clsoeNavHandler={clsoeNavHandler} isOpenNav={isOpenNav} />
+
+      <Navbar>
         <Container fluid={isFluid}>
-          <NavbarBrand href="#">
-            <Toggler>
+          <NavbarBrand>
+            <Toggler onClick={openNavHandler}>
               <i className="fa-solid fa-bars"></i>
             </Toggler>
             <Logo>

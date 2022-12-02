@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 
@@ -16,16 +16,19 @@ import { makeUserObj } from "../../utils";
 const Google = () => {
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   const signInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(authentication, provider)
       .then((result) => {
         const userInfo = result.user;
-        console.log(userInfo);
+
         let { displayName, email, photoURL } = userInfo;
         let user = makeUserObj({ displayName, email, photoURL });
 
         dispatch(register(user));
+        navigate("/");
       })
       .catch((error) => {
         console.log(error);

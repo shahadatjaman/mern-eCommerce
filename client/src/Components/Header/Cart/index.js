@@ -1,19 +1,47 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Cart from "./Cart";
-import { data } from "./data";
-import { Body, Bottom, Span } from "./Styles";
+import Empty from "./Empty";
+import {
+  Body,
+  Bottom,
+  CheckOut,
+  CheckOutLink,
+  Span,
+  SubTotal,
+  TotalPrice,
+  TotalWrapper,
+  ViewCart,
+} from "./Styles";
+
+import { useAddToCart } from "../../../hooks/useAddToCart";
 
 const Carts = () => {
+  const { carts } = useSelector((state) => state.cart);
+
+  const { totallPrice } = useAddToCart();
+
   return (
     <>
       <Body>
-        {data.map((cart, index) => (
+        {carts && carts.length === 0 && <Empty />}
+        {carts.map((cart, index) => (
           <Cart cart={cart} key={index} />
         ))}
       </Body>
-      <Bottom>
-        <Span>Go to cart</Span>
-      </Bottom>
+      {carts && carts.length !== 0 && (
+        <Bottom>
+          <TotalWrapper>
+            <SubTotal>Total :</SubTotal>
+            <TotalPrice>{totallPrice()} $</TotalPrice>
+          </TotalWrapper>
+          <ViewCart to="/cartitems">View Cart</ViewCart>
+
+          <CheckOut>
+            <CheckOutLink to={"/billing"}>Check out</CheckOutLink>
+          </CheckOut>
+        </Bottom>
+      )}
     </>
   );
 };

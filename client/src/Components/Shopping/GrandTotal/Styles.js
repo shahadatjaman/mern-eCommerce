@@ -21,3 +21,12 @@ export const GrandTotalTitle = styled.h4`
 export const Price = styled.span`
   float: right;
 `;
+
+export const boxStyle = {
+  padding: "45px 30px 50px",
+
+  backgroundColor: "#f9f9f9",
+  display: "flex",
+  flexDirection: "column",
+  justifycontent: "center",
+};

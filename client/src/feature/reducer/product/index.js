@@ -12,12 +12,13 @@ export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async () => {
     try {
-      //Your Axios code part.
-      const response = await axios.get(`http://localhost:5000/api/products`); //where you want to fetch data
+      let response = await axios.get(
+        `http://localhost:5000/vendor/getproducts`
+      );
 
       return await response.data;
     } catch (error) {
-      return console.log(error);
+      return await error.response.data.errors;
     }
   }
 );

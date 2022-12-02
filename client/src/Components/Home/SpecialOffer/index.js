@@ -23,13 +23,25 @@ import {
 } from "./Styles";
 
 import Shopping from "../../Shared/Product/ShoppingCart";
-import { products } from "./data";
+import { allproducts } from "./data";
 import FeatureProdcut from "./Features";
 
 import { useWindowWidth } from "../../../hooks/userWindowWidth";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+
+import { fetchProducts } from "../../../feature/reducer/product";
 
 const SpeOffer = () => {
+  const { products } = useSelector((state) => state.product);
+
   const isFluid = useWindowWidth({ width: 1400 });
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
 
   return (
     <Wrapper>
@@ -114,7 +126,7 @@ const SpeOffer = () => {
               <div className="items">
                 <Container fluid={isFluid} className="p-0">
                   <Row>
-                    {products.map((item, index) => (
+                    {products?.map((item, index) => (
                       <Col className="col-xxl-3 col-lg-3 col-md-4 col-sm-4 col-6">
                         <Shopping product={item} />
                       </Col>

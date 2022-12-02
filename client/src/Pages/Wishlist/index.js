@@ -14,6 +14,8 @@ import {
   AddItem,
   Button,
   CartMain,
+  Img,
+  ImgWrapper,
   ItemEmpty,
   ItemEmptyIcon,
   ItemEmptyText,
@@ -42,9 +44,12 @@ const Wishlist = () => {
           {/* If Wishlist is empty! */}
           {lists.items.length === 0 && (
             <ItemEmpty>
-              <ItemEmptyIcon>
-                <AiOutlineHeart />
-              </ItemEmptyIcon>
+              <ImgWrapper>
+                <Img
+                  src="https://res.cloudinary.com/dza2t1htw/image/upload/v1669295344/shopping-cart_f2vetc.png"
+                  alt="img"
+                />
+              </ImgWrapper>
               <ItemEmptyText>No items found in wishlist</ItemEmptyText>
               <AddItem to={"/"}>Add Items</AddItem>
             </ItemEmpty>

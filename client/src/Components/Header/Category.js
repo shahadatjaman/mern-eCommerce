@@ -1,13 +1,6 @@
-import { Col, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Col, Container, Navbar } from "react-bootstrap";
 import { AiOutlineDown } from "react-icons/ai";
-import { CgFormatLeft } from "react-icons/cg";
-import {
-  CategoriesWrapper,
-  Categries,
-  LinkName,
-  NabvarToggle,
-  NavLinks,
-} from "./Styles";
+import { CategoriesWrapper, Categries, LinkName, NavLinks } from "./Styles";
 import { useWindowWidth } from "../../hooks/userWindowWidth";
 const Headercategories = () => {
   const isFluid = useWindowWidth({ width: 1400 });
@@ -18,16 +11,11 @@ const Headercategories = () => {
         <Container fluid={isFluid}>
           <Col>
             <Categries>
-              <NabvarToggle aria-controls="offcanvasNavbar">
-                <CgFormatLeft />
-                <span>ALL CATEGORIES</span>
-              </NabvarToggle>
-
               <NavLinks>
                 <LinkName to="/">Factories</LinkName>
                 <LinkName to="/">Officials Shops</LinkName>
                 <LinkName to="/">
-                  Made In Africa
+                  Made In Bangladesh
                   <AiOutlineDown />
                 </LinkName>
                 <LinkName to="/">
@@ -35,11 +23,11 @@ const Headercategories = () => {
                   <AiOutlineDown />
                 </LinkName>
                 <LinkName to="/">
-                  Source on Anaizan.com
+                  Source on Xpart.com
                   <AiOutlineDown />
                 </LinkName>
                 <LinkName to="/">
-                  Sell on Anaizan
+                  Sell on Xpart
                   <AiOutlineDown />
                 </LinkName>
               </NavLinks>

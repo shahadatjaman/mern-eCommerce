@@ -40,6 +40,9 @@ export const FormWrape = styled.div`
   text-align: left;
   max-width: 650px;
   margin: auto;
+
+  @media (max-width: 768px) {
+  }
 `;
 
 export const ShowPassword = styled.div`

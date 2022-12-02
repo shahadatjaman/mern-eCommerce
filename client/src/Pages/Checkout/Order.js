@@ -1,76 +1,109 @@
-import React from "react";
-import { Col, Container, Row } from "reactstrap";
-import {
-  H3,
-  Li,
-  OrderBottom,
-  OrderMiddle,
-  OrderTotal,
-  OrderWrape,
-  OrderWrapper,
-  PlaceOrder,
-  Ul,
-  YourOrderTop,
-} from "./Styles";
-import { useColor } from "../../utils";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { formStyles, H3, Li, OrderBottom, OrderTotal, Ul } from "./Styles";
+import { getTotalPrice, useColor } from "../../utils";
+import Checkbox from "@mui/material/Checkbox";
+import { Box, FormControlLabel, FormGroup, Grid, Switch } from "@mui/material";
+import Button from "@mui/material/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { useCheckbox } from "../../hooks/useCheckbox";
+import { createUserAddress } from "../../feature/reducer/user";
 
-import Button from "../../Components/Shared/Form/Button";
-import PaymentMethod from "./PaymentMethod";
+import { createOrder } from "../../feature/reducer/order/";
+import PaymnetMethod from "./paymnetMethod";
 
 const Order = () => {
-  const { primary, gray } = useColor();
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [delivery, setDelivery] = useState(false);
+
+  const { primary } = useColor();
+
+  const { carts } = useSelector((state) => state.cart);
+  const { isLoading } = useSelector((state) => state.order);
+  const { isValidAddress, userAddress } = useSelector((state) => state.user);
+
+  const { isChecked, handleChange } = useCheckbox();
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const orderHandler = () => {
+    dispatch(createUserAddress({ values: userAddress }));
+
+    if (carts) {
+      const values = {
+        products: carts,
+        total: totalPrice,
+        paid: false,
+        currency: "USD",
+      };
+
+      dispatch(createOrder({ values, navigate }));
+    }
+  };
+
+  useEffect(() => {
+    if (carts) {
+      const prices = getTotalPrice({ carts });
+      setTotalPrice(prices);
+    }
+  }, [carts]);
 
   return (
-    <OrderWrapper>
-      <Container x="3">
-        <Col className="offset-md-2" md="8" sm="12">
-          <Row>
-            <Col md="6">
-              <PaymentMethod />
-            </Col>
-            <Col md="6">
-              <H3>Your order</H3>
-              <OrderWrape>
-                <YourOrderTop>
-                  <Ul fontWeight="600">
-                    <Li>Product</Li>
-                    <Li>Total</Li>
-                  </Ul>
-                </YourOrderTop>
-                <OrderMiddle>
-                  <Ul fontWeight="500">
-                    <Li>Lorem ipsum jacket X 1</Li>
-                    <Li>$10.00</Li>
-                  </Ul>
-                </OrderMiddle>
-                <OrderBottom>
-                  <Ul fontWeight="500">
-                    <Li>Shipping</Li>
-                    <Li>Free shipping</Li>
-                  </Ul>
-                </OrderBottom>
-                <OrderTotal>
-                  <Ul fontWeight="600" fontSize="20">
-                    <Li>Total</Li>
-                    <Li color={primary}>$10.00</Li>
-                  </Ul>
-                </OrderTotal>
-              </OrderWrape>
-              <PlaceOrder>
-                <Button
-                  type="submit"
-                  activeColor={gray}
-                  hoverColor={primary}
-                  text="Order Now"
-                  width="100"
-                  radius={50}
-                />
-              </PlaceOrder>
-            </Col>
-          </Row>
-        </Col>
-      </Container>
-    </OrderWrapper>
+    <Box sx={{ flexGrow: 1, borderRadius: 2, ...formStyles }}>
+      <Grid container spacing={2}>
+        <Grid item xl={12}>
+          <H3>Your order</H3>
+
+          <OrderBottom>
+            <Ul fontWeight="500">
+              <Li>Shipping</Li>
+              <Li>Free shipping</Li>
+            </Ul>
+          </OrderBottom>
+          <OrderTotal>
+            <Ul fontWeight="600" fontSize="20">
+              <Li>Total</Li>
+              <Li color={primary}>$ {totalPrice}</Li>
+            </Ul>
+          </OrderTotal>
+        </Grid>
+        <Grid item lg={12} md={12}>
+          <PaymnetMethod setDelivery={setDelivery} />
+        </Grid>
+        <Grid item lg={12} md={12}>
+          <FormGroup>
+            <FormControlLabel
+              sx={{ "& .MuiFormControlLabel-label": { fontSize: "14px" } }}
+              control={<Checkbox onChange={handleChange} value={isChecked} />}
+              label="I have read and agree to the website terms and conditions"
+            />
+          </FormGroup>
+        </Grid>
+        <Grid item lg={12} md={12}>
+          {isValidAddress && isChecked && !isLoading && delivery ? (
+            <Button
+              sx={{ height: 50 }}
+              variant="contained"
+              onClick={orderHandler}
+              fullWidth
+            >
+              Place Order
+            </Button>
+          ) : (
+            <Button
+              sx={{ height: 50 }}
+              variant="contained"
+              fullWidth
+              onClick={orderHandler}
+              disabled
+            >
+              Place Order
+            </Button>
+          )}
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 

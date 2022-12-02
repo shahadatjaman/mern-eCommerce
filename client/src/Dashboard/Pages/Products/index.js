@@ -17,7 +17,7 @@ import Input from "../../../Components/Shared/Form/Input";
 import { ButtonWrap } from "../../Components/Products/Styles";
 
 // <=== ReactStrap ====>
-import { Col, Container, Row } from "reactstrap";
+import { Col, Container, Row } from "react-bootstrap";
 
 // <=== Components  ====>
 
@@ -128,7 +128,7 @@ const Product = () => {
           <H3>Add product</H3>
         </PageHeader>
         <Row>
-          <Col md="8">
+          <Col className="col-xl-8 col-md-12 col-sm-12 col-12">
             <Cart>
               <Input
                 mb="1"
@@ -170,7 +170,7 @@ const Product = () => {
               getWeight={getWeight}
             />
           </Col>
-          <Col md="4">
+          <Col className="col-xl-4 col-md-12 col-sm-12 col-12">
             {/* <ProductStatus /> */}
             <ProductOrga />
           </Col>

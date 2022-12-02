@@ -4,10 +4,10 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  arrayToObject,
   getSalePrice,
   isEmptyArray,
   isEmptyObject,
+  requestTServer,
   shortText,
 } from "../../../../utils";
 import { getInventories } from "../../../feature/reducer/inventory";
@@ -16,6 +16,7 @@ import { ImageWrapper, Img } from "../Styles";
 
 import {
   addSelectedProductInfo,
+  deleteProduct,
   getDiscount,
 } from "../../../feature/reducer/products";
 
@@ -31,12 +32,10 @@ import {
   Td,
 } from "./Styles";
 
-const img =
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='164' height='120' viewBox='0 0 164 120'%3E%3Cg fill='none'%3E%3Crect width='164' height='120' fill='%23DAEFFE'/%3E%3Cpath fill='%23B9E3FF' d='M-8.52651283e-14,120 L49.0917544,74.9616932 C52.151039,72.1550101 56.848961,72.1550101 59.9082456,74.9616932 L71.293,85.4057534 L96.9019846,59.8591624 C100.0299,56.7386931 105.095216,56.744729 108.215685,59.8726439 C108.284098,59.9412201 108.35126,60.0110332 108.417137,60.0820486 L164,120 L-8.52651283e-14,120 Z'/%3E%3Ccircle cx='67.5' cy='43.5' r='10.5' fill='%23F5FBFF'/%3E%3C/g%3E%3C/svg%3E%0A";
-
 const TRow = ({ product }) => {
   const [inventories, setInventories] = useState(null);
-  const [salePrice, setSalePrice] = useState(0);
+
+  const [variants, setVariations] = useState(null);
 
   const dispatch = useDispatch();
   const { selectedProductInfo, discount } = useSelector(
@@ -69,14 +68,19 @@ const TRow = ({ product }) => {
   }, [dispatch, product]);
 
   useEffect(() => {
-    if (discount && !isEmptyObject(discount)) {
-      const getprice = getSalePrice({
-        price: product.price.$numberDecimal,
-        discount: Math.floor(discount.discount_percent.$numberDecimal),
-      });
-      setSalePrice(getprice);
-    }
-  }, [discount, product]);
+    (async () => {
+      const result = await requestTServer({ product_id: product._id });
+      const response = result;
+
+      if (response.data.variants) {
+        setVariations(response.data);
+      }
+    })();
+  }, [product]);
+
+  const deleteHandler = (id) => {
+    dispatch(deleteProduct({ product_id: id }));
+  };
 
   return (
     <TableRow>
@@ -87,7 +91,16 @@ const TRow = ({ product }) => {
       </Td>
       <Td width="120">
         <ImageWrapper>
-          <Img src={img} alt="img" />
+          {variants ? (
+            <Img src={variants.variants?.variation_img} alt="img" />
+          ) : (
+            <Img
+              src={
+                "https://res.cloudinary.com/dza2t1htw/image/upload/v1669218808/32173552_elulzk.jpg"
+              }
+              alt="img"
+            />
+          )}
         </ImageWrapper>
       </Td>
       <Td width="200">
@@ -113,8 +126,8 @@ const TRow = ({ product }) => {
       </Td>
       <Td width="200">
         <Name>
-          <SalePrice>{salePrice > 0 && salePrice} $</SalePrice>
-          <OldPrice>{product.price.$numberDecimal} $</OldPrice>
+          <SalePrice>{product.price.$numberDecimal} $</SalePrice>
+          {/* <OldPrice>{product.price.$numberDecimal} $</OldPrice>*/}
         </Name>
       </Td>
       <Td>
@@ -123,7 +136,7 @@ const TRow = ({ product }) => {
       <Td>
         <Actions>
           {selectedProductInfo && selectedProductInfo._id === product._id && (
-            <Poper />
+            <Poper deleteHandler={deleteHandler} _id={product._id} />
           )}
 
           <i

@@ -1,6 +1,8 @@
-import { useState } from "react";
-import styled, { useTheme } from "styled-components";
+import { useTheme } from "styled-components";
 import jwt_decode from "jwt-decode";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+
 // get localstorage values
 export const getLocalstorage = (name) => {
   const items = localStorage.getItem(name)
@@ -167,7 +169,7 @@ export const arrayToObject = (arr) => {
   return newObj;
 };
 
-export const getSalePrice = ({ price, discount }) => {
+export const getSalePrice = ({ price, discount = 0 }) => {
   const amount = (discount / 100) * price;
 
   return price - amount;
@@ -175,4 +177,82 @@ export const getSalePrice = ({ price, discount }) => {
 
 export const findIndex = (arrOfObj, target) => {
   return arrOfObj.findIndex((item) => item.cart._id.toString() === target);
+};
+
+/**
+ *
+ * @param {String} url
+ * @returns promise
+ */
+
+export const requestToServerWithGet = ({ url }) => {
+  const callApi = async () => {
+    try {
+      const response = await axios.get(
+        url,
+
+        {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + getLocalstorage("user_info"),
+          },
+        }
+      );
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      return await error.response.data.errors;
+    }
+  };
+
+  return callApi;
+};
+
+export const requestToServerWithPost = ({ url }) => {
+  const callApi = async (values) => {
+    try {
+      const response = await axios.post(
+        url,
+        values,
+
+        {
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + getLocalstorage("user_info"),
+          },
+        }
+      );
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      return await error.response.data.errors;
+    }
+  };
+
+  return callApi;
+};
+
+export const requestTServer = async ({ product_id }) => {
+  let response = await axios.get(
+    `http://localhost:5000/vendor/getvariations/${product_id}`,
+
+    {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + getLocalstorage("user_info"),
+      },
+    }
+  );
+
+  return response;
+};
+
+export const getTotalPrice = ({ carts }) => {
+  const prices = carts?.reduce((prev, cur) => {
+    const price = cur.qty * cur.price;
+
+    return prev + price;
+  }, 0);
+
+  return prices;
 };

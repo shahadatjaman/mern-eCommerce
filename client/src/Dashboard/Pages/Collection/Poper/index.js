@@ -1,7 +1,7 @@
 import React from "react";
 import { Li, Ul, Wrapper } from "./Style";
 
-const Poper = () => {
+const Poper = ({ deleteHandler, _id }) => {
   return (
     <Wrapper>
       <Ul>
@@ -11,7 +11,7 @@ const Poper = () => {
         <Li>
           <i className="fa-regular fa-clone"></i> Duplicate
         </Li>
-        <Li>
+        <Li onClick={() => deleteHandler(_id)}>
           <i class="fa-regular fa-trash-can"></i>Delete
         </Li>
       </Ul>

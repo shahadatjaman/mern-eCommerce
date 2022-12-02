@@ -1,15 +1,5 @@
 import React from "react";
-import {
-  Action,
-  Count,
-  HeaderRightWrapper,
-  Item,
-  Li,
-  Link,
-  LinkName,
-  Span,
-  Ul,
-} from "./Styles";
+import { Action, Count, HeaderRightWrapper, Item } from "./Styles";
 import {
   FaLuggageCart,
   FaRegCommentAlt,
@@ -24,11 +14,16 @@ import { getLocalstorage } from "../../utils";
 import ShoppingCart from "../Shared/ShoppingCart";
 import Cart from "./Cart";
 import { useState } from "react";
+import AccountMenu from "./AccountMenu";
+import { useNavigate } from "react-router-dom";
 
 const RightContent = () => {
   const [isOpenCart, setIsOpenCart] = useState(false);
-  const [isOpenAccount, setIsOpenAccount] = useState(false);
   const { carts } = useSelector((state) => state.cart);
+
+  const { user } = useSelector((state) => state.user);
+
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -43,38 +38,23 @@ const RightContent = () => {
       setIsOpenCart(false);
     } else {
       setIsOpenCart(true);
-      setIsOpenAccount(false);
     }
   };
 
-  // Account toggler handler
-  const toggleAccountHandler = () => {
-    if (isOpenAccount) {
-      setIsOpenAccount(false);
-    } else {
-      setIsOpenAccount(true);
-      setIsOpenCart(false);
-    }
+  const authHandler = () => {
+    navigate("/login");
   };
 
   return (
     <HeaderRightWrapper>
       <Item>
-        <Action onClick={toggleAccountHandler}>
-          <FaUserAlt />
-          <span>Sign Up</span>
-        </Action>
-        {isOpenAccount && (
-          <ShoppingCart width="150" height="100">
-            <Ul>
-              <Li>
-                <Link to={"/login"}>Login</Link>
-              </Li>
-              <Li>
-                <Link to={"/register"}>Register</Link>
-              </Li>
-            </Ul>
-          </ShoppingCart>
+        {user ? (
+          <AccountMenu user={user} setIsOpenCart={setIsOpenCart} />
+        ) : (
+          <Action onClick={authHandler}>
+            <FaUserAlt />
+            <span>Sing up</span>
+          </Action>
         )}
       </Item>
 
@@ -90,15 +70,15 @@ const RightContent = () => {
           <span>Order</span>
         </Action>
       </Item>
-      <Item onClick={toggleCartHandler}>
-        <Action>
+      <Item>
+        <Action onClick={toggleCartHandler}>
           <FaShoppingCart />
           <span>Cart</span>
         </Action>
 
-        {carts.length > 0 && <Count>{carts.length}</Count>}
+        {carts?.length > 0 ? <Count>{carts.length}</Count> : <Count>0</Count>}
         {isOpenCart && (
-          <ShoppingCart height={"350"}>
+          <ShoppingCart height={"450"}>
             <Cart />
           </ShoppingCart>
         )}

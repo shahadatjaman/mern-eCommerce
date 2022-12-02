@@ -1,4 +1,7 @@
 import styled from "styled-components";
+
+import { NavLink } from "react-router-dom";
+
 export const Body = styled.div`
   height: 330px;
   overflow-y: scroll;
@@ -10,13 +13,49 @@ export const Body = styled.div`
 export const Bottom = styled.div`
   position: absolute;
   bottom: 0;
-  background: #edf2fd;
+  background: #fff;
   width: 100%;
   left: 0;
+`;
+export const TotalWrapper = styled.div`
   padding: 1rem;
   border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
+  text-transform: uppercase;
+  background: #fff;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const SubTotal = styled.div``;
+
+export const TotalPrice = styled.div`
+  color: #221ecd;
+`;
+
+export const ViewCart = styled(NavLink)`
+  padding: 1rem;
+  border-top: 1px solid #ddd;
+  text-align: center;
   cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  display: block;
+`;
+export const CheckOutLink = styled(NavLink)`
+  display: block;
+  color: #fff !important;
+`;
+
+export const CheckOut = styled.div`
+  background: #2b88de;
+  padding: 1rem;
+  border-top: 1px solid #ddd;
+  text-align: center;
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
 `;
 
 export const Span = styled.span`
@@ -67,8 +106,19 @@ export const Qty = styled.h6`
 export const Right = styled.div`
   width: 40px;
   margin-left: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Close = styled.span`
   cursor: pointer;
+`;
+
+export const EmptyWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

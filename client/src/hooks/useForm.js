@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   deepClone,
   isEmptyObject,
@@ -17,6 +17,7 @@ import {
  */
 export const useForm = ({ init, validate }) => {
   const [state, setState] = useState(mapValuesToState(deepClone(init)));
+  const [valeus, setValues] = useState(null);
   const [isValidForm, setIsValidForm] = useState(false);
 
   const handleChange = (e) => {
@@ -71,16 +72,13 @@ export const useForm = ({ init, validate }) => {
     oldState[key].focused = false;
     setState(oldState);
 
-    let { hasValues, hasErrors } = checkFormValidate(oldState);
+    let { hasErrors } = checkFormValidate(oldState);
 
-    if (hasValues && hasErrors) {
+    if (hasErrors) {
       setIsValidForm(false);
     }
-    if (hasValues && !hasErrors) {
+    if (!hasErrors) {
       setIsValidForm(true);
-    }
-    if (!hasValues && hasErrors) {
-      setIsValidForm(false);
     }
   };
 
@@ -122,21 +120,24 @@ export const useForm = ({ init, validate }) => {
   };
 
   const checkFormValidate = (oldState) => {
-    let values = mapStateToKeys(oldState, "value");
     let errors = mapStateToKeys(oldState, "error");
 
-    let hasValues = Object.values(values).filter((val, i) => {
-      return val === "";
-    });
-    let hasErrors = Object.values(errors).filter((val, i) => {
-      return val !== "";
-    });
+    let hasErrors = Object.values(errors).filter((val) => val !== "");
 
     return {
-      hasValues: hasValues.length === 0,
       hasErrors: hasErrors.length !== 0,
     };
   };
+
+  useEffect(() => {
+    const oldState = deepClone(state);
+
+    if (state) {
+      const oldValues = mapStateToKeys(oldState, "value");
+
+      setValues(oldValues);
+    }
+  }, [state]);
 
   return {
     formState: state,
@@ -145,6 +146,7 @@ export const useForm = ({ init, validate }) => {
     handleBlur,
     handleSubmit,
     clear,
+    valeus,
     isValidForm,
   };
 };

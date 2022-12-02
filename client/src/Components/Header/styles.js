@@ -9,10 +9,11 @@ export const HeaderWrapper = styled.div`
   @media (max-width: 990px) {
     padding: 0 1rem;
   }
-  position: ${(props) => (props.isSticky ? "fixed" : "relative")};
+  position: ${(props) => (props.isSticky ? "fixed" : "inherit")};
   width: 100%;
+  top: ${(props) => (props.isSticky ? "0" : "-100")}%;
   z-index: 999;
-  transition: all 0.8s;
+  transition: all 0.5s;
   box-shadow: ${(props) => props.isSticky && "1px 6px 16px 1px #0000001c"};
 `;
 
@@ -24,7 +25,7 @@ export const Logo = styled.span`
 
 export const Toggler = styled.div`
   margin-right: 0.8rem;
-
+  cursor: pointer;
   @media (min-width: 1200px) {
     display: none;
   }
@@ -41,7 +42,7 @@ export const Searchpanle = styled.input`
   height: 51px; */
 `;
 
-export const NavbarBrand = styled(Navbar.Brand)`
+export const NavbarBrand = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -81,20 +82,22 @@ export const Action = styled.div`
 export const Count = styled.div`
   position: absolute;
   top: -26%;
-  right: -84%;
+  right: -40%;
   width: 26px;
   height: 25px;
-  background: #221ecd;
+  background: #ea2b0f;
   color: #fff;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: all 0.5s;
+  font-weight: 600;
 `;
 
 export const CategoriesWrapper = styled.div`
   background: #fff;
+  border-top: 1px solid #dddddd9e;
   @media (max-width: 1200px) {
     display: none !important;
   }
@@ -102,9 +105,9 @@ export const CategoriesWrapper = styled.div`
 
 export const NabvarToggle = styled(Navbar.Toggle)`
   border: none;
-  svg {
+  i {
     color: #453b3b;
-    margin-right: 6px;
+    margin-right: 12px;
   }
   span {
     font-weight: 500;
@@ -117,6 +120,8 @@ export const NabvarToggle = styled(Navbar.Toggle)`
 `;
 
 export const NavLinks = styled.div`
+  margin-left: auto;
+
   a:hover {
     color: #221ecd !important;
     transition: 0.1s;
@@ -158,7 +163,8 @@ export const Ul = styled.ul``;
 export const Li = styled.li`
   margin-bottom: 0.4rem;
 
-  a {
+  a,
+  span {
     display: block !important;
   }
   &&:hover {
@@ -170,4 +176,21 @@ export const Li = styled.li`
 
 export const Link = styled(NavLink)`
   font-weight: 500;
+`;
+
+export const Logout = styled.span`
+  font-weight: 500;
+  cursor: pointer;
+`;
+
+export const AvatarWrapper = styled.div`
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+`;
+
+export const Img = styled.img`
+  width: 100%;
 `;

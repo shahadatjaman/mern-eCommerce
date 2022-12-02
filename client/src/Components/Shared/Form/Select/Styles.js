@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const SelectInput = styled.select`
   font-size: 12px;
   width: 100%;
-  height: 40px;
+  height: 44px;
   padding: 0 50px 0 15px;
   cursor: pointer;
   color: #242424;

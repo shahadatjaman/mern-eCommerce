@@ -1,5 +1,5 @@
 import React from "react";
-import { Body, Bottom, Span, Wrapper } from "./Styles";
+import { Wrapper } from "./Styles";
 
 const ShoppingCart = ({ children, width, height }) => {
   return (
