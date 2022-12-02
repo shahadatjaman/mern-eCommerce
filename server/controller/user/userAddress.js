@@ -7,16 +7,15 @@ module.exports = {
     const { _id } = req.user;
     const userAddress = await UserAddress.findOne({ user_id: _id });
 
-    let useradd,
-      {
-        company_name,
-        country,
-        street_address,
-        town_city,
-        state_country,
-        postcode_zip,
-        phone,
-      } = req.body;
+    ({
+      company_name,
+      country,
+      street_address,
+      town_city,
+      state_country,
+      postcode_zip,
+      phone,
+    } = req.body);
 
     if (userAddress) {
     }

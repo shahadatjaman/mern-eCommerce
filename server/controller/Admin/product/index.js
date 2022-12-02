@@ -1,13 +1,13 @@
-const Product = require("../../models/Vendor/Product/Product");
-const { newTime, objectId, isValidID } = require("../../utils");
-const Categories = require("../../models/Vendor/Product/Categories");
-const Tag = require("../../models/Vendor/Product/Tag");
-const ShareLinks = require("../../models/Vendor/Product/Share_link");
-const ProductVariation = require("../../models/Vendor/Product/Products_variations");
-const VariationOption = require("../../models/Vendor/Product/Product_variations_options");
-const Product_variations_options = require("../../models/Vendor/Product/Product_variations_options");
-const Discount = require("../../models/Vendor/Product/Discount");
-const ProductInventory = require("../../models/Vendor/Product/Product_inventory");
+const Product = require("../../../models/Vendor/Product/Product");
+const { newTime, objectId, isValidID } = require("../../../utils");
+const Categories = require("../../../models/Vendor/Product/Categories");
+const Tag = require("../../../models/Vendor/Product/Tag");
+const ShareLinks = require("../../../models/Vendor/Product/Share_link");
+const ProductVariation = require("../../../models/Vendor/Product/Products_variations");
+const VariationOption = require("../../../models/Vendor/Product/Product_variations_options");
+const Product_variations_options = require("../../../models/Vendor/Product/Product_variations_options");
+const Discount = require("../../../models/Vendor/Product/Discount");
+const ProductInventory = require("../../../models/Vendor/Product/Product_inventory");
 
 module.exports = {
   // Create initial product
@@ -153,10 +153,29 @@ module.exports = {
       });
     }
 
-    const variants = await ProductVariation.find({ product_id });
+    const variants = await ProductVariation.findOne({ product_id });
 
     res.status(200).json({
       variants,
+    });
+  },
+
+  // get single variation
+  async getvariation(req, res) {
+    const { product_id } = req.params;
+
+    const isvalid = isValidID({ product_id });
+
+    if (!isvalid) {
+      return res.status(400).json({
+        error: "Product ID is not valid",
+      });
+    }
+
+    const variation = await ProductVariation.findOne({ product_id });
+
+    res.status(200).json({
+      variation,
     });
   },
   // Remove variants
@@ -268,7 +287,7 @@ module.exports = {
     const isvalid = isValidID({ product_id });
     if (!isvalid) {
       return res.status(400).json({
-        error: "Product ID not valid",
+        error: "Product ID is not valid",
       });
     }
 
@@ -282,6 +301,8 @@ module.exports = {
     });
     await ProductInventory.deleteMany({ product_id: { $in: [product_id] } });
 
+    await Product.findByIdAndDelete({ _id: product_id });
+
     res.status(200).json({
       message: "Deleted product successfully",
     });
@@ -291,7 +312,7 @@ module.exports = {
   async createDiscount(req, res) {
     const { product_id } = req.params;
     const { discount_percent } = req.body;
-    console.log(product_id);
+
     const newDiscount = new Discount({
       product_id,
       discount_percent,
@@ -356,13 +377,45 @@ module.exports = {
 
   // Get all products
   async getProducts(req, res) {
-    const { _id } = req.user;
-
-    const products = await Product.find({ user_id: _id, isValid: true });
+    const products = await Product.find({ isValid: true });
 
     res.status(200).json({
       products,
     });
+  },
+
+  // Get Single product
+  async getProduct(req, res) {
+    const { product_id } = req.params;
+
+    const isvalid = isValidID({ product_id });
+
+    if (!isvalid) {
+      return res.status(400).json({
+        error: "Product ID is not valid",
+      });
+    }
+
+    const product = await Product.findById({ _id: product_id });
+    const variations = await ProductVariation.find({ product_id: product_id });
+    const tags = await Tag.find({ product_id: product_id });
+    const inventories = await ProductInventory.find({ product_id: product_id });
+    const discount = await Discount.findOne({ product_id: product_id });
+
+    if (product) {
+      return res.status(200).json({
+        product,
+        variations,
+        inventories,
+        discount,
+        tags,
+      });
+    } else {
+      return res.status(400).json({
+        message: "Product not found!",
+        product,
+      });
+    }
   },
 
   // Get inventories

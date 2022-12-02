@@ -14,7 +14,7 @@ const {
   addUserValidators,
   addUserValidatorHandler,
   loginValidator,
-} = require("../../middleware/Validator/userValidator");
+} = require("../../middleware/Validator/user/userValidator");
 
 // Add user
 router.post(

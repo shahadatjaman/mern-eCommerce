@@ -5,10 +5,6 @@ const delProductValidator = [
     .isMongoId()
     .withMessage("product_id should be valid!")
     .trim(),
-  check("product_variations_id")
-    .isMongoId()
-    .withMessage("product_variations_id should be valid!")
-    .trim(),
 ];
 
 const delPorductValidatorHandler = (req, res, next) => {
