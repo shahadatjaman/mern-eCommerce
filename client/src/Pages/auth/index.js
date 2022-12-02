@@ -2,14 +2,13 @@ import React from "react";
 import Layout from "../Layout";
 import { Outlet } from "react-router-dom";
 import { Wrapper } from "../../Components/Shared/Styles/styles";
-import BreadCrumb from "../../Components/Shared/BreadCrumb";
+
 import { Container, Row, Col } from "reactstrap";
 import { Link, Tab } from "./Styles";
 
 const Auth = () => {
   return (
     <Layout>
-      <BreadCrumb pathName="login register" />
       <Wrapper>
         <Container>
           <Row>

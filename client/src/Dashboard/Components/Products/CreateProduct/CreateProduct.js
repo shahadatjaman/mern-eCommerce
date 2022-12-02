@@ -1,12 +1,8 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import Form from "../../../../Components/Shared/Form/Form";
 import Media from "../Upload/Media";
 import {
   AddAnotherOption,
-  CheckBox,
   H6,
-  InputArea,
   ItemWrapper,
   Options,
   Plus,
@@ -21,15 +17,20 @@ import { useState } from "react";
 import Modal from "../../../Shared/Modal";
 import { Switch } from "pretty-checkbox-react";
 import { Span } from "./Styles";
+import { isEmptyArray } from "../../../../utils";
 
 const CreateProduct = () => {
   const [toggleForm, setToggleForm] = useState(true);
   const { handleChange, isChecked } = useCheckbox();
   const [isOpen, setisOpen] = useState(false);
 
-  const { alt_id, color: colorOptions } = useSelector(
-    (state) => state.createproduct
+  const { productVariations, loading } = useSelector(
+    (state) => state.variation
   );
+
+  // const { alt_id, color: colorOptions } = useSelector(
+  //   (state) => state.createproduct
+  // );
 
   const handleToggleForm = () => {
     if (toggleForm) {
@@ -61,16 +62,15 @@ const CreateProduct = () => {
         />
         <Span>This product has options, like size or color</Span>
       </Options>
-      {/* <ItemWrapper>
+      <ItemWrapper>
         <Ul>
-          {colorOptions?.map((item, index) => (
-            <List key={index} item={item} />
-          ))}
+          {!isEmptyArray(productVariations) &&
+            productVariations?.map((variation, index) => (
+              <List key={index} variation={variation} />
+            ))}
         </Ul>
       </ItemWrapper>
-      {isChecked && toggleForm && (
-        <ProductOptions handleToggleForm={handleToggleForm} />
-      )} */}
+
       {isChecked && (
         <AddAnotherOption>
           <H6 onClick={openModal}>
@@ -79,8 +79,13 @@ const CreateProduct = () => {
           </H6>
         </AddAnotherOption>
       )}
-      <Modal title="Add product option" isOpen={isOpen} closeModal={closeModal}>
-        Hello
+      <Modal
+        width="800"
+        title="Add product option"
+        isOpen={isOpen}
+        closeModal={closeModal}
+      >
+        <ProductOptions handleToggleForm={handleToggleForm} />
       </Modal>
     </Wrapper>
   );

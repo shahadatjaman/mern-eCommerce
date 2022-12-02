@@ -7,10 +7,7 @@ const categoriesSchema = new Schema({
     required: true,
     trim: true,
   },
-  product_id: {
-    type: ObjectId,
-    required: true,
-  },
+
 });
 
 module.exports = Categories = model("CATEGORIES", categoriesSchema);

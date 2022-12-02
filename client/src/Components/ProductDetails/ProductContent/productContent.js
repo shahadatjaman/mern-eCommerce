@@ -6,15 +6,15 @@ import { wistList } from "../../../feature/reducer/wishList";
 
 //<==== Components ====>
 import ProductRatting from "../../Shared/Ratting/";
-import ProducrColor from "../ColorVariation/ProducrColor";
+
 import SocialLink from "../SocialLink";
-import ProductQty from "../Quantity";
 
 // <=== Styled Components  ====>
 import {
   H4,
   Li,
   MetaText,
+  OldPrice,
   ProductContentWrapper,
   ProductMeta,
   ProductPrice,
@@ -22,43 +22,71 @@ import {
   Text,
   Ul,
 } from "./Styles";
+import { useEffect, useState } from "react";
+import { getSalePrice } from "../../../utils";
+import Quantityy from "../Quantity";
 
 const ProductContent = () => {
+  const [salePices, setSalePrices] = useState(null);
+
   const dispatch = useDispatch();
 
   // get product
-  const { product, dimension } = useSelector((state) => state.productDetails);
+  const { product, discount } = useSelector((state) => state.productDetails);
+
+  useEffect(() => {
+    if (product && discount) {
+      const salePice = getSalePrice({
+        price: product.price.$numberDecimal,
+        discount: discount.discount_percent.$numberDecimal,
+      });
+
+      setSalePrices(salePice);
+    }
+  }, [product, discount]);
 
   const addToWishList = () => {
     dispatch(wistList(product));
   };
 
+  if (!product) {
+    return <h2>product not found!</h2>;
+  }
+
   return (
     <ProductContentWrapper>
       {/* Product Details Ttile */}
-      <H4>{product && product.title}</H4>
+      <H4>{product && product.name}</H4>
 
       {/* Product Prices */}
       <ProductPrice>
-        {dimension && <Span>${dimension.price}</Span>}
+        {discount ? (
+          <>
+            {salePices && <Span>$ {salePices.toFixed(2)}</Span>}
+
+            <OldPrice> $ {product.price.$numberDecimal}</OldPrice>
+          </>
+        ) : (
+          <Span>$ {product.price.$numberDecimal}</Span>
+        )}
       </ProductPrice>
 
       {/* Product Ratting */}
       <ProductRatting />
 
       {/* Product Short Description */}
-      <Text>{product && product.short_description}</Text>
+      <Text>{product.short_desc}</Text>
 
       {/* Product Color and Size */}
-      <ProducrColor />
+      {/* <ProducrColor /> */}
       {/* Product Quantity */}
-      <ProductQty addToWishList={addToWishList} />
+      <Quantityy />
 
       {/* Product Categories */}
       <ProductMeta>
         <MetaText>Categories :</MetaText>
         <Ul>
-          <Li>{product && product.categorie}</Li>
+          <Li>Categories</Li>
         </Ul>
       </ProductMeta>
 
@@ -66,8 +94,7 @@ const ProductContent = () => {
       <ProductMeta>
         <MetaText>Tags :</MetaText>
         <Ul>
-          {product &&
-            product.tags.map((tag, index) => <Li key={index}>{tag}</Li>)}
+          <Li>Tag name</Li>
         </Ul>
       </ProductMeta>
 

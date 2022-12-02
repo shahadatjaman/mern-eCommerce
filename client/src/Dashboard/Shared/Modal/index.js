@@ -17,7 +17,7 @@ import {
  * @returns Modal
  */
 
-const Modal = ({ title, children, closeModal, isOpen }) => {
+const Modal = ({ title, children, closeModal, isOpen, width }) => {
   useEffect(() => {
     let body = document.getElementsByTagName("body")[0];
     if (isOpen) {
@@ -28,7 +28,7 @@ const Modal = ({ title, children, closeModal, isOpen }) => {
   }, [isOpen]);
   return (
     <ModalWrapper isOpen={isOpen}>
-      <Content width="700">
+      <Content width={width}>
         <Header>
           <Title>
             <H3> {title}</H3>

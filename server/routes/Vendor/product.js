@@ -8,59 +8,85 @@ const {
   deleteProduct,
   createProduct,
   productVariationsOptions,
-} = require("../../controller/Vendor/product");
+  getCategories,
+  removeTag,
+  removeVariation,
+  createDiscount,
+  inventory,
+  getProducts,
+  getInventory,
+  getDiscount,
+  deleteOption,
+  getOptions,
+  getVariants,
+  getProduct,
+  getvariation,
+} = require("../../controller/Admin/product/");
 
 // Authentication checks middleware
-const { checkVendor } = require("../../middleware/Auth/");
+const { authChecker } = require("../../middleware/Auth/");
 
 // Product input validation middleware
 const {
   productValidator,
   productValidatorHandler,
-} = require("../../middleware/Validator/productValidations");
+} = require("../../middleware/Validator/product/productValidations");
 
 // Product category validation middleware
 const {
   categoreisValidator,
   categoriesValidatorHandler,
-} = require("../../middleware/Validator/categoriesValidations");
+} = require("../../middleware/Validator/categories/categoriesValidations");
 
 // Product tag validation middleware
 const {
   tagValidator,
   tagValidatorHandler,
-} = require("../../middleware/Validator/productTagValidation");
+} = require("../../middleware/Validator/product/productTagValidation");
 
 // Product share link validation middleware
 const {
   shareLinkValidator,
   shareLinkValidatorHandler,
-} = require("../../middleware/Validator/productShareLink");
+} = require("../../middleware/Validator/product/productShareLink");
 // Product variation validation middleware
 const {
   variationValidator,
   variationValidatorHandler,
-} = require("../../middleware/Validator/productVariations");
+} = require("../../middleware/Validator/product/productVariations");
 
 // Product variation validation middleware
 const {
   variationOptionsValidator,
   variationOptionsValidatorHandler,
-} = require("../../middleware/Validator/variationOptions");
+} = require("../../middleware/Validator/variations/variationOptions");
+
+// Discount Validation middleware
+const {
+  discountValidatorHandler,
+  discountValidation,
+} = require("../../middleware/Validator/discount/discountValidations");
+
+// Qunatity validation middleware
+const {
+  quantityValidation,
+  quantityValidatorHandler,
+} = require("../../middleware/Validator/inventory/invantoryValidation");
 
 // Delete product
 const {
   delProductValidator,
   delPorductValidatorHandler,
-} = require("../../middleware/Validator/deleteProduct");
+} = require("../../middleware/Validator/product/deleteProduct");
+const { orderValidation } = require("../../middleware/Validator/order");
 
 // Create a new empty product
-router.get("/createemptyproduct", checkVendor, createEmptyProduct);
+router.get("/createemptyproduct", authChecker, createEmptyProduct);
 
 // Create a new product
 router.post(
   "/createproduct",
-  checkVendor,
+  authChecker,
   productValidator,
   productValidatorHandler,
   createProduct
@@ -69,19 +95,25 @@ router.post(
 // Create a new product category
 router.post(
   "/createcategory",
-  checkVendor,
+  authChecker,
   categoreisValidator,
   categoriesValidatorHandler,
   createCategories
 );
 
+// Get categories
+router.get("/getcategories", authChecker, getCategories);
+
 // Create a product tag
 router.post("/createtag", tagValidator, tagValidatorHandler, createTag);
+
+// Remove tag
+router.post("/romvetag", authChecker, removeTag);
 
 // Create share_link
 router.post(
   "/createsharelink",
-  checkVendor,
+  authChecker,
   shareLinkValidator,
   shareLinkValidatorHandler,
   createShareLink
@@ -90,27 +122,73 @@ router.post(
 // Product variation
 router.post(
   "/productvariation",
-  checkVendor,
+  authChecker,
   variationValidator,
   variationValidatorHandler,
   productVariations
 );
 
+// Remove variation
+router.post("/removevariation", authChecker, removeVariation);
+
 // Product variation Options
 router.post(
   "/variationoption",
-  checkVendor,
+  authChecker,
   variationOptionsValidator,
   variationOptionsValidatorHandler,
   productVariationsOptions
 );
 
-// Delete a product
+// Delete product variation option
+router.delete("/deleteoption/:option_id", authChecker, deleteOption);
+
+// Create a new discount
 router.post(
-  "/deleteproduct",
-  checkVendor,
+  "/creatediscount/:product_id",
+  authChecker,
+  discountValidation,
+  discountValidatorHandler,
+  createDiscount
+);
+
+// Create a inventory
+router.post(
+  "/inventory/:product_id",
+  authChecker,
+  quantityValidation,
+  quantityValidatorHandler,
+  inventory
+);
+
+// Delete a product
+router.delete(
+  "/deleteproduct/:product_id",
+  authChecker,
   delProductValidator,
   delPorductValidatorHandler,
   deleteProduct
 );
+
+// get products
+router.get("/getproducts", getProducts);
+
+// Get single product
+router.get("/getproduct/:product_id", getProduct);
+
+// Get inventory
+router.get("/getinventory/:product_id", authChecker, getInventory);
+
+// Get product discount
+router.get("/getdiscount/:product_id", authChecker, getDiscount);
+
+// Get product  variations
+router.get("/getvariations/:product_id", getVariants);
+
+// Get Variation
+router.get("/getvariation/:product_id", getvariation);
+
+// Get variation options
+router.get("/getoptions/:variation_id", authChecker, getOptions);
+
 module.exports = router;

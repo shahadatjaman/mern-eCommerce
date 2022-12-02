@@ -10,6 +10,7 @@ const PriceInput = ({
   handleChange,
   name,
   value,
+  disabled = false,
 }) => {
   return (
     <PriceWrapper width={width}>
@@ -24,6 +25,7 @@ const PriceInput = ({
         )}
       </Label>
       <PInput
+        disabled={disabled}
         type={"number"}
         width={width}
         name={name}

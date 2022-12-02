@@ -11,9 +11,12 @@ import { authentication } from "../../firebase";
 import { BsGithub } from "react-icons/bs";
 import { makeUserObj } from "../../utils";
 import { register } from "../../feature/reducer/user";
+import { useNavigate } from "react-router-dom";
 
 const GitHub = () => {
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const signInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
@@ -24,6 +27,7 @@ const GitHub = () => {
         let user = makeUserObj({ displayName, email, photoURL });
 
         dispatch(register(user));
+        navigate("/");
       })
       .catch((error) => {
         console.log(error);

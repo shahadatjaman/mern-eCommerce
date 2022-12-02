@@ -1,26 +1,25 @@
 import styled from "styled-components";
 
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export const ShoppingWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 
-export const Cuntinue = styled(Link)`
+export const Cuntinue = styled(NavLink)`
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
   display: inline-block;
   padding: 18px 63px 17px;
   text-transform: uppercase;
-  color: #363f4d;
+  color: #fff;
   border-radius: 50px;
   text-align: center;
   cursor: pointer;
-  background: #f2f2f2;
+  background: #1976d2;
   &&:hover {
-    background: ${(props) => props.theme.colors.primary};
     color: #fff;
   }
 `;

@@ -1,5 +1,5 @@
-const { Schema, model } = require("mongoose");
-const { ObjectId } = Schema.Types;
+const mongoose = require("mongoose");
+const { ObjectId } = mongoose.Types;
 
 module.exports = {
   objectId(_id) {
@@ -12,6 +12,17 @@ module.exports = {
     return ObjectId();
   },
   isValidID({ product_id }) {
-    return ObjectId.isValid(product_id);
+    if (!product_id) {
+      return false;
+    } else {
+      return ObjectId.isValid(product_id);
+    }
+  },
+
+  requiremnet() {
+    return {
+      required: true,
+      trim: true,
+    };
   },
 };

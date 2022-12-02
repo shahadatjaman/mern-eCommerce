@@ -21,6 +21,7 @@ import { HiOutlineUser } from "react-icons/hi";
 import { GoGraph } from "react-icons/go";
 import { Outlet } from "react-router-dom";
 import { Container } from "react-bootstrap";
+import Layout from "../../Pages/Layout/Layout";
 
 const Sidebar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -58,34 +59,31 @@ const Sidebar = ({ children }) => {
     },
   ];
   return (
-    <Wrapper>
-      <SelfContainer fluid>
-        <SidebarWrape
-          style={{ width: isOpen ? "14%" : "50px" }}
-          className="sidebar"
-        >
-          <Fixed>
-            <TopSection>
-              {/* <Logo style={{ display: isOpen ? "block" : "none" }}>Logo</Logo> */}
-              <Bars style={{ marginLeft: isOpen ? "50px" : "0px" }}>
-                <FaBars onClick={toggle} />
-              </Bars>
-            </TopSection>
-            {menuItem.map((item, index) => (
-              <Link to={item.path} key={index} activeclassName="active">
-                <LinkText className="icon">{item.icon}</LinkText>
-                <LinkText style={{ display: isOpen ? "block" : "none" }}>
-                  {item.name}
-                </LinkText>
-              </Link>
-            ))}
-          </Fixed>
-        </SidebarWrape>
-        <Main>
-          <Outlet />
-        </Main>
-      </SelfContainer>
-    </Wrapper>
+    <Layout>
+      <Wrapper>
+        <SelfContainer fluid>
+          <SidebarWrape
+            style={{ width: isOpen ? "14%" : "50px" }}
+            className="sidebar"
+          >
+            <Fixed>
+              <TopSection></TopSection>
+              {menuItem.map((item, index) => (
+                <Link to={item.path} key={index} activeclassName="active">
+                  <LinkText className="icon">{item.icon}</LinkText>
+                  <LinkText style={{ display: isOpen ? "block" : "none" }}>
+                    {item.name}
+                  </LinkText>
+                </Link>
+              ))}
+            </Fixed>
+          </SidebarWrape>
+          <Main>
+            <Outlet />
+          </Main>
+        </SelfContainer>
+      </Wrapper>
+    </Layout>
   );
 };
 

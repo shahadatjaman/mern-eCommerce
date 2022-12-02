@@ -66,24 +66,22 @@ export const Title = styled.h4`
 `;
 
 export const TableContent = styled.div`
-  display: block;
+  /* display: block;
   width: 100%;
   overflow-x: auto;
-`;
-
-export const Table = styled.table`
   border: 1px solid #ebebeb;
   border-collapse: collapse;
   width: 100%;
   border: 1px solid #ebebeb;
-  background-color: #f9f9f9;
+  background: #fff; */
 `;
+
+export const Table = styled.table``;
 
 export const Thead = styled.thead``;
 
 export const Tr = styled.tr`
   border: 1px solid #ebebeb;
-  background-color: ${(props) => props.bg};
 `;
 
 export const Th = styled.th`
@@ -98,9 +96,7 @@ export const Th = styled.th`
   border-top: none;
 `;
 
-export const TBody = styled.tbody`
-  background: #fff;
-`;
+export const TBody = styled.tbody``;
 
 export const TData = styled.td`
   font-size: 15px;

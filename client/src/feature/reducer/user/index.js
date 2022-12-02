@@ -10,6 +10,7 @@ const initialState = {
   user: null,
   errors: {},
   isLoading: false,
+  isLoadingToOrder: false,
   userAddress: {
     company_name: "",
     street_address: "",
@@ -19,6 +20,7 @@ const initialState = {
     phone: "",
     country: "",
   },
+  isValidAddress: false,
 };
 
 export const login = createAsyncThunk(
@@ -53,7 +55,7 @@ export const register = createAsyncThunk(
 
 export const createUserAddress = createAsyncThunk(
   "auth/useraddress",
-  async ({ navigate, values }, thunkAPI) => {
+  async ({ values }, thunkAPI) => {
     try {
       const response = await axios.post(
         `http://localhost:5000/auth/useraddress`,
@@ -64,7 +66,7 @@ export const createUserAddress = createAsyncThunk(
           },
         }
       );
-      navigate("/order");
+
       return response.data;
     } catch (error) {
       return await error.response.data.errors;
@@ -106,6 +108,12 @@ const loginSlice = createSlice({
       removeLocalstorage("user_info");
       state.user = null;
     },
+    checkUserAddressIsValid: (state, { payload }) => {
+      state.isValidAddress = payload.isValidForm;
+    },
+    getFormState: (state, { payload }) => {
+      state.userAddress = payload;
+    },
   },
   extraReducers: {
     // User Login
@@ -145,13 +153,26 @@ const loginSlice = createSlice({
       state.isLoading = false;
     },
 
+    // Create user Address
+    [createUserAddress.pending]: (state) => {
+      state.isLoadingToOrder = true;
+    },
+    [createUserAddress.fulfilled]: (state, { payload }) => {
+      state.isLoadingToOrder = false;
+    },
+    [createUserAddress.rejected]: (state) => {
+      state.isLoadingToOrder = false;
+    },
+
     // Get User Address
     [getUserAddress.pending]: (state) => {
       state.isLoading = true;
     },
     [getUserAddress.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      state.userAddress = payload.user_address;
+      if (payload && payload.user_address) {
+        state.userAddress = payload.user_address;
+      }
     },
     [getUserAddress.rejected]: (state) => {
       state.isLoading = false;
@@ -159,7 +180,13 @@ const loginSlice = createSlice({
   },
 });
 
-export const { addUser, addGoogleUser, logout } = loginSlice.actions;
+export const {
+  addUser,
+  addGoogleUser,
+  logout,
+  checkUserAddressIsValid,
+  getFormState,
+} = loginSlice.actions;
 
 export default loginSlice.reducer;
 

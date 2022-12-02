@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-export const Selection = styled.div``;
+export const Selection = styled.div`
+  width: ${(props) => props.width && props.width}%;
+`;
 
 export const Deletion = styled.div`
   width: ${(props) => (props.width ? props.width : 100)}%;
@@ -10,4 +12,13 @@ export const Deletion = styled.div`
     margin-left: 1rem;
     cursor: pointer;
   }
+`;
+
+export const OptionsAndValues = styled.div`
+  display: flex;
+  justify-content: start;
+`;
+
+export const SubmitForm = styled.div`
+  margin-top: 1rem;
 `;

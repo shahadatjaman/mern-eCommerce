@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
-export const Wrapper = styled.div``;
+export const Wrapper = styled.div`
+  background: #fff;
+`;
 
 export const Tab = styled.div`
   display: flex;
@@ -38,6 +40,9 @@ export const FormWrape = styled.div`
   text-align: left;
   max-width: 650px;
   margin: auto;
+
+  @media (max-width: 768px) {
+  }
 `;
 
 export const ShowPassword = styled.div`

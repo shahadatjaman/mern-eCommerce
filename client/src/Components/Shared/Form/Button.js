@@ -12,26 +12,18 @@ const Button = ({
   text,
   hoverColor,
   activeColor,
-  isDisabled,
+  isDisabled = false,
+  isValid = false,
   alignMent,
   radius,
+  color,
   width,
   height,
+  onClick,
 }) => {
   return (
     <ButtonWrap alignMent={alignMent}>
-      {!isDisabled ? (
-        <Btn
-          disabled
-          radius={radius}
-          width={width}
-          height={height}
-          activeColor={activeColor}
-          type={type}
-        >
-          {text}
-        </Btn>
-      ) : (
+      {isDisabled ? (
         <Btn
           hoverColor={hoverColor}
           radius={radius}
@@ -39,6 +31,22 @@ const Button = ({
           type={type}
           width={width}
           height={height}
+          onClick={onClick}
+          color={color}
+          isValid={isValid}
+        >
+          {text}
+        </Btn>
+      ) : (
+        <Btn
+          disabled
+          radius={radius}
+          width={width}
+          height={height}
+          activeColor={activeColor}
+          type={type}
+          isValid={isValid}
+          onClick={onClick}
         >
           {text}
         </Btn>

@@ -1,41 +1,21 @@
 import React from "react";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Wrapper } from "../../Shared/Styles";
+import Header from "./Header";
 
-import { useNavigate } from "react-router-dom";
-import {
-  ActionBar,
-  HeaderTitle,
-  PageHeaderContainer,
-  Plus,
-  ProducrWrapper,
-  //Wrapper,
-} from "./Styles";
-import { Title, Span, Button, Wrapper } from "../../Shared/Styles";
+import { getProducts } from "../../feature/reducer/products";
 
 const Collection = () => {
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const navigateHandler = () => {
-    navigate("/dashboard/shahadat/newproduct");
-  };
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
 
   return (
     <Wrapper>
-      <ProducrWrapper>
-        <PageHeaderContainer>
-          <HeaderTitle>
-            <Title>
-              Product
-              <Span>3</Span>
-            </Title>
-          </HeaderTitle>
-          <ActionBar>
-            <Button onClick={navigateHandler}>
-              <Plus>+</Plus>
-              New Product
-            </Button>
-          </ActionBar>
-        </PageHeaderContainer>
-      </ProducrWrapper>
+      <Header />
     </Wrapper>
   );
 };

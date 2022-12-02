@@ -1,8 +1,10 @@
 export const checkoutValidations = (values) => {
   const errors = {};
+
   if (!values.company_name) {
-    errors.company_name = "Company is required!";
+    errors.company_name = "Company name is required!";
   }
+
   if (!values.country) {
     errors.country = "Country is required!";
   }

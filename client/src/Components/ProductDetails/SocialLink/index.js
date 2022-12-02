@@ -1,14 +1,12 @@
 import { SocialMedia, Ul, Li, Icon } from "../ProductContent/Styles";
 
-const SocialLink = ({ links }) => {
+const SocialLink = () => {
   return (
     <SocialMedia>
       <Ul>
-        {links.share_link.map((social, index) => (
-          <Li marginRight="40" key={index}>
+        {/* <Li marginRight="40" key={index}>
             <Icon className={social.icon}></Icon>
-          </Li>
-        ))}
+          </Li> */}
       </Ul>
     </SocialMedia>
   );

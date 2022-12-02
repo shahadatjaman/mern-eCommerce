@@ -1,31 +1,50 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
-import { Col, Container, Row } from "reactstrap";
+import { Col, Row } from "reactstrap";
 import BreadCrumb from "../../Components/Shared/BreadCrumb";
 import { getUserAddress } from "../../feature/reducer/user";
 import Layout from "../Layout";
-import Tab from "./Tab";
+import Tab from "./Tab/Tab";
+import Container from "@mui/material/Container";
+
+import Box from "@mui/material/Box";
+
+import Grid from "@mui/material/Grid";
+import Billing from "./Billing";
+import UserAddress from "./address";
+import Order from "./Order";
+import { formStyles } from "./Styles";
 
 const Checkout = () => {
-  const { isLoading } = useSelector((state) => state.user);
+  const { isLoading, userAddress } = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUserAddress());
   }, [dispatch]);
-  return (
-    <Layout>
-      <BreadCrumb pathName="Checkout" />
 
-      <Container>
-        <Row xs="2">
-          <Col className="offset-md-2" md="8" sm="12">
-            <Tab />
-          </Col>
-        </Row>
-      </Container>
-      {!isLoading && <Outlet />}
-    </Layout>
+  if (isLoading) {
+    return "Loading";
+  }
+
+  return (
+    !isLoading && (
+      <Layout>
+        <Container maxWidth="xl">
+          <Box sx={{ flexGrow: 1 }} my={8}>
+            <Grid container spacing={2}>
+              <Grid item xs={8}>
+                <Billing userAddress={userAddress} />
+              </Grid>
+              <Grid item xs={4}>
+                <Order />
+              </Grid>
+            </Grid>
+          </Box>
+        </Container>
+      </Layout>
+    )
   );
 };
 
