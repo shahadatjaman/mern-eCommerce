@@ -50,4 +50,15 @@ module.exports = {
       });
     }
   },
+
+  // Get orders
+  async getOrders(req, res) {
+    const { _id } = req.user;
+
+    const orders = await Order.find({ user_id: _id });
+
+    res.status(200).json({
+      orders,
+    });
+  },
 };

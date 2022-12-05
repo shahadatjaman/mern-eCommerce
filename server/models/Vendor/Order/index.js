@@ -15,6 +15,10 @@ const orderSchema = new Schema({
           type: String,
           ...requiremnet,
         },
+        price: {
+          type: Decimal128,
+          ...requiremnet,
+        },
         color_option_id: String,
         size_option_id: String,
         qty: {
