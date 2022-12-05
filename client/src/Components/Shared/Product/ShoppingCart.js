@@ -25,8 +25,8 @@ import { addCart, addCartItems } from "../../../feature/reducer/addToCart";
 import { useAddToCart } from "../../../hooks/useAddToCart";
 import { useEffect, useState } from "react";
 
-import { getVariation } from "../../../Dashboard/feature/reducer/productVariation";
-import { getDiscount } from "../../../Dashboard/feature/reducer/products";
+import { getVariation } from "../../../feature/reducer/product/productVariation";
+
 import {
   getLocalstorage,
   isEmptyObject,

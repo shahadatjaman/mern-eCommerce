@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
@@ -105,7 +105,10 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
         {user ? (
           <div>
             <MenuItem>
-              <Avatar src={user?.avatar} /> My account
+              <Avatar src={user?.avatar} />{" "}
+              <NavLink to={"/profile/username/manageaccount"}>
+                My account
+              </NavLink>
             </MenuItem>
             <Divider />
             <MenuItem>

@@ -25,6 +25,7 @@ export const LargeImageWrapper = styled.div`
 
 export const Image = styled.img`
   max-width: 100%;
+  height: 100%;
 `;
 
 export const SmallImageWrapper = styled.div`
@@ -49,6 +50,7 @@ export const SmallWrapper = styled.div`
 
 export const SmallImg = styled.img`
   max-width: 100%;
+  height: 100%;
 `;
 
 export const Gallery = styled.div``;
@@ -66,10 +68,11 @@ export const largeImg = {
 
 export const gallerySm = {
   display: "flex",
-  justifyContent: "center",
+  justifyContent: "start",
   width: 550,
   height: 100,
   margin: "1rem auto",
+  flexDirection: "row-reverse",
 };
 
 export const imgBox = {

@@ -5,10 +5,11 @@ import axios from "axios";
 const initialState = {
   product: null,
   variations: null,
+  options: null,
   discount: null,
   isLoading: false,
-  selectedProduct: null,
-  dimension: null,
+  recentVariation: null,
+  recentColor: null,
 };
 
 // Fetch Single products
@@ -35,11 +36,11 @@ const productDetailsSlice = createSlice({
     getProduct: (state, { payload }) => {
       state.product = payload;
     },
-    getSelectedProduct: (state, { payload }) => {
-      state.selectedProduct = payload;
+    addRecentVariation: (state, { payload }) => {
+      state.recentVariation = payload;
     },
-    getDimension: (state, { payload }) => {
-      state.dimension = payload;
+    addRecentColor: (state, { payload }) => {
+      state.recentColor = payload;
     },
   },
   extraReducers: {
@@ -50,6 +51,7 @@ const productDetailsSlice = createSlice({
       state.isLoading = false;
       state.product = payload.product;
       state.variations = payload.variations;
+      state.options = payload.options;
       state.discount = payload.discount;
     },
     [fetchProduct.rejected]: (state, { payload }) => {
@@ -59,7 +61,7 @@ const productDetailsSlice = createSlice({
   },
 });
 
-export const { getProduct, getSelectedProduct, getDimension } =
+export const { getProduct, addRecentVariation, addRecentColor } =
   productDetailsSlice.actions;
 
 export default productDetailsSlice.reducer;

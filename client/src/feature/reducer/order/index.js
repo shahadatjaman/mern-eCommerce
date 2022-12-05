@@ -7,6 +7,7 @@ const initialState = {
   isError: false,
   products: null,
   newOrder: null,
+  orders: null,
 };
 
 export const createOrder = createAsyncThunk(
@@ -52,6 +53,23 @@ export const getOrder = createAsyncThunk(
     }
   }
 );
+export const getOrders = createAsyncThunk("v2/getorder", async () => {
+  try {
+    let response = await axios.get(
+      `http://localhost:5000/V2/getorders`,
+
+      {
+        headers: {
+          Authorization: "Bearer " + getLocalstorage("user_info"),
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    return await error.response.data.errors;
+  }
+});
 
 const orderSlice = createSlice({
   name: "order",
@@ -93,6 +111,20 @@ const orderSlice = createSlice({
       }
     },
     [getOrder.rejected]: (state) => {
+      state.isLoading = false;
+    },
+    // Get orders
+    [getOrders.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getOrders.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+
+      if (payload.orders) {
+        state.orders = payload.orders;
+      }
+    },
+    [getOrders.rejected]: (state) => {
       state.isLoading = false;
     },
   },

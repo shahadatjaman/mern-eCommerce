@@ -56,7 +56,7 @@ export const HeaderRightWrapper = styled.div`
 `;
 
 export const Item = styled.div`
-  margin-left: 18px;
+  margin-left: 28px;
   position: relative;
 
   svg {

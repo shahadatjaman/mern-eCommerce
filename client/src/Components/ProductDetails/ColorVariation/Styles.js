@@ -17,6 +17,7 @@ export const Small = styled.span`
 
 export const ColorContent = styled.div`
   display: flex !important;
+  flex-direction: row-reverse;
 `;
 
 export const Label = styled.div`
@@ -60,6 +61,7 @@ export const CurcleBorder = styled.div`
   display: flex;
   justify-content: center !important;
   align-items: center !important;
+  border: ${(props) => (props.isActive ? "4px solid #221ecd" : "")};
 `;
 
 export const Colored = styled.span`

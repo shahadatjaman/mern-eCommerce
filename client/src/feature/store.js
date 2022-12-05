@@ -10,15 +10,15 @@ import addToCartReducer from "./reducer/addToCart";
 
 import userReducer from "./reducer/user/";
 
-import productSliceReducer from "../Dashboard/feature/reducer/createProduct";
+import productSliceReducer from "../feature/reducer/product/createProduct";
 
-import priceReducer from "../Dashboard/feature/reducer/productPricing";
+import priceReducer from "../feature/reducer/product/productPricing";
 
-import productVariation from "../Dashboard/feature/reducer/productVariation";
+import productVariation from "../feature/reducer/product/productVariation";
 
-import getProductReducer from "../Dashboard/feature/reducer/products";
+import getProductReducer from "../feature/reducer/product/products";
 
-import getInventoryReducer from "../Dashboard/feature/reducer/inventory";
+import getInventoryReducer from "../feature/reducer/product/inventory";
 
 import orderReducer from "../feature/reducer/order/index";
 

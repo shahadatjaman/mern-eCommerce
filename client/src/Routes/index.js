@@ -12,10 +12,12 @@ import Checkout from "../Pages/Checkout";
 import Order from "../Pages/Checkout/Order";
 import { Private, Public } from "./protectRouter";
 import Layout from "../Pages/Layout";
-import Sidebar from "../Dashboard/Components/Sidebar/Sidebar";
-import Product from "../Dashboard/Pages/Products";
-import Collection from "../Dashboard/Pages/Collection";
 import OrderSuccess from "../Pages/OrderSuccess";
+import Profile from "../Pages/Profile";
+
+import ManageAccount from "../Components/Profile/ManageAccount";
+
+import MyOrders from "../Components/Profile/MyOrder";
 
 export const routes = [
   {
@@ -92,16 +94,28 @@ export const routes = [
     ],
   },
   {
-    path: "dashboard/:username",
-    element: <Sidebar />,
+    path: "profile/:username",
+    element: (
+      <Private>
+        <Profile />
+      </Private>
+    ),
     children: [
       {
-        path: "newproduct",
-        element: <Product />,
+        path: "manageaccount",
+        element: (
+          <Private>
+            <ManageAccount />
+          </Private>
+        ),
       },
       {
-        path: "collections",
-        element: <Collection />,
+        path: "myorders",
+        element: (
+          <Private>
+            <MyOrders />
+          </Private>
+        ),
       },
     ],
   },

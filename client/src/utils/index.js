@@ -198,7 +198,7 @@ export const requestToServerWithGet = ({ url }) => {
           },
         }
       );
-      console.log(response.data);
+
       return response.data;
     } catch (error) {
       return await error.response.data.errors;
@@ -255,4 +255,14 @@ export const getTotalPrice = ({ carts }) => {
   }, 0);
 
   return prices;
+};
+
+export const getRecentVariation = (variations, recentColor) => {
+  if (recentColor) {
+    const newVariation = variations.find(
+      (val) => val._id === recentColor.product_variations_id
+    );
+
+    return newVariation;
+  }
 };

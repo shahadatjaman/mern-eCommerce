@@ -25,6 +25,7 @@ import {
 import { useEffect, useState } from "react";
 import { getSalePrice } from "../../../utils";
 import Quantityy from "../Quantity";
+import ProducrColor from "../ColorVariation";
 
 const ProductContent = () => {
   const [salePices, setSalePrices] = useState(null);
@@ -44,10 +45,6 @@ const ProductContent = () => {
       setSalePrices(salePice);
     }
   }, [product, discount]);
-
-  const addToWishList = () => {
-    dispatch(wistList(product));
-  };
 
   if (!product) {
     return <h2>product not found!</h2>;
@@ -77,8 +74,10 @@ const ProductContent = () => {
       {/* Product Short Description */}
       <Text>{product.short_desc}</Text>
 
+      <ProducrColor />
+
       {/* Product Color and Size */}
-      {/* <ProducrColor /> */}
+
       {/* Product Quantity */}
       <Quantityy />
 
