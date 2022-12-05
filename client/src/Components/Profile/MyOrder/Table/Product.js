@@ -23,6 +23,8 @@ const Product = ({ product }) => {
     setVariation(variations[0]);
   };
 
+  console.log(product);
+
   return (
     <TableRow>
       <Td>
@@ -44,9 +46,12 @@ const Product = ({ product }) => {
 
       <Td>
         <Name>
-          <SalePrice>
-            {product.price.$numberDecimal * product.qty.$numberDecimal} $
-          </SalePrice>
+          {product && (
+            <SalePrice>
+              {/* {product.price?.$numberDecimal * product.qty.$numberDecimal} $ */}
+            </SalePrice>
+          )}
+
           {/* <OldPrice>{product.price.$numberDecimal} $</OldPrice>*/}
         </Name>
       </Td>

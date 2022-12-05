@@ -7,7 +7,6 @@ const OrderSummary = () => {
   const { newOrder } = useSelector((state) => state.order);
   const { user } = useSelector((state) => state.user);
 
-  console.log(newOrder);
   return (
     newOrder && (
       <Box my={8} sx={{ flexGrow: 1 }}>

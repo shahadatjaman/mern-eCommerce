@@ -81,7 +81,7 @@ const Order = () => {
           </FormGroup>
         </Grid>
         <Grid item lg={12} md={12}>
-          {isValidAddress && isChecked && !isLoading && delivery ? (
+          {isValidAddress && isChecked && delivery ? (
             <Button
               sx={{ height: 50 }}
               variant="contained"

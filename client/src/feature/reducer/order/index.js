@@ -53,7 +53,7 @@ export const getOrder = createAsyncThunk(
     }
   }
 );
-export const getOrders = createAsyncThunk("v2/getorder", async () => {
+export const getOrders = createAsyncThunk("v2/getorders", async () => {
   try {
     let response = await axios.get(
       `http://localhost:5000/V2/getorders`,
@@ -105,7 +105,6 @@ const orderSlice = createSlice({
     },
     [getOrder.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-
       if (payload.order) {
         state.newOrder = payload.order;
       }
@@ -123,6 +122,7 @@ const orderSlice = createSlice({
       if (payload.orders) {
         state.orders = payload.orders;
       }
+      console.log(payload);
     },
     [getOrders.rejected]: (state) => {
       state.isLoading = false;
