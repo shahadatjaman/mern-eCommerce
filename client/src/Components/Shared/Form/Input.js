@@ -5,6 +5,7 @@ import {
   Label,
   Name,
   P,
+  Searched,
   Span,
 } from "./Styles";
 
@@ -15,7 +16,7 @@ import {
 
 const Input = ({
   error,
-  label,
+  label = false,
   name,
   height,
   type,
@@ -27,19 +28,37 @@ const Input = ({
   autoFocus,
   width,
   mb = 1,
+  radius,
   currency = false,
+  parsent = false,
+  disabled = false,
+  search = false,
+  weight = false,
+  searchWidth,
+  bg = false,
 }) => {
   return (
     <>
-      <InputGroup>
-        <Name>{label}</Name>
-        <InputWrapper width={width}>
+      <InputGroup mb={mb} width={width}>
+        {label && <Name>{label}</Name>}
+
+        <InputWrapper>
+          {search && (
+            <Searched searchWidth={searchWidth} bg={bg}>
+              <i className="fa-solid fa-magnifying-glass"></i>
+            </Searched>
+          )}
+
           <InputField
             mb={mb}
             name={name}
             autoFocus={autoFocus}
             height={height}
+            radius={radius}
+            bg={bg}
+            search={search}
             type={type}
+            disabled={disabled}
             value={value}
             placeholder={placeHolder}
             error={error}
@@ -49,8 +68,18 @@ const Input = ({
             onBlur={handleBlur}
           />
           {currency && (
-            <Label>
+            <Label disabled={disabled}>
               <Span>৳</Span>
+            </Label>
+          )}
+          {weight && (
+            <Label disabled={disabled}>
+              <Span>kg</Span>
+            </Label>
+          )}
+          {parsent && (
+            <Label disabled={disabled}>
+              <Span>%</Span>
             </Label>
           )}
         </InputWrapper>

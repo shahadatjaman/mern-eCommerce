@@ -14,6 +14,14 @@ import productSliceReducer from "../Dashboard/feature/reducer/createProduct";
 
 import priceReducer from "../Dashboard/feature/reducer/productPricing";
 
+import productVariation from "../Dashboard/feature/reducer/productVariation";
+
+import getProductReducer from "../Dashboard/feature/reducer/products";
+
+import getInventoryReducer from "../Dashboard/feature/reducer/inventory";
+
+import orderReducer from "../feature/reducer/order/index";
+
 export const store = configureStore({
   reducer: {
     wishList: wishListReducer,
@@ -23,6 +31,10 @@ export const store = configureStore({
     user: userReducer,
     createproduct: productSliceReducer,
     pricing: priceReducer,
+    variation: productVariation,
+    getProducts: getProductReducer,
+    inventory: getInventoryReducer,
+    order: orderReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

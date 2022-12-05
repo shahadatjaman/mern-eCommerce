@@ -15,7 +15,21 @@ export const Span = styled.span`
   font-weight: 500;
 `;
 
-export const SalePrices = styled.div`
+export const Discount = styled.div`
   margin: 1rem 0;
   display: flex;
+  align-items: center;
 `;
+
+export const Space = styled.div`
+  width: ${(props) => props.width && props.width}%;
+`;
+
+export const Prices = styled.div`
+  margin: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const CostWrapper = styled.div``;

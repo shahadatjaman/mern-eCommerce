@@ -11,7 +11,7 @@ export const H3 = styled.h3`
 
 export const OrderWrape = styled.div`
   padding: 38px 45px 44px;
-  background: #f6f6f6;
+  background: #fff;
 `;
 
 export const YourOrderTop = styled.div``;
@@ -50,7 +50,7 @@ export const PlaceOrder = styled.div`
 `;
 
 export const TabWrapper = styled.div`
-  background: ${(props) => props.theme.colors.gray};
+  background: #fff;
   display: flex;
   position: relative;
   margin-top: 2rem;
@@ -89,6 +89,7 @@ export const TabLink = styled(NavLink)`
   height: 100%;
   padding: 1rem 0.8rem;
   display: flex;
+  font-weight: 600 !important;
   svg {
     font-size: 28px;
     margin-right: 0.5rem;
@@ -141,3 +142,8 @@ export const Text = styled.p`
 export const Order = styled.div`
   width: 50%;
 `;
+
+export const formStyles = {
+  background: "#fff",
+  padding: "1rem",
+};

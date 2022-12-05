@@ -15,12 +15,21 @@ import Layout from "../Pages/Layout";
 import Sidebar from "../Dashboard/Components/Sidebar/Sidebar";
 import Product from "../Dashboard/Pages/Products";
 import Collection from "../Dashboard/Pages/Collection";
+import OrderSuccess from "../Pages/OrderSuccess";
 
 export const routes = [
   {
     path: "/",
     element: <Home />,
     children: [],
+  },
+  {
+    path: "order_success/:order_id",
+    element: (
+      <Private>
+        <OrderSuccess />
+      </Private>
+    ),
   },
   {
     path: "wishlist",

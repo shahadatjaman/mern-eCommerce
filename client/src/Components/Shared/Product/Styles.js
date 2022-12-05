@@ -6,15 +6,6 @@ import { Link } from "react-router-dom";
 export const ProductWrap = styled.div`
   margin-bottom: 2rem;
   position: relative;
-  &&:hover .action {
-    bottom: 0;
-    visibility: visible;
-    opacity: 1;
-    transition: all 0.3s ease 0s;
-  }
-  &:hover .hide {
-    display: block;
-  }
 `;
 
 export const ProductImage = styled.div`
@@ -30,10 +21,6 @@ export const Image = styled.img`
 
 export const ProductContent = styled.div`
   margin: 20px 0 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
 `;
 
 export const ImgLink = styled(Link)``;
@@ -47,33 +34,30 @@ export const Title = styled.div`
 // Product Actions
 export const ProductAction = styled.div`
   position: absolute;
-  z-index: 9;
-  bottom: -22px;
-  left: 50%;
+  right: -20%;
+  top: 9%;
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  width: 100%;
-  transform: translateX(-50%);
-  visibility: hidden;
+  flex-direction: column;
+  transition: all 0.5s;
   opacity: 0;
-  transition: all 0.3s ease 0s;
 `;
 
 export const Action = styled.button`
-  width: ${(props) => props.width && props.width}px;
-  width: calc(100% - ${(props) => props.widthCalc && props.widthCalc}px);
-  background: ${(props) => props.theme.colors.primary};
-  cursor: pointer;
-  font-size: 16px;
-  line-height: 48px;
-  color: #fff;
-  &:hover {
-    background: #000;
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  cursor: ${(props) => (props.isAdded ? "no-drop" : "pointer")} !important;
+  &&:hover {
+    background: #221ecd;
     color: #fff;
     i {
       color: #fff;
     }
+  }
+  i {
+    color: #000;
   }
 `;
 
@@ -108,4 +92,114 @@ export const Old = styled.span`
   font-size: 16px;
   color: #000;
   font-weight: 500;
+  transform: rotate(350deg);
+  display: inline-block;
+  color: #7f7f83;
+`;
+
+export const ColorWrapper = styled.div`
+  margin: 1rem 0;
+  display: flex;
+`;
+
+export const Color = styled.div`
+  margin-right: 1rem;
+  border: ${(props) => props.active && `1px solid #221ecd`};
+  border-radius: 50%;
+  padding: 3px;
+`;
+
+export const MainColor = styled.div`
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: ${(props) => props.bg && props.bg};
+`;
+
+export const SizeWrapper = styled.div`
+  margin: 1rem 0;
+  display: flex;
+`;
+
+export const Size = styled.div`
+  margin-right: 1rem;
+`;
+
+export const MainSize = styled.div`
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: ${(props) => (props.active ? `#221ecd` : "#ddd")};
+  color: ${(props) => (props.active ? `#fff` : "#000")};
+  font-weight: 600;
+  border-radius: 5px;
+`;
+
+export const ShoppingWrapper = styled.div`
+  background: #ffffff;
+  margin-top: 1rem;
+  padding: 14px 0;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  &&:hover .action {
+    right: 9%;
+    opacity: 1;
+  }
+`;
+
+export const ImgWrapper = styled.div`
+  background: #edf2fd;
+  height: 220px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 230px;
+  margin: 0 auto;
+  @media (max-width: 1400px) {
+    width: auto;
+    margin: 0px 8px;
+  }
+`;
+
+export const ShoppingImg = styled.img`
+  width: 100%;
+`;
+
+export const ShoppingTitle = styled.div`
+  margin-top: 8px;
+  h6 {
+    font-weight: 700;
+    font-size: 15px;
+    color: #453b3b;
+    margin-top: 1rem;
+    text-align: left;
+  }
+`;
+
+export const Content = styled.div`
+  padding: 0.8rem;
+`;
+
+export const DiscountWrapper = styled.div`
+  position: absolute;
+  left: 6%;
+  top: 5%;
+`;
+
+export const Discount = styled.div`
+  width: 40px;
+  height: 40px;
+  background: #221ecd;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  font-size: 12px;
+  font-weight: 700;
 `;

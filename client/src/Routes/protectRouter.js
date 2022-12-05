@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 export const Private = ({ children }) => {
   let user = localStorage.getItem("user_info");
 
-  return user ? children : <Navigate to={"/"} />;
+  return user ? children : <Navigate to={"/login"} />;
 };
 
 export const Public = ({ children }) => {

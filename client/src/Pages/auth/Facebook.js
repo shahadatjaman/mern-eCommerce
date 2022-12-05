@@ -11,9 +11,12 @@ import { authentication } from "../../firebase";
 import { BsFacebook } from "react-icons/bs";
 import { register } from "../../feature/reducer/user";
 import { makeUserObj } from "../../utils";
+import { useNavigate } from "react-router-dom";
 
 const Facebook = () => {
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const signInWithGoogle = () => {
     const provider = new FacebookAuthProvider();
@@ -25,6 +28,7 @@ const Facebook = () => {
         let user = makeUserObj({ displayName, email, photoURL });
 
         dispatch(register(user));
+        navigate("/");
       })
       .catch((error) => {
         console.log(error);

@@ -9,6 +9,9 @@ export const H4 = styled.h4`
   line-height: 1;
   margin: 0;
   color: #010101;
+  @media (max-width: 768px) {
+    margin-top: 2rem;
+  }
 `;
 
 export const ProductPrice = styled.div`

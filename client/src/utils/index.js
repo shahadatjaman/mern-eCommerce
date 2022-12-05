@@ -1,6 +1,8 @@
-import { useState } from "react";
 import { useTheme } from "styled-components";
 import jwt_decode from "jwt-decode";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+
 // get localstorage values
 export const getLocalstorage = (name) => {
   const items = localStorage.getItem(name)
@@ -111,3 +113,146 @@ export const ObjectId = (
   h = 16,
   s = (s) => m.floor(s).toString(h)
 ) => s(d.now() / 1000) + " ".repeat(h).replace(/./g, () => s(m.random() * h));
+
+/**
+ *
+ * @param {*} price
+ * @param {*} salePrice
+ * @returns {} discount
+ */
+export const percentageOfNumber = (price, salePrice, discount) => {
+  if (price > 0) {
+    const amount = (discount / 100) * price;
+    return amount;
+  }
+
+  if (salePrice > 0) {
+    const amount = (discount / 100) * salePrice;
+    return amount;
+  }
+
+  return 0;
+};
+
+/**
+ *
+ * @param {*} value
+ * @param {number} length
+ * @param {number} start
+ * @param {number} end
+ * @returns
+ */
+export const shortText = (value, length, start, end) => {
+  if (value.trim().length > length) {
+    const text = value.slice(start, end);
+    return text + "...";
+  } else {
+    return value;
+  }
+};
+
+export const isEmptyArray = (arr) => {
+  return arr.length === 0;
+};
+
+export const randomId = () => {
+  return Math.random()
+    .toString(36)
+    .replace(/[^a-z]+/g, "")
+    .substr(2, 10);
+};
+
+export const arrayToObject = (arr) => {
+  var mapped = arr.map((item) => ({ [item.key]: item.value }));
+
+  var newObj = Object.assign({}, ...mapped);
+  return newObj;
+};
+
+export const getSalePrice = ({ price, discount = 0 }) => {
+  const amount = (discount / 100) * price;
+
+  return price - amount;
+};
+
+export const findIndex = (arrOfObj, target) => {
+  return arrOfObj.findIndex((item) => item.cart._id.toString() === target);
+};
+
+/**
+ *
+ * @param {String} url
+ * @returns promise
+ */
+
+export const requestToServerWithGet = ({ url }) => {
+  const callApi = async () => {
+    try {
+      const response = await axios.get(
+        url,
+
+        {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + getLocalstorage("user_info"),
+          },
+        }
+      );
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      return await error.response.data.errors;
+    }
+  };
+
+  return callApi;
+};
+
+export const requestToServerWithPost = ({ url }) => {
+  const callApi = async (values) => {
+    try {
+      const response = await axios.post(
+        url,
+        values,
+
+        {
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + getLocalstorage("user_info"),
+          },
+        }
+      );
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      return await error.response.data.errors;
+    }
+  };
+
+  return callApi;
+};
+
+export const requestTServer = async ({ product_id }) => {
+  let response = await axios.get(
+    `http://localhost:5000/vendor/getvariations/${product_id}`,
+
+    {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + getLocalstorage("user_info"),
+      },
+    }
+  );
+
+  return response;
+};
+
+export const getTotalPrice = ({ carts }) => {
+  const prices = carts?.reduce((prev, cur) => {
+    const price = cur.qty * cur.price;
+
+    return prev + price;
+  }, 0);
+
+  return prices;
+};

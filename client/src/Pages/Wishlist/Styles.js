@@ -30,9 +30,11 @@ export const ItemEmpty = styled.div`
   }
 `;
 
-export const ItemEmptyIcon = styled.div`
+export const ImgWrapper = styled.div`
   margin-bottom: 30px;
 `;
+
+export const EmptyImg = styled.img``;
 
 export const ItemEmptyText = styled.div``;
 
@@ -48,8 +50,7 @@ export const AddItem = styled(NavLink)`
   color: #fff;
   background-color: #363f4d;
   &&:hover {
-    background: #fed700;
-    color: #000;
+    color: #fff;
   }
 `;
 

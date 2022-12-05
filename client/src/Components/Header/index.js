@@ -1,179 +1,61 @@
-//<=== Hooks ====>
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { Col, Container, Form, Navbar } from "react-bootstrap";
+import Input from "../Shared/Form/Input";
+import RightContent from "./RightContent";
+import { CgFormatLeft } from "react-icons/cg";
+import { HeaderWrapper, Logo, NavbarBrand, Toggler } from "./Styles";
+
+import { useWindowHeight } from "../../hooks/useWindowHeight";
+import { useWindowWidth } from "../../hooks/userWindowWidth";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import MobileNav from "./MobileNav";
 
-//<=== Reducer functions  ====>
-import { addcartTotal } from "../../feature/reducer/addToCart";
-import { addWishList } from "../../feature/reducer/wishList";
+const Header = () => {
+  const [isOpenNav, setIsOpenNav] = useState(false);
 
-//<=== Styled Components ====>
-import {
-  Header,
-  HeaderRightWrapper,
-  Li,
-  Logo,
-  MainMenu,
-  Link,
-  Ul,
-  Icon,
-  HeaderWrapper,
-  Count,
-  Img,
-  User,
-  UserImg,
-  Account,
-} from "./styles";
-import { Alert, Col, Container, Row } from "reactstrap";
+  const isMatched = useWindowHeight({ height: 400 });
 
-//<===  React Icons ===>
-import {
-  AiOutlineSearch,
-  AiOutlineUserAdd,
-  AiOutlineHeart,
-  AiOutlineShoppingCart,
-} from "react-icons/ai";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShuffle } from "@fortawesome/free-solid-svg-icons";
-import { getLocalstorage, wHeigth } from "../../utils";
-import AccountDropDown from "./AccountDropDown";
+  const isMatchedWidth = useWindowWidth({ width: 768 });
 
-const NavBar = () => {
-  const [height, setHeight] = useState(0);
-  const [toggle, setToggle] = useState(false);
+  const isFluid = useWindowWidth({ width: 1400 });
 
-  const menuList = [
-    {
-      name: "Home",
-      link: "#",
-    },
-    {
-      name: "Shop",
-      link: "#",
-    },
-    {
-      name: "Colection",
-      link: "#",
-    },
-    {
-      name: "Pages",
-      link: "#",
-    },
-    {
-      name: "Contuct Us",
-      link: "#",
-    },
-  ];
+  const openNavHandler = () => {
+    setIsOpenNav(true);
+  };
 
-  const { lists } = useSelector((state) => state.wishList);
-
-  const { total } = useSelector((state) => state.cart);
-  const { user } = useSelector((state) => state.user);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const wishlist = getLocalstorage("wistList");
-    if (wishlist.length !== 0) {
-      dispatch(addWishList(wishlist));
-    }
-  }, [dispatch]);
-
-  useEffect(() => {
-    const cartList =
-      getLocalstorage("cartTotal").length !== 0
-        ? getLocalstorage("cartTotal")
-        : null;
-
-    if (cartList) {
-      dispatch(addcartTotal(cartList));
-    }
-  }, [dispatch]);
-
-  // Sticky Header
-  useEffect(() => {
-    window.addEventListener("scroll", () => {
-      const windowHeight = Math.floor(window.scrollY);
-      setHeight(windowHeight);
-    });
-  }, []);
-
-  const handleTogle = () => {
-    if (toggle) {
-      setToggle(false);
-    } else {
-      setToggle(true);
-    }
+  const clsoeNavHandler = () => {
+    setIsOpenNav(false);
   };
 
   return (
-    <HeaderWrapper height={height}>
-      <Container>
-        <Row>
-          <Col>
-            <Header>
-              <Logo>
-                <NavLink to={"/"}>
-                  {/* <H3>Flone.</H3> */}
-                  <Img
-                    src="https://res.cloudinary.com/dza2t1htw/image/upload/v1665039683/me_yb2uww.png"
-                    alt="logo"
-                  />
-                </NavLink>
-              </Logo>
-              <MainMenu>
-                <Ul>
-                  {menuList.map((menu, index) => (
-                    <Li key={index}>
-                      <Link to="/">{menu.name}</Link>
-                    </Li>
-                  ))}
-                </Ul>
-              </MainMenu>
-              <HeaderRightWrapper>
-                <Icon>
-                  <AiOutlineSearch />
-                </Icon>
-                {user ? (
-                  <Account>
-                    <User onClick={handleTogle}>
-                      <UserImg src={user.avatar} />
-                    </User>
-                    <AccountDropDown toggle={toggle} />
-                  </Account>
-                ) : (
-                  <NavLink to={"/login"}>
-                    <Icon>
-                      <AiOutlineUserAdd />
-                    </Icon>
-                  </NavLink>
-                )}
+    <HeaderWrapper isSticky={isMatched}>
+      <MobileNav clsoeNavHandler={clsoeNavHandler} isOpenNav={isOpenNav} />
 
-                <Icon>
-                  <Count>0</Count>
-                  <FontAwesomeIcon icon={faShuffle} />
-                </Icon>
-                <NavLink to={"/wishlist"}>
-                  <Icon>
-                    <Count>{lists.items.length}</Count>
-                    <AiOutlineHeart />
-                  </Icon>
-                </NavLink>
-
-                <NavLink to={"/cartitems"}>
-                  <Icon>
-                    {total ? <Count>{total.totalQty}</Count> : <Count>0</Count>}
-
-                    <AiOutlineShoppingCart />
-                  </Icon>
-                </NavLink>
-              </HeaderRightWrapper>
-            </Header>
-          </Col>
-        </Row>
-      </Container>
+      <Navbar>
+        <Container fluid={isFluid}>
+          <NavbarBrand>
+            <Toggler onClick={openNavHandler}>
+              <i className="fa-solid fa-bars"></i>
+            </Toggler>
+            <Logo>
+              <NavLink to="/">Xpart</NavLink>
+            </Logo>
+          </NavbarBrand>
+          <Form className="d-flex position-relative w-50 lef-0">
+            <Input
+              mb="0"
+              width="100"
+              searchWidth={isMatchedWidth ? "14" : "5"}
+              radius="50"
+              search="true"
+              placeHolder="No description, website, or topics provided."
+            />
+          </Form>
+          <RightContent />
+        </Container>
+      </Navbar>
     </HeaderWrapper>
   );
 };
 
-export default NavBar;
+export default Header;

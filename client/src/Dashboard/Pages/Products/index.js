@@ -1,49 +1,59 @@
 //<=== Hooks ====>
-import React, { useState } from "react";
+import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../../hooks/useForm";
 
 //<=== Reducer Functions ====>
-import { createInitProduct } from "../../feature/reducer/createProduct";
-import { createId } from "../../feature/reducer/createProduct";
+import {
+  createId,
+  createInitProduct,
+  addProductFormState,
+  createProduct,
+} from "../../feature/reducer/createProduct";
 
 //<===Styled Components ====>
-import Button from "../../../Components/Shared/Form/Button";
-import Form from "../../../Components/Shared/Form/Form";
 import Input from "../../../Components/Shared/Form/Input";
 import { ButtonWrap } from "../../Components/Products/Styles";
 
 // <=== ReactStrap ====>
-import { Col, Container, Row } from "reactstrap";
+import { Col, Container, Row } from "react-bootstrap";
 
 // <=== Components  ====>
 
 import { ObjectId } from "../../../utils";
 import Pricing from "../../Components/Products/Pricing/Pricing";
 import ProductOrga from "../../Components/Products/Category/ProductOrga";
-import ProductStatus from "../../Components/Products/Status/ProductStatus";
 import ProductVariations from "../../Components/Products/Attribute/ProductVariations";
 import Back from "../../Shared/Backbutton/Back";
-import { Cart, H3, Hr, Wrapper } from "../../Shared/Styles";
+import { Cart, CustomButton, H3, Hr, Wrapper } from "../../Shared/Styles";
 //import RichTextEditor from "../../Components/Products/Descriptions/Editor";
-import { PageHeader } from "./Styles";
-import App from "../../Shared/Modal";
+import { PageHeader, Save } from "./Styles";
+
 import Modal from "../../Shared/Modal";
+import { productInitValidation } from "../../Validation/prductInitValid";
+import { useState } from "react";
+import Inventory from "../../Components/Products/Inventory";
+import { createInventory } from "../../feature/reducer/inventory";
+import Button from "../../../Components/Shared/Form/Button";
+import { createProductDiscount } from "../../feature/reducer/productPricing";
 
 const _id = ObjectId();
-
 const Product = () => {
-  // const [value, setValue] = useState("");
+  const [discount, setDiscount] = useState(0);
+  const [status, setStatus] = useState("");
+  const [sku, setSku] = useState("");
+  const [weight, setWeight] = useState(0.0);
 
-  // // const { gray } = useColor();
-  // const getValue = (value) => {
-  //   setValue(value);
-  // };
+  const { productInit, productFormState, product } = useSelector(
+    (state) => state.createproduct
+  );
 
-  const { product } = useSelector((state) => state.createproduct);
-
-  const { handleSubmit } = useForm({ init: "", validate: true });
+  const { formState, isValidForm, handleChange, handleFocus, handleBlur } =
+    useForm({
+      init: productInit,
+      validate: productInitValidation,
+    });
 
   const dispatch = useDispatch();
 
@@ -51,23 +61,64 @@ const Product = () => {
     dispatch(createId(_id));
   }, [dispatch]);
 
+  const { name, price, short_desc } = formState;
+
   useEffect(() => {
-    const unloadCallback = (event) => {
-      event.preventDefault();
-      event.returnValue = "";
-      return "";
-    };
+    dispatch(createInitProduct());
+  }, [dispatch]);
 
-    window.addEventListener("beforeunload", unloadCallback);
-    return () => window.removeEventListener("beforeunload", unloadCallback);
-  }, []);
+  const getDiscount = (dis) => {
+    setDiscount(dis);
+  };
+  const getStatus = (sta) => {
+    setStatus(sta);
+  };
+  const getSku = (SKU) => {
+    setSku(SKU);
+  };
+  const getWeight = (WEIGHT) => {
+    setWeight(WEIGHT);
+  };
 
-  // Create Initialia Product
-  // useEffect(() => {
-  //   dispatch(createInitProduct());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(
+      addProductFormState({
+        product_id: product ? product._id : "",
+        name: name.value,
+        price: price.value,
+        short_desc: short_desc.value,
+        isValid: true,
+        SKU: sku,
+      })
+    );
+  }, [dispatch, price, name, short_desc, product, sku]);
 
-  console.log(product);
+  const submitForm = () => {
+    if (isValidForm) {
+      dispatch(createProduct(productFormState));
+    }
+
+    if (status.trim().length !== 0) {
+      const values = {
+        quantity: status,
+        weight,
+      };
+      dispatch(createInventory({ values, product_id: product._id }));
+    }
+
+    if (discount > 0) {
+      const values = {
+        discount_percent: discount,
+      };
+      dispatch(
+        createProductDiscount({
+          values,
+          product_id: product._id,
+        })
+      );
+    }
+  };
+
   return (
     <Wrapper>
       <Modal />
@@ -77,40 +128,83 @@ const Product = () => {
           <H3>Add product</H3>
         </PageHeader>
         <Row>
-          <Col md="8">
+          <Col className="col-xl-8 col-md-12 col-sm-12 col-12">
             <Cart>
-              <Input label="Title" placeHolder="Short sleeve t-shirt" />
-              <br />
+              <Input
+                mb="1"
+                name={"name"}
+                type="text"
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+                handleFocus={handleFocus}
+                value={name.value}
+                label="Name"
+                placeHolder="Short sleeve t-shirt"
+                error={name.error}
+              />
+
               {/* <RichTextEditor initialValue="" getValue={getValue} /> */}
               <Input
+                name="short_desc"
                 type="textarea"
-                //label="Description"
+                label="Short description"
                 placeHolder="Description"
                 height="100"
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+                handleFocus={handleFocus}
+                value={short_desc.value}
               />
             </Cart>
             <ProductVariations />
-            <Pricing />
+            <Pricing
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              handleFocus={handleFocus}
+              value={price}
+              getDiscount={getDiscount}
+            />
+            <Inventory
+              getStatus={getStatus}
+              getSku={getSku}
+              getWeight={getWeight}
+            />
           </Col>
-          <Col md="4">
-            <ProductStatus />
+          <Col className="col-xl-4 col-md-12 col-sm-12 col-12">
+            {/* <ProductStatus /> */}
             <ProductOrga />
           </Col>
         </Row>
         <Hr />
         <ButtonWrap>
-          <Button
-            text="Save"
-            type="submit"
-            activeColor="#f1f1f1"
-            radius="8"
+          {/* <Button
+            isValid={isValidForm}
+            onClick={submitForm}
+            //   disabled={isValidForm}
+            color={"red"}
+            height="45"
             width="10"
-            height="38"
-          />
+            text="Save"
+            activeColor="#221ecd"
+            radius="10"
+          /> */}
+          <Save
+            onClick={submitForm}
+            isValid={isValidForm}
+            disabled={!isValidForm ? true : false}
+            color={"red"}
+            height="45"
+            width="10"
+            text="Save"
+            activeColor="#221ecd"
+            radius="10"
+          >
+            Save
+          </Save>
         </ButtonWrap>
       </Container>
     </Wrapper>
   );
 };
 
-export default Product;
+export default React.memo(Product);

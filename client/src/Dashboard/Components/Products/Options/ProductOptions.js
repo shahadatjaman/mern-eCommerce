@@ -12,9 +12,10 @@ import {
   sizeValidation,
 } from "../../../Validation/OptionValidation";
 
-import { Deletion, Selection } from "./Styles";
+import { Deletion, OptionsAndValues, Selection, SubmitForm } from "./Styles";
 
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { Space } from "../../../Shared/Styles";
 const init = {
   color: null,
   size: null,
@@ -47,67 +48,77 @@ const ProductOptions = ({ handleToggleForm }) => {
     }
   };
 
-  console.log(formState);
-
   return (
     <InputArea>
-      <Selection>
-        <Select
-          width={90}
-          label="Option Name"
-          handleChange={selecteHandleChange}
-        >
-          <Option option="Select" selected disabled />
-          <Option option="Color" value={"color"} />
-          <Option option="Size" value={"size"} />
-        </Select>
-        <Deletion width={10}>
+      <OptionsAndValues>
+        <Selection width={40}>
+          <Select
+            width={100}
+            label="Option Name"
+            handleChange={selecteHandleChange}
+          >
+            <Option option="Select" selected disabled />
+            <Option option="Color" value={"color"} />
+            <Option option="Size" value={"size"} />
+          </Select>
+          {/* <Deletion width={10}>
           <RiDeleteBin6Line onClick={handleToggleForm} />
-        </Deletion>
-      </Selection>
+        </Deletion> */}
+        </Selection>
 
-      {state && state === "color" && (
+        {state && state === "color" && (
+          <>
+            <Space width="5"></Space>
+            <Input
+              label="Option Value"
+              name="color"
+              mb="0"
+              placeHolder="HEX"
+              value={color.value}
+              error={color.error}
+              handleChange={handleChange}
+              handleFocus={handleFocus}
+              handleBlur={handleBlur}
+            />
+          </>
+        )}
+        <Space width="5"></Space>
+        {state && state === "size" && (
+          <>
+            <Input
+              label="Option Value"
+              width="60"
+              name="size"
+              placeHolder="XL,XXL"
+              value={size.value}
+              error={size.error}
+              handleChange={handleChange}
+              handleFocus={handleFocus}
+              handleBlur={handleBlur}
+            />
+          </>
+        )}
+      </OptionsAndValues>
+      {state && state === "size" && (
         <Input
-          label="Option Value"
-          name="color"
-          placeHolder="HEX"
-          value={color.value}
-          error={color.error}
+          label="Parsentage of base price"
+          mb="0"
+          name="price"
+          type="number"
+          placeHolder="0%"
+          value={price.value}
+          error={price.error}
           handleChange={handleChange}
           handleFocus={handleFocus}
           handleBlur={handleBlur}
         />
       )}
 
-      {state && state === "size" && (
-        <>
-          <Input
-            label="Option Value"
-            name="size"
-            placeHolder="XL,XXL"
-            value={size.value}
-            error={size.error}
-            handleChange={handleChange}
-            handleFocus={handleFocus}
-            handleBlur={handleBlur}
-          />
-          <Input
-            label="Parsentage of base price"
-            name="price"
-            type="number"
-            placeHolder="0%"
-            value={price.value}
-            error={price.error}
-            handleChange={handleChange}
-            handleFocus={handleFocus}
-            handleBlur={handleBlur}
-          />
-        </>
-      )}
-
-      <Submit onClick={formSubmit} isValidForm={isValidForm}>
-        Done
-      </Submit>
+      <SubmitForm>
+        <Submit onClick={formSubmit} isValidForm={isValidForm}>
+          Done
+        </Submit>
+      </SubmitForm>
     </InputArea>
   );
 };

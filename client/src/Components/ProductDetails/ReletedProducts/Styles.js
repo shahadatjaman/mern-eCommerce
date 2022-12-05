@@ -4,4 +4,5 @@ import styled from "styled-components";
 
 export const ProductsWrappper = styled.div`
   padding-top: 55px;
+  background: #edf2fd;
 `;
