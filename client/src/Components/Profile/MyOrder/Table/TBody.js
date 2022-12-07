@@ -4,11 +4,14 @@ import { TableBody } from "./Styles";
 
 import TRow from "./TableRow";
 import { getOrders } from "../../../../feature/reducer/order";
+import { useSort } from "../../../../hooks/useSort";
 
 const Body = () => {
   const { orders } = useSelector((state) => state.order);
 
   const dispatch = useDispatch();
+
+  const sorted = useSort(orders);
 
   useEffect(() => {
     dispatch(getOrders());
@@ -20,7 +23,7 @@ const Body = () => {
 
   return (
     <TableBody>
-      {orders?.map((order, index) => (
+      {sorted?.map((order, index) => (
         <TRow order={order} key={index} />
       ))}
     </TableBody>

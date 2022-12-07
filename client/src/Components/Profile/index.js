@@ -7,7 +7,7 @@ import { Wrapper } from "./styles";
 const UserProfile = () => {
   return (
     <Wrapper>
-      <Container maxWidth="xl">
+      <Container maxWidth="fluid">
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
             <Grid item xs={3}>

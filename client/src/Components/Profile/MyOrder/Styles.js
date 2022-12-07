@@ -74,9 +74,17 @@ export const ImageWrapper = styled.div`
   max-width: 100px;
   border-radius: 8px;
   overflow: hidden;
-  margin: 0 auto;
 `;
 
 export const Img = styled.img`
   width: 100%;
+`;
+
+export const EmptyOrder = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 0;
+  font-weight: 500;
+  color: #413e3e;
 `;

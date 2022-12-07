@@ -14,6 +14,7 @@ const theme = createTheme({
       md: 900, // small laptop
       lg: 1200, // desktop
       xl: 1536, // large screens
+      fluid: "100%",
     },
   },
 });

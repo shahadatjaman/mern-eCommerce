@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Input from "../../Components/Shared/Form/Input";
 import { Checkmark, Error, FormWrape, Label, ShowPassword } from "./Styles";
-import Button from "../../Components/Shared/Form/Button";
+
 import Form from "../../Components/Shared/Form/Form";
 import Or from "./Or";
 import { useValidator } from "../../utils/userValidator";
-import { useColor } from "../../utils";
+
 import { useForm } from "../../hooks/useForm";
 import { useDispatch } from "react-redux";
 import { register } from "../../feature/reducer/user";
-
 import { BiX } from "react-icons/bi";
+import { Button } from "@mui/material";
 
 const initial = {
   username: "",
@@ -21,6 +21,7 @@ const initial = {
 
 const Register = () => {
   const { errors } = useSelector((state) => state.user);
+  const [checkValid, setCheckValid] = useState(false);
   const [type, setType] = useState("password");
 
   const {
@@ -35,7 +36,6 @@ const Register = () => {
     validate: useValidator,
   });
 
-  const { primary, gray } = useColor();
   const dispatch = useDispatch();
   const cb = ({ values, hasError }) => {
     dispatch(register(values));
@@ -53,6 +53,21 @@ const Register = () => {
   };
 
   const { username, email, password } = formState;
+
+  useEffect(() => {
+    if (
+      password.value &&
+      username.value &&
+      email.value &&
+      !password.error &&
+      !email.error &&
+      !username.error
+    ) {
+      setCheckValid(true);
+    } else {
+      setCheckValid(false);
+    }
+  }, [username, email, password]);
 
   return (
     <FormWrape>
@@ -112,13 +127,9 @@ const Register = () => {
           <Label>Show Password</Label>
         </ShowPassword>
 
-        <Button
-          activeColor={gray}
-          hoverColor={primary}
-          type="submit"
-          text="Register"
-          isDisabled={isValidForm}
-        />
+        <Button type="submit" variant="contained" disabled={!checkValid}>
+          Register
+        </Button>
       </Form>
       <Or />
     </FormWrape>

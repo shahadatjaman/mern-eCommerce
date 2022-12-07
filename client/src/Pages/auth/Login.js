@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
 import Input from "../../Components/Shared/Form/Input";
-import { Checkmark, FormWrape, Label, P, ShowPassword } from "./Styles";
-import Button from "../../Components/Shared/Form/Button";
+import { Checkmark, Error, FormWrape, Label, P, ShowPassword } from "./Styles";
+
 import { useTheme } from "styled-components";
 import Form from "../../Components/Shared/Form/Form";
 import { login } from "../../feature/reducer/user";
 import Or from "./Or";
 import { useColor } from "../../utils";
+import { Button } from "@mui/material";
 
 const init = {
   username: "",
@@ -17,13 +18,15 @@ const init = {
 };
 
 const Login = () => {
-  const [values, setValues] = useState({ ...init });
+  const [values, setValues] = useState({ username: "", password: "" });
   const [type, setType] = useState("password");
 
   const { errors } = useSelector((state) => state.user);
 
   const changeHandler = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+    setValues((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
   };
 
   const dispatch = useDispatch();
@@ -44,38 +47,32 @@ const Login = () => {
     }
   };
 
-  const { gray, primary } = useColor();
-
   return (
     <FormWrape>
+      <Error>{errors?.message}</Error>
       <Form onSubmit={submitHandler}>
         <Input
           name="username"
           type="text"
-          onChange={changeHandler}
+          handleChange={changeHandler}
           value={values.username}
           placeHolder="Username"
-          // error={errors.username}
         />
         <Input
           name="password"
           type={type}
-          onChange={changeHandler}
+          handleChange={changeHandler}
           value={values.password}
           placeHolder="Password"
-          // error={errors.password}
         />
 
         <ShowPassword>
           <Checkmark type="checkbox" onChange={visibleHandler} />
           <Label>Show Password</Label>
         </ShowPassword>
-        <Button
-          activeColor={gray}
-          hoverColor={primary}
-          type="submit"
-          text="Login"
-        />
+        <Button variant="contained" type="submit">
+          Login
+        </Button>
       </Form>
       <Or />
     </FormWrape>

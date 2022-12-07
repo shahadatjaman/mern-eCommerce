@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { requestToServerWithGet } from "../../../../utils";
 import { ImageWrapper, Img } from "../Styles";
-import { Name, SalePrice, Status, StatusWrapper, TableRow, Td } from "./Styles";
+import {
+  Name,
+  OldPrice,
+  SalePrice,
+  Status,
+  StatusWrapper,
+  TableRow,
+  Td,
+} from "./Styles";
 
 const Product = ({ product }) => {
   const [values, setValues] = useState(null);
@@ -23,8 +31,6 @@ const Product = ({ product }) => {
     setVariation(variations[0]);
   };
 
-  console.log(product);
-
   return (
     <TableRow>
       <Td>
@@ -37,10 +43,7 @@ const Product = ({ product }) => {
       </Td>
       <Td>
         <StatusWrapper>
-          <Status>
-            {/* <Circle></Circle> */}
-            Proccessing
-          </Status>
+          <Status>Proccessing</Status>
         </StatusWrapper>
       </Td>
 
@@ -48,11 +51,9 @@ const Product = ({ product }) => {
         <Name>
           {product && (
             <SalePrice>
-              {/* {product.price?.$numberDecimal * product.qty.$numberDecimal} $ */}
+              {product.price?.$numberDecimal * product.qty.$numberDecimal} $
             </SalePrice>
           )}
-
-          {/* <OldPrice>{product.price.$numberDecimal} $</OldPrice>*/}
         </Name>
       </Td>
       <Td>

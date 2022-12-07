@@ -76,7 +76,6 @@ export const OldPrice = styled.span`
 `;
 
 export const OrderRow = styled.div`
-  width: 250%;
   padding: 1rem;
 `;
 

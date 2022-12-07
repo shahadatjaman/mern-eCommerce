@@ -1,26 +1,13 @@
-import { Checkbox } from "pretty-checkbox-react";
 import React from "react";
-import { shortText } from "../../../../utils/";
+import { useTimeFormat } from "../../../../hooks/useTimeFormate";
 
-import { ImageWrapper, Img } from "../Styles";
 import Product from "./Product";
 
-import {
-  Actions,
-  Circle,
-  Date,
-  H6,
-  Name,
-  OrderRow,
-  SalePrice,
-  Span,
-  Status,
-  StatusWrapper,
-  TableRow,
-  Td,
-} from "./Styles";
+import { Date, H6, OrderRow, Span, TableRow } from "./Styles";
 
 const TRow = ({ order }) => {
+  const date = useTimeFormat(order.createdAt);
+
   return (
     <>
       <TableRow>
@@ -28,7 +15,7 @@ const TRow = ({ order }) => {
           <H6>
             Order ID :<Span># {order._id}</Span>
           </H6>
-          <Date>Placed on 02 Dec 2022 23:06:49</Date>
+          <Date>Placed on {date}</Date>
         </OrderRow>
       </TableRow>
       {order?.products?.map((val, index) => (

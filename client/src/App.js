@@ -1,3 +1,4 @@
+import { Suspense, useEffect } from "react";
 import { useRoutes } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ThemeProvider } from "@mui/material";
@@ -10,9 +11,10 @@ import { routes } from "./Routes";
 import Theme from "./Theme";
 
 import { addUser } from "./feature/reducer/user/";
-import { useEffect } from "react";
 
 import theme from "./Theme/muiTheme";
+
+import { Loading } from "./Components/Shared/Loading/";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,7 +28,9 @@ function App() {
   });
   return (
     <Theme>
-      <ThemeProvider theme={theme}>{useRoutes(routes)}</ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <Suspense fallback={<Loading />}>{useRoutes(routes)}</Suspense>
+      </ThemeProvider>
     </Theme>
   );
 }

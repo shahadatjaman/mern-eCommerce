@@ -82,6 +82,7 @@ export const getProductSlice = createSlice({
     [getDiscount.fulfilled]: (state, { payload }) => {
       const obj = Object.assign({}, ...payload.discount);
       state.discount = obj;
+      console.log(payload);
     },
     [getDiscount.pending]: (state) => {
       state.loading = false;

@@ -10,6 +10,7 @@ const initialState = {
   isLoading: false,
   recentVariation: null,
   recentColor: null,
+  tags: null,
 };
 
 // Fetch Single products
@@ -53,6 +54,7 @@ const productDetailsSlice = createSlice({
       state.variations = payload.variations;
       state.options = payload.options;
       state.discount = payload.discount;
+      state.tags = payload.tags;
     },
     [fetchProduct.rejected]: (state, { payload }) => {
       state.isLoading = false;

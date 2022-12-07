@@ -1,9 +1,16 @@
 import * as React from "react";
-import PropTypes from "prop-types";
+
 import Tabs from "@mui/material/Tabs";
 import { Content, TabBar, TabPanelWrapper } from "./Style";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import CreateReview from "../../ProductDetails/Review/CreateReview";
+import Post from "../../ProductDetails/Review/Post";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { checkRating } from "../../../utils";
+import { useSort } from "../../../hooks/useSort";
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -25,12 +32,6 @@ const TabPanel = (props) => {
   );
 };
 
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
 const a11yProps = (index) => {
   return {
     id: `simple-tab-${index}`,
@@ -39,12 +40,27 @@ const a11yProps = (index) => {
 };
 
 export const BasicTabs = () => {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+  const [isCreated, setCreated] = useState(false);
+
+  const { ratings } = useSelector((state) => state.rating);
+
+  const { user } = useSelector((state) => state.user);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  const sorted = useSort(ratings);
+
+  useEffect(() => {
+    if (user) {
+      const isReviewed = checkRating(ratings, user._id);
+      setCreated(isReviewed);
+    }
+  }, [ratings, user]);
+
+  console.log(sorted);
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -56,7 +72,7 @@ export const BasicTabs = () => {
         >
           <TabBar label="Additional Information" {...a11yProps(0)} />
           <TabBar label="Description" {...a11yProps(1)} />
-          <TabBar label="Reviews(1)" {...a11yProps(2)} />
+          <TabBar label={`Reviews(${ratings.length})`} {...a11yProps(2)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -64,14 +80,14 @@ export const BasicTabs = () => {
       </TabPanel>
       <TabPanel value={value} index={1}>
         Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-        accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
-        illo inventore veritatis et quasi architecto beatae vitae dicta sunt
-        explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-        odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-        voluptatem sequi nesciunt.
+        accusantium dolo
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
+        {!isCreated && <CreateReview />}
+
+        {sorted?.map((val, index) => (
+          <Post val={val} key={index} />
+        ))}
       </TabPanel>
     </Box>
   );

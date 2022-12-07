@@ -9,7 +9,7 @@ import { Link, Tab } from "./Styles";
 const Auth = () => {
   return (
     <Layout>
-      <Wrapper>
+      <Wrapper style={{ margin: "4rem 0" }}>
         <Container>
           <Row>
             <Col className="col-lg-7 col-md-12 ml-auto mr-auto">

@@ -1,23 +1,36 @@
-import Wishlist from "../Pages/Wishlist";
+import { lazy } from "react";
 
-import Home from "../Pages/Home";
-
-import Details from "../Pages/ProductDetails";
-import Cart from "../Pages/Shopping/";
-import Login from "../Pages/auth/Login";
-import Auth from "../Pages/auth";
-import Register from "../Pages/auth/Register";
-import Billing from "../Pages/Checkout/Billing";
-import Checkout from "../Pages/Checkout";
-import Order from "../Pages/Checkout/Order";
 import { Private, Public } from "./protectRouter";
-import Layout from "../Pages/Layout";
-import OrderSuccess from "../Pages/OrderSuccess";
-import Profile from "../Pages/Profile";
 
-import ManageAccount from "../Components/Profile/ManageAccount";
+const Wishlist = lazy(() => import("../Pages/Wishlist"));
 
-import MyOrders from "../Components/Profile/MyOrder";
+const Details = lazy(() => import("../Pages/ProductDetails"));
+
+const Cart = lazy(() => import("../Pages/Shopping/"));
+
+const Login = lazy(() => import("../Pages/auth/Login"));
+
+const Auth = lazy(() => import("../Pages/auth"));
+
+const Register = lazy(() => import("../Pages/auth/Register"));
+
+const Billing = lazy(() => import("../Pages/Checkout/Billing"));
+
+const Checkout = lazy(() => import("../Pages/Checkout"));
+
+const Order = lazy(() => import("../Pages/Checkout/Order"));
+
+// import Layout from "../Pages/Layout";
+
+const OrderSuccess = lazy(() => import("../Pages/OrderSuccess"));
+
+const Profile = lazy(() => import("../Pages/Profile"));
+
+const ManageAccount = lazy(() => import("../Components/Profile/ManageAccount"));
+
+const MyOrders = lazy(() => import("../Components/Profile/MyOrder"));
+
+const Home = lazy(() => import("../Pages/Home"));
 
 export const routes = [
   {

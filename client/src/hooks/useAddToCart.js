@@ -156,10 +156,6 @@ export const useAddToCart = () => {
     const carts = getLocalstorage("carts");
 
     const indexOfcart = carts.findIndex((item) => item.product_id === _id);
-
-    if (indexOfcart > -1) {
-      console.log(indexOfcart);
-    }
   };
 
   useEffect(() => {

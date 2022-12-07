@@ -33,7 +33,9 @@ const ProductContent = () => {
   const dispatch = useDispatch();
 
   // get product
-  const { product, discount } = useSelector((state) => state.productDetails);
+  const { product, discount, tags } = useSelector(
+    (state) => state.productDetails
+  );
 
   useEffect(() => {
     if (product && discount) {
@@ -49,6 +51,8 @@ const ProductContent = () => {
   if (!product) {
     return <h2>product not found!</h2>;
   }
+
+  console.log(tags);
 
   return (
     <ProductContentWrapper>
@@ -91,9 +95,12 @@ const ProductContent = () => {
 
       {/* Product Tags */}
       <ProductMeta>
-        <MetaText>Tags :</MetaText>
+        {tags?.length !== 0 && <MetaText>Tags :</MetaText>}
+
         <Ul>
-          <Li>Tag name</Li>
+          {tags?.map((val, index) => (
+            <Li key={index}> {val.tag_name} </Li>
+          ))}
         </Ul>
       </ProductMeta>
 

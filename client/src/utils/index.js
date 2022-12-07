@@ -199,9 +199,9 @@ export const requestToServerWithGet = ({ url }) => {
         }
       );
 
-      return response.data;
+      return await response.data;
     } catch (error) {
-      return await error.response.data.errors;
+      return await error.response.data;
     }
   };
 
@@ -265,4 +265,18 @@ export const getRecentVariation = (variations, recentColor) => {
 
     return newVariation;
   }
+};
+
+// Check rating
+export const checkRating = (values, user_id) => {
+  if (!values && typeof values !== "object") {
+    throw new Error("values must be array of object!");
+  }
+  if (!user_id && typeof values !== "string") {
+    throw new Error("values must be string or id!");
+  }
+
+  const filtered = values.findIndex((val) => val.user_id === user_id);
+
+  return filtered > -1;
 };

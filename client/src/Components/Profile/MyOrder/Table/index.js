@@ -7,7 +7,6 @@ const Table = () => {
   return (
     <Wrapper>
       <TableWrapper>
-        {/* <Head /> */}
         <Body />
       </TableWrapper>
     </Wrapper>

@@ -22,7 +22,7 @@ import {
   Wrapper,
 } from "./Styles";
 
-import Shopping from "../../Shared/Product/ShoppingCart";
+import Product from "../../Shared/Product/Product";
 import { allproducts } from "./data";
 import FeatureProdcut from "./Features";
 
@@ -128,7 +128,7 @@ const SpeOffer = () => {
                   <Row>
                     {products?.map((item, index) => (
                       <Col className="col-xxl-3 col-lg-3 col-md-4 col-sm-4 col-6">
-                        <Shopping product={item} />
+                        <Product product={item} />
                       </Col>
                     ))}
                   </Row>

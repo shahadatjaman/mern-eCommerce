@@ -1,103 +1,137 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
-  Action,
-  Color,
-  ColorWrapper,
-  Icon,
-  Image,
-  ImgLink,
-  MainColor,
-  Old,
+  ImgWrapper,
+  ShoppingImg,
+  ShoppingTitle,
+  ShoppingWrapper,
+  Content,
   Price,
-  ProductAction,
-  ProductContent,
-  ProductImage,
-  ProductWrap,
-  SizeWrapper,
   Span,
-  Title,
+  Old,
+  ProductAction,
+  Action,
+  Icon,
+  DiscountWrapper,
+  Discount,
 } from "./Styles";
 
-import { AiOutlineHeart } from "react-icons/ai";
+import ProductRatting from "../Ratting";
 
-import { useState } from "react";
+import { AiOutlineHeart, AiOutlineShoppingCart } from "react-icons/ai";
 
-import { wistList } from "../../../feature/reducer/wishList/";
+import { addCart, addCartItems } from "../../../feature/reducer/addToCart";
 
-// import ProductRatting from "../Ratting";
-import ColorVariation from "./Color";
-import SizeVariation from "./Size";
+import { useAddToCart } from "../../../hooks/useAddToCart";
+import { useEffect, useState } from "react";
 
-const Product = () => {
-  const [isHovere, setHover] = useState(false);
+import { getVariation } from "../../../feature/reducer/product/productVariation";
 
-  const mouseEnter = () => {
-    if (isHovere) {
-      setHover(false);
-    } else {
-      setHover(true);
-    }
-  };
+import {
+  getLocalstorage,
+  isEmptyObject,
+  requestTServer,
+  shortText,
+} from "../../../utils";
+import { NavLink } from "react-router-dom";
+
+const Shopping = ({ product }) => {
+  const [variants, setVariations] = useState(null);
+
+  const { addToCart, checkCartIsAddedIn } = useAddToCart();
+
+  const { discount } = useSelector((state) => state.getProducts);
 
   const dispatch = useDispatch();
 
-  const addToWishlist = () => {
-    // dispatch(wistList(product));
+  const addToCartHandler = (_id) => {
+    checkCartIsAddedIn({ _id: _id });
+
+    addToCart({
+      _id: product._id,
+      price: product.price.$numberDecimal,
+    });
+
+    const carts = getLocalstorage("carts");
+
+    dispatch(addCartItems(carts));
   };
 
+  useEffect(() => {
+    checkCartIsAddedIn({ _id: product._id });
+  }, [checkCartIsAddedIn, product]);
+
+  useEffect(() => {
+    dispatch(getVariation({ product_id: product._id }));
+  }, [dispatch, product]);
+
+  useEffect(() => {
+    (async () => {
+      const result = await requestTServer({ product_id: product._id });
+      const response = result;
+
+      if (response.data.variants) {
+        setVariations(response.data);
+      }
+    })();
+  }, [product]);
+  console.log(discount);
   return (
-    <ProductWrap onMouseEnter={mouseEnter} onMouseLeave={mouseEnter}>
-      <ProductImage>
-        <ImgLink to={`/product/`}>
-          {isHovere ? (
-            <Image
-              src={
-                "https://res.cloudinary.com/dza2t1htw/image/upload/v1668922940/macpro_y5tmrg.webp"
-              }
-            />
+    <ShoppingWrapper>
+      {/* Discount */}
+      {discount && !isEmptyObject(discount) && (
+        <DiscountWrapper>
+          <Discount>-50%</Discount>
+        </DiscountWrapper>
+      )}
+
+      {/* Actions */}
+      <ProductAction className="action">
+        <Action onClick={() => addToCartHandler(product._id)}>
+          <AiOutlineShoppingCart />
+        </Action>
+        <Action>
+          <AiOutlineHeart />
+        </Action>
+
+        <Action>
+          <Icon className="fa-regular fa-eye"></Icon>
+        </Action>
+      </ProductAction>
+
+      {/* Product Image */}
+
+      <ImgWrapper>
+        <NavLink to={`/product/${product._id}`}>
+          {variants ? (
+            <ShoppingImg src={variants.variants?.variation_img} alt="camera" />
           ) : (
-            <Image
+            <ShoppingImg
               src={
-                "https://res.cloudinary.com/dza2t1htw/image/upload/v1668921469/camera.cf8f7d729e14f4cd8e54_ni0gb4.png"
+                "https://res.cloudinary.com/dza2t1htw/image/upload/v1669222568/no-image_je9opq.jpg"
               }
+              alt="camera"
             />
           )}
-        </ImgLink>
-        {/* <ProductAction className="action">
-          <Action width="48" onClick={addToWishlist}>
-            <AiOutlineHeart />
-          </Action>
+        </NavLink>
+      </ImgWrapper>
 
-          <Action widthCalc="96">Buy Now</Action>
-          <Action width="48">
-            <Icon className="fa-regular fa-eye"></Icon>
-          </Action>
-        </ProductAction> */}
-      </ProductImage>
-      <ProductContent>
-        <Title>Lorem ipsum fashion jacket</Title>
-        {/* <ProductRatting /> */}
+      {/* Product Content */}
+      <Content>
+        <ShoppingTitle>
+          <NavLink to={`/product/${product._id}`}>
+            <h6>{shortText(product.name, 25, 0, 25)}</h6>
+          </NavLink>
+        </ShoppingTitle>
+        <ProductRatting />
+
         <Price>
-          <Span>$0.00 - </Span>
-          <Old>$0.00</Old>
+          <Span>{product.price.$numberDecimal}$</Span>
+          <Old>0.00$</Old>
         </Price>
-        {/* Color Variations */}
-        <ColorWrapper>
-          <ColorVariation bg="red" />
-          <ColorVariation bg="green" />
-          <ColorVariation bg="blue" active="true" />
-          <ColorVariation bg="black" />
-        </ColorWrapper>
-
-        {/* Size Variations */}
-        <SizeWrapper>
-          <SizeVariation size={"X"} />
-          <SizeVariation size={"X"} active="true" />
-        </SizeWrapper>
-      </ProductContent>
-    </ProductWrap>
+      </Content>
+    </ShoppingWrapper>
   );
 };
 
-export default Product;
+export default Shopping;
