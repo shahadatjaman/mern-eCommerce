@@ -23,7 +23,6 @@ const Update = ({ product_id, isOpenUpdate, setIsOpenUpdte }) => {
 
   useEffect(() => {
     if (rating) {
-      console.log(rating.rating.$numberDecimal);
       setOldRating(rating.rating.$numberDecimal);
       setOldText(rating.text);
     }

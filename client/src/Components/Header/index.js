@@ -1,7 +1,7 @@
-import { Col, Container, Form, Navbar } from "react-bootstrap";
+import { Container, Form, Navbar } from "react-bootstrap";
 import Input from "../Shared/Form/Input";
 import RightContent from "./RightContent";
-import { CgFormatLeft } from "react-icons/cg";
+
 import { HeaderWrapper, Logo, NavbarBrand, Toggler } from "./Styles";
 
 import { useWindowHeight } from "../../hooks/useWindowHeight";

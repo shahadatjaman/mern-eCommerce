@@ -6,6 +6,7 @@ const initialState = {
   isError: false,
   products: null,
   product: null,
+  featureProduct: null,
 };
 
 export const fetchProducts = createAsyncThunk(
@@ -13,7 +14,30 @@ export const fetchProducts = createAsyncThunk(
   async () => {
     try {
       let response = await axios.get(
-        `http://localhost:5000/vendor/getproducts`
+        `${process.env.REACT_APP_SERVER_URL}/vendor/getproducts`
+      );
+
+      return await response.data;
+    } catch (error) {
+      return await error.response.data.errors;
+    }
+  }
+);
+
+/**
+ *
+ * @param {_id} category_id
+ * @param {from} from
+ * @param {to} to
+ */
+
+export const getProductByCategory = createAsyncThunk(
+  "products/getProductByCat",
+
+  async ({ category_id, from, to }) => {
+    try {
+      let response = await axios.get(
+        `${process.env.REACT_APP_SERVER_URL}/vendor/getproducts/${category_id}/${from}-${to}`
       );
 
       return await response.data;
@@ -46,6 +70,21 @@ const productSlice = createSlice({
     },
     [fetchProducts.rejected]: (state, { payload }) => {
       state.isError = true;
+      state.isLoading = false;
+    },
+
+    // Get product by categoy
+    [getProductByCategory.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getProductByCategory.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+
+      if (payload.products) {
+        state.featureProduct = payload.products;
+      }
+    },
+    [getProductByCategory.rejected]: (state) => {
       state.isLoading = false;
     },
   },

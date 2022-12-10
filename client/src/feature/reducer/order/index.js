@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { getLocalstorage, removeLocalstorage } from "../../../utils";
+import { callApi, getLocalstorage, removeLocalstorage } from "../../../utils";
 
 const initialState = {
   isLoading: false,
@@ -15,7 +15,7 @@ export const createOrder = createAsyncThunk(
   async ({ values, navigate }) => {
     try {
       let response = await axios.post(
-        `http://localhost:5000/V2/createorder`,
+        `${process.env.REACT_APP_SERVER_URL}/V2/createorder`,
         values,
         {
           headers: {
@@ -38,7 +38,7 @@ export const getOrder = createAsyncThunk(
   async ({ order_id }) => {
     try {
       let response = await axios.get(
-        `http://localhost:5000/V2/getorder/${order_id}`,
+        `${process.env.REACT_APP_SERVER_URL}/V2/getorder/${order_id}`,
 
         {
           headers: {
@@ -54,22 +54,20 @@ export const getOrder = createAsyncThunk(
   }
 );
 export const getOrders = createAsyncThunk("v2/getorders", async () => {
-  try {
-    let response = await axios.get(
-      `http://localhost:5000/V2/getorders`,
-
-      {
-        headers: {
-          Authorization: "Bearer " + getLocalstorage("user_info"),
-        },
-      }
-    );
-
-    return response.data;
-  } catch (error) {
-    return await error.response.data.errors;
-  }
+  return await callApi({
+    pathOne: "v2",
+    pathTwo: "getorders",
+    method: "get",
+  });
 });
+
+// async () => {
+//   return await callApi({
+//     pathOne: "v2",
+//     pathTwo: "getorders",
+//     method: "get",
+//   });
+// }
 
 const orderSlice = createSlice({
   name: "order",
@@ -89,7 +87,6 @@ const orderSlice = createSlice({
       state.newOrder = data.order;
 
       removeLocalstorage("carts");
-      console.log(data.order);
 
       if (data.order) {
         navigate(`/order_success/${data.order._id}`);
@@ -122,7 +119,6 @@ const orderSlice = createSlice({
       if (payload.orders) {
         state.orders = payload.orders;
       }
-      console.log(payload);
     },
     [getOrders.rejected]: (state) => {
       state.isLoading = false;

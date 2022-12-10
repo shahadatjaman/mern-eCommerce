@@ -63,11 +63,13 @@ const RowTable = ({ cart }) => {
           </Grid>
         </Grid>
       </TableCell>
-      <TableCell align="start">$ {cart.price}</TableCell>
+      <TableCell align="start">$ {parseFloat(cart.price).toFixed(2)}</TableCell>
       <TableCell align="start">
         <Quantity cart={cart} />
       </TableCell>
-      <TableCell align="start">$ {cart.qty * cart.price}</TableCell>
+      <TableCell align="start">
+        $ {parseFloat(cart.qty * cart.price).toFixed(2)}
+      </TableCell>
     </TableRow>
   );
 };

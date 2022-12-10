@@ -4,10 +4,10 @@ import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Slider from "react-slick";
 
-import { cartegories } from "./data";
 import { Img, Item, Wrapper } from "./Styles";
 
 import { useWindowWidth } from "../../../hooks/userWindowWidth";
+import { cartegories } from "./data";
 
 const Categories = () => {
   const [show, setShow] = useState(5);
@@ -29,6 +29,7 @@ const Categories = () => {
     slidesToShow: show,
     slidesToScroll: 1,
   };
+
   return (
     <Wrapper>
       <Container>

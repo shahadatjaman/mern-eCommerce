@@ -14,7 +14,7 @@ export const createProductDiscount = createAsyncThunk(
   async ({ values, product_id }) => {
     try {
       const response = await axios.post(
-        `http://localhost:5000/vendor/creatediscount/${product_id}`,
+        `${process.env.REACT_APP_SERVER_URL}/vendor/creatediscount/${product_id}`,
         values,
 
         {

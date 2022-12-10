@@ -26,32 +26,40 @@ const initialState = {
 export const createInitProduct = createAsyncThunk(
   "vendor/product",
   requestToServerWithGet({
-    url: `http://localhost:5000/vendor/createemptyproduct`,
+    url: `${process.env.REACT_APP_SERVER_URL}/vendor/createemptyproduct`,
   })
 );
 
 // Create a new product
 export const createProduct = createAsyncThunk(
   "vendor/newproduct",
-  requestToServerWithPost({ url: "http://localhost:5000/vendor/createproduct" })
+  requestToServerWithPost({
+    url: `${process.env.REACT_APP_SERVER_URL}/vendor/createproduct`,
+  })
 );
 
 // get product all categories
 export const fetchAllCategories = createAsyncThunk(
   "vendor/getCategories",
-  requestToServerWithGet({ url: "http://localhost:5000/vendor/getcategories" })
+  requestToServerWithGet({
+    url: `${process.env.REACT_APP_SERVER_URL}/vendor/getcategories`,
+  })
 );
 
 // Create tags
 export const createTags = createAsyncThunk(
   "vendor/createtag",
-  requestToServerWithPost({ url: "http://localhost:5000/vendor/createtag" })
+  requestToServerWithPost({
+    url: `${process.env.REACT_APP_SERVER_URL}/vendor/createtag`,
+  })
 );
 
 // Delete or remove tag
 export const deleteTag = createAsyncThunk(
   "vendor/deletetag",
-  requestToServerWithPost({ url: "http://localhost:5000/vendor/romvetag" })
+  requestToServerWithPost({
+    url: `${process.env.REACT_APP_SERVER_URL}/vendor/romvetag`,
+  })
 );
 
 // Product Silce

@@ -10,11 +10,18 @@ import {
   Name,
   Ul,
 } from "./Styles";
-import { FaAngleLeft, FaAngleRight, FaCameraRetro } from "react-icons/fa";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+
+import { getCategories } from "../../feature/reducer/categories";
 
 import { categoriesData } from "./data";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import Category from "./category";
 
 const Categories = () => {
+  const { categories } = useSelector((state) => state.categories);
+
   return (
     <CategoriesWrapper className="dispaly-none">
       <CartTitel>
@@ -26,18 +33,8 @@ const Categories = () => {
       </CartTitel>
       <Menubar>
         <Ul>
-          {categoriesData.map((item, index) => (
-            <Li>
-              <Name>
-                <ImgWrapper>
-                  <Img src={item.icon_url} alt="icon" />
-                </ImgWrapper>
-                {item.name}
-              </Name>
-              <Name>
-                <FaAngleRight />
-              </Name>
-            </Li>
+          {categories?.map((cate, index) => (
+            <Category cate={cate} key={index} />
           ))}
         </Ul>
       </Menubar>

@@ -25,12 +25,11 @@ import {
 import { useEffect, useState } from "react";
 import { getSalePrice } from "../../../utils";
 import Quantityy from "../Quantity";
-import ProducrColor from "../ColorVariation";
+
+import ProducrVariation from "../ColorVariation";
 
 const ProductContent = () => {
   const [salePices, setSalePrices] = useState(null);
-
-  const dispatch = useDispatch();
 
   // get product
   const { product, discount, tags } = useSelector(
@@ -51,8 +50,6 @@ const ProductContent = () => {
   if (!product) {
     return <h2>product not found!</h2>;
   }
-
-  console.log(tags);
 
   return (
     <ProductContentWrapper>
@@ -78,9 +75,7 @@ const ProductContent = () => {
       {/* Product Short Description */}
       <Text>{product.short_desc}</Text>
 
-      <ProducrColor />
-
-      {/* Product Color and Size */}
+      <ProducrVariation />
 
       {/* Product Quantity */}
       <Quantityy />

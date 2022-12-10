@@ -31,7 +31,7 @@ const CreateReview = () => {
     dispatch(
       createRating({
         product_id: id,
-        rating,
+        rating: rating.toString(),
         text,
       })
     );

@@ -2,7 +2,7 @@ import React from "react";
 import { ThemeProvider } from "styled-components";
 const theme = {
   colors: {
-    primary: "#221ecd",
+    primary: "#1976d2",
     gray: "#f2f2f2",
   },
 };

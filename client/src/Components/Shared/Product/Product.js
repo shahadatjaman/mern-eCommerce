@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import {
   ImgWrapper,
@@ -6,9 +6,6 @@ import {
   ShoppingTitle,
   ShoppingWrapper,
   Content,
-  Price,
-  Span,
-  Old,
   ProductAction,
   Action,
   Icon,
@@ -16,11 +13,9 @@ import {
   Discount,
 } from "./Styles";
 
-import ProductRatting from "../Ratting";
-
 import { AiOutlineHeart, AiOutlineShoppingCart } from "react-icons/ai";
 
-import { addCart, addCartItems } from "../../../feature/reducer/addToCart";
+import { addCartItems } from "../../../feature/reducer/addToCart";
 
 import { useAddToCart } from "../../../hooks/useAddToCart";
 import { useEffect, useState } from "react";
@@ -28,19 +23,25 @@ import { useEffect, useState } from "react";
 import { getVariation } from "../../../feature/reducer/product/productVariation";
 
 import {
+  callApi,
   getLocalstorage,
-  isEmptyObject,
-  requestTServer,
+  requestToServerWithGet,
   shortText,
 } from "../../../utils";
 import { NavLink } from "react-router-dom";
 
+import Prices from "./Price";
+import Rating from "./Rating";
+
 const Shopping = ({ product }) => {
-  const [variants, setVariations] = useState(null);
+  const [discount, setDiscount] = useState(null);
+
+  const [variation, setVariation] = useState(null);
+  const [totalRating, setTotalRating] = useState(null);
 
   const { addToCart, checkCartIsAddedIn } = useAddToCart();
 
-  const { discount } = useSelector((state) => state.getProducts);
+  // const { rating } = useTotalRating(ratings);
 
   const dispatch = useDispatch();
 
@@ -67,21 +68,30 @@ const Shopping = ({ product }) => {
 
   useEffect(() => {
     (async () => {
-      const result = await requestTServer({ product_id: product._id });
-      const response = result;
+      const res = await callApi({
+        _id: product._id,
+        pathOne: "vendor",
+        pathTwo: "getvariation",
+        method: "get",
+      });
 
-      if (response.data.variants) {
-        setVariations(response.data);
+      setVariation(res.variation);
+
+      if (res.totalRating) {
+        setTotalRating(res.totalRating);
+      }
+      if (res.discount) {
+        setDiscount(res.discount);
       }
     })();
   }, [product]);
-  console.log(discount);
+
   return (
     <ShoppingWrapper>
       {/* Discount */}
-      {discount && !isEmptyObject(discount) && (
+      {discount && (
         <DiscountWrapper>
-          <Discount>-50%</Discount>
+          <Discount>-{discount.discount_percent.$numberDecimal}%</Discount>
         </DiscountWrapper>
       )}
 
@@ -103,8 +113,8 @@ const Shopping = ({ product }) => {
 
       <ImgWrapper>
         <NavLink to={`/product/${product._id}`}>
-          {variants ? (
-            <ShoppingImg src={variants.variants?.variation_img} alt="camera" />
+          {variation ? (
+            <ShoppingImg src={variation?.variation_img} alt="camera" />
           ) : (
             <ShoppingImg
               src={
@@ -123,12 +133,9 @@ const Shopping = ({ product }) => {
             <h6>{shortText(product.name, 25, 0, 25)}</h6>
           </NavLink>
         </ShoppingTitle>
-        <ProductRatting />
+        <Rating totalRating={totalRating} />
 
-        <Price>
-          <Span>{product.price.$numberDecimal}$</Span>
-          <Old>0.00$</Old>
-        </Price>
+        <Prices product={product} discount={discount} />
       </Content>
     </ShoppingWrapper>
   );

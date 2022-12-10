@@ -10,6 +10,7 @@ const initialState = {
   isLoading: false,
   recentVariation: null,
   recentColor: null,
+  recentSize: null,
   tags: null,
 };
 
@@ -20,7 +21,7 @@ export const fetchProduct = createAsyncThunk(
     try {
       //Your Axios code part.
       const response = await axios.get(
-        `http://localhost:5000/vendor/getproduct/${product_id}`
+        `${process.env.REACT_APP_SERVER_URL}/vendor/getproduct/${product_id}`
       ); //where you want to fetch data
 
       return await response.data;
@@ -43,6 +44,9 @@ const productDetailsSlice = createSlice({
     addRecentColor: (state, { payload }) => {
       state.recentColor = payload;
     },
+    addRecentSize: (state, { payload }) => {
+      state.recentSize = payload;
+    },
   },
   extraReducers: {
     [fetchProduct.pending]: (state, { payload }) => {
@@ -63,7 +67,7 @@ const productDetailsSlice = createSlice({
   },
 });
 
-export const { getProduct, addRecentVariation, addRecentColor } =
+export const { getProduct, addRecentVariation, addRecentColor, addRecentSize } =
   productDetailsSlice.actions;
 
 export default productDetailsSlice.reducer;

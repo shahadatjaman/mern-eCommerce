@@ -1,17 +1,19 @@
 import * as React from "react";
 import RatingIcon from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
+import { Box } from "@mui/material";
 
-const Rating = () => {
+const Rating = ({ rating }) => {
   return (
-    <Stack spacing={1}>
+    <Box spacing={1} sx={{ display: "flex", alignItems: "center" }}>
       <RatingIcon
         name="half-rating-read"
-        value={2.5}
-        precision={0.5}
+        value={rating}
+        precision={rating}
         readOnly
       />
-    </Stack>
+      ({rating})
+    </Box>
   );
 };
 

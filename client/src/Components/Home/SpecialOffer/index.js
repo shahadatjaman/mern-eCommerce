@@ -23,17 +23,22 @@ import {
 } from "./Styles";
 
 import Product from "../../Shared/Product/Product";
-import { allproducts } from "./data";
 import FeatureProdcut from "./Features";
 
 import { useWindowWidth } from "../../../hooks/userWindowWidth";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
-import { fetchProducts } from "../../../feature/reducer/product";
+import {
+  fetchProducts,
+  getProductByCategory,
+} from "../../../feature/reducer/product";
+import { useState } from "react";
 
 const SpeOffer = () => {
-  const { products } = useSelector((state) => state.product);
+  const [clock, setClock] = useState(null);
+
+  const { products, featureProduct } = useSelector((state) => state.product);
 
   const isFluid = useWindowWidth({ width: 1400 });
 
@@ -42,6 +47,41 @@ const SpeOffer = () => {
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(
+      getProductByCategory({
+        category_id: "638d7127c57c08cdc0b59c90",
+        from: 0,
+        to: 2,
+      })
+    );
+  }, [dispatch]);
+
+  useEffect(() => {
+    (() => {
+      var start = new Date();
+      start.setHours(23, 0, 0); // 11pm
+
+      let pad = (num) => {
+        return ("0" + parseInt(num)).substr(-2);
+      };
+
+      (function tick() {
+        var now = new Date();
+        if (now > start) {
+          // too late, go to tomorrow
+          start.setDate(start.getDate() + 1);
+        }
+        var remain = (start - now) / 1000;
+        var h = pad((remain / 60 / 60) % 60);
+        var m = pad((remain / 60) % 60);
+        var s = pad(remain % 60);
+        setClock({ h, m, s });
+        setTimeout(tick, 1000);
+      })();
+    })();
+  }, []);
 
   return (
     <Wrapper>
@@ -89,27 +129,29 @@ const SpeOffer = () => {
               </Progressbar>
               <Timer>
                 <h6>Hurry Up! Offer Ends In :</h6>
-                <Counter>
-                  <span>
-                    <span>06</span>
-                    <p>HOURS</p>
-                  </span>
-                  <p>:</p>
-                  <span>
-                    <span>06</span>
-                    <p>MENS</p>
-                  </span>
-                  <p>:</p>
-                  <span>
-                    <span>06</span>
-                    <p>SEC</p>
-                  </span>
-                </Counter>
+                {clock && (
+                  <Counter>
+                    <span>
+                      <span>{clock.h}</span>
+                      <p>HOURS</p>
+                    </span>
+                    <p>:</p>
+                    <span>
+                      <span>{clock.m}</span>
+                      <p>MENS</p>
+                    </span>
+                    <p>:</p>
+                    <span>
+                      <span>{clock.s}</span>
+                      <p>SEC</p>
+                    </span>
+                  </Counter>
+                )}
               </Timer>
             </Item>
 
-            {[1, 2].map((item, index) => (
-              <FeatureProdcut />
+            {featureProduct?.map((item, index) => (
+              <FeatureProdcut value={item} key={index} />
             ))}
           </Col>
           <Col className="col-xxl-9 col-md-9 col-sm-12 col-12">

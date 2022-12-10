@@ -33,7 +33,8 @@ const Carts = () => {
         <Bottom>
           <TotalWrapper>
             <SubTotal>Total :</SubTotal>
-            <TotalPrice>{totallPrice()} $</TotalPrice>
+
+            <TotalPrice>{parseFloat(totallPrice()).toFixed(2)} $</TotalPrice>
           </TotalWrapper>
           <ViewCart to="/cartitems">View Cart</ViewCart>
 

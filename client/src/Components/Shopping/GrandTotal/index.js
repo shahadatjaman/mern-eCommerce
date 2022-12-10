@@ -12,10 +12,10 @@ const GrandTotal = () => {
         <H4>Cart Total</H4>
       </TitleWrap>
       <H5>
-        Subtotal <Span>$ {totallPrice()}</Span>
+        Subtotal <Span>$ {parseFloat(totallPrice()).toFixed(2)}</Span>
       </H5>
       <GrandTotalTitle>
-        Total <Price>$ {totallPrice()}</Price>
+        Total <Price>$ {parseFloat(totallPrice()).toFixed(2)}</Price>
       </GrandTotalTitle>
       <Cuntinue to={`/billing`}>PROCEED TO CHECKOUT</Cuntinue>
     </Box>

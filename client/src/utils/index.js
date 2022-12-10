@@ -2,6 +2,7 @@ import { useTheme } from "styled-components";
 import jwt_decode from "jwt-decode";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { useEffect } from "react";
 
 // get localstorage values
 export const getLocalstorage = (name) => {
@@ -279,4 +280,80 @@ export const checkRating = (values, user_id) => {
   const filtered = values.findIndex((val) => val.user_id === user_id);
 
   return filtered > -1;
+};
+
+export const getTotalRating = (values) => {
+  if (values) {
+    return values?.reduce(
+      (prev, cur) => parseInt(prev) + parseInt(cur.rating),
+      0
+    );
+  } else {
+    return 1;
+  }
+};
+
+export const checkVarintColor = (options, name) => {
+  const indexOfType = options.findIndex((val) => val.variation_type === name);
+
+  return indexOfType > -1;
+};
+
+export const callApi = async ({ _id, pathOne, pathTwo, method, values }) => {
+  const token = getLocalstorage("user_info");
+  try {
+    let response = await axios[method](
+      `${process.env.REACT_APP_SERVER_URL}/${pathOne}/${pathTwo}/${
+        _id ? _id : ""
+      }`,
+      (() => {
+        if (method === "post") {
+          return values;
+        } else {
+          return {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          };
+        }
+      })(),
+      (() => {
+        if (method === "post") {
+          return {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          };
+        }
+      })()
+    );
+
+    return await response.data;
+  } catch (error) {
+    return await error.response.data.errors;
+  }
+};
+
+export const timeCounter = (start) => {
+  var start = new Date();
+  start.setHours(23, 0, 0); // 11pm
+
+  function pad(num) {
+    return ("0" + parseInt(num)).substr(-2);
+  }
+
+  return function tick() {
+    var now = new Date();
+    if (now > start) {
+      // too late, go to tomorrow
+      start.setDate(start.getDate() + 1);
+    }
+    var remain = (start - now) / 1000;
+    var hh = pad((remain / 60 / 60) % 60);
+    var mm = pad((remain / 60) % 60);
+    var ss = pad(remain % 60);
+
+    setTimeout(tick, 1000);
+    return { hh, mm, ss };
+  };
 };

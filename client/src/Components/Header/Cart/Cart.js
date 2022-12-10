@@ -14,7 +14,6 @@ import {
   Left,
   Name,
   Price,
-  Qty,
   Middle,
   Right,
   Close,
@@ -64,7 +63,7 @@ const Cart = ({ cart }) => {
         <Name>Purple NX Mini F1 aparat </Name>
         <Quantity cart={cart} />
         <Price>
-          ${cart.price} X {cart.qty}
+          ${parseFloat(cart.price).toFixed(2)} X {cart.qty}
         </Price>
       </Middle>
       <Right>

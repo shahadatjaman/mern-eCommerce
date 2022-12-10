@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { requestToServerWithGet } from "../../../../utils";
+import { callApi, requestToServerWithGet } from "../../../../utils";
 import {
   Date,
   DateWrapper,
@@ -33,17 +33,18 @@ const Post = ({ val }) => {
   const date = useTimeFormat(val.createdAt);
 
   useEffect(() => {
-    const getUser = async () => {
-      const response = requestToServerWithGet({
-        url: `http://localhost:5000/auth/getuser/${val.user_id}`,
+    (async () => {
+      const res = await callApi({
+        _id: val.user_id,
+        method: "get",
+        pathOne: "auth",
+        pathTwo: "getuser",
       });
-      const result = await response();
 
-      if (result.user) {
-        setCurrentUser(result.user);
+      if (res.user) {
+        setCurrentUser(res.user);
       }
-    };
-    getUser();
+    })();
   }, [val]);
 
   return (
@@ -72,8 +73,8 @@ const Post = ({ val }) => {
         >
           <Rating
             name="half-rating-read"
-            defaultValue={val.rating.$numberDecimal}
-            precision={val.rating.$numberDecimal}
+            defaultValue={val.rating}
+            precision={val.rating}
             readOnly
           />
         </Box>

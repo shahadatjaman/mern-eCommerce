@@ -5,9 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 const Color = ({ option }) => {
-  const { variations, recentVariation, recentColor } = useSelector(
-    (state) => state.productDetails
-  );
+  const { recentColor } = useSelector((state) => state.productDetails);
 
   const dispatch = useDispatch();
 

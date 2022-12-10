@@ -13,7 +13,7 @@ const initialState = {
 export const createFileOrVariation = createAsyncThunk(
   "vendor/file",
   requestToServerWithPost({
-    url: "http://localhost:5000/vendor/productvariation",
+    url: `${process.env.REACT_APP_SERVER_URL}/vendor/productvariation`,
   })
 );
 
@@ -22,7 +22,7 @@ export const createFileOrVariation = createAsyncThunk(
 export const removeVariation = createAsyncThunk(
   "vendor/removeVariation",
   requestToServerWithPost({
-    url: "http://localhost:5000/vendor/removevariation",
+    url: `${process.env.REACT_APP_SERVER_URL}/vendor/removevariation`,
   })
 );
 
@@ -32,7 +32,7 @@ export const getVariation = createAsyncThunk(
   async ({ product_id }) => {
     try {
       let response = await axios.get(
-        `http://localhost:5000/vendor/getvariations/${product_id}`,
+        `${process.env.REACT_APP_SERVER_URL}/vendor/getvariations/${product_id}`,
 
         {
           method: "GET",

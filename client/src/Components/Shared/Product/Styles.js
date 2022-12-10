@@ -159,6 +159,7 @@ export const ImgWrapper = styled.div`
   align-items: center;
   width: 230px;
   margin: 0 auto;
+  overflow: hidden;
   @media (max-width: 1400px) {
     width: auto;
     margin: 0px 8px;
@@ -167,6 +168,7 @@ export const ImgWrapper = styled.div`
 
 export const ShoppingImg = styled.img`
   width: 100%;
+  object-position: 0px 22px;
 `;
 
 export const ShoppingTitle = styled.div`

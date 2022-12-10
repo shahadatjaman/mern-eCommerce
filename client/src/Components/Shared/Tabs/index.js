@@ -47,11 +47,11 @@ export const BasicTabs = () => {
 
   const { user } = useSelector((state) => state.user);
 
+  const sorted = useSort(ratings);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  const sorted = useSort(ratings);
 
   useEffect(() => {
     if (user) {
@@ -60,7 +60,6 @@ export const BasicTabs = () => {
     }
   }, [ratings, user]);
 
-  console.log(sorted);
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -83,11 +82,10 @@ export const BasicTabs = () => {
         accusantium dolo
       </TabPanel>
       <TabPanel value={value} index={2}>
-        {!isCreated && <CreateReview />}
+        {!isCreated && user && <CreateReview />}
 
-        {sorted?.map((val, index) => (
-          <Post val={val} key={index} />
-        ))}
+        {ratings.length > 0 &&
+          sorted?.map((val, index) => <Post val={val} key={index} />)}
       </TabPanel>
     </Box>
   );

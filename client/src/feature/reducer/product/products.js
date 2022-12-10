@@ -11,7 +11,9 @@ const initialState = {
 
 export const getProducts = createAsyncThunk(
   "vendor/getproducts",
-  requestToServerWithGet({ url: "http://localhost:5000/vendor/getproducts" })
+  requestToServerWithGet({
+    url: `${process.env.REACT_APP_SERVER_URL}/vendor/getproducts`,
+  })
 );
 
 export const getDiscount = createAsyncThunk(
@@ -19,7 +21,7 @@ export const getDiscount = createAsyncThunk(
   async ({ product_id }) => {
     try {
       let response = await axios.get(
-        `http://localhost:5000/vendor/getdiscount/${product_id}`,
+        `${process.env.REACT_APP_SERVER_URL}/vendor/getdiscount/${product_id}`,
 
         {
           method: "GET",
@@ -41,7 +43,7 @@ export const deleteProduct = createAsyncThunk(
   async ({ product_id }) => {
     try {
       let response = await axios.delete(
-        `http://localhost:5000/vendor/deleteproduct/${product_id}`,
+        `${process.env.REACT_APP_SERVER_URL}/vendor/deleteproduct/${product_id}`,
 
         {
           method: "DELETE",
@@ -76,6 +78,8 @@ export const getProductSlice = createSlice({
     [getProducts.pending]: (state) => {
       state.loading = false;
     },
+
+    // get product discount
     [getDiscount.pending]: (state) => {
       state.loading = true;
     },
@@ -87,6 +91,7 @@ export const getProductSlice = createSlice({
     [getDiscount.pending]: (state) => {
       state.loading = false;
     },
+    // DELETE products
     [deleteProduct.pending]: (state, { payload }) => {
       state.loading = true;
     },

@@ -11,6 +11,7 @@ export const useAddToCart = () => {
   const [isAdded, setIsAdded] = useState(false);
   const [totallPrices, setTotalPrcies] = useState(0);
 
+  // TODO:
   // Add To Cart
   const addToCart = ({ _id, price }) => {
     const carts = getLocalstorage("carts");
@@ -148,16 +149,6 @@ export const useAddToCart = () => {
     return removedCarts;
   };
 
-  const cart = ({ _id }) => {
-    if (!_id) {
-      throw new Error("proddcut ID (_id) Must be valid!");
-    }
-
-    const carts = getLocalstorage("carts");
-
-    const indexOfcart = carts.findIndex((item) => item.product_id === _id);
-  };
-
   useEffect(() => {
     const cartItems = getLocalstorage("carts");
 
@@ -178,7 +169,7 @@ export const useAddToCart = () => {
     removeCart,
     totallPrice,
     addQuantity,
-    cart,
+
     totallPrices,
   };
 };

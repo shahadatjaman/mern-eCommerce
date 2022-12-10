@@ -15,7 +15,7 @@ export const createRating = createAsyncThunk(
     console.log(values);
     try {
       let response = await axios.post(
-        `http://localhost:5000/vendor/createrating`,
+        `${process.env.REACT_APP_SERVER_URL}/vendor/createrating`,
 
         values,
         {
@@ -39,7 +39,7 @@ export const removeRating = createAsyncThunk(
   async ({ product_id, closeModal }) => {
     try {
       let response = await axios.delete(
-        `http://localhost:5000/vendor/removerating/${product_id}`,
+        `${process.env.REACT_APP_SERVER_URL}/vendor/removerating/${product_id}`,
 
         {
           method: "delete",
@@ -62,7 +62,7 @@ export const removeRating = createAsyncThunk(
 export const getRatings = createAsyncThunk("vendor/getratings", async (id) => {
   try {
     let response = await axios.get(
-      `http://localhost:5000/vendor/getratings/${id}`,
+      `${process.env.REACT_APP_SERVER_URL}/vendor/getratings/${id}`,
 
       {
         method: "GET",
@@ -84,7 +84,7 @@ export const getRating = createAsyncThunk(
   async ({ product_id }) => {
     try {
       let response = await axios.get(
-        `http://localhost:5000/vendor/getrating/${product_id}`,
+        `${process.env.REACT_APP_SERVER_URL}/vendor/getrating/${product_id}`,
 
         {
           method: "GET",
@@ -130,7 +130,7 @@ const ratingSlice = createSlice({
     },
     [getRatings.fulfilled]: (state, { payload }) => {
       state.loading = false;
-
+      console.log(payload);
       if (payload && payload.ratings) {
         state.ratings = payload.ratings;
       }
@@ -161,6 +161,7 @@ const ratingSlice = createSlice({
       state.loading = false;
       payload.closeModal();
       const { ratings } = payload.data;
+
       if (ratings) {
         state.ratings = ratings;
       }

@@ -14,7 +14,7 @@ import Layout from "../Layout";
 import ProductContent from "../../Components/ProductDetails/ProductContent/productContent";
 
 //<==== Styled Components  ====>
-import { gallerySm, Image, largeImg } from "./styles";
+import { gallerySm, Image, ImageWrapper, largeImg } from "./styles";
 import ResourseNotFound from "../NotFound";
 
 // <=== MUI  ====>
@@ -57,12 +57,12 @@ const Details = () => {
       <Box my={8}>
         <Container maxWidth="xl">
           <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <Box sx={{ ...largeImg }}>
+            <Grid item xs={12} md={6} sm={12}>
+              <ImageWrapper sx={{ ...largeImg }}>
                 {recentVariation && (
                   <Image src={recentVariation.variation_img} alt="prodcut" />
                 )}
-              </Box>
+              </ImageWrapper>
               <Box
                 sx={{
                   ...gallerySm,
@@ -73,7 +73,7 @@ const Details = () => {
                 ))}
               </Box>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6} sm={12}>
               <ProductContent />
             </Grid>
           </Grid>

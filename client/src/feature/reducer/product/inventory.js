@@ -13,7 +13,7 @@ export const createInventory = createAsyncThunk(
   async ({ values, product_id }) => {
     try {
       let response = await axios.post(
-        `http://localhost:5000/vendor/inventory/${product_id}`,
+        `${process.env.REACT_APP_SERVER_URL}/vendor/inventory/${product_id}`,
         values,
         {
           method: "POST",
@@ -36,7 +36,7 @@ export const getInventories = createAsyncThunk(
   async ({ product_id }) => {
     try {
       let response = await axios.get(
-        `http://localhost:5000/vendor/getinventory/${product_id}`,
+        `${process.env.REACT_APP_SERVER_URL}/vendor/getinventory/${product_id}`,
 
         {
           method: "GET",
