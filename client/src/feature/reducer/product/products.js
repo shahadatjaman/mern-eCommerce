@@ -1,20 +1,38 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { getLocalstorage, requestToServerWithGet } from "../../../utils";
+import { callApi, getLocalstorage } from "../../../utils";
 
 const initialState = {
   products: [],
   loading: false,
   selectedProductInfo: null,
   discount: null,
+  healthyProducts: null,
 };
+
+export const getHealthProduct = createAsyncThunk(
+  "vendor/gethealthyproducts",
+  async ({ _id, from, to }) => {
+    return await callApi({
+      _id,
+      pathOne: "vendor",
+      pathTwo: "getproducts",
+      method: "get",
+      from,
+      to,
+    });
+  }
+);
 
 export const getProducts = createAsyncThunk(
   "vendor/getproducts",
-  requestToServerWithGet({
-    url: `${process.env.REACT_APP_SERVER_URL}/vendor/getproducts`,
-  })
+  (async ({ pathOne, pathTwo, from, to, method }) =>
+    await callApi({ pathOne, pathTwo, from, to, method }))()
 );
+
+// requestToServerWithGet({
+//   url: `${process.env.REACT_APP_SERVER_URL}/vendor/getproducts`,
+// })
 
 export const getDiscount = createAsyncThunk(
   "vendor/getdiscount",
@@ -74,6 +92,7 @@ export const getProductSlice = createSlice({
     },
     [getProducts.fulfilled]: (state, { payload }) => {
       state.products = payload.products;
+      console.log(payload);
     },
     [getProducts.pending]: (state) => {
       state.loading = false;
@@ -100,6 +119,19 @@ export const getProductSlice = createSlice({
       console.log(payload);
     },
     [deleteProduct.rejected]: (state, { payload }) => {
+      state.loading = false;
+    },
+
+    // Get healthy products
+    [getHealthProduct.pending]: (state) => {
+      state.loading = true;
+    },
+    [getHealthProduct.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+
+      state.healthyProducts = payload.products;
+    },
+    [getHealthProduct.rejected]: (state) => {
       state.loading = false;
     },
   },

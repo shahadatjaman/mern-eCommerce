@@ -51,7 +51,6 @@ export const Img = styled.img`
 export const Caption = styled.div`
   margin-top: 8px;
   margin-left: 30px;
-  width: 126px;
   margin: auto;
 `;
 

@@ -4,7 +4,6 @@ import { Nav, Navbar } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
 export const HeaderWrapper = styled.div`
-  background: #fff;
   padding: 0 1.5rem;
   @media (max-width: 990px) {
     padding: 0 1rem;
@@ -15,6 +14,14 @@ export const HeaderWrapper = styled.div`
   z-index: 999;
   transition: all 0.5s;
   box-shadow: ${(props) => props.isSticky && "1px 6px 16px 1px #0000001c"};
+
+  background: #ffffff2b;
+
+  backdrop-filter: blur(15px);
+
+  @media print {
+    display: none;
+  }
 `;
 
 // Logo

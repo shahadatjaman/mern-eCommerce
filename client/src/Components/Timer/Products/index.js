@@ -1,20 +1,33 @@
+import { useState } from "react";
+import { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { FcBarChart } from "react-icons/fc";
-import { products } from "../data";
-import {
-  Body,
-  Caption,
-  H4,
-  H5,
-  Img,
-  ImgWrapper,
-  Item,
-  P,
-  Title,
-} from "../Styles";
+import { callApi } from "../../../utils";
+import { Body, H4, Item, Title } from "../Styles";
+import Product from "./Product";
+
 import { Wrapper } from "./Styles";
 
-const Products = () => {
+const Products = ({ id, title }) => {
+  const [products, setProducts] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      const res = await callApi({
+        _id: id,
+        pathOne: "vendor",
+        pathTwo: "getproducts",
+        method: "get",
+        from: 0,
+        to: 3,
+      });
+
+      if (res.products) {
+        setProducts(res.products);
+      }
+    })();
+  }, [id]);
+
   return (
     <Wrapper>
       <Container fluid className="p-0 msmt-2">
@@ -23,23 +36,12 @@ const Products = () => {
             <Item>
               <Title>
                 <FcBarChart />
-                <H4>Online personalization center</H4>
+                <H4> {title}</H4>
               </Title>
               <Body>
                 <Row>
-                  {products.map((item, index) => (
-                    <Col className="col-4">
-                      <ImgWrapper>
-                        <Img src={item.img_url} alt="mobile" />
-                      </ImgWrapper>
-                      <Caption>
-                        <H5>Lorem ipsum</H5>
-                        <P>
-                          sit amet, consecteture adipisciing wlit. gravida
-                          vivera
-                        </P>
-                      </Caption>
-                    </Col>
+                  {products?.map((item, index) => (
+                    <Product product={item} key={index} />
                   ))}
                 </Row>
               </Body>

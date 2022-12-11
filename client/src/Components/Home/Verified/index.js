@@ -42,7 +42,7 @@ const VerifiedCompany = () => {
         <Row>
           <Col>
             <Title>
-              <H5>VERIFIED COMPANIES</H5>
+              <H5>Most Viewed</H5>
             </Title>
           </Col>
         </Row>

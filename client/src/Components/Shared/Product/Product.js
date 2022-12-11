@@ -63,10 +63,6 @@ const Shopping = ({ product }) => {
   }, [checkCartIsAddedIn, product]);
 
   useEffect(() => {
-    dispatch(getVariation({ product_id: product._id }));
-  }, [dispatch, product]);
-
-  useEffect(() => {
     (async () => {
       const res = await callApi({
         _id: product._id,
@@ -130,7 +126,7 @@ const Shopping = ({ product }) => {
       <Content>
         <ShoppingTitle>
           <NavLink to={`/product/${product._id}`}>
-            <h6>{shortText(product.name, 25, 0, 25)}</h6>
+            <h6>{shortText(product.name, 25, 0, 20)}</h6>
           </NavLink>
         </ShoppingTitle>
         <Rating totalRating={totalRating} />

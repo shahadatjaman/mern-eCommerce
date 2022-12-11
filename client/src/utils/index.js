@@ -299,13 +299,21 @@ export const checkVarintColor = (options, name) => {
   return indexOfType > -1;
 };
 
-export const callApi = async ({ _id, pathOne, pathTwo, method, values }) => {
+export const callApi = async ({
+  _id,
+  pathOne,
+  pathTwo,
+  method,
+  values,
+  from,
+  to,
+}) => {
   const token = getLocalstorage("user_info");
   try {
     let response = await axios[method](
-      `${process.env.REACT_APP_SERVER_URL}/${pathOne}/${pathTwo}/${
-        _id ? _id : ""
-      }`,
+      `${process.env.REACT_APP_SERVER_URL}/${pathOne}/${pathTwo}${
+        _id ? "/" + _id : ""
+      }/${to ? from : ""}${to ? -+to : ""}`,
       (() => {
         if (method === "post") {
           return values;
@@ -330,7 +338,8 @@ export const callApi = async ({ _id, pathOne, pathTwo, method, values }) => {
 
     return await response.data;
   } catch (error) {
-    return await error.response.data.errors;
+    console.log(error);
+    return await error.response;
   }
 };
 

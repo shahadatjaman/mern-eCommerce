@@ -1,4 +1,5 @@
 import { lazy } from "react";
+import Categories from "../Pages/Category";
 
 import { Private, Public } from "./protectRouter";
 
@@ -53,6 +54,10 @@ export const routes = [
   {
     path: "product/:id",
     element: <Details />,
+  },
+  {
+    path: "categories",
+    element: <Categories />,
   },
   {
     path: "cartitems",

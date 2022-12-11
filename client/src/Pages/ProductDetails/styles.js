@@ -78,9 +78,9 @@ export const largeImg = {
 };
 
 export const gallerySm = {
+  width: "400px",
   display: "flex",
   justifyContent: "start",
-  width: 550,
   height: 100,
   margin: "1rem auto",
   flexDirection: "row-reverse",

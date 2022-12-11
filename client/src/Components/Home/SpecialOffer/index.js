@@ -1,5 +1,3 @@
-import { Col, Container, Row } from "react-bootstrap";
-import { FaStar } from "react-icons/fa";
 import {
   Available,
   Button,
@@ -34,6 +32,8 @@ import {
   getProductByCategory,
 } from "../../../feature/reducer/product";
 import { useState } from "react";
+import { Container, Grid } from "@mui/material";
+import LabTabs from "./Tabs";
 
 const SpeOffer = () => {
   const [clock, setClock] = useState(null);
@@ -45,15 +45,26 @@ const SpeOffer = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(
+      fetchProducts({
+        pathOne: "vendor",
+        pathTwo: "getproducts",
+        from: 0,
+        to: 15,
+        method: "get",
+      })
+    );
   }, [dispatch]);
 
   useEffect(() => {
     dispatch(
       getProductByCategory({
         category_id: "638d7127c57c08cdc0b59c90",
+        pathOne: "vendor",
+        pathTwo: "getproducts",
+        method: "get",
         from: 0,
-        to: 2,
+        to: 3,
       })
     );
   }, [dispatch]);
@@ -85,9 +96,9 @@ const SpeOffer = () => {
 
   return (
     <Wrapper>
-      <Container fluid={isFluid}>
-        <Row>
-          <Col className="col-xxl-3 col-md-3 col-sm-12 col-12">
+      <Container maxWidth="xl">
+        <Grid container spacing={2}>
+          <Grid item xs={3} md={3}>
             <Item>
               <SpecialOffer>
                 <Offerprice>
@@ -149,14 +160,13 @@ const SpeOffer = () => {
                 )}
               </Timer>
             </Item>
-
             {featureProduct?.map((item, index) => (
               <FeatureProdcut value={item} key={index} />
             ))}
-          </Col>
-          <Col className="col-xxl-9 col-md-9 col-sm-12 col-12">
+          </Grid>
+          <Grid item xs={9} md={9}>
             <Categoreis>
-              <TopBar>
+              {/* <TopBar>
                 <TopBtn>
                   <span>Top Ranked</span>
                 </TopBtn>
@@ -164,21 +174,20 @@ const SpeOffer = () => {
                   <span>Top Rabked</span>
                   <span>Top Rabked</span>
                 </Menu>
-              </TopBar>
+              </TopBar> */}
+              <LabTabs />
               <div className="items">
-                <Container fluid={isFluid} className="p-0">
-                  <Row>
-                    {products?.map((item, index) => (
-                      <Col className="col-xxl-3 col-lg-3 col-md-4 col-sm-4 col-6">
-                        <Product product={item} />
-                      </Col>
-                    ))}
-                  </Row>
-                </Container>
+                <Grid container spacing={2}>
+                  {products?.map((item, index) => (
+                    <Grid item lg={12 / 5} xs={3} md={3}>
+                      <Product product={item} />
+                    </Grid>
+                  ))}
+                </Grid>
               </div>
             </Categoreis>
-          </Col>
-        </Row>
+          </Grid>
+        </Grid>
       </Container>
     </Wrapper>
   );
