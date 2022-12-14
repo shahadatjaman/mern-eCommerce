@@ -20,17 +20,17 @@ const LabTabs = ({ children }) => {
         fetchProducts({
           pathOne: "vendor",
           pathTwo: "getproducts",
-          method: "get",
+          method: "post",
           from: 0,
           to: 15,
         })
       );
     } else {
       const res = await callApi({
-        _id: newValue,
+        values: { category_id: newValue },
         pathOne: "vendor",
         pathTwo: "getproducts",
-        method: "get",
+        method: "post",
         from: 0,
         to: 15,
       });

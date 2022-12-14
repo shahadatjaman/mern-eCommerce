@@ -20,20 +20,13 @@ import { addCartItems } from "../../../feature/reducer/addToCart";
 import { useAddToCart } from "../../../hooks/useAddToCart";
 import { useEffect, useState } from "react";
 
-import { getVariation } from "../../../feature/reducer/product/productVariation";
-
-import {
-  callApi,
-  getLocalstorage,
-  requestToServerWithGet,
-  shortText,
-} from "../../../utils";
+import { callApi, getLocalstorage, shortText } from "../../../utils";
 import { NavLink } from "react-router-dom";
 
 import Prices from "./Price";
 import Rating from "./Rating";
 
-const Shopping = ({ product }) => {
+const Product = ({ product }) => {
   const [discount, setDiscount] = useState(null);
 
   const [variation, setVariation] = useState(null);
@@ -137,4 +130,4 @@ const Shopping = ({ product }) => {
   );
 };
 
-export default Shopping;
+export default Product;

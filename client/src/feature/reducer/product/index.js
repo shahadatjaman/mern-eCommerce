@@ -7,6 +7,14 @@ const initialState = {
   products: null,
   product: null,
   featureProduct: null,
+  filteredProducts: null,
+  grid: 5,
+  recentCategoryId: "",
+  recentPriceRang: [0, 1000],
+  recentSortedId: "",
+  recentSortedQuery: "",
+  queryValue: "",
+  clear: false,
 };
 
 export const fetchProducts = createAsyncThunk(
@@ -25,9 +33,9 @@ export const fetchProducts = createAsyncThunk(
 export const getProductByCategory = createAsyncThunk(
   "products/getProductByCat",
 
-  async ({ category_id, pathOne, pathTwo, from, to, method }) => {
+  async ({ values, pathOne, pathTwo, from, to, method }) => {
     return await callApi({
-      _id: category_id,
+      values,
       pathOne,
       pathTwo,
       from,
@@ -46,6 +54,31 @@ const productSlice = createSlice({
     },
     getProduct: (state, { payload }) => {
       state.products = payload;
+    },
+    addFilterdProducts: (state, { payload }) => {
+      state.filteredProducts = payload.products;
+      console.log(payload);
+    },
+    addGrid: (state, { payload }) => {
+      state.grid = payload.grid;
+    },
+    addRecentCategory: (state, { payload }) => {
+      state.recentCategoryId = payload._id;
+    },
+    addRecentRange: (state, { payload }) => {
+      state.recentPriceRang = payload.rang;
+    },
+    addQueryValue: (state, { payload }) => {
+      state.queryValue = payload.value;
+    },
+    addRecentSortedId: (state, { payload }) => {
+      state.recentSortedId = payload;
+    },
+    addRecentSortedQuery: (state, { payload }) => {
+      state.recentSortedQuery = payload;
+    },
+    clearAction: (state, { payload }) => {
+      state.clear = payload.clear;
     },
   },
   extraReducers: {
@@ -73,6 +106,7 @@ const productSlice = createSlice({
 
       if (payload.products) {
         state.featureProduct = payload.products;
+        state.filteredProducts = payload.products;
       }
     },
     [getProductByCategory.rejected]: (state) => {
@@ -81,6 +115,17 @@ const productSlice = createSlice({
   },
 });
 
-export const { getProduct, getProducts } = productSlice.actions;
+export const {
+  getProduct,
+  getProducts,
+  addGrid,
+  addRecentCategory,
+  addRecentRange,
+  addFilterdProducts,
+  addQueryValue,
+  addRecentSortedId,
+  addRecentSortedQuery,
+  clearAction,
+} = productSlice.actions;
 
 export default productSlice.reducer;

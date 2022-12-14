@@ -20,7 +20,7 @@ import {
   Wrapper,
 } from "./Styles";
 
-import Product from "../../Shared/Product/Product";
+import Product from "../../Shared/Product/";
 import FeatureProdcut from "./Features";
 
 import { useWindowWidth } from "../../../hooks/userWindowWidth";
@@ -51,7 +51,7 @@ const SpeOffer = () => {
         pathTwo: "getproducts",
         from: 0,
         to: 15,
-        method: "get",
+        method: "post",
       })
     );
   }, [dispatch]);
@@ -62,7 +62,7 @@ const SpeOffer = () => {
         category_id: "638d7127c57c08cdc0b59c90",
         pathOne: "vendor",
         pathTwo: "getproducts",
-        method: "get",
+        method: "post",
         from: 0,
         to: 3,
       })
@@ -179,7 +179,7 @@ const SpeOffer = () => {
               <div className="items">
                 <Grid container spacing={2}>
                   {products?.map((item, index) => (
-                    <Grid item lg={12 / 5} xs={3} md={3}>
+                    <Grid key={index} item lg={12 / 5} xs={3} md={3}>
                       <Product product={item} />
                     </Grid>
                   ))}

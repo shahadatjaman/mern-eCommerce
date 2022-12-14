@@ -303,6 +303,8 @@ export const callApi = async ({
   _id,
   pathOne,
   pathTwo,
+  paramOne,
+  paramWTwo,
   method,
   values,
   from,
@@ -313,7 +315,9 @@ export const callApi = async ({
     let response = await axios[method](
       `${process.env.REACT_APP_SERVER_URL}/${pathOne}/${pathTwo}${
         _id ? "/" + _id : ""
-      }/${to ? from : ""}${to ? -+to : ""}`,
+      }${paramOne ? "/" + paramOne + "/" + paramWTwo : ""}/${to ? from : ""}${
+        to ? -+to : ""
+      }`,
       (() => {
         if (method === "post") {
           return values;

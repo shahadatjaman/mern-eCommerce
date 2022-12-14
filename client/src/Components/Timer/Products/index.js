@@ -14,10 +14,10 @@ const Products = ({ id, title }) => {
   useEffect(() => {
     (async () => {
       const res = await callApi({
-        _id: id,
+        values: { category_id: id },
         pathOne: "vendor",
         pathTwo: "getproducts",
-        method: "get",
+        method: "post",
         from: 0,
         to: 3,
       });
