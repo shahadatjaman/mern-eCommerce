@@ -18,6 +18,13 @@ a{
     color: #000;
     display: inline-block;
 }
+
+@media (min-width: 600px){
+
+.css-pqafgp {
+     margin-left: 0 !important; 
+    width: auto;
+}}
 a:hover {
     text-decoration: none !important;
     color:  #000;

@@ -7,12 +7,18 @@ import RigthColumn from "./RightColumn";
 import { CarouselWrapper, SliderWrapper, CarouselCaption } from "./Styles";
 
 import { useWindowWidth } from "../../hooks/userWindowWidth";
-
-const img =
-  "https://res.cloudinary.com/dza2t1htw/image/upload/v1668861112/slide.167f21d5380d53b3c4d1_zp1qmq.jpg";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getCategories } from "../../feature/reducer/categories";
 
 const Slider = () => {
   const isFluid = useWindowWidth({ width: 1400 });
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCategories());
+  }, [dispatch]);
 
   return (
     <SliderWrapper>
@@ -29,7 +35,7 @@ const Slider = () => {
                     "https://s.alicdn.com/@img/imgextra/i4/O1CN01d1QrTp1fDDxpQhBTA_!!6000000003972-0-tps-990-400.jpg",
                 },
               ].map((item, i) => (
-                <Carousel.Item>
+                <Carousel.Item key={i}>
                   <img
                     className="d-block w-100"
                     src={item.img_url}

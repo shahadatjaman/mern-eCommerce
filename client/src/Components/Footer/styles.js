@@ -4,6 +4,9 @@ export const Wrapper = styled.footer`
   display: block;
   background: #2d3e50;
   padding: 5rem 0;
+  @media print {
+    display: none;
+  }
 `;
 
 export const FooterWrapper = styled.div``;

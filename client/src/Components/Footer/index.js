@@ -76,7 +76,7 @@ const Footer = () => {
                       <h5>Get to Know Us </h5>
 
                       {menuOne.map((item, index) => (
-                        <Ul>
+                        <Ul key={index}>
                           <Li key={index}>{item.name}</Li>
                         </Ul>
                       ))}

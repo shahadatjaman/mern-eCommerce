@@ -168,8 +168,9 @@ export const Counter = styled.div`
   margin-left: 14px;
   margin-bottom: 2rem;
   span {
+    font-weight: 700;
     span {
-      background: #2b88de;
+      background: #221ecd;
       border-radius: 20px;
       color: #fff;
       padding: 4px 14px;

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useWindowWidth } from "../../hooks/userWindowWidth";
 
@@ -17,10 +16,14 @@ const TimerPart = () => {
             <Timer />
           </Col>
           <Col className="col-xxl-4 col-md-6 col-sm-12 col-12">
-            <Products />
+            <Products
+              id="638d7154c57c08cdc0b59c98"
+              title={"Personal Protective Equipment"}
+            />
           </Col>
           <Col className="col-xxl-4 col-md-12 col-sm-12  col-12">
-            <Products />
+            {/* <Products id="638d718dc57c08cdc0b59ca0" title={"Top Ranking"} /> */}
+            <Products id="638d7127c57c08cdc0b59c90" title={"New arrivals"} />
           </Col>
         </Row>
       </Container>

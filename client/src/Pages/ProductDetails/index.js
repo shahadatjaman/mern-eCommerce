@@ -1,17 +1,20 @@
 //<=== Hooks ====>
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
 //<====  Redux Toolkit || Reducer functions   ====>
-import { fetchProduct } from "../../feature/reducer/productDetails";
+import {
+  addRecentVariation,
+  fetchProduct,
+} from "../../feature/reducer/productDetails";
 
 //<=== Components  ====>
 import Layout from "../Layout";
 import ProductContent from "../../Components/ProductDetails/ProductContent/productContent";
 
 //<==== Styled Components  ====>
-import { gallerySm, Image, imgBox, largeImg, SmallImg } from "./styles";
+import { gallerySm, Image, ImageWrapper, largeImg } from "./styles";
 import ResourseNotFound from "../NotFound";
 
 // <=== MUI  ====>
@@ -21,13 +24,12 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
 import Tabs from "../../Components/ProductDetails/Review/Tabs";
+import Gallery from "../../Components/ProductDetails/Gallery";
+import { getRecentVariation } from "../../utils";
 
 const Details = () => {
-  const { variations, product, isLoading } = useSelector(
-    (state) => state.productDetails
-  );
-
-  const [activeVariation, setActiveVariation] = useState(null);
+  const { variations, product, isLoading, recentVariation, recentColor } =
+    useSelector((state) => state.productDetails);
 
   // Get product id by params ===>
   const { id } = useParams();
@@ -39,10 +41,12 @@ const Details = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    if (variations) {
-      setActiveVariation(variations[0].variation_img);
+    const newVariation = getRecentVariation(variations, recentColor);
+
+    if (newVariation) {
+      dispatch(addRecentVariation(newVariation));
     }
-  }, [variations]);
+  }, [recentColor, variations, dispatch]);
 
   if (!product && !isLoading) {
     return <ResourseNotFound />;
@@ -53,30 +57,23 @@ const Details = () => {
       <Box my={8}>
         <Container maxWidth="xl">
           <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <Box sx={{ ...largeImg }}>
-                {activeVariation && (
-                  <Image src={activeVariation} alt="prodcut" />
+            <Grid item xs={12} md={6} sm={12}>
+              <ImageWrapper sx={{ ...largeImg }}>
+                {recentVariation && (
+                  <Image src={recentVariation.variation_img} alt="prodcut" />
                 )}
-              </Box>
+              </ImageWrapper>
               <Box
                 sx={{
                   ...gallerySm,
                 }}
               >
-                {[1, 2, 2, 4].map((i, index) => (
-                  <Box sx={{ ...imgBox }}>
-                    <SmallImg
-                      src={
-                        "https://electro.madrasthemes.com/wp-content/uploads/2016/03/apptablet.png"
-                      }
-                      alt="product"
-                    />
-                  </Box>
+                {variations?.map((variant, index) => (
+                  <Gallery variant={variant} key={index} />
                 ))}
               </Box>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6} sm={12}>
               <ProductContent />
             </Grid>
           </Grid>

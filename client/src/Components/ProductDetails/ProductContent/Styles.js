@@ -5,7 +5,7 @@ import styled from "styled-components";
 export const ProductContentWrapper = styled.div``;
 
 export const H4 = styled.h4`
-  font-size: 24px;
+  font-size: 28px;
   line-height: 1;
   margin: 0;
   color: #010101;

@@ -100,5 +100,5 @@ export const resourcesError = styled.div``;
 export const Error = styled.p`
   color: red;
   font-weight: 500;
-  margin: 0;
+  margin-bottom: 1rem;
 `;

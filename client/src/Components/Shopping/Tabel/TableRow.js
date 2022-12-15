@@ -1,14 +1,16 @@
 import { Grid, TableCell, TableRow } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Img, imgStyle, nameStyle } from "./Styles";
 import Quantity from "../../Shared/Quantity";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useAddToCart } from "../../../hooks/useAddToCart";
 import { useDispatch } from "react-redux";
 import { addCartItems } from "../../../feature/reducer/addToCart";
+import { requestToServerWithGet } from "../../../utils";
 
 const RowTable = ({ cart }) => {
+  const [currentProduct, setCurrrentProduct] = useState(null);
   const { removeCart } = useAddToCart();
   const dispatch = useDispatch();
 
@@ -16,6 +18,18 @@ const RowTable = ({ cart }) => {
     const carts = removeCart({ _id });
     dispatch(addCartItems(carts));
   };
+
+  useEffect(() => {
+    (async () => {
+      const response = requestToServerWithGet({
+        url: `http://localhost:5000/vendor/getproduct/${cart.product_id}`,
+      });
+      const product = await response();
+      setCurrrentProduct(product);
+    })();
+  }, [cart]);
+
+  // TODO: Tabel I have to dynamic!
 
   return (
     <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
@@ -49,11 +63,13 @@ const RowTable = ({ cart }) => {
           </Grid>
         </Grid>
       </TableCell>
-      <TableCell align="start">$ {cart.price}</TableCell>
+      <TableCell align="start">$ {parseFloat(cart.price).toFixed(2)}</TableCell>
       <TableCell align="start">
         <Quantity cart={cart} />
       </TableCell>
-      <TableCell align="start">$ {cart.qty * cart.price}</TableCell>
+      <TableCell align="start">
+        $ {parseFloat(cart.qty * cart.price).toFixed(2)}
+      </TableCell>
     </TableRow>
   );
 };

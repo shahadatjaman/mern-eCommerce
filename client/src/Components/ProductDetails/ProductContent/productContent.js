@@ -1,8 +1,5 @@
 // <=== Hooks ====>
-import { useDispatch, useSelector } from "react-redux";
-
-// <=== Reducer functions =====>
-import { wistList } from "../../../feature/reducer/wishList";
+import { useSelector } from "react-redux";
 
 //<==== Components ====>
 import ProductRatting from "../../Shared/Ratting/";
@@ -26,13 +23,15 @@ import { useEffect, useState } from "react";
 import { getSalePrice } from "../../../utils";
 import Quantityy from "../Quantity";
 
+import ProducrVariation from "../ColorVariation";
+
 const ProductContent = () => {
   const [salePices, setSalePrices] = useState(null);
 
-  const dispatch = useDispatch();
-
   // get product
-  const { product, discount } = useSelector((state) => state.productDetails);
+  const { product, discount, tags } = useSelector(
+    (state) => state.productDetails
+  );
 
   useEffect(() => {
     if (product && discount) {
@@ -45,14 +44,9 @@ const ProductContent = () => {
     }
   }, [product, discount]);
 
-  const addToWishList = () => {
-    dispatch(wistList(product));
-  };
-
   if (!product) {
     return <h2>product not found!</h2>;
   }
-
   return (
     <ProductContentWrapper>
       {/* Product Details Ttile */}
@@ -77,8 +71,8 @@ const ProductContent = () => {
       {/* Product Short Description */}
       <Text>{product.short_desc}</Text>
 
-      {/* Product Color and Size */}
-      {/* <ProducrColor /> */}
+      <ProducrVariation />
+
       {/* Product Quantity */}
       <Quantityy />
 
@@ -92,9 +86,12 @@ const ProductContent = () => {
 
       {/* Product Tags */}
       <ProductMeta>
-        <MetaText>Tags :</MetaText>
+        {tags?.length !== 0 && <MetaText>Tags :</MetaText>}
+
         <Ul>
-          <Li>Tag name</Li>
+          {tags?.map((val, index) => (
+            <Li key={index}> {val.tag_name} </Li>
+          ))}
         </Ul>
       </ProductMeta>
 

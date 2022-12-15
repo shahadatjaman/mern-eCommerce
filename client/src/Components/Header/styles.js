@@ -4,10 +4,12 @@ import { Nav, Navbar } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
 export const HeaderWrapper = styled.div`
-  background: #fff;
   padding: 0 1.5rem;
   @media (max-width: 990px) {
     padding: 0 1rem;
+  }
+  @media (max-width: 1200px) {
+    padding: 0 !important;
   }
   position: ${(props) => (props.isSticky ? "fixed" : "inherit")};
   width: 100%;
@@ -15,6 +17,14 @@ export const HeaderWrapper = styled.div`
   z-index: 999;
   transition: all 0.5s;
   box-shadow: ${(props) => props.isSticky && "1px 6px 16px 1px #0000001c"};
+
+  background: #ffffff2b;
+
+  backdrop-filter: blur(15px);
+
+  @media print {
+    display: none;
+  }
 `;
 
 // Logo
@@ -56,7 +66,7 @@ export const HeaderRightWrapper = styled.div`
 `;
 
 export const Item = styled.div`
-  margin-left: 18px;
+  margin-left: 28px;
   position: relative;
 
   svg {

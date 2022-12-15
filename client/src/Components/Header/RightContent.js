@@ -15,13 +15,16 @@ import ShoppingCart from "../Shared/ShoppingCart";
 import Cart from "./Cart";
 import { useState } from "react";
 import AccountMenu from "./AccountMenu";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+
+import order, { getOrders } from "../../feature/reducer/order/";
 
 const RightContent = () => {
   const [isOpenCart, setIsOpenCart] = useState(false);
   const { carts } = useSelector((state) => state.cart);
 
   const { user } = useSelector((state) => state.user);
+  const { orders } = useSelector((state) => state.order);
 
   const navigate = useNavigate();
 
@@ -45,6 +48,10 @@ const RightContent = () => {
     navigate("/login");
   };
 
+  useEffect(() => {
+    dispatch(getOrders());
+  }, [dispatch]);
+
   return (
     <HeaderRightWrapper>
       <Item>
@@ -65,10 +72,13 @@ const RightContent = () => {
         </Action>
       </Item>
       <Item>
-        <Action>
-          <FaLuggageCart />
-          <span>Order</span>
-        </Action>
+        <NavLink to={"/profile/username/myorders"}>
+          <Action>
+            <FaLuggageCart />
+            <span>Order</span>
+          </Action>
+          {orders && <Count>{orders.length}</Count>}
+        </NavLink>
       </Item>
       <Item>
         <Action onClick={toggleCartHandler}>

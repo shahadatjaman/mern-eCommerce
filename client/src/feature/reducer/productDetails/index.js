@@ -5,10 +5,13 @@ import axios from "axios";
 const initialState = {
   product: null,
   variations: null,
+  options: null,
   discount: null,
   isLoading: false,
-  selectedProduct: null,
-  dimension: null,
+  recentVariation: null,
+  recentColor: null,
+  recentSize: null,
+  tags: null,
 };
 
 // Fetch Single products
@@ -18,7 +21,7 @@ export const fetchProduct = createAsyncThunk(
     try {
       //Your Axios code part.
       const response = await axios.get(
-        `http://localhost:5000/vendor/getproduct/${product_id}`
+        `${process.env.REACT_APP_SERVER_URL}/vendor/getproduct/${product_id}`
       ); //where you want to fetch data
 
       return await response.data;
@@ -35,11 +38,14 @@ const productDetailsSlice = createSlice({
     getProduct: (state, { payload }) => {
       state.product = payload;
     },
-    getSelectedProduct: (state, { payload }) => {
-      state.selectedProduct = payload;
+    addRecentVariation: (state, { payload }) => {
+      state.recentVariation = payload;
     },
-    getDimension: (state, { payload }) => {
-      state.dimension = payload;
+    addRecentColor: (state, { payload }) => {
+      state.recentColor = payload;
+    },
+    addRecentSize: (state, { payload }) => {
+      state.recentSize = payload;
     },
   },
   extraReducers: {
@@ -50,7 +56,9 @@ const productDetailsSlice = createSlice({
       state.isLoading = false;
       state.product = payload.product;
       state.variations = payload.variations;
+      state.options = payload.options;
       state.discount = payload.discount;
+      state.tags = payload.tags;
     },
     [fetchProduct.rejected]: (state, { payload }) => {
       state.isLoading = false;
@@ -59,7 +67,7 @@ const productDetailsSlice = createSlice({
   },
 });
 
-export const { getProduct, getSelectedProduct, getDimension } =
+export const { getProduct, addRecentVariation, addRecentColor, addRecentSize } =
   productDetailsSlice.actions;
 
 export default productDetailsSlice.reducer;

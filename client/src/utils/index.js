@@ -2,6 +2,7 @@ import { useTheme } from "styled-components";
 import jwt_decode from "jwt-decode";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { useEffect } from "react";
 
 // get localstorage values
 export const getLocalstorage = (name) => {
@@ -198,10 +199,10 @@ export const requestToServerWithGet = ({ url }) => {
           },
         }
       );
-      console.log(response.data);
-      return response.data;
+
+      return await response.data;
     } catch (error) {
-      return await error.response.data.errors;
+      return await error.response.data;
     }
   };
 
@@ -255,4 +256,107 @@ export const getTotalPrice = ({ carts }) => {
   }, 0);
 
   return prices;
+};
+
+export const getRecentVariation = (variations, recentColor) => {
+  if (recentColor) {
+    const newVariation = variations.find(
+      (val) => val._id === recentColor.product_variations_id
+    );
+
+    return newVariation;
+  }
+};
+
+// Check rating
+export const checkRating = (values, user_id) => {
+  if (!values && typeof values !== "object") {
+    throw new Error("values must be array of object!");
+  }
+  if (!user_id && typeof values !== "string") {
+    throw new Error("values must be string or id!");
+  }
+
+  const filtered = values.findIndex((val) => val.user_id === user_id);
+
+  return filtered > -1;
+};
+
+export const getTotalRating = (values) => {
+  if (values) {
+    return values?.reduce(
+      (prev, cur) => parseInt(prev) + parseInt(cur.rating),
+      0
+    );
+  } else {
+    return 1;
+  }
+};
+
+export const checkVarintColor = (options, name) => {
+  const indexOfType = options.findIndex((val) => val.variation_type === name);
+
+  return indexOfType > -1;
+};
+
+export const callApi = async (props) => {
+  const token = getLocalstorage("user_info");
+  try {
+    let response = await axios[props.method](
+      `${process.env.REACT_APP_SERVER_URL}/${props.pathOne}/${props.pathTwo}${
+        props._id ? "/" + props._id : ""
+      }${props.paramOne ? "/" + props.paramOne + "/" + props.paramWTwo : ""}/${
+        props.to ? props.from : ""
+      }${props.to ? -+props.to : ""}`,
+      (() => {
+        if (props.method === "post") {
+          return props.values;
+        } else {
+          return {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          };
+        }
+      })(),
+      (() => {
+        if (props.method === "post") {
+          return {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          };
+        }
+      })()
+    );
+
+    return await response.data;
+  } catch (error) {
+    console.log(error);
+    return await error.response;
+  }
+};
+
+export const timeCounter = (start) => {
+  var start = new Date();
+  start.setHours(23, 0, 0); // 11pm
+
+  function pad(num) {
+    return ("0" + parseInt(num)).substr(-2);
+  }
+
+  return function tick() {
+    var now = new Date();
+    if (now > start) {
+      // too late, go to tomorrow
+      start.setDate(start.getDate() + 1);
+    }
+    var remain = (start - now) / 1000;
+    var hh = pad((remain / 60 / 60) % 60);
+    var mm = pad((remain / 60) % 60);
+    var ss = pad(remain % 60);
+
+    setTimeout(tick, 1000);
+    return { hh, mm, ss };
+  };
 };

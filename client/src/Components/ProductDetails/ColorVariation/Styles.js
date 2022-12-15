@@ -17,12 +17,18 @@ export const Small = styled.span`
 
 export const ColorContent = styled.div`
   display: flex !important;
+  flex-direction: row-reverse;
 `;
 
 export const Label = styled.div`
   position: relative;
-  margin-right: 7px;
+  margin-right: 8px;
   cursor: pointer;
+  /* background-color: ${(props) =>
+    props.bg ? "#fff" : props.theme.colors.primary}; */
+`;
+export const SizeLabel = styled.div`
+  margin-right: 0.5rem;
 `;
 
 export const Input = styled.input`
@@ -60,6 +66,7 @@ export const CurcleBorder = styled.div`
   display: flex;
   justify-content: center !important;
   align-items: center !important;
+  border: ${(props) => (props.isActive ? "4px solid #1976d2" : "")};
 `;
 
 export const Colored = styled.span`
@@ -71,13 +78,14 @@ export const Colored = styled.span`
   transition: all 0.5s ease 0s;
 `;
 
-export const Size = styled.div`
+export const SizeWrapper = styled.div`
   margin-left: 1rem;
   transition: all 0.5s ease 0s;
 `;
 
 export const SizeContent = styled.div`
   display: flex;
+  flex-direction: row-reverse;
 `;
 
 export const Selected = styled.span`
@@ -86,11 +94,9 @@ export const Selected = styled.span`
   font-weight: 700;
   margin-bottom: 0;
   padding: 8px;
-  background-color: ${(props) =>
-    props.bg ? "#000" : props.theme.colors.primary};
   left: 0;
-  color: ${(props) => (props.bg ? "#fff" : "#fff")};
-  z-index: -1;
+  color: #000;
+  z-index: 1;
 `;
 
 export const InputSize = styled.input`
@@ -100,4 +106,9 @@ export const InputSize = styled.input`
   height: 25px;
   opacity: 0;
   transition: all 0.5s ease 0s;
+`;
+
+export const Required = styled.span`
+  font-weight: 400;
+  margin-left: 0.5rem;
 `;

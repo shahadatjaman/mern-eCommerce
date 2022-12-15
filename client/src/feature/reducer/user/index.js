@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import {
+  callApi,
   getLocalstorage,
   jwtDecoder,
   removeLocalstorage,
@@ -28,7 +29,7 @@ export const login = createAsyncThunk(
   async (values, thunkAPI) => {
     try {
       const response = await axios.post(
-        `http://localhost:5000/auth/login`,
+        `${process.env.REACT_APP_SERVER_URL}/auth/login`,
         values
       );
       return response.data;
@@ -43,7 +44,7 @@ export const register = createAsyncThunk(
   async (values, thunkAPI) => {
     try {
       const response = await axios.post(
-        `http://localhost:5000/auth/register`,
+        `${process.env.REACT_APP_SERVER_URL}/auth/register`,
         values
       );
       return response.data;
@@ -55,41 +56,23 @@ export const register = createAsyncThunk(
 
 export const createUserAddress = createAsyncThunk(
   "auth/useraddress",
-  async ({ values }, thunkAPI) => {
-    try {
-      const response = await axios.post(
-        `http://localhost:5000/auth/useraddress`,
-        values,
-        {
-          headers: {
-            Authorization: "Bearer " + getLocalstorage("user_info"),
-          },
-        }
-      );
-
-      return response.data;
-    } catch (error) {
-      return await error.response.data.errors;
-    }
+  async ({ values }) => {
+    return await callApi({
+      pathOne: "auth",
+      pathTwo: "useraddress",
+      method: "post",
+      values,
+    });
   }
 );
 export const getUserAddress = createAsyncThunk(
   "auth/getuseraddress",
-  async (_, thunkAPI) => {
-    try {
-      const response = await axios.get(
-        `http://localhost:5000/auth/getuseraddress`,
-
-        {
-          headers: {
-            Authorization: "Bearer " + getLocalstorage("user_info"),
-          },
-        }
-      );
-      return response.data;
-    } catch (error) {
-      return await error.response.data.errors;
-    }
+  async () => {
+    return await callApi({
+      pathOne: "auth",
+      pathTwo: "getuseraddress",
+      method: "get",
+    });
   }
 );
 
