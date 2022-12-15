@@ -26,8 +26,8 @@ export const getHealthProduct = createAsyncThunk(
 
 export const getProducts = createAsyncThunk(
   "vendor/getproducts",
-  (async ({ pathOne, pathTwo, from, to, method }) =>
-    await callApi({ pathOne, pathTwo, from, to, method }))()
+  async ({ pathOne, pathTwo, from, to, method }) =>
+    await callApi({ pathOne, pathTwo, from, to, method })
 );
 
 // requestToServerWithGet({
@@ -92,7 +92,6 @@ export const getProductSlice = createSlice({
     },
     [getProducts.fulfilled]: (state, { payload }) => {
       state.products = payload.products;
-      console.log(payload);
     },
     [getProducts.pending]: (state) => {
       state.loading = false;

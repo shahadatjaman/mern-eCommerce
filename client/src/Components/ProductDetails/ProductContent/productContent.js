@@ -1,8 +1,5 @@
 // <=== Hooks ====>
-import { useDispatch, useSelector } from "react-redux";
-
-// <=== Reducer functions =====>
-import { wistList } from "../../../feature/reducer/wishList";
+import { useSelector } from "react-redux";
 
 //<==== Components ====>
 import ProductRatting from "../../Shared/Ratting/";
@@ -50,7 +47,6 @@ const ProductContent = () => {
   if (!product) {
     return <h2>product not found!</h2>;
   }
-
   return (
     <ProductContentWrapper>
       {/* Product Details Ttile */}

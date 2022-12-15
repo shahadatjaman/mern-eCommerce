@@ -37,7 +37,7 @@ const Categories = () => {
           <Col>
             <Slider {...settings}>
               {cartegories.map((cate, index) => (
-                <Item>
+                <Item key={index}>
                   <Img src={cate.img_url} alt={cate.name} />
                   <span>{cate.name}</span>
                 </Item>

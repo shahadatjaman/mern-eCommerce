@@ -299,28 +299,18 @@ export const checkVarintColor = (options, name) => {
   return indexOfType > -1;
 };
 
-export const callApi = async ({
-  _id,
-  pathOne,
-  pathTwo,
-  paramOne,
-  paramWTwo,
-  method,
-  values,
-  from,
-  to,
-}) => {
+export const callApi = async (props) => {
   const token = getLocalstorage("user_info");
   try {
-    let response = await axios[method](
-      `${process.env.REACT_APP_SERVER_URL}/${pathOne}/${pathTwo}${
-        _id ? "/" + _id : ""
-      }${paramOne ? "/" + paramOne + "/" + paramWTwo : ""}/${to ? from : ""}${
-        to ? -+to : ""
-      }`,
+    let response = await axios[props.method](
+      `${process.env.REACT_APP_SERVER_URL}/${props.pathOne}/${props.pathTwo}${
+        props._id ? "/" + props._id : ""
+      }${props.paramOne ? "/" + props.paramOne + "/" + props.paramWTwo : ""}/${
+        props.to ? props.from : ""
+      }${props.to ? -+props.to : ""}`,
       (() => {
-        if (method === "post") {
-          return values;
+        if (props.method === "post") {
+          return props.values;
         } else {
           return {
             headers: {
@@ -330,7 +320,7 @@ export const callApi = async ({
         }
       })(),
       (() => {
-        if (method === "post") {
+        if (props.method === "post") {
           return {
             headers: {
               Authorization: "Bearer " + token,

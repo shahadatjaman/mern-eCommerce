@@ -2,6 +2,7 @@ import React from "react";
 import { DiscountWrapper } from "./Styles";
 
 const Discount = () => {
+  console.log("Product discount rendered");
   return (
     <DiscountWrapper>
       <Discount>-0%</Discount>
@@ -9,4 +10,4 @@ const Discount = () => {
   );
 };
 
-export default Discount;
+export default React.memo(Discount);

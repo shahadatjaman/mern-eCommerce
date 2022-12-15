@@ -71,7 +71,6 @@ const Input = () => {
       });
 
       dispatch(addFilterdProducts({ products: res.products }));
-      console.log(res.products);
     })();
   }, [queryValue, dispatch]);
 

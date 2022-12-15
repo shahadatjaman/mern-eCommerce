@@ -24,7 +24,7 @@ const RigthColumn = () => {
   return (
     <>
       {featuresData.map((item, index) => (
-        <FeaturesItems>
+        <FeaturesItems key={index}>
           <Container fluid className="p-0">
             <Row>
               <Col className="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">

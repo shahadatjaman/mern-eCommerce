@@ -12,7 +12,6 @@ const initialState = {
 export const createRating = createAsyncThunk(
   "vendor/createrating",
   async (values) => {
-    console.log(values);
     try {
       let response = await axios.post(
         `${process.env.REACT_APP_SERVER_URL}/vendor/createrating`,
@@ -130,7 +129,7 @@ const ratingSlice = createSlice({
     },
     [getRatings.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      console.log(payload);
+
       if (payload && payload.ratings) {
         state.ratings = payload.ratings;
       }

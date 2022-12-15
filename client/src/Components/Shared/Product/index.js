@@ -1,3 +1,4 @@
+import React from "react";
 import { useDispatch } from "react-redux";
 
 import {
@@ -25,6 +26,7 @@ import { NavLink } from "react-router-dom";
 
 import Prices from "./Price";
 import Rating from "./Rating";
+import { Skeleton, Typography } from "@mui/material";
 
 const Product = ({ product }) => {
   const [discount, setDiscount] = useState(null);
@@ -101,18 +103,11 @@ const Product = ({ product }) => {
       {/* Product Image */}
 
       <ImgWrapper>
-        <NavLink to={`/product/${product._id}`}>
-          {variation ? (
-            <ShoppingImg src={variation?.variation_img} alt="camera" />
-          ) : (
-            <ShoppingImg
-              src={
-                "https://res.cloudinary.com/dza2t1htw/image/upload/v1669222568/no-image_je9opq.jpg"
-              }
-              alt="camera"
-            />
-          )}
-        </NavLink>
+        {/* <NavLink to={`/product/${product._id}`}> */}
+        {variation && (
+          <ShoppingImg src={variation?.variation_img} alt="camera" />
+        )}
+        {/* </NavLink> */}
       </ImgWrapper>
 
       {/* Product Content */}
@@ -130,4 +125,4 @@ const Product = ({ product }) => {
   );
 };
 
-export default Product;
+export default React.memo(Product);

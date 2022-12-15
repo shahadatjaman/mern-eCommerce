@@ -7,13 +7,14 @@ import {
   addFilterdProducts,
   addRecentSortedId,
   addRecentSortedQuery,
+  addShow,
 } from "../../../../../feature/reducer/product";
 import { callApi } from "../../../../../utils";
 import { options } from "./data";
 import { Span, Wrapper } from "./Styles";
 
 const Sorting = () => {
-  const { recentSortedId, recentSortedQuery } = useSelector(
+  const { recentSortedId, recentSortedQuery, show } = useSelector(
     (state) => state.product
   );
 
@@ -24,6 +25,10 @@ const Sorting = () => {
     const queryValues = options.filter((val) => val.id === e.target.value);
 
     dispatch(addRecentSortedQuery(...queryValues));
+  };
+
+  const showChangeHandler = (e) => {
+    dispatch(addShow(e.target.value));
   };
 
   useEffect(() => {
@@ -37,7 +42,7 @@ const Sorting = () => {
         from: 0,
         to: 15,
       });
-      console.log(res);
+
       dispatch(addFilterdProducts({ products: res.products }));
     })();
   }, [recentSortedQuery, dispatch]);
@@ -74,16 +79,19 @@ const Sorting = () => {
         <Span>Show :</Span>
         <FormControl sx={{ m: 1, minWidth: 120 }}>
           <Select
+            value={show}
+            onChange={showChangeHandler}
             displayEmpty
             inputProps={{ "aria-label": "Without label" }}
             size="small"
           >
-            <MenuItem value="">
-              <em>None</em>
+            <MenuItem value={show}>
+              <em>15</em>
             </MenuItem>
-            <MenuItem value={10}>10</MenuItem>
-            <MenuItem value={20}>20</MenuItem>
             <MenuItem value={30}>30</MenuItem>
+            <MenuItem value={50}>50</MenuItem>
+            <MenuItem value={70}>70</MenuItem>
+            <MenuItem value={100}>100</MenuItem>
           </Select>
         </FormControl>
       </Box>

@@ -35,7 +35,7 @@ const Slider = () => {
                     "https://s.alicdn.com/@img/imgextra/i4/O1CN01d1QrTp1fDDxpQhBTA_!!6000000003972-0-tps-990-400.jpg",
                 },
               ].map((item, i) => (
-                <Carousel.Item>
+                <Carousel.Item key={i}>
                   <img
                     className="d-block w-100"
                     src={item.img_url}

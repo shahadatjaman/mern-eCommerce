@@ -8,6 +8,9 @@ export const HeaderWrapper = styled.div`
   @media (max-width: 990px) {
     padding: 0 1rem;
   }
+  @media (max-width: 1200px) {
+    padding: 0 !important;
+  }
   position: ${(props) => (props.isSticky ? "fixed" : "inherit")};
   width: 100%;
   top: ${(props) => (props.isSticky ? "0" : "-100")}%;

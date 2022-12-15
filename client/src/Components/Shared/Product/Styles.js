@@ -157,8 +157,8 @@ export const ImgWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 230px;
-  margin: 0 auto;
+  width: auto;
+  margin: 0 1rem;
   overflow: hidden;
   @media (max-width: 1400px) {
     width: auto;

@@ -4,57 +4,20 @@ import Slider from "@mui/material/Slider";
 import { Label, Prices, Span } from "./Styles";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addRecentRange,
-  getProductByCategory,
-} from "../../../../feature/reducer/product";
+import { addRecentRange } from "../../../../feature/reducer/product";
 
 const valuetext = (value) => {
   return `${value}°C`;
 };
 
 const RangeSlider = () => {
-  const { recentPriceRang, recentCategoryId } = useSelector(
-    (state) => state.product
-  );
+  const { recentPriceRang } = useSelector((state) => state.product);
 
   const dispatch = useDispatch();
 
   const handleChange = (event, newValue) => {
     dispatch(addRecentRange({ rang: newValue }));
   };
-
-  useEffect(() => {
-    const reqparams = {
-      pathOne: "vendor",
-      pathTwo: "getproducts",
-      method: "post",
-      from: 0,
-      to: 15,
-    };
-    const reqbody = {
-      maxPrice: recentPriceRang[1],
-      minPrice: recentPriceRang[0],
-    };
-    dispatch(
-      getProductByCategory(
-        recentCategoryId
-          ? {
-              ...reqparams,
-              values: {
-                ...reqbody,
-                category_id: recentCategoryId,
-              },
-            }
-          : {
-              ...reqparams,
-              values: {
-                ...reqbody,
-              },
-            }
-      )
-    );
-  }, [dispatch, recentPriceRang, recentCategoryId]);
 
   return (
     <Box sx={{ width: "100%" }}>

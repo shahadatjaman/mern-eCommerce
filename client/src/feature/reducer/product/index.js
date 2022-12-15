@@ -8,11 +8,12 @@ const initialState = {
   product: null,
   featureProduct: null,
   filteredProducts: null,
-  grid: 5,
+  grid: 4,
+  show: 15,
   recentCategoryId: "",
   recentPriceRang: [0, 1000],
   recentSortedId: "",
-  recentSortedQuery: "",
+  recentSortedQuery: null,
   queryValue: "",
   clear: false,
 };
@@ -57,7 +58,6 @@ const productSlice = createSlice({
     },
     addFilterdProducts: (state, { payload }) => {
       state.filteredProducts = payload.products;
-      console.log(payload);
     },
     addGrid: (state, { payload }) => {
       state.grid = payload.grid;
@@ -77,6 +77,10 @@ const productSlice = createSlice({
     addRecentSortedQuery: (state, { payload }) => {
       state.recentSortedQuery = payload;
     },
+    addShow: (state, { payload }) => {
+      state.show = payload;
+    },
+
     clearAction: (state, { payload }) => {
       state.clear = payload.clear;
     },
@@ -87,7 +91,7 @@ const productSlice = createSlice({
     },
     [fetchProducts.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      console.log(payload);
+
       if (payload && payload.products) {
         state.products = payload.products;
       }
@@ -125,6 +129,7 @@ export const {
   addQueryValue,
   addRecentSortedId,
   addRecentSortedQuery,
+  addShow,
   clearAction,
 } = productSlice.actions;
 

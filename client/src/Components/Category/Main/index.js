@@ -3,31 +3,19 @@ import React from "react";
 import Actions from "./Actions";
 import Product from "../../Shared/Product/";
 import { Wrapper } from "./Styles";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { getProductByCategory } from "../../../feature/reducer/product";
+import { useSelector } from "react-redux";
 import ProductNotFound from "../../Shared/ProductNotFound/";
+import Loading from "../../Shared/Skeleton/Product/Product";
 
 const Category = () => {
-  const { filteredProducts, grid } = useSelector((state) => state.product);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(
-      getProductByCategory({
-        pathOne: "vendor",
-        pathTwo: "getproducts",
-        method: "post",
-        from: 0,
-        to: 15,
-      })
-    );
-  }, [dispatch]);
+  const { filteredProducts, grid, isLoading } = useSelector(
+    (state) => state.product
+  );
 
   return (
     <Wrapper>
       <Actions />
-      <Box>
+      <Box sx={{ marginTop: "1rem" }}>
         <Container maxWidth="xl">
           <Box sx={{ flexGrow: 1 }}>
             {filteredProducts?.length === 0 && <ProductNotFound />}
@@ -36,11 +24,12 @@ const Category = () => {
                 <Grid
                   key={index}
                   xl={12 / grid}
+                  md={12 / grid}
                   item
-                  xs={8}
+                  xs={4}
                   sx={{ transition: "0.5s" }}
                 >
-                  <Product product={product} />
+                  {isLoading ? <Loading /> : <Product product={product} />}
                 </Grid>
               ))}
             </Grid>

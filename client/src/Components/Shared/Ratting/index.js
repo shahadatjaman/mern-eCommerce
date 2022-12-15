@@ -1,6 +1,6 @@
 import * as React from "react";
 import RatingIcon from "@mui/material/Rating";
-import Stack from "@mui/material/Stack";
+
 import { Box } from "@mui/material";
 
 const Rating = ({ rating }) => {

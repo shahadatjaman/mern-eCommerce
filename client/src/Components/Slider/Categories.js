@@ -12,15 +12,13 @@ import {
 } from "./Styles";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
-import { getCategories } from "../../feature/reducer/categories";
+import { useSelector } from "react-redux";
 
-import { categoriesData } from "./data";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import Category from "./category";
+import CategoryLoading from "../Shared/Skeleton/Category";
 
 const Categories = () => {
-  const { categories } = useSelector((state) => state.categories);
+  const { categories, loading } = useSelector((state) => state.categories);
 
   return (
     <CategoriesWrapper className="dispaly-none">
@@ -33,6 +31,7 @@ const Categories = () => {
       </CartTitel>
       <Menubar>
         <Ul>
+          {loading && <CategoryLoading />}
           {categories?.map((cate, index) => (
             <Category cate={cate} key={index} />
           ))}

@@ -34,13 +34,12 @@ const categoriesSlice = createSlice({
   reducers: {
     addRecentCate: (state, { payload }) => {
       state.curentCateId = payload;
-      console.log(payload);
     },
   },
 
   extraReducers: {
     [getCategories.pending]: (state) => {
-      state.loading = false;
+      state.loading = true;
     },
     [getCategories.fulfilled]: (state, { payload }) => {
       state.loading = false;

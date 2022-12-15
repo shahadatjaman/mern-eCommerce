@@ -37,6 +37,7 @@ const Tags = () => {
       <Box>
         {tags?.map((tag, i) => (
           <Chip
+            key={i}
             sx={{ m: 1 }}
             label={shortText(tag.tag_name, 15, 0, 10)}
             variant="outlined"
