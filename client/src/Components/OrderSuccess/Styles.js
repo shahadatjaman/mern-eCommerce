@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+export const Wrapper = styled.div`
+  @media print {
+    display: none;
+  }
+`;
+
 export const SuccessMessage = styled.div`
   display: flex;
   justify-content: center;

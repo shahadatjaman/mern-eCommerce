@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { requestToServerWithGet } from "../../../../utils";
 import { ImageWrapper, Img } from "../Styles";
-import {
-  Name,
-  OldPrice,
-  SalePrice,
-  Status,
-  StatusWrapper,
-  TableRow,
-  Td,
-} from "./Styles";
+import { Name, SalePrice, Status, StatusWrapper, TableRow, Td } from "./Styles";
 
 const Product = ({ product }) => {
   const [values, setValues] = useState(null);

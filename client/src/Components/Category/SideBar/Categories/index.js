@@ -11,7 +11,6 @@ import { callApi } from "../../../../utils";
 import {
   addRecentCategory,
   clearAction,
-  getProductByCategory,
 } from "../../../../feature/reducer/product";
 
 const Categories = () => {
@@ -40,30 +39,6 @@ const Categories = () => {
       }
     })();
   }, []);
-
-  // Get prodcut by categort id
-  // useEffect(() => {
-  //   const params = {
-  //     pathOne: "vendor",
-  //     pathTwo: "getproducts",
-  //     method: "post",
-  //     from: 0,
-  //     to: 15,
-  //   };
-
-  //   dispatch(
-  //     getProductByCategory(
-  //       recentCategoryId
-  //         ? {
-  //             ...params,
-  //             values: { category_id: recentCategoryId },
-  //           }
-  //         : {
-  //             ...params,
-  //           }
-  //     )
-  //   );
-  // }, [dispatch, recentCategoryId]);
 
   return (
     <Wrapper>

@@ -26,6 +26,8 @@ import ratingReducer from "../feature/reducer/product/rating";
 
 import cateReducer from "../feature/reducer/categories/index";
 
+import queryReducer from "../feature/reducer/Query/";
+
 export const store = configureStore({
   reducer: {
     wishList: wishListReducer,
@@ -41,6 +43,7 @@ export const store = configureStore({
     order: orderReducer,
     rating: ratingReducer,
     categories: cateReducer,
+    query: queryReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

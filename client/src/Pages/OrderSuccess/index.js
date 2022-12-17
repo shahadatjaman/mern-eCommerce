@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import OrderContent from "../../Components/OrderSuccess";
 import order, { getOrder } from "../../feature/reducer/order";
 import Layout from "../Layout";
+import { Box } from "@mui/material";
+import Invoice from "../Checkout/Invoice";
 
 const OrderSuccess = () => {
   const { order_id } = useParams();
@@ -17,6 +19,9 @@ const OrderSuccess = () => {
   return (
     <Layout>
       <OrderContent />
+      <Box>
+        <Invoice />
+      </Box>
     </Layout>
   );
 };

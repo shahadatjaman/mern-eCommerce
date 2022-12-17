@@ -1,8 +1,8 @@
 import { Box, Grid } from "@mui/material";
 import React from "react";
 import { useWindowWidth } from "../../../../hooks/userWindowWidth";
-import GridAction from "./Grid";
-import Sorting from "./Sorting";
+import GridAction from "../../../Shared/Grid/";
+import Sorting from "../../../Shared/Sorting/";
 import { Wrapper } from "./Styles";
 
 const Actions = () => {
@@ -18,7 +18,6 @@ const Actions = () => {
               item
               xs={6}
               sx={{
-                minWidth: 120,
                 display: "flex",
                 justifyContent: "start",
                 alignItems: "center",

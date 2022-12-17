@@ -26,7 +26,8 @@ const Category = () => {
                   xl={12 / grid}
                   md={12 / grid}
                   item
-                  xs={4}
+                  xs={6}
+                  sm={12}
                   sx={{ transition: "0.5s" }}
                 >
                   {isLoading ? <Loading /> : <Product product={product} />}

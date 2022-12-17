@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import { Container, Form, Navbar } from "react-bootstrap";
-import Input from "../Shared/Form/Input";
+import { Container, Navbar } from "react-bootstrap";
+
 import RightContent from "./RightContent";
 
 import { HeaderWrapper, Logo, NavbarBrand, Toggler } from "./Styles";
@@ -12,6 +12,8 @@ import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import MobileNav from "./MobileNav";
 import SearchBar from "./SearchBar";
+import { useDispatch } from "react-redux";
+import { getCategories } from "../../feature/reducer/categories";
 
 const Header = () => {
   const [isOpenNav, setIsOpenNav] = useState(false);
@@ -22,6 +24,8 @@ const Header = () => {
 
   const isFluid = useWindowWidth({ width: 1400 });
 
+  const dispatch = useDispatch();
+
   const openNavHandler = () => {
     setIsOpenNav(true);
   };
@@ -30,10 +34,16 @@ const Header = () => {
     setIsOpenNav(false);
   };
 
+  React.useEffect(() => {
+    dispatch(getCategories());
+  }, [dispatch]);
+
   return (
     <HeaderWrapper isSticky={isMatched}>
       {isSmallDevice ? (
-        <MobileNav clsoeNavHandler={clsoeNavHandler} isOpenNav={isOpenNav} />
+        <>
+          <MobileNav clsoeNavHandler={clsoeNavHandler} isOpenNav={isOpenNav} />
+        </>
       ) : (
         <Navbar>
           <Container fluid={isFluid}>

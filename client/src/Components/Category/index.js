@@ -9,8 +9,16 @@ import { getProductByCategory } from "../../feature/reducer/product";
 
 import { useEffect } from "react";
 import { useWindowWidth } from "../../hooks/userWindowWidth";
+import Drawer from "../Shared/Drawer/";
+import { useState } from "react";
+
+import CategoryIcon from "@mui/icons-material/Category";
+import { FilterCat, Span } from "./Styles";
+import Categories from "./SideBar/Categories";
 
 const SideBarAndMain = () => {
+  const [isOpenNav, setIsOpenNav] = useState(false);
+
   const dispatch = useDispatch();
 
   const { recentPriceRang, recentCategoryId, show } = useSelector(
@@ -52,9 +60,25 @@ const SideBarAndMain = () => {
     );
   }, [dispatch, recentCategoryId, recentPriceRang, show]);
 
+  const openHandler = () => {
+    setIsOpenNav(true);
+  };
+  const closeHandler = () => {
+    setIsOpenNav(false);
+  };
+
   return (
     <Box sx={{ paddingY: 5 }}>
       <Container maxWidth="xl">
+        {isSmallDevice && (
+          <Grid item xl={12} sx={{ display: "flex" }}>
+            <FilterCat onClick={openHandler}>
+              <CategoryIcon />
+              <Span>Filter</Span>
+            </FilterCat>
+          </Grid>
+        )}
+
         <Grid container spacing={2}>
           {!isSmallDevice && (
             <Grid item xl={3} xs={6} md={3}>
@@ -67,6 +91,9 @@ const SideBarAndMain = () => {
           </Grid>
         </Grid>
       </Container>
+      <Drawer isOpenNav={isOpenNav} closeHandler={closeHandler}>
+        <SideBar />
+      </Drawer>
     </Box>
   );
 };
