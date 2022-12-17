@@ -1,5 +1,7 @@
 import { lazy } from "react";
 import Categories from "../Pages/Category";
+import Invoice from "../Pages/Checkout/Invoice";
+import Search from "../Pages/SearchUi";
 
 import { Private, Public } from "./protectRouter";
 
@@ -38,6 +40,16 @@ export const routes = [
     path: "/",
     element: <Home />,
     children: [],
+  },
+  {
+    path: "invoice",
+    element: <Invoice />,
+  },
+  //   const [searchParams] = useSearchParams();
+  // const code = searchParams.get('code'); // "testCode"
+  {
+    path: "query/",
+    element: <Search />,
   },
   {
     path: "order_success/:order_id",

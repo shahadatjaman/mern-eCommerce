@@ -63,6 +63,8 @@ const Billing = ({ userAddress }) => {
     }
   }, [dispatch, valeus]);
 
+  console.log(userAddress);
+
   return (
     <Wrapper>
       <Form onSubmit={(e) => handleSubmit(e, cb)}>

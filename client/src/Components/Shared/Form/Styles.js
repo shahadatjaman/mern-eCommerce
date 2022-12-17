@@ -53,7 +53,7 @@ export const InputField = styled(Input)`
   font-weight: 500;
   /* padding: ${(props) =>
     props.height ? "17px 20px" : "0px 15px"}px !important ; */
-  padding-left: ${(props) => props.search && "3.4"}rem;
+
   &&:focus {
     box-shadow: none !important;
     color: ${(props) => (props.bg ? "#fff" : "#333")} !important;

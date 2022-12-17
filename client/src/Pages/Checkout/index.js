@@ -12,16 +12,21 @@ import Box from "@mui/material/Box";
 
 import Grid from "@mui/material/Grid";
 import Billing from "./Billing";
-import UserAddress from "./address";
+
 import Order from "./Order";
-import { formStyles } from "./Styles";
 
 const Checkout = () => {
   const { isLoading, userAddress } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getUserAddress());
+    dispatch(
+      getUserAddress({
+        pathOne: "auth",
+        pathTwo: "getuseraddress",
+        method: "get",
+      })
+    );
   }, [dispatch]);
 
   if (isLoading) {

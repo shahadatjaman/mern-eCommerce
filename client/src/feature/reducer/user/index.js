@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import {
   callApi,
-  getLocalstorage,
   jwtDecoder,
   removeLocalstorage,
   setLocalstorage,
@@ -67,12 +66,8 @@ export const createUserAddress = createAsyncThunk(
 );
 export const getUserAddress = createAsyncThunk(
   "auth/getuseraddress",
-  async () => {
-    return await callApi({
-      pathOne: "auth",
-      pathTwo: "getuseraddress",
-      method: "get",
-    });
+  async (props) => {
+    return await callApi(props);
   }
 );
 

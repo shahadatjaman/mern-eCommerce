@@ -76,19 +76,26 @@ const SpeOffer = () => {
     <Wrapper>
       <Container maxWidth="xl">
         <Grid container spacing={2}>
-          <Grid item xs={3} md={3}>
+          <Grid item xl={3} xs={12} md={3}>
             <OffierCounter />
             {featureProduct?.map((item, index) => (
               <FeatureProdcut value={item} key={index} />
             ))}
           </Grid>
-          <Grid item xs={9} md={9}>
+          <Grid item xl={9} xs={12} md={9}>
             <Categoreis>
               <LabTabs />
               <div className="items">
                 <Grid container spacing={2}>
                   {products?.map((item, index) => (
-                    <Grid key={index} item lg={12 / 5} xs={3} md={3}>
+                    <Grid
+                      key={index}
+                      item
+                      lg={12 / 5}
+                      xs={12 / 2}
+                      md={3}
+                      sm={12}
+                    >
                       {isLoading ? <Loading /> : <Product product={item} />}
                     </Grid>
                   ))}

@@ -3,9 +3,15 @@ import React from "react";
 import { H5, Property, summaryStyles, Value, Values } from "./Styles";
 import Button from "@mui/material/Button";
 import { useSelector } from "react-redux";
+import Invoice from "../../Pages/Checkout/Invoice";
+
 const OrderSummary = () => {
   const { newOrder } = useSelector((state) => state.order);
   const { user } = useSelector((state) => state.user);
+
+  const printInvoice = () => {
+    window.print();
+  };
 
   return (
     newOrder && (
@@ -27,7 +33,12 @@ const OrderSummary = () => {
               <Property>Total :</Property>
               <Value>$ {newOrder.total.$numberDecimal}</Value>
             </Values>
-            <Button sx={{ height: 40 }} variant="contained" fullWidth>
+            <Button
+              sx={{ height: 40 }}
+              variant="contained"
+              fullWidth
+              onClick={printInvoice}
+            >
               Print Invoice
             </Button>
           </Grid>

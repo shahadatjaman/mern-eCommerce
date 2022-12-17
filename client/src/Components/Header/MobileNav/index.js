@@ -1,43 +1,26 @@
-import * as React from "react";
-import { styled, alpha } from "@mui/material/styles";
+import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import RedeemIcon from "@mui/icons-material/Redeem";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
-import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SearchBar from "../SearchBar";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
+import Drawer from "../../Shared/Drawer/index";
+import Categories from "./Categories";
 
 const PrimarySearchAppBar = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [isOpenNav, setIsOpenNav] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
@@ -45,6 +28,8 @@ const PrimarySearchAppBar = () => {
   const { carts } = useSelector((state) => state.cart);
 
   const { orders } = useSelector((state) => state.order);
+
+  const { categories } = useSelector((state) => state.categories);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -142,8 +127,16 @@ const PrimarySearchAppBar = () => {
     navigate(link);
   };
 
+  const openHandler = () => {
+    setIsOpenNav(true);
+  };
+
+  const closeHandler = () => {
+    setIsOpenNav(false);
+  };
+
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, position: "relative" }}>
       <AppBar
         position="static"
         sx={{ background: "#ffffff2b", backdropFilter: `blur 15px` }}
@@ -155,6 +148,7 @@ const PrimarySearchAppBar = () => {
             color="#000"
             aria-label="open drawer"
             sx={{ mr: 2 }}
+            onClick={openHandler}
           >
             <MenuIcon />
           </IconButton>
@@ -224,6 +218,14 @@ const PrimarySearchAppBar = () => {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+
+      <Drawer
+        isOpenNav={isOpenNav}
+        closeHandler={closeHandler}
+        categories={categories}
+      >
+        <Categories categories={categories} />
+      </Drawer>
     </Box>
   );
 };

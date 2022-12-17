@@ -26,7 +26,6 @@ import { NavLink } from "react-router-dom";
 
 import Prices from "./Price";
 import Rating from "./Rating";
-import { Skeleton, Typography } from "@mui/material";
 
 const Product = ({ product }) => {
   const [discount, setDiscount] = useState(null);
