@@ -1,21 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
 import Input from "../../Components/Shared/Form/Input";
 import { Checkmark, Error, FormWrape, Label, P, ShowPassword } from "./Styles";
 
-import { useTheme } from "styled-components";
 import Form from "../../Components/Shared/Form/Form";
 import { login } from "../../feature/reducer/user";
 import Or from "./Or";
-import { useColor } from "../../utils";
 import { Button } from "@mui/material";
-
-const init = {
-  username: "",
-  password: "",
-};
 
 const Login = () => {
   const [values, setValues] = useState({ username: "", password: "" });
@@ -33,7 +26,9 @@ const Login = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(login(values));
+    dispatch(
+      login({ pathOne: "auth", pathTwo: "login", method: "post", values })
+    );
   };
 
   // password visibility

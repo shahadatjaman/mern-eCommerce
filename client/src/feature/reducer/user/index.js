@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import Cookies from "universal-cookie";
+import { callApi } from "../../../API";
 import {
-  callApi,
   jwtDecoder,
   removeLocalstorage,
   setLocalstorage,
@@ -24,22 +25,17 @@ const initialState = {
 };
 
 export const login = createAsyncThunk(
-  "auth/login",
-  async (values, thunkAPI) => {
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/auth/login`,
-        values
-      );
-      return response.data;
-    } catch (error) {
-      return await error.response.data.errors;
-    }
-  }
+  "login",
+  async (values) => await callApi(values)
+);
+
+export const getNewAccessToken = createAsyncThunk(
+  "refreshToken",
+  async () => await callApi()
 );
 
 export const register = createAsyncThunk(
-  "auth/register",
+  "register",
   async (values, thunkAPI) => {
     try {
       const response = await axios.post(
@@ -54,7 +50,7 @@ export const register = createAsyncThunk(
 );
 
 export const createUserAddress = createAsyncThunk(
-  "auth/useraddress",
+  "useraddress",
   async ({ values }) => {
     return await callApi({
       pathOne: "auth",
@@ -65,14 +61,14 @@ export const createUserAddress = createAsyncThunk(
   }
 );
 export const getUserAddress = createAsyncThunk(
-  "auth/getuseraddress",
+  "getuseraddress",
   async (props) => {
     return await callApi(props);
   }
 );
 
 const loginSlice = createSlice({
-  name: "login",
+  name: "authentication",
   initialState,
   reducers: {
     addUser: (state, { payload }) => {
@@ -83,8 +79,10 @@ const loginSlice = createSlice({
       console.log(payload);
     },
     logout: (state, { payload }) => {
-      removeLocalstorage("user_info");
+      removeLocalstorage("accessToken");
       state.user = null;
+      const cookies = new Cookies();
+      cookies.remove("refreshToken", { path: "/" });
     },
     checkUserAddressIsValid: (state, { payload }) => {
       state.isValidAddress = payload.isValidForm;
@@ -93,68 +91,82 @@ const loginSlice = createSlice({
       state.userAddress = payload;
     },
   },
-  extraReducers: {
-    // User Login
-    [login.pending]: (state, { payload }) => {
-      state.isLoading = true;
-    },
-    [login.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
-      state.errors = payload;
 
-      if (payload.token) {
-        const user = jwtDecoder(payload.token);
-        state.user = user;
-        setLocalstorage("user_info", payload.token);
-      }
-    },
-    [login.rejected]: (state) => {
-      state.isLoading = false;
-    },
+  extraReducers: (builder) => {
+    // Registation
+    builder
+      .addCase(register.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(register.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        if (payload.errors) {
+          state.errors = payload.errors;
+        }
+        if (payload.token) {
+          const user = jwtDecoder(payload.token);
+          state.user = user;
+          state.errors = {};
+          setLocalstorage("user_info", payload.token);
+        }
+      })
+      .addCase(register.rejected, (state) => {
+        state.isLoading = false;
+      })
+      // Login user
+      .addCase(login.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(login.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        if (payload.accessToken) {
+          setLocalstorage("accessToken", payload.accessToken);
+        }
+        const cookies = new Cookies();
 
-    // User Register
-    [register.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [register.fulfilled]: (state, { payload }) => {
-      if (payload.errors) {
-        state.errors = payload.errors;
-      }
-      if (payload.token) {
-        const user = jwtDecoder(payload.token);
-        state.user = user;
-        state.errors = {};
-        setLocalstorage("user_info", payload.token);
-      }
-    },
-    [register.rejected]: (state) => {
-      state.isLoading = false;
-    },
+        cookies.set("refreshToken", payload.refreshToken, { path: "/" });
+      })
+      .addCase(login.rejected, (state) => {
+        state.isLoading = false;
+      })
 
-    // Create user Address
-    [createUserAddress.pending]: (state) => {
-      state.isLoadingToOrder = true;
-    },
-    [createUserAddress.fulfilled]: (state, { payload }) => {
-      state.isLoadingToOrder = false;
-    },
-    [createUserAddress.rejected]: (state) => {
-      state.isLoadingToOrder = false;
-    },
+      // Get access token
+      .addCase(getNewAccessToken.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getNewAccessToken.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        const cookies = new Cookies();
+        cookies.set("refreshToken", payload.refreshToken, { path: "/" });
+      })
+      .addCase(getNewAccessToken.rejected, (state) => {
+        state.isLoading = false;
+      })
+      // // Create user address
+      .addCase(createUserAddress.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createUserAddress.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+      })
 
-    // Get User Address
-    [getUserAddress.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [getUserAddress.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
-      if (payload && payload.user_address) {
-        state.userAddress = payload.user_address;
-      }
-    },
-    [getUserAddress.rejected]: (state) => {
-      state.isLoading = false;
-    },
+      .addCase(createUserAddress.rejected, (state) => {
+        state.isLoading = false;
+      })
+      // Get user address
+      .addCase(getUserAddress.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getUserAddress.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+
+        if (payload && payload.user_address) {
+          state.userAddress = payload.user_address;
+        }
+      })
+      .addCase(getUserAddress.rejected, (state) => {
+        state.isLoading = false;
+      });
   },
 });
 

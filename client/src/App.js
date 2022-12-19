@@ -15,14 +15,15 @@ import { addUser } from "./feature/reducer/user/";
 import theme from "./Theme/muiTheme";
 
 import { Loading } from "./Components/Shared/Loading/";
+import { getNewToken } from "./API";
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    const token = getLocalstorage("user_info");
+    const token = getLocalstorage("accessToken");
     if (token.length !== 0) {
       const user = jwt_docode(token);
-
+      getNewToken();
       dispatch(addUser(user));
     }
   });
