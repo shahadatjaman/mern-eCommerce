@@ -17,7 +17,7 @@ const OrderSuccess = () => {
   }, [dispatch, order_id]);
 
   return (
-    <Layout>
+    <Layout footer={true}>
       <OrderContent />
       <Box>
         <Invoice />

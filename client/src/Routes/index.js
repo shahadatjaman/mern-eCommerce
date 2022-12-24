@@ -1,4 +1,6 @@
 import { lazy } from "react";
+import ForgetPassword from "../Pages/auth/ForgetPassword";
+import SendCode from "../Pages/auth/SendCode";
 import Categories from "../Pages/Category";
 import Invoice from "../Pages/Checkout/Invoice";
 import Search from "../Pages/SearchUi";
@@ -43,7 +45,11 @@ export const routes = [
   },
   {
     path: "invoice",
-    element: <Invoice />,
+    element: (
+      <Private>
+        <Invoice />
+      </Private>
+    ),
   },
   //   const [searchParams] = useSearchParams();
   // const code = searchParams.get('code'); // "testCode"
@@ -74,6 +80,14 @@ export const routes = [
   {
     path: "cartitems",
     element: <Cart />,
+  },
+  {
+    path: "identify/forget_password",
+    element: <ForgetPassword />,
+  },
+  {
+    path: "indentify/recovery_account/:email",
+    element: <SendCode />,
   },
   {
     path: "",

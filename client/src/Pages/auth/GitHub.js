@@ -10,7 +10,7 @@ import { authentication } from "../../firebase";
 
 import { BsGithub } from "react-icons/bs";
 import { makeUserObj } from "../../utils";
-import { register } from "../../feature/reducer/user";
+import { register } from "../../feature/reducer/user/auth";
 import { useNavigate } from "react-router-dom";
 
 const GitHub = () => {

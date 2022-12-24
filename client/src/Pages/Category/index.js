@@ -6,7 +6,7 @@ import SideBarAndMain from "../../Components/Category/";
 
 const Categories = () => {
   return (
-    <Layout>
+    <Layout footer={true}>
       <SideBarAndMain />
     </Layout>
   );

@@ -1,20 +1,26 @@
 import { useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
+import { Link, NavLink } from "react-router-dom";
 
 import Input from "../../Components/Shared/Form/Input";
 import { Checkmark, Error, FormWrape, Label, P, ShowPassword } from "./Styles";
 
 import Form from "../../Components/Shared/Form/Form";
-import { login } from "../../feature/reducer/user";
+import { login } from "../../feature/reducer/user/auth";
 import Or from "./Or";
-import { Button } from "@mui/material";
+import { Box, Button, Checkbox, FormControlLabel } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Login = () => {
-  const [values, setValues] = useState({ username: "", password: "" });
+  const [values, setValues] = useState({ email: "", password: "" });
+  const [isValidForm, setIsValidForm] = useState(false);
   const [type, setType] = useState("password");
 
-  const { errors } = useSelector((state) => state.user);
+  const { errorToLogin } = useSelector((state) => state.auth);
+
+  const navigate = useNavigate();
 
   const changeHandler = (e) => {
     setValues((prev) => {
@@ -22,12 +28,27 @@ const Login = () => {
     });
   };
 
+  // Check if form is fullfieled
+  useEffect(() => {
+    if (values.email && values.password) {
+      setIsValidForm(true);
+    } else {
+      setIsValidForm(false);
+    }
+  }, [isValidForm, values]);
+
   const dispatch = useDispatch();
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(
-      login({ pathOne: "auth", pathTwo: "login", method: "post", values })
+      login({
+        pathOne: "auth",
+        pathTwo: "login",
+        method: "post",
+        values,
+        navigate,
+      })
     );
   };
 
@@ -44,28 +65,42 @@ const Login = () => {
 
   return (
     <FormWrape>
-      <Error>{errors?.message}</Error>
       <Form onSubmit={submitHandler}>
         <Input
-          name="username"
+          name="email"
           type="text"
           handleChange={changeHandler}
-          value={values.username}
-          placeHolder="Username"
+          value={values.email}
+          placeHolder="Enter Email Address"
         />
+
         <Input
           name="password"
           type={type}
           handleChange={changeHandler}
           value={values.password}
-          placeHolder="Password"
+          placeHolder="Enter Your Password"
         />
+        <Error>{errorToLogin && errorToLogin}</Error>
 
-        <ShowPassword>
-          <Checkmark type="checkbox" onChange={visibleHandler} />
-          <Label>Show Password</Label>
-        </ShowPassword>
-        <Button variant="contained" type="submit">
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <ShowPassword>
+            <FormControlLabel
+              control={<Checkbox onChange={visibleHandler} />}
+              label="Show Password"
+            />
+          </ShowPassword>
+          <Box>
+            <NavLink to={"/identify/forget_password"}>Forget Password</NavLink>
+          </Box>
+        </Box>
+
+        <Button variant="contained" type="submit" disabled={!isValidForm}>
           Login
         </Button>
       </Form>

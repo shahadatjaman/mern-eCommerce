@@ -71,7 +71,7 @@ export const Amount = styled.div`
 `;
 
 export const ImageWrapper = styled.div`
-  max-width: 100px;
+  max-width: 50px;
   border-radius: 8px;
   overflow: hidden;
 `;

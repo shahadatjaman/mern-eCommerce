@@ -6,11 +6,13 @@ axios.defaults.withCredentials = true;
 
 // get localstorage values
 export const getLocalstorage = (name) => {
-  const items = localStorage.getItem(name)
-    ? JSON.parse(localStorage.getItem(name))
-    : [];
+  const items = localStorage.getItem(name);
 
-  return items;
+  if (items && items !== "undefined") {
+    return JSON.parse(localStorage.getItem(name));
+  } else {
+    return [];
+  }
 };
 
 /**

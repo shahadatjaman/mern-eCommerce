@@ -1,8 +1,6 @@
 import axios from "axios";
-import { getLocalstorage, setLocalstorage } from "../utils";
+import { getLocalstorage } from "../utils";
 import jwtDecode from "jwt-decode";
-
-axios.defaults.withCredentials = true;
 
 export const callApi = async (props) => {
   const token = getLocalstorage("accessToken");
@@ -21,6 +19,7 @@ export const callApi = async (props) => {
             headers: {
               Authorization: "Bearer " + token,
             },
+            withCredentials: true,
           };
         }
       })(),
@@ -30,6 +29,7 @@ export const callApi = async (props) => {
             headers: {
               Authorization: "Bearer " + token,
             },
+            withCredentials: true,
           };
         }
       })()
@@ -37,24 +37,6 @@ export const callApi = async (props) => {
 
     return await response.data;
   } catch (error) {
-    console.log(error);
     return await error.response;
-  }
-};
-
-export const getNewToken = async () => {
-  const token = localStorage.getItem("accessToken");
-  var decodedToken = jwtDecode(token, { complete: true });
-  var dateNow = new Date();
-
-  if (decodedToken.exp < dateNow.getTime()) {
-    const newToken = await callApi({
-      pathOne: "auth",
-      pathTwo: "refreshtoken",
-      method: "get",
-    });
-    if (newToken.accessToken) {
-      setLocalstorage("accessToken", newToken.accessToken);
-    }
   }
 };

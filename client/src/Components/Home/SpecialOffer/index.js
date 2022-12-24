@@ -15,7 +15,7 @@ import {
   getProductByCategory,
 } from "../../../feature/reducer/product";
 
-import { Box, Container, Grid } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import LabTabs from "./Tabs";
 import OffierCounter from "./Timer";
 
@@ -78,9 +78,19 @@ const SpeOffer = () => {
         <Grid container spacing={2}>
           <Grid item xl={3} xs={12} md={3}>
             <OffierCounter />
-            {featureProduct?.map((item, index) => (
-              <FeatureProdcut value={item} key={index} />
-            ))}
+            <Box sx={{ background: "#fff" }} mt={2}>
+              <Typography
+                variant="h6"
+                p={2}
+                mb={2}
+                borderBottom={"1px solid #ddd"}
+              >
+                Top Review
+              </Typography>
+              {featureProduct?.map((item, index) => (
+                <FeatureProdcut value={item} key={index} />
+              ))}
+            </Box>
           </Grid>
           <Grid item xl={9} xs={12} md={9}>
             <Categoreis>
@@ -104,7 +114,7 @@ const SpeOffer = () => {
             </Categoreis>
           </Grid>
         </Grid>
-        <Box sx={{ background: "#fff", marginTop: 2, padding: 1 }}>
+        {/* <Box sx={{ background: "#fff", marginTop: 2, padding: 1 }}>
           {products && (
             <Paginations
               data={products}
@@ -114,7 +124,7 @@ const SpeOffer = () => {
               setRecentPage={setRecentPage}
             />
           )}
-        </Box>
+        </Box> */}
       </Container>
     </Wrapper>
   );

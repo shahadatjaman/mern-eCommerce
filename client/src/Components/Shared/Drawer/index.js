@@ -16,7 +16,7 @@ const Drawer = ({ children, isOpenNav, closeHandler }) => {
     if (isOpenNav) {
       document.getElementsByTagName("BODY")[0]["style"]["overflow"] = "hidden";
     } else {
-      document.getElementsByTagName("BODY")[0]["style"]["overflow"] = "scroll";
+      document.getElementsByTagName("BODY")[0]["style"]["overflow"] = "inherit";
     }
   });
   return (

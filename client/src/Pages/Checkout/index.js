@@ -35,7 +35,7 @@ const Checkout = () => {
 
   return (
     !isLoading && (
-      <Layout>
+      <Layout footer={true}>
         <Container maxWidth="xl">
           <Box sx={{ flexGrow: 1 }} my={8}>
             <Grid container spacing={2}>

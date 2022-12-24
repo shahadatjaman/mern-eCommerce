@@ -1,10 +1,10 @@
-import { Rating } from "@mui/material";
+import { Box, Grid, Rating, Typography } from "@mui/material";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { callApi } from "../../../../utils";
+import { callApi, shortText } from "../../../../utils";
 
 import { Wrapper, Caption, FeatureShop, Img, ImgWrapper } from "./Styles";
 
@@ -29,39 +29,46 @@ const FeatureProdcut = ({ value }) => {
   }, [value]);
 
   return (
-    <Wrapper>
-      <FeatureShop>
-        <Row>
-          <Col className="col-xxl-6 col-md-12 col-sm-6 col-6">
-            <Link to={`/product/${value._id}`}>
-              <ImgWrapper>
-                {variation && (
-                  <Img src={variation.variation_img} alt="laptop" />
-                )}
-              </ImgWrapper>
-            </Link>
-          </Col>
-          <Col className="col-xxl-6 col-md-12 col-sm-6 col-6">
-            <Caption>
-              <Link to={`/product/${value._id}`}>
-                <h6>{value.name}</h6>
-              </Link>
+    <Grid container spacing={2} mb={4}>
+      <Grid
+        item
+        xs={4}
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <Link to={`/product/${value._id}`}>
+          <ImgWrapper>
+            {variation && <Img src={variation.variation_img} alt="laptop" />}
+          </ImgWrapper>
+        </Link>
+      </Grid>
+      <Grid item xs={8}>
+        <Caption>
+          <Link to={`/product/${value._id}`}>
+            <h6>{shortText(value.name, 21, 0, 21)}</h6>
+          </Link>
 
-              {totalRating ? (
-                <>
-                  <Rating name="read-only" value={totalRating} readOnly />(
-                  {totalRating} )
-                </>
-              ) : (
-                <Rating name="disabled" value={0} disabled />
-              )}
+          {totalRating ? (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "start",
+                alignItems: "center",
+                marginBottom: 1,
+              }}
+            >
+              <Rating name="read-only" value={totalRating} readOnly />(
+              {totalRating} )
+            </Box>
+          ) : (
+            <Rating name="disabled" value={0} disabled />
+          )}
 
-              <h4>$ {parseFloat(value.price.$numberDecimal).toFixed(2)}</h4>
-            </Caption>
-          </Col>
-        </Row>
-      </FeatureShop>
-    </Wrapper>
+          <Typography variant="body1" display="block" fontWeight="600">
+            $ {parseFloat(value.price.$numberDecimal).toFixed(2)}
+          </Typography>
+        </Caption>
+      </Grid>
+    </Grid>
   );
 };
 

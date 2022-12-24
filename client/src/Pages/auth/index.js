@@ -8,7 +8,7 @@ import { Link, Tab } from "./Styles";
 
 const Auth = () => {
   return (
-    <Layout>
+    <Layout footer={true}>
       <Wrapper style={{ margin: "4rem 0" }}>
         <Container>
           <Row>

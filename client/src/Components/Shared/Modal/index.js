@@ -25,6 +25,8 @@ const Modal = ({ title, children, closeModal, isOpen, width }) => {
       body.style.overflow = "auto";
     }
   }, [isOpen]);
+
+  console.log("Modal rendered");
   return (
     <ModalWrapper isOpen={isOpen}>
       <Content width={width}>

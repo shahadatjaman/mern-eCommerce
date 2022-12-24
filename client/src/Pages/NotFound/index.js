@@ -5,7 +5,7 @@ import Layout from "../Layout";
 
 const ResourseNotFound = () => {
   return (
-    <Layout>
+    <Layout footer={false}>
       <Wrapper>
         <ImgWrapper>
           <Img

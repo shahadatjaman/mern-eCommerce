@@ -9,9 +9,10 @@ import { useValidator } from "../../utils/userValidator";
 
 import { useForm } from "../../hooks/useForm";
 import { useDispatch } from "react-redux";
-import { register } from "../../feature/reducer/user";
+import { register } from "../../feature/reducer/user/auth";
 import { BiX } from "react-icons/bi";
-import { Button } from "@mui/material";
+import { Button, Checkbox, FormControlLabel } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const initial = {
   username: "",
@@ -20,26 +21,21 @@ const initial = {
 };
 
 const Register = () => {
-  const { errors } = useSelector((state) => state.user);
+  const { errors } = useSelector((state) => state.auth);
   const [checkValid, setCheckValid] = useState(false);
   const [type, setType] = useState("password");
 
-  const {
-    formState,
-    handleChange,
-    handleFocus,
-    handleBlur,
-    handleSubmit,
-    isValidForm,
-  } = useForm({
+  const navigate = useNavigate();
+
+  const { formState, handleChange, handleFocus, handleBlur } = useForm({
     init: initial,
     validate: useValidator,
   });
 
   const dispatch = useDispatch();
-  const cb = ({ values, hasError }) => {
-    dispatch(register(values));
-  };
+  // const cb = ({ values, hasError }) => {
+  //   dispatch(register(values));
+  // };
 
   // password visibility
   const visibleHandler = (e) => {
@@ -69,6 +65,23 @@ const Register = () => {
     }
   }, [username, email, password]);
 
+  const submitForm = (e) => {
+    e.preventDefault();
+    dispatch(
+      register({
+        pathOne: "auth",
+        pathTwo: "register",
+        method: "post",
+        values: {
+          username: username.value,
+          email: email.value,
+          password: password.value,
+        },
+        navigate,
+      })
+    );
+  };
+
   return (
     <FormWrape>
       {errors && (
@@ -88,7 +101,7 @@ const Register = () => {
         </resourcesError>
       )}
 
-      <Form onSubmit={(e) => handleSubmit(e, cb)}>
+      <Form onSubmit={submitForm}>
         <Input
           name="username"
           type="username"
@@ -123,8 +136,10 @@ const Register = () => {
         />
 
         <ShowPassword>
-          <Checkmark type="checkbox" onChange={visibleHandler} />
-          <Label>Show Password</Label>
+          <FormControlLabel
+            control={<Checkbox onChange={visibleHandler} />}
+            label="Show Password"
+          />
         </ShowPassword>
 
         <Button type="submit" variant="contained" disabled={!checkValid}>

@@ -28,8 +28,11 @@ import cateReducer from "../feature/reducer/categories/index";
 
 import queryReducer from "../feature/reducer/Query/";
 
+import authReducer from "../feature/reducer/user/auth";
+
 export const store = configureStore({
   reducer: {
+    auth: authReducer,
     wishList: wishListReducer,
     product: productReducer,
     productDetails: productDetailsReducer,
