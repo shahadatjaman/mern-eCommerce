@@ -113,7 +113,7 @@ const Product = ({ product }) => {
       <Content>
         <ShoppingTitle>
           <NavLink to={`/product/${product._id}`}>
-            <h6>{shortText(product.name, 25, 0, 20)}</h6>
+            <h6>{shortText(product.name, 15, 0, 15)}</h6>
           </NavLink>
         </ShoppingTitle>
         <Rating totalRating={totalRating} />

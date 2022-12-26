@@ -19,7 +19,7 @@ export const createOrder = createAsyncThunk(
         values,
         {
           headers: {
-            Authorization: "Bearer " + getLocalstorage("user_info"),
+            Authorization: "Bearer " + getLocalstorage("accessToken"),
           },
         }
       );
@@ -42,7 +42,7 @@ export const getOrder = createAsyncThunk(
 
         {
           headers: {
-            Authorization: "Bearer " + getLocalstorage("user_info"),
+            Authorization: "Bearer " + getLocalstorage("accessToken"),
           },
         }
       );
@@ -60,14 +60,6 @@ export const getOrders = createAsyncThunk("v2/getorders", async () => {
     method: "get",
   });
 });
-
-// async () => {
-//   return await callApi({
-//     pathOne: "v2",
-//     pathTwo: "getorders",
-//     method: "get",
-//   });
-// }
 
 const orderSlice = createSlice({
   name: "order",

@@ -11,8 +11,8 @@ export const FeatureShop = styled.div`
 `;
 
 export const ImgWrapper = styled.div`
-  width: 141px;
-  height: 140px;
+  width: 90px;
+  /* height: 140px; */
   margin: auto;
   background: #edf2fd;
 `;

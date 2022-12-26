@@ -18,3 +18,9 @@ export const H3 = styled.h3`
   margin: 0;
   display: block;
 `;
+
+export const Error = styled.p`
+  color: red;
+  font-weight: 500;
+  margin-bottom: 1rem;
+`;

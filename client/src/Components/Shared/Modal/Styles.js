@@ -38,7 +38,7 @@ export const Header = styled.div`
 export const Title = styled.div``;
 
 export const H3 = styled.h3`
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
 `;
 

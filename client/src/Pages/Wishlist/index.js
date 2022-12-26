@@ -37,7 +37,7 @@ const Wishlist = () => {
   };
 
   return (
-    <Layout>
+    <Layout footer={true}>
       <Wrapper>
         <BreadCrumb pathName="wishlist" />
         <CartMain>

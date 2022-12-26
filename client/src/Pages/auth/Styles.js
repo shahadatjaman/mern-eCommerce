@@ -102,3 +102,19 @@ export const Error = styled.p`
   font-weight: 500;
   margin-bottom: 1rem;
 `;
+
+export const Form = styled.form``;
+
+export const Span = styled.span`
+  font-weight: 700;
+`;
+
+export const ForgetPasswordWrapper = styled.div`
+  background: #fff;
+  box-shadow: 0 0 6px rgb(0 0 0 / 10%);
+  text-align: left;
+  padding: 1rem;
+  max-width: 650px;
+  margin: 4rem auto;
+  border-radius: 4px;
+`;

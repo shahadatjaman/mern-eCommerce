@@ -10,7 +10,7 @@ import { authentication } from "../../firebase";
 
 import { AiFillGooglePlusCircle } from "react-icons/ai";
 
-import { register } from "../../feature/reducer/user/";
+import { register } from "../../feature/reducer/user/auth";
 import { makeUserObj } from "../../utils";
 
 const Google = () => {
@@ -27,8 +27,15 @@ const Google = () => {
         let { displayName, email, photoURL } = userInfo;
         let user = makeUserObj({ displayName, email, photoURL });
 
-        dispatch(register(user));
-        navigate("/");
+        dispatch(
+          register({
+            pathOne: "auth",
+            pathTwo: "adduserbysocial",
+            method: "post",
+            values: { ...user },
+            navigate,
+          })
+        );
       })
       .catch((error) => {
         console.log(error);

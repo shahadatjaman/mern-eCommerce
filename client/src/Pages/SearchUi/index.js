@@ -32,7 +32,7 @@ const Search = () => {
   }, [dispatch]);
 
   return (
-    <Layout>
+    <Layout footer={true}>
       <Wrapper>
         <Container maxWidth={"xl"}>
           <SearchForm />

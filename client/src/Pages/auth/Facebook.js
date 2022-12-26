@@ -9,7 +9,7 @@ import { GoogleWrape } from "./Styles";
 import { authentication } from "../../firebase";
 
 import { BsFacebook } from "react-icons/bs";
-import { register } from "../../feature/reducer/user";
+import { register } from "../../feature/reducer/user/auth";
 import { makeUserObj } from "../../utils";
 import { useNavigate } from "react-router-dom";
 

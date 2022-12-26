@@ -32,7 +32,6 @@ const Invoice = () => {
     dispatch(getOrder({ order_id }));
   }, [dispatch, order_id]);
 
-  console.log(newOrder);
   return (
     userAddress &&
     newOrder && (

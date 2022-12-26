@@ -51,7 +51,7 @@ const LabTabs = ({ children }) => {
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <TabList onChange={handleChange} aria-label="lab API tabs example">
-            <Tab label="All" value="1" />
+            <Tab label="Recent Products" value="1" />
             <Tab label="Furniture" value="638d70f0c57c08cdc0b59c88" />
             <Tab label="Electronics" value="638d7127c57c08cdc0b59c90" />
             <Tab label="Fashion" value="638d7154c57c08cdc0b59c98" />

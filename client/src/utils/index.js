@@ -1,16 +1,18 @@
 import { useTheme } from "styled-components";
 import jwt_decode from "jwt-decode";
-import { createAsyncThunk } from "@reduxjs/toolkit";
+
 import axios from "axios";
-import { useEffect } from "react";
+axios.defaults.withCredentials = true;
 
 // get localstorage values
 export const getLocalstorage = (name) => {
-  const items = localStorage.getItem(name)
-    ? JSON.parse(localStorage.getItem(name))
-    : [];
+  const items = localStorage.getItem(name);
 
-  return items;
+  if (items && items !== "undefined") {
+    return JSON.parse(localStorage.getItem(name));
+  } else {
+    return [];
+  }
 };
 
 /**
@@ -300,7 +302,7 @@ export const checkVarintColor = (options, name) => {
 };
 
 export const callApi = async (props) => {
-  const token = getLocalstorage("user_info");
+  const token = getLocalstorage("accessToken");
   try {
     let response = await axios[props.method](
       `${process.env.REACT_APP_SERVER_URL}/${props.pathOne}/${props.pathTwo}${
@@ -314,6 +316,7 @@ export const callApi = async (props) => {
         } else {
           return {
             headers: {
+              origin: "*",
               Authorization: "Bearer " + token,
             },
           };

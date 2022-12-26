@@ -1,16 +1,11 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  padding: 4rem 0;
+  padding: 1rem;
   background: #fff;
 `;
 
-export const ProfileWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`;
+export const ProfileWrapper = styled.div``;
 
 export const Username = styled.div`
   margin-top: 1rem;
@@ -21,7 +16,7 @@ export const H5 = styled.h5`
 `;
 
 export const UpdateWrapper = styled.div`
-  padding: 0 4rem;
+  padding: 1rem;
 `;
 
 export const boxStyled = {
@@ -42,6 +37,8 @@ export const Span = styled.span`
   margin-right: 1rem;
 `;
 
-export const ChangePasswordWrapper = styled.div`
-  padding: 2rem 0;
-`;
+export const ChangePasswordWrapper = styled.div``;
+
+export const H2 = styled.h2``;
+
+export const Form = styled.form``;

@@ -53,7 +53,7 @@ const Details = () => {
   }
 
   return (
-    <Layout>
+    <Layout footer={true}>
       <Box my={8}>
         <Container maxWidth="xl">
           <Grid container spacing={2}>

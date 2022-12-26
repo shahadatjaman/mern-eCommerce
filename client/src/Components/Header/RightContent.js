@@ -17,13 +17,13 @@ import { useState } from "react";
 import AccountMenu from "./AccountMenu";
 import { NavLink, useNavigate } from "react-router-dom";
 
-import order, { getOrders } from "../../feature/reducer/order/";
+import { getOrders } from "../../feature/reducer/order/";
 
 const RightContent = () => {
   const [isOpenCart, setIsOpenCart] = useState(false);
   const { carts } = useSelector((state) => state.cart);
 
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.auth);
   const { orders } = useSelector((state) => state.order);
 
   const navigate = useNavigate();
