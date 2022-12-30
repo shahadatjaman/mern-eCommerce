@@ -29,7 +29,14 @@ const Invoice = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getOrder({ order_id }));
+    dispatch(
+      getOrder({
+        pathOne: "v2",
+        pathTwo: "getorder",
+        _id: order_id,
+        method: "get",
+      })
+    );
   }, [dispatch, order_id]);
 
   return (

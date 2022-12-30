@@ -14,7 +14,6 @@ import { useState } from "react";
 
 import CategoryIcon from "@mui/icons-material/Category";
 import { FilterCat, Span } from "./Styles";
-import Categories from "./SideBar/Categories";
 
 const SideBarAndMain = () => {
   const [isOpenNav, setIsOpenNav] = useState(false);
@@ -29,7 +28,7 @@ const SideBarAndMain = () => {
 
   useEffect(() => {
     const params = {
-      pathOne: "vendor",
+      pathOne: "v1",
       pathTwo: "getproducts",
       method: "post",
       from: 0,

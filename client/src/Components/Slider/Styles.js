@@ -37,7 +37,7 @@ export const CategoriesWrapper = styled.div`
   background: #fff;
   /* height: 525px; */
   border-radius: 5px;
-  padding: 2rem 1rem;
+  padding: 1rem;
 `;
 
 export const CartTitel = styled.div`

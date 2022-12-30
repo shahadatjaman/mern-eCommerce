@@ -162,7 +162,7 @@ const loginSlice = createSlice({
           state.errorToLogin = payload.data.message;
         }
 
-        if (payload.navigate && payload.status !== 400) {
+        if (payload.navigate && payload.status === 200) {
           payload.navigate("/");
         }
       })
@@ -192,10 +192,10 @@ const loginSlice = createSlice({
       .addCase(findAccount.fulfilled, (state, { payload }) => {
         state.isLoading = false;
 
-        if (payload?.data?.message) {
-          state.msg = payload.data.message;
+        if (payload.message && payload.status === 400) {
+          state.msg = payload.message;
         }
-        state.msg = null;
+        console.log(payload);
 
         if (payload.status === 200) {
           payload.navigate &&

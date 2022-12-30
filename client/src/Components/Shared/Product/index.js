@@ -60,7 +60,7 @@ const Product = ({ product }) => {
     (async () => {
       const res = await callApi({
         _id: product._id,
-        pathOne: "vendor",
+        pathOne: "v1",
         pathTwo: "getvariation",
         method: "get",
       });

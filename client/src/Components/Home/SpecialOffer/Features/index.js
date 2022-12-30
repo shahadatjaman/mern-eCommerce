@@ -16,7 +16,7 @@ const FeatureProdcut = ({ value }) => {
     (async () => {
       const res = await callApi({
         _id: value._id,
-        pathOne: "vendor",
+        pathOne: "v1",
         pathTwo: "getvariation",
         method: "get",
       });

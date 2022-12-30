@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   background: #fff;
   border-radius: 5px;
   padding: 13px 0;
-  margin-top: 18px;
+  margin-top: 8px;
 `;
 
 export const Items = styled.div``;

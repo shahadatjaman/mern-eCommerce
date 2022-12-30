@@ -101,10 +101,11 @@ export const jwtDecoder = (token) => {
 };
 
 export const makeUserObj = ({ displayName, email, photoURL }) => {
-  let val = Math.floor(1000 + Math.random() * 9000);
+  let val = displayName.split(" ");
 
   return {
-    username: displayName.toLowerCase().split(" ").join("") + "" + val,
+    firstName: val[0],
+    lastName: val[1],
     email: email,
     avatar: photoURL,
   };
@@ -237,7 +238,7 @@ export const requestToServerWithPost = ({ url }) => {
 
 export const requestTServer = async ({ product_id }) => {
   let response = await axios.get(
-    `http://localhost:5000/vendor/getvariations/${product_id}`,
+    `http://localhost:8000/v1/getvariations/${product_id}`,
 
     {
       method: "GET",

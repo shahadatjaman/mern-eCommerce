@@ -23,7 +23,7 @@ const Sorting = () => {
   const handleChange = (e) => {
     dispatch(addRecentSortedId(e.target.value));
     const queryValues = options.filter((val) => val.id === e.target.value);
-
+    console.log(queryValues);
     dispatch(addRecentSortedQuery(...queryValues));
   };
 
@@ -34,7 +34,7 @@ const Sorting = () => {
   useEffect(() => {
     (async () => {
       const res = await callApi({
-        pathOne: "vendor",
+        pathOne: "v1",
         pathTwo: "getsortedproducts",
         paramOne: recentSortedQuery ? recentSortedQuery.sortBy : "name",
         paramWTwo: recentSortedQuery ? recentSortedQuery.value : "1",

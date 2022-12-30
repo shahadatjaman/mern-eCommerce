@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Input from "../../Components/Shared/Form/Input";
-import { Checkmark, Error, FormWrape, Label, ShowPassword } from "./Styles";
+import { Error, FormWrape, ShowPassword } from "./Styles";
 
 import Form from "../../Components/Shared/Form/Form";
 import Or from "./Or";
@@ -15,22 +15,24 @@ import { Button, Checkbox, FormControlLabel } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const initial = {
-  username: "",
+  firstName: "",
+  lastName: "",
   email: "",
   password: "",
 };
 
 const Register = () => {
   const { errors } = useSelector((state) => state.auth);
-  const [checkValid, setCheckValid] = useState(false);
+
   const [type, setType] = useState("password");
 
   const navigate = useNavigate();
 
-  const { formState, handleChange, handleFocus, handleBlur } = useForm({
-    init: initial,
-    validate: useValidator,
-  });
+  const { formState, handleChange, handleFocus, handleBlur, isValidForm } =
+    useForm({
+      init: initial,
+      validate: useValidator,
+    });
 
   const dispatch = useDispatch();
   // const cb = ({ values, hasError }) => {
@@ -48,22 +50,7 @@ const Register = () => {
     }
   };
 
-  const { username, email, password } = formState;
-
-  useEffect(() => {
-    if (
-      password.value &&
-      username.value &&
-      email.value &&
-      !password.error &&
-      !email.error &&
-      !username.error
-    ) {
-      setCheckValid(true);
-    } else {
-      setCheckValid(false);
-    }
-  }, [username, email, password]);
+  const { firstName, lastName, email, password } = formState;
 
   const submitForm = (e) => {
     e.preventDefault();
@@ -73,7 +60,8 @@ const Register = () => {
         pathTwo: "register",
         method: "post",
         values: {
-          username: username.value,
+          firstName: firstName.value,
+          lastName: lastName.value,
           email: email.value,
           password: password.value,
         },
@@ -91,23 +79,26 @@ const Register = () => {
               <BiX /> {`${errors.email.msg}`}
             </Error>
           )}
-
-          {errors.username && (
-            <Error>
-              <BiX />
-              {` ${errors.username.msg}`}
-            </Error>
-          )}
         </resourcesError>
       )}
 
       <Form onSubmit={submitForm}>
         <Input
-          name="username"
-          type="username"
-          placeHolder="Username"
-          value={username.value}
-          error={username.error}
+          name="firstName"
+          type="text"
+          placeHolder="First Name"
+          value={firstName.value}
+          error={firstName.error}
+          handleChange={handleChange}
+          handleFocus={handleFocus}
+          handleBlur={handleBlur}
+        />
+        <Input
+          name="lastName"
+          type="text"
+          placeHolder="Last Name"
+          value={lastName.value}
+          error={lastName.error}
           handleChange={handleChange}
           handleFocus={handleFocus}
           handleBlur={handleBlur}
@@ -142,7 +133,13 @@ const Register = () => {
           />
         </ShowPassword>
 
-        <Button type="submit" variant="contained" disabled={!checkValid}>
+        <Button
+          type="submit"
+          variant="contained"
+          disabled={
+            !isValidForm || !password.value || !email.value || !lastName.value
+          }
+        >
           Register
         </Button>
       </Form>

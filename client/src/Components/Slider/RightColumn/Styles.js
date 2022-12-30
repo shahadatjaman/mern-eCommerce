@@ -20,7 +20,7 @@ export const ImgWrapper = styled.div`
 `;
 
 export const Img = styled.img`
-  width: 90px;
+  width: 100%;
 `;
 
 export const Caption = styled.div``;

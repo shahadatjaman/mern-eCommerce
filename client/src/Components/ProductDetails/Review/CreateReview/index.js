@@ -30,9 +30,14 @@ const CreateReview = () => {
 
     dispatch(
       createRating({
-        product_id: id,
-        rating: rating.toString(),
-        text,
+        pathOne: "v1",
+        pathTwo: "createrating",
+        values: {
+          product_id: id,
+          rating: rating.toString(),
+          text,
+        },
+        method: "post",
       })
     );
   };

@@ -18,7 +18,14 @@ const Update = ({ product_id, isOpenUpdate, setIsOpenUpdte }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getRating({ product_id }));
+    dispatch(
+      getRating({
+        pathOne: "v1",
+        pathTwo: "getrating",
+        _id: product_id,
+        method: "get",
+      })
+    );
   }, [dispatch, product_id]);
 
   useEffect(() => {

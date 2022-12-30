@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { callApi } from "../../../API";
 
 const initialState = {
+  user: null,
   errors: null,
   msg: null,
   isLoading: false,
@@ -35,6 +36,16 @@ export const getUserAddress = createAsyncThunk(
     return await callApi(props);
   }
 );
+
+// get user by user id
+export const getUser = createAsyncThunk("getuser", async (props) => {
+  return await callApi(props);
+});
+
+// Upload user image
+export const uploadAvatar = createAsyncThunk("uploadavatar", async (props) => {
+  return await callApi(props);
+});
 
 const userSlice = createSlice({
   name: "user",
@@ -76,6 +87,31 @@ const userSlice = createSlice({
         }
       })
       .addCase(getUserAddress.rejected, (state) => {
+        state.isLoading = false;
+      })
+      // Get user
+      .addCase(getUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getUser.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+
+        if (payload.user) {
+          const { firstName, lastName, email, avatar } = payload.user;
+          state.user = { firstName, lastName, email, avatar };
+        }
+      })
+      .addCase(getUser.rejected, (state) => {
+        state.isLoading = false;
+      })
+      // Upload avatar
+      .addCase(uploadAvatar.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(uploadAvatar.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+      })
+      .addCase(uploadAvatar.rejected, (state) => {
         state.isLoading = false;
       });
   },

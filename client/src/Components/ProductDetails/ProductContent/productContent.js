@@ -20,7 +20,7 @@ import {
   Ul,
 } from "./Styles";
 import { useEffect, useState } from "react";
-import { getSalePrice } from "../../../utils";
+import { getSalePrice, shortText } from "../../../utils";
 import Quantityy from "../Quantity";
 
 import ProducrVariation from "../ColorVariation";
@@ -69,7 +69,7 @@ const ProductContent = () => {
       <ProductRatting />
 
       {/* Product Short Description */}
-      <Text>{product.short_desc}</Text>
+      <Text>{shortText(product.short_desc, 200, 0, 200)}</Text>
 
       <ProducrVariation />
 

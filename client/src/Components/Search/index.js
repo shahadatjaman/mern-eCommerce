@@ -50,7 +50,7 @@ const SearchForm = () => {
     navigate(`/query?queryText=${values.queryText}`);
 
     const params = {
-      pathOne: "vendor",
+      pathOne: "v1",
       pathTwo: "getproducts",
       method: "post",
       from: 0,

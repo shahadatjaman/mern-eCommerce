@@ -1,21 +1,12 @@
 import React from "react";
-import {
-  CartTitel,
-  CategoriesWrapper,
-  H5,
-  Img,
-  ImgWrapper,
-  Li,
-  Menubar,
-  Name,
-  Ul,
-} from "./Styles";
+import { CartTitel, CategoriesWrapper, H5, Menubar, Ul } from "./Styles";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 import { useSelector } from "react-redux";
 
 import Category from "./category";
 import CategoryLoading from "../Shared/Skeleton/Category";
+import { Box, Typography } from "@mui/material";
 
 const Categories = () => {
   const { categories, loading } = useSelector((state) => state.categories);
@@ -32,10 +23,23 @@ const Categories = () => {
       <Menubar>
         <Ul>
           {loading && <CategoryLoading />}
-          {categories?.map((cate, index) => (
+          {categories?.slice(0, 8).map((cate, index) => (
             <Category cate={cate} key={index} />
           ))}
         </Ul>
+        {categories?.length === 0 && (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100%",
+            }}
+            mt={4}
+          >
+            <Typography>Categories not created yet!</Typography>
+          </Box>
+        )}
       </Menubar>
     </CategoriesWrapper>
   );

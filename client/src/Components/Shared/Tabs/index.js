@@ -9,8 +9,9 @@ import Post from "../../ProductDetails/Review/Post";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import { checkRating } from "../../../utils";
+import { callApi, checkRating } from "../../../utils";
 import { useSort } from "../../../hooks/useSort";
+import { useParams } from "react-router-dom";
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -40,19 +41,37 @@ const a11yProps = (index) => {
 };
 
 export const BasicTabs = () => {
+  const [product, setProduct] = useState(null);
   const [value, setValue] = useState(0);
   const [isCreated, setCreated] = useState(false);
 
   const { ratings } = useSelector((state) => state.rating);
 
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.auth);
 
   const sorted = useSort(ratings);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const { id } = useParams();
 
+  useEffect(() => {
+    (async () => {
+      const res = await callApi({
+        pathOne: "v1",
+        pathTwo: "getproduct",
+        method: "get",
+        _id: id,
+      });
+
+      if (res.product) {
+        setProduct(res.product);
+      }
+    })();
+  }, [id]);
+
+  // CHECK REVIE EXIST OR NOT
   useEffect(() => {
     if (user) {
       const isReviewed = checkRating(ratings, user._id);
@@ -69,7 +88,7 @@ export const BasicTabs = () => {
           aria-label="basic tabs example"
           id="tab"
         >
-          <TabBar label="Additional Information" {...a11yProps(0)} />
+          <TabBar disabled label="Additional Information" {...a11yProps(0)} />
           <TabBar label="Description" {...a11yProps(1)} />
           <TabBar label={`Reviews(${ratings.length})`} {...a11yProps(2)} />
         </Tabs>
@@ -78,8 +97,7 @@ export const BasicTabs = () => {
         Additional Information
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-        accusantium dolo
+        {product && product.short_desc}
       </TabPanel>
       <TabPanel value={value} index={2}>
         {!isCreated && user && <CreateReview />}

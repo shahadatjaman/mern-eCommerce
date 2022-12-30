@@ -64,7 +64,7 @@ const Input = () => {
   useEffect(() => {
     (async () => {
       const res = await callApi({
-        pathOne: "vendor",
+        pathOne: "v1",
         pathTwo: "getproducts",
         method: "get",
         _id: queryValue,

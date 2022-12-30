@@ -8,7 +8,7 @@ import { CarouselWrapper, SliderWrapper, CarouselCaption } from "./Styles";
 
 import { useWindowWidth } from "../../hooks/userWindowWidth";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getCategories } from "../../feature/reducer/categories";
 
 const Slider = () => {
@@ -49,7 +49,7 @@ const Slider = () => {
             </CarouselWrapper>
             <SliderDemo />
           </Col>
-          <Col className="col-xl-3 col-md-12 display-flex justify-between m-top-4">
+          <Col className="col-xl-3 col-md-6 display-flex justify-between mt-3">
             <RigthColumn />
           </Col>
         </Row>

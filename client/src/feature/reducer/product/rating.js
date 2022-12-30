@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { getLocalstorage } from "../../../utils";
+import { callApi, getLocalstorage } from "../../../utils";
 
 const initialState = {
   loading: false,
@@ -11,93 +11,31 @@ const initialState = {
 // Create rating
 export const createRating = createAsyncThunk(
   "vendor/createrating",
-  async (values) => {
-    try {
-      let response = await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/vendor/createrating`,
-
-        values,
-        {
-          method: "POST",
-          headers: {
-            Authorization: "Bearer " + getLocalstorage("user_info"),
-          },
-        }
-      );
-
-      return await response.data;
-    } catch (error) {
-      return await error.response.data.errors;
-    }
-  }
+  async (values) => await callApi(values)
 );
 
 // Remove rating
 export const removeRating = createAsyncThunk(
   "vendor/removerating",
-  async ({ product_id, closeModal }) => {
-    try {
-      let response = await axios.delete(
-        `${process.env.REACT_APP_SERVER_URL}/vendor/removerating/${product_id}`,
-
-        {
-          method: "delete",
-          headers: {
-            Authorization: "Bearer " + getLocalstorage("user_info"),
-          },
-        }
-      );
-
-      response.closeModal = closeModal;
-
-      return response;
-    } catch (error) {
-      return await error.response.data.errors;
+  async (values) => {
+    const res = await callApi(values);
+    if (values.closeModal) {
+      res.closeModal = values.closeModal;
     }
+    return res;
   }
 );
 
 // Create ratings
-export const getRatings = createAsyncThunk("vendor/getratings", async (id) => {
-  try {
-    let response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/vendor/getratings/${id}`,
-
-      {
-        method: "GET",
-        headers: {
-          Authorization: "Bearer " + getLocalstorage("user_info"),
-        },
-      }
-    );
-
-    return await response.data;
-  } catch (error) {
-    return await error.response.data.errors;
-  }
-});
+export const getRatings = createAsyncThunk(
+  "v1/getratings",
+  async (values) => await callApi(values)
+);
 
 // Create ratings
 export const getRating = createAsyncThunk(
-  "vendor/getrating",
-  async ({ product_id }) => {
-    try {
-      let response = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/vendor/getrating/${product_id}`,
-
-        {
-          method: "GET",
-          headers: {
-            Authorization: "Bearer " + getLocalstorage("user_info"),
-          },
-        }
-      );
-
-      return await response.data;
-    } catch (error) {
-      return await error.response.data.errors;
-    }
-  }
+  "v1/getrating",
+  async (values) => await callApi(values)
 );
 
 const ratingSlice = createSlice({
@@ -158,12 +96,13 @@ const ratingSlice = createSlice({
     },
     [removeRating.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      payload.closeModal();
-      const { ratings } = payload.data;
+
+      const { ratings } = payload;
 
       if (ratings) {
         state.ratings = ratings;
       }
+      payload.closeModal();
     },
     [removeRating.rejected]: (state) => {
       state.loading = false;

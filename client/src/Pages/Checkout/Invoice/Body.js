@@ -6,7 +6,7 @@ import { useTimeFormat } from "../../../hooks/useTimeFormate";
 import { useSelector } from "react-redux";
 
 const Body = ({ address, order }) => {
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.auth);
 
   const date = useTimeFormat(order.createdAt);
 
@@ -20,7 +20,7 @@ const Body = ({ address, order }) => {
               Bill to :
             </Text>
             <Text mt={0.5} color="#000" font={16}>
-              Customer name : {user?.username}
+              Customer name : {user?.firstName}
             </Text>
             <Text mt={0.5} color="#000" font={16}>
               {address.company_name}

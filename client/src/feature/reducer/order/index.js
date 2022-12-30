@@ -15,7 +15,7 @@ export const createOrder = createAsyncThunk(
   async ({ values, navigate }) => {
     try {
       let response = await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/V2/createorder`,
+        `${process.env.REACT_APP_SERVER_URL}/v2/createorder`,
         values,
         {
           headers: {
@@ -35,23 +35,7 @@ export const createOrder = createAsyncThunk(
 
 export const getOrder = createAsyncThunk(
   "v2/getorder",
-  async ({ order_id }) => {
-    try {
-      let response = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/V2/getorder/${order_id}`,
-
-        {
-          headers: {
-            Authorization: "Bearer " + getLocalstorage("accessToken"),
-          },
-        }
-      );
-
-      return response.data;
-    } catch (error) {
-      return await error.response.data.errors;
-    }
-  }
+  async (values) => await callApi(values)
 );
 export const getOrders = createAsyncThunk("v2/getorders", async () => {
   return await callApi({
