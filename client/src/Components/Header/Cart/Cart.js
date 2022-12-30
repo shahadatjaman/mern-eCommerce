@@ -1,10 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addCartItems } from "../../../feature/reducer/addToCart";
 import { useAddToCart } from "../../../hooks/useAddToCart";
-import { requestTServer } from "../../../utils";
+import { callApi, shortText } from "../../../utils";
 import Quantity from "../../Shared/Quantity";
 
 import {
@@ -20,7 +20,10 @@ import {
 } from "./Styles";
 
 const Cart = ({ cart }) => {
+  const [product, setProduct] = useState(null);
   const [variation, setVariation] = useState(null);
+
+  const { defaultImg } = useSelector((state) => state.cart);
 
   const { removeCart } = useAddToCart();
 
@@ -33,14 +36,34 @@ const Cart = ({ cart }) => {
     }
   };
 
+  // Get product variation
   useEffect(() => {
     (async () => {
-      const { data } = await requestTServer({
-        product_id: cart.product_id,
+      const res = await callApi({
+        pathOne: "v1",
+        pathTwo: "getvariations",
+        _id: cart.product_id,
+        method: "get",
       });
 
-      if (data.variants) {
-        setVariation(data.variants);
+      if (res.variants) {
+        setVariation(res.variants);
+      }
+    })();
+  }, [cart]);
+
+  // get product by id
+  useEffect(() => {
+    (async () => {
+      const res = await callApi({
+        pathOne: "v1",
+        pathTwo: "getproduct",
+        _id: cart.product_id,
+        method: "get",
+      });
+
+      if (res.product) {
+        setProduct(res.product);
       }
     })();
   }, [cart]);
@@ -52,15 +75,13 @@ const Cart = ({ cart }) => {
           {variation ? (
             <Img src={variation.variation_img} alt="img" />
           ) : (
-            <Img
-              src="https://res.cloudinary.com/dza2t1htw/image/upload/v1669222568/no-image_je9opq.jpg"
-              alt="image"
-            />
+            <Img src={defaultImg} alt="image" />
           )}
         </ImgWrapper>
       </Left>
       <Middle>
-        <Name>Purple NX Mini F1 aparat </Name>
+        {product && <Name>{shortText(product.name, 40, 0, 40)} </Name>}
+
         <Quantity cart={cart} />
         <Price>
           ${parseFloat(cart.price).toFixed(2)} X {cart.qty}

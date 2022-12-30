@@ -28,7 +28,7 @@ const Post = ({ val }) => {
 
   const [currentUser, setCurrentUser] = useState(null);
 
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.auth);
 
   const date = useTimeFormat(val.createdAt);
 
@@ -53,14 +53,18 @@ const Post = ({ val }) => {
         <Stack direction="row" spacing={2}>
           {currentUser && (
             <Avatar
-              alt={currentUser?.username}
+              alt={currentUser?.fistName}
               src={currentUser?.avatar}
               sx={{ width: 30, height: 30 }}
             />
           )}
         </Stack>
 
-        <Name>{currentUser && <H5>{currentUser.username}</H5>}</Name>
+        <Name>
+          {currentUser && (
+            <H5>{currentUser.firstName + " " + currentUser.lastName}</H5>
+          )}
+        </Name>
       </Header>
       <DateWrapper>
         <Date>{date}</Date>

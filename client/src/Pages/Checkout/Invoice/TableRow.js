@@ -10,7 +10,7 @@ const TRow = ({ product }) => {
   useEffect(() => {
     (async () => {
       const res = await callApi({
-        pathOne: "vendor",
+        pathOne: "v1",
         pathTwo: "getproduct",
         method: "get",
         _id: product.product_id,

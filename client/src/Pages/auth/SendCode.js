@@ -113,7 +113,9 @@ const SendCode = () => {
                 }}
               >
                 <Box>
-                  <Button onClick={resendCode}>Resend code</Button>
+                  <Button onClick={resendCode} disabled={isValidCode}>
+                    Resend code
+                  </Button>
                 </Box>
                 <Box>
                   <Button

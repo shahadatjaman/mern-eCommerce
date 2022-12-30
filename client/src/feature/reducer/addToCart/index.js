@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  defaultImg:
+    "https://res.cloudinary.com/dza2t1htw/image/upload/v1669222568/no-image_je9opq.jpg0",
   lists: {
     name: "cartList",
     head: ["image", "product name", "unit price", "qty", "subtotal", "action"],

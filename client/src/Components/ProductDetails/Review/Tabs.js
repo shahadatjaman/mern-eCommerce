@@ -12,7 +12,16 @@ const Tabs = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getRatings(id));
+    if (id) {
+      dispatch(
+        getRatings({
+          pathOne: "v1",
+          pathTwo: "getratings",
+          _id: id,
+          method: "get",
+        })
+      );
+    }
   }, [dispatch, id]);
 
   return (

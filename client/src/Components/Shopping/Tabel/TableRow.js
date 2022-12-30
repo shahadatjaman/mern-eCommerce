@@ -1,4 +1,4 @@
-import { Grid, TableCell, TableRow } from "@mui/material";
+import { Grid, TableCell, TableRow, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { Img, imgStyle, nameStyle } from "./Styles";
@@ -7,7 +7,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useAddToCart } from "../../../hooks/useAddToCart";
 import { useDispatch } from "react-redux";
 import { addCartItems } from "../../../feature/reducer/addToCart";
-import { requestToServerWithGet } from "../../../utils";
+import { callApi, shortText } from "../../../utils";
 
 const RowTable = ({ cart }) => {
   const [currentProduct, setCurrrentProduct] = useState(null);
@@ -21,15 +21,26 @@ const RowTable = ({ cart }) => {
 
   useEffect(() => {
     (async () => {
-      const response = requestToServerWithGet({
-        url: `http://localhost:5000/vendor/getproduct/${cart.product_id}`,
+      const res = await callApi({
+        pathOne: "v1",
+        pathTwo: "getproduct",
+        method: "get",
+        _id: cart.product_id,
       });
-      const product = await response();
-      setCurrrentProduct(product);
+
+      if (res.variations) {
+        setCurrrentProduct((prev) => {
+          return { ...prev, variation: res.variations[0] };
+        });
+      }
+
+      if (res.product) {
+        setCurrrentProduct((prev) => {
+          return { ...prev, product: res.product };
+        });
+      }
     })();
   }, [cart]);
-
-  // TODO: Tabel I have to dynamic!
 
   return (
     <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
@@ -50,15 +61,21 @@ const RowTable = ({ cart }) => {
                 sx={{ cursor: "pointer" }}
               />
 
-              <Img
-                src="https://electro.madrasthemes.com/wp-content/uploads/2016/03/apptablet.png"
-                alt="product"
-              />
+              {currentProduct && currentProduct.variation?.variation_img && (
+                <Img
+                  src={currentProduct.variation.variation_img}
+                  alt="product"
+                />
+              )}
             </Box>
           </Grid>
           <Grid item xs={6}>
             <Box sx={{ ...imgStyle, display: "flex", ...nameStyle }}>
-              Tablet Red EliteBook Revolve 810 G2
+              {currentProduct && currentProduct.product && (
+                <Typography>
+                  {shortText(currentProduct.product.name, 50, 0, 40)}
+                </Typography>
+              )}
             </Box>
           </Grid>
         </Grid>

@@ -4,7 +4,7 @@ import FormControl from "@mui/material/FormControl";
 import React from "react";
 import { H5 } from "../Styles";
 import { Wrapper } from "./Styles";
-import { MenuItem, Select } from "@mui/material";
+import { MenuItem, Select, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { callApi } from "../../../../utils";
@@ -29,7 +29,7 @@ const Categories = () => {
   useEffect(() => {
     (async () => {
       const res = await callApi({
-        pathOne: "vendor",
+        pathOne: "v1",
         pathTwo: "getcategories",
         method: "get",
       });
@@ -61,6 +61,8 @@ const Categories = () => {
               )
             );
           })}
+
+          {!categories && <Typography>Categories not created yet!</Typography>}
         </Select>
       </FormControl>
     </Wrapper>

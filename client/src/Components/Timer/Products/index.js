@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
@@ -15,7 +16,7 @@ const Products = ({ id, title }) => {
     (async () => {
       const res = await callApi({
         values: { category_id: id },
-        pathOne: "vendor",
+        pathOne: "v1",
         pathTwo: "getproducts",
         method: "post",
         from: 0,
@@ -43,6 +44,11 @@ const Products = ({ id, title }) => {
                   {products?.map((item, index) => (
                     <Product product={item} key={index} />
                   ))}
+                  {products && products.length === 0 && (
+                    <Typography textAlign={"center"} py={5}>
+                      No more product!
+                    </Typography>
+                  )}
                 </Row>
               </Body>
             </Item>

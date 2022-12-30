@@ -18,7 +18,7 @@ const Search = () => {
     dispatch(
       getQueryProducts({
         values: { queryText: code },
-        pathOne: "vendor",
+        pathOne: "v1",
         pathTwo: "getproducts",
         method: "post",
         from: 0,

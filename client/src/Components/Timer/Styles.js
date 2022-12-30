@@ -33,7 +33,6 @@ export const Body = styled.div`
 `;
 
 export const ImgWrapper = styled.div`
-  width: 126px;
   height: 89px;
   background: #edf2fd;
   display: flex;

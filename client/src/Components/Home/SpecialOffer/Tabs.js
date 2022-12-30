@@ -18,7 +18,7 @@ const LabTabs = ({ children }) => {
     if (newValue.toString() === "1") {
       dispatch(
         fetchProducts({
-          pathOne: "vendor",
+          pathOne: "v1",
           pathTwo: "getproducts",
           method: "post",
           from: 0,
@@ -28,7 +28,7 @@ const LabTabs = ({ children }) => {
     } else {
       const res = await callApi({
         values: { category_id: newValue },
-        pathOne: "vendor",
+        pathOne: "v1",
         pathTwo: "getproducts",
         method: "post",
         from: 0,
@@ -52,9 +52,9 @@ const LabTabs = ({ children }) => {
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <TabList onChange={handleChange} aria-label="lab API tabs example">
             <Tab label="Recent Products" value="1" />
-            <Tab label="Furniture" value="638d70f0c57c08cdc0b59c88" />
-            <Tab label="Electronics" value="638d7127c57c08cdc0b59c90" />
-            <Tab label="Fashion" value="638d7154c57c08cdc0b59c98" />
+            <Tab label="Juwelry" value="63ab3e66ba6e5a0fde1ec5fb" />
+            <Tab label="Electronics" value="63ab3d9bba6e5a0fde1ec5ef" />
+            <Tab label="Apparel" value="63ab3d7fba6e5a0fde1ec5eb" />
           </TabList>
         </Box>
       </TabContext>

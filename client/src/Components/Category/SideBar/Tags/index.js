@@ -19,7 +19,7 @@ const Tags = () => {
   useEffect(() => {
     (async () => {
       const res = await callApi({
-        pathOne: "vendor",
+        pathOne: "v1",
         pathTwo: "gettags",
         method: "get",
         from: 0,

@@ -3,9 +3,6 @@ import { demoData } from "../data";
 
 import { DemoImg, H5, Img, Items, Title, Wrapper } from "./Styles";
 
-const img =
-  "https://res.cloudinary.com/dza2t1htw/image/upload/v1668869556/mobile.0e49e1af01b1799820f2_rmqp9q.png";
-
 const SliderDemo = () => {
   return (
     <Wrapper>

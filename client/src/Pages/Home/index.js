@@ -9,6 +9,7 @@ import SpeOffer from "../../Components/Home/SpecialOffer";
 
 import VerifiedCompany from "../../Components/Home/Verified";
 import { useEffect } from "react";
+import TopBrand from "../../Components/Home/Top_Brand";
 const Home = () => {
   useEffect(() => {
     let body = document.getElementsByTagName("body")[0];
@@ -21,6 +22,7 @@ const Home = () => {
       <TimerPart />
       <Banner />
       <SpeOffer />
+      <TopBrand />
       {/* <Categories /> */}
       <VerifiedCompany />
       {/* <Support />*/}

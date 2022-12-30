@@ -13,7 +13,7 @@ const Product = ({ product }) => {
 
   const getProdcut = async () => {
     const result = requestToServerWithGet({
-      url: `${process.env.REACT_APP_SERVER_URL}/vendor/getproduct/${product.product_id}`,
+      url: `${process.env.REACT_APP_SERVER_URL}/v1/getproduct/${product.product_id}`,
     });
 
     const { product: values, variations } = await result();

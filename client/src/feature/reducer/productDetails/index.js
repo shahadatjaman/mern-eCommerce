@@ -21,7 +21,7 @@ export const fetchProduct = createAsyncThunk(
     try {
       //Your Axios code part.
       const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/vendor/getproduct/${product_id}`
+        `${process.env.REACT_APP_SERVER_URL}/v1/getproduct/${product_id}`
       ); //where you want to fetch data
 
       return await response.data;

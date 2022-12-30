@@ -5,8 +5,8 @@ import { useState } from "react";
 import { Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { callApi, shortText } from "../../../utils";
-import Prices from "../../Shared/Product/Price";
-import { Caption, H5, Img, ImgWrapper, P } from "../Styles";
+
+import { Img, ImgWrapper } from "../Styles";
 
 const Product = ({ product }) => {
   const [variation, setVariation] = useState(null);
@@ -16,7 +16,7 @@ const Product = ({ product }) => {
     (async () => {
       const res = await callApi({
         _id: product._id,
-        pathOne: "vendor",
+        pathOne: "v1",
         pathTwo: "getvariation",
         method: "get",
       });
@@ -39,7 +39,7 @@ const Product = ({ product }) => {
         )}
       </ImgWrapper>
 
-      <Caption>
+      <Box my={2}>
         <Typography variant="body2" fontWeight={600}>
           <Link to={`/product/${product._id}`}>
             {shortText(product.name, 15, 0, 10)}
@@ -63,13 +63,17 @@ const Product = ({ product }) => {
             <Typography fontWeight={600}>({totalRating})</Typography>
           </Box>
         ) : (
-          <>
+          <Box mt={1}>
             <Rating size="small" name="disabled" value={totalRating} disabled />
             ( 0)
-          </>
+          </Box>
         )}
-        <Box>{/* <Prices pric={product.price} /> */}</Box>
-      </Caption>
+        <Box>
+          {product && product.price && (
+            <Typography>$ {product.price.$numberDecimal}</Typography>
+          )}
+        </Box>
+      </Box>
     </Col>
   );
 };

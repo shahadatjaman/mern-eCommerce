@@ -20,8 +20,7 @@ const initialState = {
 
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
-  async ({ pathOne, pathTwo, from, to, method }) =>
-    await callApi({ pathOne, pathTwo, from, to, method })
+  async (values) => await callApi(values)
 );
 
 /**

@@ -17,13 +17,13 @@ const TimerPart = () => {
           </Col>
           <Col className="col-xxl-4 col-md-6 col-sm-12 col-12">
             <Products
-              id="638d7154c57c08cdc0b59c98"
+              id="63ab3df4ba6e5a0fde1ec5f7"
               title={"Personal Protective Equipment"}
             />
           </Col>
           <Col className="col-xxl-4 col-md-12 col-sm-12  col-12">
             {/* <Products id="638d718dc57c08cdc0b59ca0" title={"Top Ranking"} /> */}
-            <Products id="638d7127c57c08cdc0b59c90" title={"New arrivals"} />
+            <Products id="63ab3d7fba6e5a0fde1ec5eb" title={"New arrivals"} />
           </Col>
         </Row>
       </Container>

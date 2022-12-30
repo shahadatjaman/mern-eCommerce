@@ -25,6 +25,7 @@ function App() {
     const token = getLocalstorage("accessToken");
     if (token.length !== 0) {
       const user = jwt(token);
+
       dispatch(addUser(user));
     }
   });

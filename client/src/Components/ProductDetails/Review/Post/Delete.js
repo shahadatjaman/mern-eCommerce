@@ -13,7 +13,15 @@ const Delete = ({ product_id, setIsOpen, isOpen }) => {
   };
 
   const removeHandler = () => {
-    dispatch(removeRating({ product_id, closeModal }));
+    dispatch(
+      removeRating({
+        pathOne: "v1",
+        pathTwo: "removerating",
+        _id: product_id,
+        method: "delete",
+        closeModal,
+      })
+    );
   };
 
   return (

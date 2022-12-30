@@ -24,6 +24,7 @@ const Google = () => {
       .then((result) => {
         const userInfo = result.user;
 
+        console.log(userInfo);
         let { displayName, email, photoURL } = userInfo;
         let user = makeUserObj({ displayName, email, photoURL });
 

@@ -13,7 +13,7 @@ export const getCategories = createAsyncThunk(
   async () => {
     try {
       let response = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/vendor/getcategories`,
+        `${process.env.REACT_APP_SERVER_URL}/v1/getcategories`,
         {
           headers: {
             Authorization: "Bearer " + getLocalstorage("user_info"),

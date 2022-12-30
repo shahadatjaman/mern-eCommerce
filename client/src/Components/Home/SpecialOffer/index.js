@@ -38,7 +38,7 @@ const SpeOffer = () => {
   useEffect(() => {
     dispatch(
       fetchProducts({
-        pathOne: "vendor",
+        pathOne: "v1",
         pathTwo: "getproducts",
         from: 0,
         to: 15,
@@ -51,7 +51,7 @@ const SpeOffer = () => {
     dispatch(
       getProductByCategory({
         category_id: "638d7127c57c08cdc0b59c90",
-        pathOne: "vendor",
+        pathOne: "v1",
         pathTwo: "getproducts",
         method: "post",
         from: 0,
@@ -90,6 +90,12 @@ const SpeOffer = () => {
               {featureProduct?.map((item, index) => (
                 <FeatureProdcut value={item} key={index} />
               ))}
+
+              {featureProduct && featureProduct.length === 0 && (
+                <Typography textAlign={"center"} py={5} display={"block"}>
+                  No more product!
+                </Typography>
+              )}
             </Box>
           </Grid>
           <Grid item xl={9} xs={12} md={9}>
