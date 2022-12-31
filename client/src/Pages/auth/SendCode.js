@@ -87,7 +87,9 @@ const SendCode = () => {
           <Typography display={"block"}>
             We sent your code to: <Span>{email}</Span>
           </Typography>
-          {isValidCode && <Counter validTime={validTime} />}
+          {isValidCode && (
+            <Counter validTime={validTime} isValidCode={isValidCode} />
+          )}
 
           <Box sx={{ marginTop: 2 }}>
             <Form onSubmit={submitHandler}>

@@ -1,5 +1,4 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 
 import {
   ImgWrapper,
@@ -14,18 +13,15 @@ import {
   Discount,
 } from "./Styles";
 
-import { AiOutlineHeart, AiOutlineShoppingCart } from "react-icons/ai";
-
-import { addCartItems } from "../../../feature/reducer/addToCart";
-
-import { useAddToCart } from "../../../hooks/useAddToCart";
 import { useEffect, useState } from "react";
 
-import { callApi, getLocalstorage, shortText } from "../../../utils";
+import { callApi, shortText } from "../../../utils";
 import { NavLink } from "react-router-dom";
 
 import Prices from "./Price";
 import Rating from "./Rating";
+import Wish from "./Wish";
+import AddCart from "./addToCart";
 
 const Product = ({ product }) => {
   const [discount, setDiscount] = useState(null);
@@ -33,28 +29,7 @@ const Product = ({ product }) => {
   const [variation, setVariation] = useState(null);
   const [totalRating, setTotalRating] = useState(null);
 
-  const { addToCart, checkCartIsAddedIn } = useAddToCart();
-
   // const { rating } = useTotalRating(ratings);
-
-  const dispatch = useDispatch();
-
-  const addToCartHandler = (_id) => {
-    checkCartIsAddedIn({ _id: _id });
-
-    addToCart({
-      _id: product._id,
-      price: product.price.$numberDecimal,
-    });
-
-    const carts = getLocalstorage("carts");
-
-    dispatch(addCartItems(carts));
-  };
-
-  useEffect(() => {
-    checkCartIsAddedIn({ _id: product._id });
-  }, [checkCartIsAddedIn, product]);
 
   useEffect(() => {
     (async () => {
@@ -87,12 +62,11 @@ const Product = ({ product }) => {
 
       {/* Actions */}
       <ProductAction className="action">
-        <Action onClick={() => addToCartHandler(product._id)}>
+        {/* <Action onClick={() => addToCartHandler(product._id)}>
           <AiOutlineShoppingCart />
-        </Action>
-        <Action>
-          <AiOutlineHeart />
-        </Action>
+        </Action> */}
+        <AddCart product={product} />
+        <Wish product={product} />
 
         <Action>
           <Icon className="fa-regular fa-eye"></Icon>

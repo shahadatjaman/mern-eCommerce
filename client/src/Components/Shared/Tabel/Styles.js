@@ -76,7 +76,11 @@ export const TableContent = styled.div`
   background: #fff; */
 `;
 
-export const Table = styled.table``;
+export const Table = styled.table`
+  margin: 0 auto;
+  padding: 1rem;
+  background: #fff;
+`;
 
 export const Thead = styled.thead``;
 

@@ -2,6 +2,9 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import wishListReducer from "./reducer/wishList/";
 
+// New wish implement
+import wishReducer from "./reducer/addWish/index";
+
 import productReducer from "./reducer/product";
 
 import productDetailsReducer from "./reducer/productDetails";
@@ -47,6 +50,7 @@ export const store = configureStore({
     rating: ratingReducer,
     categories: cateReducer,
     query: queryReducer,
+    wish: wishReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

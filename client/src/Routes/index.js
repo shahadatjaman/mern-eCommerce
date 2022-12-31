@@ -67,7 +67,11 @@ export const routes = [
   },
   {
     path: "wishlist",
-    element: <Wishlist />,
+    element: (
+      <Private>
+        <Wishlist />
+      </Private>
+    ),
   },
   {
     path: "product/:id",

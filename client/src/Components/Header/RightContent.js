@@ -6,6 +6,7 @@ import {
   FaShoppingCart,
   FaUserAlt,
 } from "react-icons/fa";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useDispatch, useSelector } from "react-redux";
 
 import { addCartItems } from "../../feature/reducer/addToCart";
@@ -22,6 +23,7 @@ import { getOrders } from "../../feature/reducer/order/";
 const RightContent = () => {
   const [isOpenCart, setIsOpenCart] = useState(false);
   const { carts } = useSelector((state) => state.cart);
+  const { wishes } = useSelector((state) => state.wish);
 
   const { user } = useSelector((state) => state.auth);
   const { orders } = useSelector((state) => state.order);
@@ -66,10 +68,13 @@ const RightContent = () => {
       </Item>
 
       <Item>
-        <Action>
-          <FaRegCommentAlt />
-          <span>Message</span>
-        </Action>
+        <NavLink to={"/wishlist"}>
+          <Action>
+            <FavoriteIcon fontSize="large" />
+            <span>Wish</span>
+          </Action>
+          {wishes && <Count>{wishes.length}</Count>}
+        </NavLink>
       </Item>
       <Item>
         <NavLink to={"/profile/username/myorders"}>
