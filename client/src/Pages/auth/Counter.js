@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import { checkVeriCodeIsValid } from "../../feature/reducer/user/auth";
 import { Span } from "./Styles";
 
-const Counter = ({ validTime }) => {
+const Counter = ({ validTime, isValidCode }) => {
   const [counter, setCounter] = useState(validTime);
 
   const dispatch = useDispatch();
@@ -31,6 +31,13 @@ const Counter = ({ validTime }) => {
       );
     }
   }, [counter, validTime, dispatch, email]);
+
+  useEffect(() => {
+    if (!isValidCode) {
+      setCounter(1);
+    }
+  }, [isValidCode]);
+  console.log(isValidCode);
 
   return counter < 60 ? (
     <Typography display={"block"}>

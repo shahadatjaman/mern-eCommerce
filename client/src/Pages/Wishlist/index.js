@@ -12,63 +12,70 @@ import Tabel from "../../Components/Shared/Tabel/Table";
 // Styled Components
 import {
   AddItem,
-  Button,
   CartMain,
   Img,
   ImgWrapper,
   ItemEmpty,
-  ItemEmptyIcon,
   ItemEmptyText,
   ShoppingUpdate,
   Wrapper,
 } from "./Styles";
 import { Col, Container, Row } from "react-bootstrap";
-
-// React Icons
-import { AiOutlineHeart } from "react-icons/ai";
-
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+// Mui Icons
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import HomeIcon from "@mui/icons-material/Home";
+import { Box, Button } from "@mui/material";
+import { NavLink } from "react-router-dom";
+import { useWish } from "../../hooks/useWish";
+import { useEffect } from "react";
+import { addNewWish } from "../../feature/reducer/addWish";
 const Wishlist = () => {
-  const { lists } = useSelector((state) => state.wishList);
-
+  const { state } = useWish();
+  const { wishes } = useSelector((state) => state.wish);
   const dispatch = useDispatch();
 
-  const cleareCartItems = () => {
-    dispatch(clearCart());
-  };
+  useEffect(() => {
+    if (state) {
+      dispatch(addNewWish({ wish: state }));
+    }
+  }, [state, dispatch]);
 
   return (
     <Layout footer={true}>
       <Wrapper>
-        <BreadCrumb pathName="wishlist" />
+        <BreadCrumb
+          pathOne={"Home"}
+          pathTwo={"wishlist"}
+          IconOne={HomeIcon}
+          IconTwo={FavoriteIcon}
+        />
         <CartMain>
           {/* If Wishlist is empty! */}
-          {lists.items.length === 0 && (
+          {!wishes && (
             <ItemEmpty>
-              <ImgWrapper>
+              {/* <ImgWrapper>
                 <Img
                   src="https://res.cloudinary.com/dza2t1htw/image/upload/v1669295344/shopping-cart_f2vetc.png"
                   alt="img"
                 />
-              </ImgWrapper>
-              <ItemEmptyText>No items found in wishlist</ItemEmptyText>
-              <AddItem to={"/"}>Add Items</AddItem>
+              </ImgWrapper> */}
+
+              <Box>
+                <FavoriteBorderIcon />
+              </Box>
+              <ItemEmptyText>No more prodcut in wishlist</ItemEmptyText>
+              <Box mt={4}>
+                <Button variant="outlined">
+                  <NavLink to={"/"}>Add Items</NavLink>
+                </Button>
+              </Box>
             </ItemEmpty>
           )}
 
           <Container>
             {/* if wishList is not empty */}
-            {lists.items.length !== 0 && <Tabel data={lists} />}
-
-            {lists.items.length !== 0 && (
-              <Row>
-                <Col>
-                  <ShoppingUpdate>
-                    <Button>CONTINUE SHOPPING</Button>
-                    <Button onClick={cleareCartItems}>CLEAR WISHLIST</Button>
-                  </ShoppingUpdate>
-                </Col>
-              </Row>
-            )}
+            {wishes && wishes?.length !== 0 && <Tabel items={wishes} />}
           </Container>
         </CartMain>
       </Wrapper>

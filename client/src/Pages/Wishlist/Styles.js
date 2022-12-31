@@ -135,7 +135,7 @@ export const Close = styled.button`
 `;
 
 export const ShoppingUpdate = styled.div`
-  padding: 30px 0 55px;
+  // padding: 30px 0 55px;
   display: flex;
   justify-content: space-between;
   align-items: center;

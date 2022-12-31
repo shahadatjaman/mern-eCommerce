@@ -240,6 +240,7 @@ const loginSlice = createSlice({
           state.validTime = payload.validTime;
         } else {
           state.isValidCode = false;
+          state.validTime = 1;
         }
       })
       .addCase(checkVeriCodeIsValid.rejected, (state) => {
