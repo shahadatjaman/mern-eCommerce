@@ -1,12 +1,16 @@
+import { LoadingButton } from "@mui/lab";
 import { Box, Button, FormControl, TextField, Typography } from "@mui/material";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUser } from "../../../../../feature/reducer/user";
 import { useForm } from "../../../../../hooks/useForm";
 import { useWindowWidth } from "../../../../../hooks/userWindowWidth";
 import { validation } from "./userValidation";
-
+import SendIcon from "@mui/icons-material/Send";
 const Form = () => {
-  const { user } = useSelector((state) => state.user);
+  const { user, loadingUpdatedUser } = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
 
   const windowWidth = useWindowWidth({ width: 500 });
 
@@ -18,8 +22,25 @@ const Form = () => {
 
   const { firstName, lastName, email } = formState;
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    dispatch(
+      updateUser({
+        pathOne: "auth",
+        pathTwo: "update_user",
+        values: {
+          firstName: firstName.value,
+          lastName: lastName.value,
+          email: email.value,
+        },
+        method: "post",
+      })
+    );
+  };
+
   return (
-    <Box component={"form"}>
+    <Box onSubmit={submitHandler} component={"form"}>
       <FormControl
         sx={{ width: windowWidth ? "100%" : "50%", mb: windowWidth ? 2 : 0 }}
       >
@@ -90,9 +111,20 @@ const Form = () => {
         </FormControl>
       </Box>
       <Box>
-        <Button variant="contained" disabled={!isValidForm}>
-          Save Changes
-        </Button>
+        {loadingUpdatedUser ? (
+          <LoadingButton
+            endIcon={<SendIcon />}
+            loading={true}
+            loadingPosition="end"
+            variant="contained"
+          >
+            Send
+          </LoadingButton>
+        ) : (
+          <Button variant="contained" disabled={!isValidForm} type={"submit"}>
+            Save Changes
+          </Button>
+        )}
       </Box>
     </Box>
   );

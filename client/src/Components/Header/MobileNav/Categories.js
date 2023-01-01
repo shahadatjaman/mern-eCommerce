@@ -1,47 +1,41 @@
 import React from "react";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import CategoryIcon from "@mui/icons-material/Category";
-import { IconImg, Img, MentItems, MenuItem } from "../../Shared/Drawer/Styles";
-import { NavLink } from "react-router-dom";
+
+import { Box, List, ListItem, Typography } from "@mui/material";
+import { Image } from "./Styles";
+import { useNavigate } from "react-router-dom";
 
 const Categories = ({ categories }) => {
+  const navigate = useNavigate();
+  const navigateHandler = () => {
+    navigate("/categories");
+  };
   return (
-    <Accordion>
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1a-content"
-        id="panel1a-header"
+    <Box>
+      <List
+        sx={{
+          width: "100%",
+          bgcolor: "background.paper",
+        }}
       >
-        <Typography>
-          <CategoryIcon color="red" sx={{ marginRight: 1 }} /> All Categories
-        </Typography>
-      </AccordionSummary>
-      <AccordionDetails>
-        <Typography>
-          <MentItems>
-            {categories &&
-              categories.map((item, index) => (
-                <>
-                  {item.category_name !== "All categories" && (
-                    <MenuItem key={index}>
-                      <NavLink to={"/categories"}>
-                        <IconImg>
-                          <Img src={item.icon_name} alt={item.category_name} />
-                        </IconImg>{" "}
-                        {item.category_name}
-                      </NavLink>
-                    </MenuItem>
-                  )}
-                </>
-              ))}
-          </MentItems>
-        </Typography>
-      </AccordionDetails>
-    </Accordion>
+        <Typography>All categories</Typography>
+        {categories &&
+          categories.map((cat, index) => {
+            return (
+              <>
+                {cat.category_name !== "All categories" && (
+                  <ListItem key={index} my={2} onClick={navigateHandler}>
+                    <Box sx={{ width: "20px", marginRight: 1 }}>
+                      <Image src={cat.icon_name} />
+                    </Box>
+
+                    {cat.category_name}
+                  </ListItem>
+                )}
+              </>
+            );
+          })}
+      </List>
+    </Box>
   );
 };
 

@@ -1,4 +1,5 @@
 import { lazy } from "react";
+import CreateNewPassword from "../Pages/auth/NewPassword/index.js";
 import ForgetPassword from "../Pages/auth/ForgetPassword";
 import SendCode from "../Pages/auth/SendCode";
 import Categories from "../Pages/Category";
@@ -78,7 +79,7 @@ export const routes = [
     element: <Details />,
   },
   {
-    path: "categories",
+    path: "categories/:category_id",
     element: <Categories />,
   },
   {
@@ -92,6 +93,10 @@ export const routes = [
   {
     path: "indentify/recovery_account/:email",
     element: <SendCode />,
+  },
+  {
+    path: "create_new_password",
+    element: <CreateNewPassword />,
   },
   {
     path: "",

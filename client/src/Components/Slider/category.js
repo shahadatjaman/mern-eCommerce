@@ -5,7 +5,7 @@ import { Img, ImgWrapper, Li, Name } from "./Styles";
 const Category = ({ cate }) => {
   return (
     <Li>
-      <NavLink to="categories">
+      <NavLink to={`/categories/${cate._id}`}>
         <Name>
           <ImgWrapper>
             <Img src={cate.icon_name} alt="icon" />

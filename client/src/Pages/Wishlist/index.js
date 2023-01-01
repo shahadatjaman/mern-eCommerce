@@ -1,26 +1,14 @@
 // Hooks
 import { useSelector, useDispatch } from "react-redux";
 
-// Reducer functions
-import { clearCart } from "../../feature/reducer/wishList";
-
 // Components
 import Layout from "../Layout";
 import BreadCrumb from "../../Components/Shared/BreadCrumb";
 import Tabel from "../../Components/Shared/Tabel/Table";
 
 // Styled Components
-import {
-  AddItem,
-  CartMain,
-  Img,
-  ImgWrapper,
-  ItemEmpty,
-  ItemEmptyText,
-  ShoppingUpdate,
-  Wrapper,
-} from "./Styles";
-import { Col, Container, Row } from "react-bootstrap";
+import { CartMain, ItemEmpty, ItemEmptyText, Wrapper } from "./Styles";
+import { Container } from "react-bootstrap";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 // Mui Icons
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -54,13 +42,6 @@ const Wishlist = () => {
           {/* If Wishlist is empty! */}
           {!wishes && (
             <ItemEmpty>
-              {/* <ImgWrapper>
-                <Img
-                  src="https://res.cloudinary.com/dza2t1htw/image/upload/v1669295344/shopping-cart_f2vetc.png"
-                  alt="img"
-                />
-              </ImgWrapper> */}
-
               <Box>
                 <FavoriteBorderIcon />
               </Box>

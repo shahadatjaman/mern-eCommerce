@@ -219,13 +219,13 @@ const PrimarySearchAppBar = () => {
       {renderMobileMenu}
       {renderMenu}
 
-      {/* <Drawer
+      <Drawer
         isOpenNav={isOpenNav}
         closeHandler={closeHandler}
         categories={categories}
       >
         <Categories categories={categories} />
-      </Drawer> */}
+      </Drawer>
     </Box>
   );
 };

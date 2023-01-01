@@ -4,7 +4,9 @@ export const Wrapper = styled.div`
   margin: 2rem 0;
 `;
 
-export const Verified = styled.div``;
+export const Verified = styled.div`
+  background: #fff;
+`;
 
 export const Title = styled.div`
   background: #f9f9f9;
@@ -39,7 +41,7 @@ export const ImgWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 147px;
+  width: 147px;
 `;
 
 export const Img = styled.img`
