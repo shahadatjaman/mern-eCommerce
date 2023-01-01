@@ -12,7 +12,7 @@ const Shopping = () => {
   const { carts } = useSelector((state) => state.cart);
 
   return (
-    <Layout>
+    <Layout footer={true}>
       <Box my={8}>
         <Container maxWidth="xl">
           {carts.length === 0 ? (

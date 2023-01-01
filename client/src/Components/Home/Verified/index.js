@@ -16,9 +16,17 @@ import Slider from "react-slick";
 import { useWindowWidth } from "../../../hooks/userWindowWidth";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { mostViewed } from "../../../feature/reducer/product";
+import Product from "./product";
 
 const VerifiedCompany = () => {
   const [show, setShow] = useState(3);
+
+  const dispatch = useDispatch();
+
+  const { mostViewed: products } = useSelector((state) => state.product);
+
   const isValid = useWindowWidth({ width: 990 });
   useEffect(() => {
     if (isValid) {
@@ -36,6 +44,16 @@ const VerifiedCompany = () => {
     slidesToScroll: 1,
   };
 
+  useEffect(() => {
+    dispatch(
+      mostViewed({
+        pathOne: "v1",
+        pathTwo: "most_viewed_products",
+        method: "get",
+      })
+    );
+  }, [dispatch]);
+
   return (
     <Wrapper>
       <Container>
@@ -50,28 +68,8 @@ const VerifiedCompany = () => {
           <Col>
             <Verified>
               <Slider {...settings}>
-                {[1, 2, 3].map((item, index) => (
-                  <div key={index}>
-                    <Items>
-                      <Item>
-                        <ImgWrapper>
-                          <Img
-                            src={
-                              "https://res.cloudinary.com/dza2t1htw/image/upload/v1669021400/car.ca772f8bc1dee1f11691_qhyhmb.png"
-                            }
-                            alt="car"
-                          />
-                        </ImgWrapper>
-                        <Caption>
-                          <h5>Vetements Bien Finis Avec Des Design À La</h5>
-                          <p>
-                            High Quality A AMI LEVEL 3 blue green Disposable
-                            sterile 60 gms
-                          </p>
-                        </Caption>
-                      </Item>
-                    </Items>
-                  </div>
+                {products?.map((item, index) => (
+                  <Product product={item} key={index} />
                 ))}
               </Slider>
             </Verified>

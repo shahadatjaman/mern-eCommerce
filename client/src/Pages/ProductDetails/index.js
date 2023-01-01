@@ -26,7 +26,9 @@ import Grid from "@mui/material/Grid";
 import Tabs from "../../Components/ProductDetails/Review/Tabs";
 import Gallery from "../../Components/ProductDetails/Gallery";
 import { getRecentVariation } from "../../utils";
-
+import BreadCrumb from "../../Components/Shared/BreadCrumb";
+import HomeIcon from "@mui/icons-material/Home";
+import DetailsIcon from "@mui/icons-material/Details";
 const Details = () => {
   const { variations, product, isLoading, recentVariation, recentColor } =
     useSelector((state) => state.productDetails);
@@ -54,6 +56,7 @@ const Details = () => {
 
   return (
     <Layout footer={true}>
+      <BreadCrumb pathTwo={"Product"} IconTwo={DetailsIcon} />
       <Box my={8}>
         <Container maxWidth="xl">
           <Grid container spacing={2}>

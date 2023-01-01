@@ -6,6 +6,7 @@ const initialState = {
   isError: false,
   products: null,
   product: null,
+  mostViewed: null,
   featureProduct: null,
   filteredProducts: null,
   grid: 4,
@@ -20,6 +21,12 @@ const initialState = {
 
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
+  async (values) => await callApi(values)
+);
+
+// Get most viewed products
+export const mostViewed = createAsyncThunk(
+  "v1/most_viewed",
   async (values) => await callApi(values)
 );
 
@@ -113,6 +120,21 @@ const productSlice = createSlice({
       }
     },
     [getProductByCategory.rejected]: (state) => {
+      state.isLoading = false;
+    },
+
+    // Most viewed
+    [mostViewed.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [mostViewed.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+
+      if (payload.products) {
+        state.mostViewed = payload.products;
+      }
+    },
+    [mostViewed.rejected]: (state) => {
       state.isLoading = false;
     },
   },

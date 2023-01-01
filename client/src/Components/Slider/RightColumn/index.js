@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 import { FaAngleRight } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 import { callApi, shortText } from "../../../utils";
 import Image from "./Image";
 
@@ -50,7 +51,8 @@ const RigthColumn = () => {
                 </Title>
                 <Box>
                   <Button>
-                    <span>Shop Now</span>
+                    <NavLink to={`/product/${product._id}`}>Shop Now</NavLink>
+
                     <FaAngleRight />
                   </Button>
                 </Box>

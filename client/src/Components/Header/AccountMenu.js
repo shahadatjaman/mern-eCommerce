@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
@@ -9,10 +9,10 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import PersonAdd from "@mui/icons-material/PersonAdd";
+import GradingIcon from "@mui/icons-material/Grading";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import LoginIcon from "@mui/icons-material/Login";
-import Settings from "@mui/icons-material/Settings";
+
 import Logout from "@mui/icons-material/Logout";
 import BadgeAvatar from "../Shared/Avatar";
 
@@ -110,23 +110,20 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
           <div>
             <MenuItem>
               <Avatar src={user?.avatar} />{" "}
-              <NavLink to={"/profile/username/manageaccount"}>
+              <NavLink to={`/profile/${user?.firstName}/manageaccount`}>
                 My account
               </NavLink>
             </MenuItem>
             <Divider />
             <MenuItem>
               <ListItemIcon>
-                <PersonAdd fontSize="small" />
+                <GradingIcon fontSize="small" />
               </ListItemIcon>
-              Add another account
+              <NavLink to={`/profile/${user.firstName}/myorders`}>
+                My orders
+              </NavLink>
             </MenuItem>
-            <MenuItem>
-              <ListItemIcon>
-                <Settings fontSize="small" />
-              </ListItemIcon>
-              Settings
-            </MenuItem>
+
             <MenuItem onClick={logoutHandler}>
               <ListItemIcon>
                 <Logout fontSize="small" />

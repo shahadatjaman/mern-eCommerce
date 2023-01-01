@@ -50,3 +50,7 @@ export const Close = styled.div`
   font-weight: 600;
   font-size: 24px;
 `;
+
+export const Image = styled.img`
+  width: 100%;
+`;

@@ -17,12 +17,15 @@ import Box from "@mui/material/Box";
 import { QtyWrapper } from "./Styles";
 import Quantity from "./IncrementDecrement";
 import { getLocalstorage } from "../../../utils";
+import { useNavigate } from "react-router-dom";
 
 const Quantityy = () => {
   const [isAddToCart, setAddToCart] = useState(false);
   const [qtyValue, setQtyValue] = useState(1);
 
   const { product } = useSelector((state) => state.productDetails);
+
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -37,7 +40,12 @@ const Quantityy = () => {
   }, [checkCartIsAddedIn, product]);
 
   // Save cart to local storage
-  const addTocartHandler = () => {
+  const addTocartHandler = (type) => {
+    console.log(type);
+    if (type === "buy") {
+      navigate("/billing");
+    }
+
     const cart = addQuantity({
       _id: product._id,
       qty: qtyValue,
@@ -60,12 +68,12 @@ const Quantityy = () => {
     <QtyWrapper>
       <Quantity cb={cb} />
       <Box mx={2}>
-        <Button variant="contained" onClick={addTocartHandler}>
+        <Button variant="contained" onClick={() => addTocartHandler("add")}>
           Add To Cart
         </Button>
       </Box>
       <Box>
-        <Button variant="contained" onClick={addTocartHandler}>
+        <Button variant="contained" onClick={() => addTocartHandler("buy")}>
           Buy now
         </Button>
       </Box>

@@ -1,4 +1,5 @@
-import { Button, Col, Container, FormControl, Row } from "react-bootstrap";
+import { Typography } from "@mui/material";
+import { Col, Container, Row } from "react-bootstrap";
 import {
   FaFacebookSquare,
   FaInstagram,
@@ -9,7 +10,6 @@ import {
   menuFive,
   menuFour,
   menuOne,
-  MenuOne,
   menuSaven,
   menuSix,
   menuThree,
@@ -40,7 +40,7 @@ import {
   Wrapper,
 } from "./styles";
 
-import Input from "../Shared/Form/Input";
+import Subscrib from "./Subscrib";
 
 const Footer = () => {
   return (
@@ -51,19 +51,20 @@ const Footer = () => {
             <Col>
               <SearchBar>
                 <Form>
-                  <Input
+                  {/* <Input
                     searchWidth="10"
                     radius="50"
                     width="100"
                     search={true}
                     placeHolder="Your Email Address"
                     bg="#1f2c3aba"
-                  />
+                  /> */}
+                  <Subscrib />
                 </Form>
-                <p>
+                <Typography mt={4} color="white">
                   Trade Alert: Delivering the latest product trends and industry
                   straight to your inbox
-                </p>
+                </Typography>
               </SearchBar>
             </Col>
           </Row>

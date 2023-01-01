@@ -7,7 +7,7 @@ import Invoice from "../../Pages/Checkout/Invoice";
 
 const OrderSummary = () => {
   const { newOrder } = useSelector((state) => state.order);
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.auth);
 
   const printInvoice = () => {
     window.print();
@@ -23,7 +23,7 @@ const OrderSummary = () => {
           <Grid item xs={7} sx={{ ...summaryStyles }}>
             <Values>
               <Property>Customer name :</Property>
-              {user && <Value>{user.username}</Value>}
+              {user && <Value>{user?.firstName + " " + user?.lastName}</Value>}
             </Values>
             <Values>
               <Property>Currency :</Property>

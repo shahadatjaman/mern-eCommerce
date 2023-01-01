@@ -6,7 +6,8 @@ import order, { getOrder } from "../../feature/reducer/order";
 import Layout from "../Layout";
 import { Box } from "@mui/material";
 import Invoice from "../Checkout/Invoice";
-
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import BreadCrumb from "../../Components/Shared/BreadCrumb";
 const OrderSuccess = () => {
   const { order_id } = useParams();
 
@@ -17,7 +18,8 @@ const OrderSuccess = () => {
   }, [dispatch, order_id]);
 
   return (
-    <Layout footer={true}>
+    <Layout footer={false}>
+      <BreadCrumb IconTwo={ListAltIcon} />
       <OrderContent />
       <Box>
         <Invoice />

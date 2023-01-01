@@ -1,4 +1,4 @@
-import { Button, Carousel, Col, Container, Row } from "react-bootstrap";
+import { Carousel, Col, Container, Row } from "react-bootstrap";
 
 import Categories from "./Categories";
 import SliderDemo from "./Demo";
@@ -10,6 +10,7 @@ import { useWindowWidth } from "../../hooks/userWindowWidth";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getCategories } from "../../feature/reducer/categories";
+import { Button } from "@mui/material";
 
 const Slider = () => {
   const isFluid = useWindowWidth({ width: 1400 });
@@ -27,7 +28,7 @@ const Slider = () => {
           <Col className="col-xl-3 dispaly-none">
             <Categories />
           </Col>
-          <Col className="col-xl-6 col-md-12 col-12">
+          <Col className="col-xl-6 col-md-8 col-sm-12 col-12">
             <CarouselWrapper>
               {[
                 {
@@ -42,14 +43,14 @@ const Slider = () => {
                     alt="First slide"
                   />
                   <CarouselCaption>
-                    <Button>View more</Button>
+                    <Button variant="contained">View more</Button>
                   </CarouselCaption>
                 </Carousel.Item>
               ))}
             </CarouselWrapper>
             <SliderDemo />
           </Col>
-          <Col className="col-xl-3 col-md-6 display-flex justify-between mt-3">
+          <Col className="col-xl-3 col-md-4 col-sm-12 display-flex justify-between mt-3">
             <RigthColumn />
           </Col>
         </Row>

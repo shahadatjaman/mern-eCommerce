@@ -7,6 +7,7 @@ const initialState = {
   errors: null,
   msg: null,
   isLoading: false,
+  loadingUpdatedUser: false,
   userAddress: {
     company_name: "",
     street_address: "",
@@ -46,6 +47,12 @@ export const getUser = createAsyncThunk("getuser", async (props) => {
 export const uploadAvatar = createAsyncThunk("uploadavatar", async (props) => {
   return await callApi(props);
 });
+
+// Update user
+export const updateUser = createAsyncThunk(
+  "auth/update_user",
+  async (values) => await callApi(values)
+);
 
 const userSlice = createSlice({
   name: "user",
@@ -113,6 +120,17 @@ const userSlice = createSlice({
       })
       .addCase(uploadAvatar.rejected, (state) => {
         state.isLoading = false;
+      })
+
+      // Update user
+      .addCase(updateUser.pending, (state) => {
+        state.loadingUpdatedUser = true;
+      })
+      .addCase(updateUser.fulfilled, (state, { payload }) => {
+        state.loadingUpdatedUser = false;
+      })
+      .addCase(updateUser.rejected, (state) => {
+        state.loadingUpdatedUser = false;
       });
   },
 });
