@@ -96,7 +96,11 @@ export const routes = [
   },
   {
     path: "create_new_password",
-    element: <CreateNewPassword />,
+    element: (
+      <Private>
+        <CreateNewPassword />
+      </Private>
+    ),
   },
   {
     path: "",

@@ -7,6 +7,7 @@ import { FaAngleRight } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { callApi, shortText } from "../../../utils";
 import Image from "./Image";
+import SkeletonLoad from "./Skeleton";
 
 import { Caption, Title } from "./Styles";
 
@@ -32,6 +33,7 @@ const RigthColumn = () => {
 
   return (
     <Box sx={{ flexGrow: 1, background: "#fff" }}>
+      {!products && <SkeletonLoad />}
       {products?.map((product, index) => {
         return (
           <Grid container spacing={2}>
@@ -64,30 +66,5 @@ const RigthColumn = () => {
     </Box>
   );
 };
-// {
-//    {products?.map((product, index) => (
-//         <FeaturesItems key={index}>
-//           <Container fluid className="p-0">
-//             <Row>
-//               <Col className="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12"></Col>
-//               <Col className="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12">
-//                 <Caption>
-//                   <Title>
-//                     <Typography>
-//                       {shortText(product.name, 20, 0, 40)}
-//                     </Typography>
-//                   </Title>
-//                   <Box>
-//                     <Button>
-//                       <span>Shop Now</span>
-//                       <FaAngleRight />
-//                     </Button>
-//                   </Box>
-//                 </Caption>
-//               </Col>
-//             </Row>
-//           </Container>
-//         </FeaturesItems>
-//       ))}
-// }
+
 export default RigthColumn;

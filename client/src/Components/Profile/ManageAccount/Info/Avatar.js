@@ -64,7 +64,7 @@ const Avatar = () => {
           startIcon={<SendIcon />}
           variant="outlined"
         >
-          Uploading File
+          Uploading...
         </LoadingButton>
       ) : (
         <Button component="label" sx={{ marginTop: "1rem" }} variant="outlined">
