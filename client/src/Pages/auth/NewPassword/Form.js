@@ -1,10 +1,13 @@
-import { Password } from "@mui/icons-material";
+import { LoadingButton } from "@mui/lab";
 import { Box, Button } from "@mui/material";
 import React from "react";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { createNewPassword } from "../../../feature/reducer/user/auth";
 import { useForm } from "../../../hooks/useForm";
 import { newPassValid } from "../../../utils/validation/new_pass_validation";
 import Input from "./Input";
+import SaveIcon from "@mui/icons-material/Save";
 
 const init = {
   new_pass: "",
@@ -12,14 +15,39 @@ const init = {
 };
 
 const Form = () => {
+  const { loading } = useSelector((state) => state.auth);
+
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
   const { formState, handleBlur, handleChange, handleFocus, isValidForm } =
     useForm({ init, validate: newPassValid });
 
   const { new_pass, confirm_pass } = formState;
 
-  console.log(formState);
+  const skipHandler = () => {
+    navigate("/");
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    dispatch(
+      createNewPassword({
+        pathOne: "auth",
+        pathTwo: "new_password",
+        values: {
+          new_password: new_pass.value,
+        },
+        method: "post",
+        navigate,
+      })
+    );
+  };
+
   return (
-    <Box>
+    <Box component={"form"} onSubmit={submitHandler}>
       <Input
         name={"new_pass"}
         handleChange={handleChange}
@@ -39,9 +67,32 @@ const Form = () => {
         palceHolder={"Confirm Password"}
       />
 
-      <Box mt={2}>
-        <Button disabled={!isValidForm} variant="contained">
-          Save
+      <Box
+        mt={2}
+        sx={{ display: "flex", justifyContent: "end", alignItems: "center" }}
+      >
+        {loading ? (
+          <LoadingButton
+            loading
+            loadingPosition="start"
+            startIcon={<SaveIcon />}
+            variant="contained"
+          >
+            Saving
+          </LoadingButton>
+        ) : (
+          <Button
+            disabled={!isValidForm && !loading}
+            variant="contained"
+            sx={{ marginRight: 1 }}
+            type={"submit"}
+          >
+            Save
+          </Button>
+        )}
+
+        <Button onClick={skipHandler} variant="outlined">
+          Skip
         </Button>
       </Box>
     </Box>

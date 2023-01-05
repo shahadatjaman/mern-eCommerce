@@ -1,3 +1,4 @@
+import { LoadingButton } from "@mui/lab";
 import { Box, Button, FormControl, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useEffect } from "react";
@@ -12,12 +13,13 @@ import {
 import Layout from "../Layout";
 import Counter from "./Counter";
 import { Error, ForgetPasswordWrapper, Form, Span } from "./Styles";
-
+import SaveIcon from "@mui/icons-material/Save";
 const SendCode = () => {
   const [value, setValue] = useState("");
   const { email } = useParams();
 
-  const { msg, isValidCode, validTime } = useSelector((state) => state.auth);
+  const { msg, isValidCode, validTime, findLoadAccount, loadSendCode } =
+    useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
@@ -28,7 +30,7 @@ const SendCode = () => {
   }, [dispatch]);
 
   const canelHandler = () => {
-    navigate("/login");
+    navigate("/");
   };
 
   // Check if verification code is valid or not
@@ -115,18 +117,44 @@ const SendCode = () => {
                 }}
               >
                 <Box>
-                  <Button onClick={resendCode} disabled={isValidCode}>
-                    Resend code
-                  </Button>
+                  {findLoadAccount ? (
+                    <LoadingButton
+                      loading={true}
+                      loadingPosition="start"
+                      startIcon={<SaveIcon />}
+                      variant="contained"
+                      sx={{ marginRight: 1 }}
+                    >
+                      Resend code
+                    </LoadingButton>
+                  ) : (
+                    <Button onClick={resendCode} disabled={isValidCode}>
+                      Resend code
+                    </Button>
+                  )}
                 </Box>
                 <Box>
-                  <Button
-                    variant="contained"
-                    sx={{ marginRight: 1 }}
-                    type="submit"
-                  >
-                    Cuntinue
-                  </Button>
+                  {loadSendCode ? (
+                    <LoadingButton
+                      loading={true}
+                      loadingPosition="start"
+                      startIcon={<SaveIcon />}
+                      variant="contained"
+                      sx={{ marginRight: 1 }}
+                    >
+                      Sending
+                    </LoadingButton>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      sx={{ marginRight: 1 }}
+                      type="submit"
+                      disabled={!value}
+                    >
+                      Cuntinue
+                    </Button>
+                  )}
+
                   <Button variant="outlined" onClick={canelHandler}>
                     Cancel
                   </Button>

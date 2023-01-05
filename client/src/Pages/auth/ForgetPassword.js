@@ -3,14 +3,19 @@ import React, { useEffect } from "react";
 import { Error, ForgetPasswordWrapper, Form } from "./Styles";
 import Layout from "../Layout";
 import { useDispatch, useSelector } from "react-redux";
+
+import SaveIcon from "@mui/icons-material/Save";
 import { clearMsg, findAccount } from "../../feature/reducer/user/auth";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { LoadingButton } from "@mui/lab";
 
 const ForgetPassword = () => {
   const [value, setValue] = useState("");
 
-  const { msg } = useSelector((state) => state.auth);
+  const { msg, isLoading, findLoadAccount } = useSelector(
+    (state) => state.auth
+  );
 
   const dispatch = useDispatch();
 
@@ -72,13 +77,27 @@ const ForgetPassword = () => {
                   alignItems: "center",
                 }}
               >
-                <Button
-                  variant="contained"
-                  sx={{ marginRight: 1 }}
-                  type="submit"
-                >
-                  Search
-                </Button>
+                {findLoadAccount ? (
+                  <LoadingButton
+                    loading={true}
+                    loadingPosition="start"
+                    startIcon={<SaveIcon />}
+                    variant="contained"
+                    sx={{ marginRight: 1 }}
+                  >
+                    Search
+                  </LoadingButton>
+                ) : (
+                  <Button
+                    variant="contained"
+                    sx={{ marginRight: 1 }}
+                    type="submit"
+                    disabled={findLoadAccount}
+                  >
+                    Search
+                  </Button>
+                )}
+
                 <Button variant="outlined" onClick={canelHandler}>
                   Cancel
                 </Button>

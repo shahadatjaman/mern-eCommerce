@@ -24,6 +24,8 @@ import { getSalePrice, shortText } from "../../../utils";
 import Quantityy from "../Quantity";
 
 import ProducrVariation from "../ColorVariation";
+import { Box } from "@mui/material";
+import SkletonLoad from "./SkletonLoad";
 
 const ProductContent = () => {
   const [salePices, setSalePrices] = useState(null);
@@ -44,59 +46,52 @@ const ProductContent = () => {
     }
   }, [product, discount]);
 
-  if (!product) {
-    return <h2>product not found!</h2>;
-  }
   return (
     <ProductContentWrapper>
-      {/* Product Details Ttile */}
-      <H4>{product && product.name}</H4>
+      {!product ? (
+        <SkletonLoad />
+      ) : (
+        <Box>
+          <H4>{product && product.name}</H4>
+          <ProductPrice>
+            {discount ? (
+              <>
+                {salePices && <Span>$ {salePices.toFixed(2)}</Span>}
 
-      {/* Product Prices */}
-      <ProductPrice>
-        {discount ? (
-          <>
-            {salePices && <Span>$ {salePices.toFixed(2)}</Span>}
+                <OldPrice> $ {product.price.$numberDecimal}</OldPrice>
+              </>
+            ) : (
+              <Span>$ {product.price.$numberDecimal}</Span>
+            )}
+          </ProductPrice>
+          {/* Product Ratting */}
+          <ProductRatting />
+          {/* Product Short Description */}
+          <Text>{shortText(product.short_desc, 200, 0, 200)}</Text>
+          <ProducrVariation />
+          {/* Product Quantity */}
+          <Quantityy />
+          {/* Product Categories */}
+          <ProductMeta>
+            <MetaText>Categories :</MetaText>
+            <Ul>
+              <Li>Categories</Li>
+            </Ul>
+          </ProductMeta>
+          {/* Product Tags */}
+          <ProductMeta>
+            {tags?.length !== 0 && <MetaText>Tags :</MetaText>}
 
-            <OldPrice> $ {product.price.$numberDecimal}</OldPrice>
-          </>
-        ) : (
-          <Span>$ {product.price.$numberDecimal}</Span>
-        )}
-      </ProductPrice>
-
-      {/* Product Ratting */}
-      <ProductRatting />
-
-      {/* Product Short Description */}
-      <Text>{shortText(product.short_desc, 200, 0, 200)}</Text>
-
-      <ProducrVariation />
-
-      {/* Product Quantity */}
-      <Quantityy />
-
-      {/* Product Categories */}
-      <ProductMeta>
-        <MetaText>Categories :</MetaText>
-        <Ul>
-          <Li>Categories</Li>
-        </Ul>
-      </ProductMeta>
-
-      {/* Product Tags */}
-      <ProductMeta>
-        {tags?.length !== 0 && <MetaText>Tags :</MetaText>}
-
-        <Ul>
-          {tags?.map((val, index) => (
-            <Li key={index}> {val.tag_name} </Li>
-          ))}
-        </Ul>
-      </ProductMeta>
-
-      {/* Social Media */}
-      {product && <SocialLink links={product} />}
+            <Ul>
+              {tags?.map((val, index) => (
+                <Li key={index}> {val.tag_name} </Li>
+              ))}
+            </Ul>
+          </ProductMeta>
+          {/* Social Media */}
+          {product && <SocialLink links={product} />}
+        </Box>
+      )}
     </ProductContentWrapper>
   );
 };

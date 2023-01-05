@@ -1,3 +1,4 @@
+import { faLessThanEqual } from "@fortawesome/free-solid-svg-icons";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import Cookies from "universal-cookie";
@@ -7,8 +8,11 @@ const initialState = {
   user: null,
   errors: null,
   msg: null,
+  loading: false,
   errorToLogin: null,
-  isLoading: false,
+  findLoadAccount: false,
+  new_pass_url: false,
+  loadSendCode: false,
   isValidCode: false,
   validTime: 1,
   modalIsOpen: false,
@@ -67,7 +71,19 @@ export const checkVeriCodeIsValid = createAsyncThunk(
 export const changePassword = createAsyncThunk(
   "change_password",
   async (values) => {
-    console.log(values);
+    const res = await callApi(values);
+    if (values.navigate) {
+      res.navigate = values.navigate;
+    }
+
+    return res;
+  }
+);
+
+// Create a new password
+export const createNewPassword = createAsyncThunk(
+  "auht/create_new_password",
+  async (values) => {
     const res = await callApi(values);
     if (values.navigate) {
       res.navigate = values.navigate;
@@ -88,6 +104,12 @@ export const deleteAccount = createAsyncThunk(
 
     return res;
   }
+);
+
+// Check create new password url valid or not
+export const checkCreatePassUrl = createAsyncThunk(
+  "auth/checkvalidiy",
+  async (values) => await callApi(values)
 );
 
 const loginSlice = createSlice({
@@ -187,15 +209,14 @@ const loginSlice = createSlice({
 
       // Find account
       .addCase(findAccount.pending, (state) => {
-        state.isLoading = true;
+        state.findLoadAccount = true;
       })
       .addCase(findAccount.fulfilled, (state, { payload }) => {
-        state.isLoading = false;
+        state.findLoadAccount = false;
 
         if (payload.message && payload.status === 400) {
           state.msg = payload.message;
         }
-        console.log(payload);
 
         if (payload.status === 200) {
           payload.navigate &&
@@ -204,20 +225,23 @@ const loginSlice = createSlice({
         }
       })
       .addCase(findAccount.rejected, (state) => {
-        state.isLoading = false;
+        state.findLoadAccount = false;
       })
 
       // Verify Code
       .addCase(verifyCode.pending, (state) => {
-        state.isLoading = true;
+        state.loadSendCode = true;
       })
       .addCase(verifyCode.fulfilled, (state, { payload }) => {
-        state.isLoading = false;
+        state.loadSendCode = false;
         if (payload.status === 200) {
           setLocalstorage("accessToken", payload.accessToken);
           if (payload.navigate) {
-            payload.navigate("/");
+            payload.navigate("/create_new_password");
           }
+        }
+        if (payload.status === 400) {
+          state.msg = payload.message;
         }
 
         if (payload?.data?.error) {
@@ -225,7 +249,7 @@ const loginSlice = createSlice({
         }
       })
       .addCase(verifyCode.rejected, (state) => {
-        state.isLoading = false;
+        state.loadSendCode = false;
       })
 
       //Check verification code is valid or not
@@ -284,6 +308,36 @@ const loginSlice = createSlice({
       })
       .addCase(deleteAccount.rejected, (state) => {
         state.isLoading = false;
+      })
+
+      // Create new password state handle
+      .addCase(createNewPassword.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(createNewPassword.fulfilled, (state, { payload }) => {
+        state.loading = false;
+
+        if (payload.navigate) {
+          payload.navigate("/");
+        }
+      })
+      .addCase(createNewPassword.rejected, (state, { payload }) => {
+        state.loading = false;
+      })
+
+      // Check create new password url valid or not
+      .addCase(checkCreatePassUrl.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(checkCreatePassUrl.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        console.log(payload);
+        if (payload.url_validity) {
+          state.new_pass_url = payload.url_validity;
+        }
+      })
+      .addCase(checkCreatePassUrl.rejected, (state) => {
+        state.loading = false;
       });
   },
 });
