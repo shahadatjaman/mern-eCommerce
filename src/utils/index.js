@@ -316,8 +316,12 @@ export const callApi = async (props) => {
           return props.values;
         } else {
           return {
+            withCredentials: true,
             headers: {
               origin: "*",
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods":
+                "GET,PUT,POST,DELETE,PATCH,OPTIONS",
               Authorization: "Bearer " + token,
             },
           };
