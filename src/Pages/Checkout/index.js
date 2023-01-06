@@ -29,10 +29,6 @@ const Checkout = () => {
     );
   }, [dispatch]);
 
-  if (isLoading) {
-    return "Loading";
-  }
-
   return (
     !isLoading && (
       <Layout footer={false}>
