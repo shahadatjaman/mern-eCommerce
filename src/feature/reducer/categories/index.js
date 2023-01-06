@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { getLocalstorage } from "../../../utils";
+import { callApi, getLocalstorage } from "../../../utils";
 
 const initialState = {
   loading: false,
@@ -10,22 +10,7 @@ const initialState = {
 
 export const getCategories = createAsyncThunk(
   "vendor/getCategories",
-  async () => {
-    try {
-      let response = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/v1/getcategories`,
-        {
-          headers: {
-            Authorization: "Bearer " + getLocalstorage("user_info"),
-          },
-        }
-      );
-
-      return response.data;
-    } catch (error) {
-      return await error.response.data;
-    }
-  }
+  async (vakues) => callApi(vakues)
 );
 
 const categoriesSlice = createSlice({
@@ -43,7 +28,6 @@ const categoriesSlice = createSlice({
     },
     [getCategories.fulfilled]: (state, { payload }) => {
       state.loading = false;
-
       if (payload.category) {
         state.categories = payload.category;
       }
