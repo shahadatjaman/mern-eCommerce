@@ -18,7 +18,9 @@ const Slider = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getCategories());
+    dispatch(
+      getCategories({ pathOne: "v1", pathTwo: "getcategories", method: "get" })
+    );
   }, [dispatch]);
 
   return (
