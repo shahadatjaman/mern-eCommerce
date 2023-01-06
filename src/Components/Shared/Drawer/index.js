@@ -10,6 +10,7 @@ import {
 } from "./Styles";
 import CloseIcon from "@mui/icons-material/Close";
 import { useEffect } from "react";
+import { NavLink } from "react-router-dom";
 
 const Drawer = ({ children, isOpenNav, closeHandler }) => {
   useEffect(() => {
@@ -23,7 +24,9 @@ const Drawer = ({ children, isOpenNav, closeHandler }) => {
     <Wrapper isOpenNav={isOpenNav}>
       <Content isOpenNav={isOpenNav}>
         <Header>
-          <Logo>Xpart</Logo>
+          <Logo>
+            <NavLink to={"/"}>Xpart</NavLink>
+          </Logo>
           <Closer>
             <CloseBtn onClick={() => closeHandler()}>
               <CloseIcon />
