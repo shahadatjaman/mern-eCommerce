@@ -2,7 +2,7 @@ import { faLessThanEqual } from "@fortawesome/free-solid-svg-icons";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import Cookies from "universal-cookie";
-import { callApi } from "../../../API";
+import { callApi } from "../../../utils/index";
 import { removeLocalstorage, setLocalstorage } from "../../../utils/";
 const initialState = {
   user: null,

@@ -19,7 +19,7 @@ export const callApi = async (props) => {
             headers: {
               Authorization: "Bearer " + token,
             },
-            withCredentials: true,
+            withCredentials: false,
           };
         }
       })(),

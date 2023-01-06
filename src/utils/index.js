@@ -316,14 +316,13 @@ export const callApi = async (props) => {
           return props.values;
         } else {
           return {
-            withCredentials: true,
             headers: {
-              origin: "*",
-              "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Methods":
-                "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+              origin: process.env.REACT_APP_SERVER_URL,
               Authorization: "Bearer " + token,
             },
+            withCredentials: props.withCredentials
+              ? props.withCredentials
+              : false,
           };
         }
       })(),
@@ -331,8 +330,12 @@ export const callApi = async (props) => {
         if (props.method === "post") {
           return {
             headers: {
+              origin: process.env.REACT_APP_SERVER_URL,
               Authorization: "Bearer " + token,
             },
+            withCredentials: props.withCredentials
+              ? props.withCredentials
+              : false,
           };
         }
       })()
