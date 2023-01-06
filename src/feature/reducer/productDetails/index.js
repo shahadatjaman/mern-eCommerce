@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import axios from "axios";
+import { callApi } from "../../../utils";
 
 const initialState = {
   product: null,
@@ -17,18 +18,7 @@ const initialState = {
 // Fetch Single products
 export const fetchProduct = createAsyncThunk(
   "product/fetchProduct",
-  async ({ product_id }) => {
-    try {
-      //Your Axios code part.
-      const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/v1/getproduct/${product_id}`
-      ); //where you want to fetch data
-
-      return await response.data;
-    } catch (error) {
-      return console.log(error);
-    }
-  }
+  async (values) => await callApi(values)
 );
 
 const productDetailsSlice = createSlice({

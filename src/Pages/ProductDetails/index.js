@@ -39,7 +39,14 @@ const Details = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchProduct({ product_id: id }));
+    dispatch(
+      fetchProduct({
+        pathOne: "v1",
+        pathTwo: "getproduct",
+        method: "get",
+        _id: id,
+      })
+    );
   }, [dispatch, id]);
 
   useEffect(() => {
