@@ -189,7 +189,7 @@ const PrimarySearchAppBar = () => {
       </MenuItem>
 
       <MenuItem
-        onClick={() => navigateHandler(`/profile/${user.firstName}/myorders`)}
+        onClick={() => navigateHandler(`/profile/${user?.firstName}/myorders`)}
       >
         <IconButton
           size="large"
@@ -249,7 +249,7 @@ const PrimarySearchAppBar = () => {
                 aria-label="show 4 new mails"
                 color="#000"
                 onClick={() =>
-                  navigateHandler(`/profile/${user.firstName}/myorders`)
+                  navigateHandler(`/profile/${user?.firstName}/myorders`)
                 }
               >
                 <Badge badgeContent={orders.length} color="error">

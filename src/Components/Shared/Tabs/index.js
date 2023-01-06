@@ -88,18 +88,18 @@ export const BasicTabs = () => {
           aria-label="basic tabs example"
           id="tab"
         >
-          <TabBar disabled label="Additional Information" {...a11yProps(0)} />
-          <TabBar label="Description" {...a11yProps(1)} />
-          <TabBar label={`Reviews(${ratings.length})`} {...a11yProps(2)} />
+          {/* <TabBar disabled label="Additional Information" {...a11yProps(0)} /> */}
+          <TabBar label="Description" {...a11yProps(0)} />
+          <TabBar label={`Reviews(${ratings.length})`} {...a11yProps(1)} />
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0}>
+      {/* <TabPanel value={value} index={0}>
         Additional Information
-      </TabPanel>
-      <TabPanel value={value} index={1}>
+      </TabPanel> */}
+      <TabPanel value={value} index={0}>
         {product && product.short_desc}
       </TabPanel>
-      <TabPanel value={value} index={2}>
+      <TabPanel value={value} index={1}>
         {!isCreated && user && <CreateReview />}
 
         {ratings.length > 0 &&
