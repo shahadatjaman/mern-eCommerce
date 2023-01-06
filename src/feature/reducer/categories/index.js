@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { callApi, getLocalstorage } from "../../../utils";
+
+import { callApi } from "../../../utils";
 
 const initialState = {
   loading: false,
@@ -10,7 +10,7 @@ const initialState = {
 
 export const getCategories = createAsyncThunk(
   "vendor/getCategories",
-  async (vakues) => callApi(vakues)
+  async (values) => callApi(values)
 );
 
 const categoriesSlice = createSlice({

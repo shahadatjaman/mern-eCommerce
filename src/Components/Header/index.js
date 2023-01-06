@@ -14,6 +14,7 @@ import MobileNav from "./MobileNav";
 import SearchBar from "./SearchBar";
 import { useDispatch } from "react-redux";
 import { getCategories } from "../../feature/reducer/categories";
+import { useEffect } from "react";
 
 const Header = () => {
   const [isOpenNav, setIsOpenNav] = useState(false);
@@ -34,8 +35,10 @@ const Header = () => {
     setIsOpenNav(false);
   };
 
-  React.useEffect(() => {
-    dispatch(getCategories());
+  useEffect(() => {
+    dispatch(
+      getCategories({ pathOne: "v1", pathTwo: "getcategories", method: "get" })
+    );
   }, [dispatch]);
 
   return (

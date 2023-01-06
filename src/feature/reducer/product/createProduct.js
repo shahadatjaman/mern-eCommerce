@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import {
+  callApi,
   requestToServerWithGet,
   requestToServerWithPost,
 } from "../../../utils";
@@ -41,9 +42,7 @@ export const createProduct = createAsyncThunk(
 // get product all categories
 export const fetchAllCategories = createAsyncThunk(
   "vendor/getCategories",
-  requestToServerWithGet({
-    url: `${process.env.REACT_APP_SERVER_URL}/vendor/getcategories`,
-  })
+  async (values) => await callApi(values)
 );
 
 // Create tags
