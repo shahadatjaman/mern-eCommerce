@@ -6,11 +6,10 @@ export const Wrapper = styled.div`
 
 export const Verified = styled.div`
   background: #fff;
+  padding: 2rem;
 `;
 
-export const Title = styled.div`
-  background: #f9f9f9;
-`;
+export const Title = styled.div``;
 
 export const H5 = styled.h5`
   font-weight: 700;
@@ -37,11 +36,13 @@ export const Item = styled.div`
 export const ImgWrapper = styled.div`
   background: #fff;
   border-radius: 5px;
-  margin-right: 1rem;
+
   display: flex;
   justify-content: center;
   align-items: center;
   width: 147px;
+  height: 100px;
+  margin: 0 auto;
 `;
 
 export const Img = styled.img`

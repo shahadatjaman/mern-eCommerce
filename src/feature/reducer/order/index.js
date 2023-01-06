@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { callApi, getLocalstorage, removeLocalstorage } from "../../../utils";
+
+import { callApi, removeLocalstorage } from "../../../utils";
 
 const initialState = {
   isLoading: false,
@@ -12,24 +12,12 @@ const initialState = {
 
 export const createOrder = createAsyncThunk(
   "v2/createneworder",
-  async ({ values, navigate }) => {
-    try {
-      let response = await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/v2/createorder`,
-        values,
-        {
-          headers: {
-            Authorization: "Bearer " + getLocalstorage("accessToken"),
-          },
-        }
-      );
-
-      response.navigate = navigate;
-
-      return response;
-    } catch (error) {
-      return await error.response.data.errors;
+  async (values) => {
+    const res = await callApi(values);
+    if (values.navigate) {
+      res.navigate = values.navigate;
     }
+    return res;
   }
 );
 
@@ -58,14 +46,12 @@ const orderSlice = createSlice({
       state.isLoading = true;
     },
     [createOrder.fulfilled]: (state, { payload }) => {
-      const { navigate, data } = payload;
+      const { navigate } = payload;
       state.isLoading = false;
-      state.newOrder = data.order;
-
+      state.newOrder = payload.order;
       removeLocalstorage("carts");
-
-      if (data.order) {
-        navigate(`/order_success/${data.order._id}`);
+      if (payload.order) {
+        navigate(`/order_success/${payload.order._id}`);
       }
     },
     [createOrder.rejected]: (state) => {

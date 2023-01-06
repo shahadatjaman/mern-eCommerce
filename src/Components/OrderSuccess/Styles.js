@@ -14,7 +14,6 @@ export const SuccessMessage = styled.div`
 `;
 
 export const boxStyles = {
-  width: 1000,
   backgroundColor: "#fff",
   margin: "0 auto",
   padding: "2rem",

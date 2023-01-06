@@ -78,7 +78,7 @@ const SpeOffer = () => {
         <Grid container spacing={2}>
           <Grid item xl={3} xs={12} md={3}>
             <OffierCounter />
-            <Box sx={{ background: "#fff" }} mt={2}>
+            <Box sx={{ background: "#fff" }} mt={2} p={2}>
               <Typography
                 variant="h6"
                 p={2}
@@ -109,7 +109,7 @@ const SpeOffer = () => {
                       item
                       lg={12 / 5}
                       xs={12 / 2}
-                      md={3}
+                      md={4}
                       sm={12}
                     >
                       {isLoading ? <Loading /> : <Product product={item} />}
@@ -120,17 +120,6 @@ const SpeOffer = () => {
             </Categoreis>
           </Grid>
         </Grid>
-        {/* <Box sx={{ background: "#fff", marginTop: 2, padding: 1 }}>
-          {products && (
-            <Paginations
-              data={products}
-              contentPerPage={contentPerPage}
-              buttonConst={3}
-              siblingCount={1}
-              setRecentPage={setRecentPage}
-            />
-          )}
-        </Box> */}
       </Container>
     </Wrapper>
   );

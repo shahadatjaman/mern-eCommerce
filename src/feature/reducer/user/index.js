@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { callApi } from "../../../API";
+import { callApi } from "../../../utils/index";
 
 const initialState = {
   user: null,
@@ -22,13 +22,8 @@ const initialState = {
 
 export const createUserAddress = createAsyncThunk(
   "useraddress",
-  async ({ values }) => {
-    return await callApi({
-      pathOne: "auth",
-      pathTwo: "useraddress",
-      method: "post",
-      values,
-    });
+  async (values) => {
+    return await callApi(values);
   }
 );
 export const getUserAddress = createAsyncThunk(

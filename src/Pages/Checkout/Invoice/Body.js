@@ -20,7 +20,7 @@ const Body = ({ address, order }) => {
               Bill to :
             </Text>
             <Text mt={0.5} color="#000" font={16}>
-              Customer name : {user?.firstName}
+              Customer name : {user?.firstName} {user?.lastName}
             </Text>
             <Text mt={0.5} color="#000" font={16}>
               {address.company_name}

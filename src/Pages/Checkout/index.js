@@ -35,10 +35,10 @@ const Checkout = () => {
         <Container maxWidth="xl">
           <Box sx={{ flexGrow: 1 }} my={8}>
             <Grid container spacing={2}>
-              <Grid item xs={8}>
+              <Grid item xs={8} xl={8} md={8} sm={12}>
                 <Billing userAddress={userAddress} />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={4} xl={4} md={4} sm={12}>
                 <Order />
               </Grid>
             </Grid>
