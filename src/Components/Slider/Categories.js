@@ -14,7 +14,7 @@ const Categories = () => {
   return (
     <CategoriesWrapper className="dispaly-none">
       <CartTitel>
-        <H5>Categories</H5>
+        <H5>Categoriess</H5>
         <span>
           <FaAngleLeft />
           <FaAngleRight />

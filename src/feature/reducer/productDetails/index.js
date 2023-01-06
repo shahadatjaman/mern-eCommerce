@@ -62,7 +62,6 @@ const productDetailsSlice = createSlice({
     },
     [fetchProduct.rejected]: (state, { payload }) => {
       state.isLoading = false;
-      console.log(payload);
     },
   },
 });

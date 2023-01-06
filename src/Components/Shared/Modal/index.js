@@ -26,7 +26,6 @@ const Modal = ({ title, children, closeModal, isOpen, width }) => {
     }
   }, [isOpen]);
 
-  console.log("Modal rendered");
   return (
     <ModalWrapper isOpen={isOpen}>
       <Content width={width}>

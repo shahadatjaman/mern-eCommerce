@@ -118,9 +118,7 @@ export const productSlice = createSlice({
     [createProduct.pending]: (state) => {
       state.loading = true;
     },
-    [createProduct.fulfilled]: (state, { payload }) => {
-      console.log(payload);
-    },
+    [createProduct.fulfilled]: (state, { payload }) => {},
     [createProduct.rejected]: (state) => {
       state.loading = false;
     },
@@ -137,9 +135,7 @@ export const productSlice = createSlice({
     [deleteTag.pending]: (state) => {
       state.loading = true;
     },
-    [deleteTag.fulfilled]: (state, { payload }) => {
-      console.log(payload);
-    },
+    [deleteTag.fulfilled]: (state, { payload }) => {},
     [deleteTag.pending]: (state) => {
       state.loading = false;
     },

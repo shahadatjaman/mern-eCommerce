@@ -13,7 +13,6 @@ const Size = ({ value }) => {
 
   const sizeHandler = () => {
     dispatch(addRecentSize(value));
-    console.log(value);
   };
   useEffect(() => {
     dispatch(addRecentSize(value));

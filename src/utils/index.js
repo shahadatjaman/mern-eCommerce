@@ -226,7 +226,7 @@ export const requestToServerWithPost = ({ url }) => {
           },
         }
       );
-      console.log(response.data);
+
       return response.data;
     } catch (error) {
       return await error.response.data.errors;
@@ -339,7 +339,6 @@ export const callApi = async (props) => {
 
     return await response.data;
   } catch (error) {
-    console.log(error);
     return await error.response;
   }
 };

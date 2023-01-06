@@ -37,7 +37,6 @@ const DeleteAccount = () => {
     }
   };
 
-  console.log(msg);
   return (
     <Box component={"form"} onSubmit={submitHandler}>
       <Typography variant="body1">
