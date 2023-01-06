@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { requestToServerWithGet } from "../../../../utils";
+import { callApi, requestToServerWithGet } from "../../../../utils";
 import { ImageWrapper, Img } from "../Styles";
 import { Name, SalePrice, Status, StatusWrapper, TableRow, Td } from "./Styles";
 
@@ -12,11 +12,18 @@ const Product = ({ product }) => {
   }, []);
 
   const getProdcut = async () => {
-    const result = requestToServerWithGet({
-      url: `${process.env.REACT_APP_SERVER_URL}/v1/getproduct/${product.product_id}`,
+    const result = await callApi({
+      pathOne: "v1",
+      pathTwo: "getproduct",
+      _id: product.product_id,
+      method: "get",
     });
 
-    const { product: values, variations } = await result();
+    // requestToServerWithGet({
+    //   url: `${process.env.REACT_APP_SERVER_URL}/v1/getproduct/${product.product_id}`,
+    // });
+
+    const { product: values, variations } = await result;
 
     setValues(values);
 
