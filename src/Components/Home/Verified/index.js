@@ -1,16 +1,6 @@
 import React from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import {
-  Caption,
-  H5,
-  Img,
-  ImgWrapper,
-  Item,
-  Items,
-  Title,
-  Verified,
-  Wrapper,
-} from "./Styles";
+
+import { H5, Title, Verified, Wrapper } from "./Styles";
 import Slider from "react-slick";
 
 import { useWindowWidth } from "../../../hooks/userWindowWidth";
@@ -19,6 +9,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { mostViewed } from "../../../feature/reducer/product";
 import Product from "./product";
+import { Box, Container, Grid } from "@mui/material";
 
 const VerifiedCompany = () => {
   const [show, setShow] = useState(3);
@@ -55,17 +46,15 @@ const VerifiedCompany = () => {
   }, [dispatch]);
 
   return (
-    <Wrapper>
-      <Container>
-        <Row>
-          <Col>
+    <Box my={5}>
+      <Container maxWidth={"xl"} sx={{ background: "#fff" }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} xl={12} xx={12}>
             <Title>
               <H5>Most Viewed</H5>
             </Title>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
+          </Grid>
+          <Grid xs={12} xl={12}>
             <Verified>
               <Slider {...settings}>
                 {products?.map((item, index) => (
@@ -73,10 +62,13 @@ const VerifiedCompany = () => {
                 ))}
               </Slider>
             </Verified>
-          </Col>
-        </Row>
+          </Grid>
+        </Grid>
+        {/* <Grid container spacing={2}>
+      
+        </Grid> */}
       </Container>
-    </Wrapper>
+    </Box>
   );
 };
 

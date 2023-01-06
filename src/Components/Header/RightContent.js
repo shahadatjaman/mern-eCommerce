@@ -77,7 +77,7 @@ const RightContent = () => {
         </NavLink>
       </Item>
       <Item>
-        <NavLink to={"/profile/username/myorders"}>
+        <NavLink to={`/profile/${user.firstName}/myorders`}>
           <Action>
             <FaLuggageCart />
             <span>Order</span>

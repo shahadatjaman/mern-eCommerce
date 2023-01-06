@@ -68,11 +68,11 @@ const Billing = ({ userAddress }) => {
       <Form onSubmit={(e) => handleSubmit(e, cb)}>
         <Box sx={{ ...formStyles, flexGrow: 1, borderRadius: 2 }}>
           <Grid container spacing={2}>
-            <Grid item lg={12} md={12}>
+            <Grid item xl={12} lg={12} md={12} xxs={12}>
               <H3>Billing Details</H3>
             </Grid>
 
-            <Grid item lg={6} md={6}>
+            <Grid item xl={6} lg={6} md={6} xxs={12}>
               <Input
                 name="company_name"
                 type="text"
@@ -85,7 +85,7 @@ const Billing = ({ userAddress }) => {
                 autoFocus={true}
               />
             </Grid>
-            <Grid item lg={6} md={6}>
+            <Grid item lg={6} md={6} xxs={12}>
               <SelectInput
                 name="country"
                 label="Country"
@@ -106,7 +106,7 @@ const Billing = ({ userAddress }) => {
                 <Option option="Pakisthan" value="pakisthan" />
               </SelectInput>
             </Grid>
-            <Grid item lg={12} md={6}>
+            <Grid item lg={12} md={6} xxs={12}>
               <Input
                 label="Street Address"
                 name="street_address"
@@ -118,7 +118,7 @@ const Billing = ({ userAddress }) => {
                 handleBlur={handleBlur}
               />
             </Grid>
-            <Grid item lg={6} md={6}>
+            <Grid item lg={6} md={6} xxs={12}>
               <Input
                 label="Town / City"
                 name="town_city"
@@ -129,7 +129,7 @@ const Billing = ({ userAddress }) => {
                 handleBlur={handleBlur}
               />
             </Grid>
-            <Grid item lg={6} md={6}>
+            <Grid item lg={6} md={6} xxs={12}>
               <Input
                 label="State / County"
                 name="state_country"
@@ -140,7 +140,7 @@ const Billing = ({ userAddress }) => {
                 handleBlur={handleBlur}
               />
             </Grid>
-            <Grid item lg={8} md={6}>
+            <Grid item lg={8} md={6} xxs={12}>
               <Input
                 label="Postcode / ZIP"
                 name="postcode_zip"
@@ -151,7 +151,7 @@ const Billing = ({ userAddress }) => {
                 handleBlur={handleBlur}
               />
             </Grid>
-            <Grid item lg={4} md={6}>
+            <Grid item lg={4} md={6} xxs={12}>
               <Input
                 type="number"
                 name="phone"
@@ -164,7 +164,7 @@ const Billing = ({ userAddress }) => {
                 handleBlur={handleBlur}
               />
             </Grid>
-            <Grid item lg={12} md={12}>
+            <Grid item lg={12} md={12} xxs={12}>
               <H3>Additional information</H3>
               <Input
                 height="73"

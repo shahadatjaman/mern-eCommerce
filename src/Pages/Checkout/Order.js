@@ -28,7 +28,14 @@ const Order = () => {
   const dispatch = useDispatch();
 
   const orderHandler = () => {
-    dispatch(createUserAddress({ values: userAddress }));
+    dispatch(
+      createUserAddress({
+        pathOne: "auth",
+        pathTwo: "useraddress",
+        method: "post",
+        values: { ...userAddress },
+      })
+    );
 
     if (carts) {
       const values = {
@@ -38,7 +45,15 @@ const Order = () => {
         currency: "USD",
       };
 
-      dispatch(createOrder({ values, navigate }));
+      dispatch(
+        createOrder({
+          pathOne: "v2",
+          pathTwo: "createorder",
+          method: "post",
+          values: { ...values },
+          navigate,
+        })
+      );
     }
   };
 
@@ -52,7 +67,7 @@ const Order = () => {
   return (
     <Box sx={{ flexGrow: 1, borderRadius: 2, ...formStyles }}>
       <Grid container spacing={2}>
-        <Grid item xl={12}>
+        <Grid item xl={12} md={12} xxs={12}>
           <H3>Your order</H3>
 
           <OrderBottom>
@@ -68,10 +83,10 @@ const Order = () => {
             </Ul>
           </OrderTotal>
         </Grid>
-        <Grid item lg={12} md={12}>
+        <Grid item lg={12} md={12} xxs={12}>
           <PaymnetMethod setDelivery={setDelivery} />
         </Grid>
-        <Grid item lg={12} md={12}>
+        <Grid item lg={12} md={12} xxs={12}>
           <FormGroup>
             <FormControlLabel
               sx={{ "& .MuiFormControlLabel-label": { fontSize: "14px" } }}
@@ -80,7 +95,7 @@ const Order = () => {
             />
           </FormGroup>
         </Grid>
-        <Grid item lg={12} md={12}>
+        <Grid item lg={12} md={12} xxs={12}>
           {isValidAddress && isChecked && delivery ? (
             <Button
               sx={{ height: 50 }}

@@ -7,11 +7,12 @@ import OrderSummary from "./OrderSummary";
 const OrderContent = () => {
   return (
     <Wrapper>
-      <Box my={8}>
+      <Box my={8} sx={{ overflow: "scroll" }}>
         <Container maxWidth={"xl"}>
           <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={5}>
-              <Grid item xl={12} md={12}>
+            <Grid container spacing={0}>
+              <Grid item xl={2} md={2} xxs={0}></Grid>
+              <Grid item xl={8} md={12} xxs={12}>
                 <Box
                   sx={{
                     ...boxStyles,
@@ -22,6 +23,7 @@ const OrderContent = () => {
                   <OrderSummary />
                 </Box>
               </Grid>
+              <Grid item xl={2} md={0} xxs={0}></Grid>
             </Grid>
           </Box>
         </Container>

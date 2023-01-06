@@ -32,7 +32,7 @@ const RigthColumn = () => {
   }, []);
 
   return (
-    <Box sx={{ flexGrow: 1, background: "#fff" }}>
+    <Box py={2} sx={{ flexGrow: 1, background: "#fff" }}>
       {!products && <SkeletonLoad />}
       {products?.map((product, index) => {
         return (
