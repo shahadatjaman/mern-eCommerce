@@ -37,7 +37,6 @@ const Counter = ({ validTime, isValidCode }) => {
       setCounter(1);
     }
   }, [isValidCode]);
-  console.log(isValidCode);
 
   return counter < 60 ? (
     <Typography display={"block"}>

@@ -23,7 +23,7 @@ const Sorting = () => {
   const handleChange = (e) => {
     dispatch(addRecentSortedId(e.target.value));
     const queryValues = options.filter((val) => val.id === e.target.value);
-    console.log(queryValues);
+
     dispatch(addRecentSortedQuery(...queryValues));
   };
 

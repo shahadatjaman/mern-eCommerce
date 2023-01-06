@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { H4, Name, SuccessMessage, Thank } from "./Styles";
 const Icon = () => {
   const { user } = useSelector((state) => state.auth);
-  console.log(user);
+
   return (
     <SuccessMessage>
       <H4>

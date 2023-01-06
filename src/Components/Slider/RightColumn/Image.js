@@ -24,7 +24,6 @@ const Image = ({ _id }) => {
     })();
   }, [_id]);
 
-  console.log(variation);
   return (
     variation && (
       <ImgWrapper>

@@ -128,9 +128,7 @@ const loginSlice = createSlice({
       state.user = payload;
     },
 
-    addGoogleUser: (state, { payload }) => {
-      console.log(payload);
-    },
+    addGoogleUser: (state, { payload }) => {},
     logout: (state, { payload }) => {
       removeLocalstorage("accessToken");
       state.user = null;
@@ -277,7 +275,6 @@ const loginSlice = createSlice({
       })
       .addCase(changePassword.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        console.log(payload);
 
         if (payload.data?.status === 400) {
           state.msg = payload.data.message;
@@ -331,7 +328,7 @@ const loginSlice = createSlice({
       })
       .addCase(checkCreatePassUrl.fulfilled, (state, { payload }) => {
         state.loading = false;
-        console.log(payload);
+
         if (payload.url_validity) {
           state.new_pass_url = payload.url_validity;
         }

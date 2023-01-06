@@ -28,6 +28,7 @@ const categoriesSlice = createSlice({
     },
     [getCategories.fulfilled]: (state, { payload }) => {
       state.loading = false;
+
       if (payload.category) {
         state.categories = payload.category;
       }

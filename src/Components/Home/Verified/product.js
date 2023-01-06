@@ -7,7 +7,6 @@ import { Caption, Img, ImgWrapper, Item, Items } from "./Styles";
 
 const Product = ({ product }) => {
   const [variation, setVariation] = useState(null);
-  console.log(product);
 
   useEffect(() => {
     (async () => {

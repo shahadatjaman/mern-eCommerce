@@ -73,7 +73,6 @@ const variationSlice = createSlice({
       state.loading = true;
     },
     [removeVariation.fulfilled]: (state, { payload }) => {
-      console.log(payload);
       state.loading = false;
     },
     [removeVariation.rejected]: (state) => {

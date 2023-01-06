@@ -41,7 +41,6 @@ const Quantityy = () => {
 
   // Save cart to local storage
   const addTocartHandler = (type) => {
-    console.log(type);
     if (type === "buy") {
       navigate("/billing");
     }
