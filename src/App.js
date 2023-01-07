@@ -16,8 +16,6 @@ import theme from "./Theme/muiTheme";
 
 import { Loading } from "./Components/Shared/Loading/";
 
-import { CookiesProvider } from "react-cookie";
-
 function App() {
   const dispatch = useDispatch();
 
@@ -51,9 +49,7 @@ function App() {
   return (
     <Theme>
       <ThemeProvider theme={theme}>
-        <CookiesProvider>
-          <Suspense fallback={<Loading />}>{useRoutes(routes)}</Suspense>
-        </CookiesProvider>
+        <Suspense fallback={<Loading />}>{useRoutes(routes)}</Suspense>
       </ThemeProvider>
     </Theme>
   );

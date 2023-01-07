@@ -2,7 +2,6 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-
   "dependencies": {
     "@djthoms/pretty-checkbox": "^3.1.0",
     "@emotion/react": "^11.10.5",
@@ -31,7 +30,6 @@
     "react": "^18.2.0",
     "react-beforeunload": "^2.5.3",
     "react-bootstrap": "^2.5.0",
-    "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
     "react-redux": "^8.0.4",
@@ -40,7 +38,6 @@
     "react-slick": "^0.29.0",
     "reactstrap": "^9.1.4",
     "styled-components": "^5.3.5",
-    "universal-cookie": "^4.0.4",
     "validator": "^13.7.0",
     "web-vitals": "^2.1.4"
   },
@@ -68,5 +65,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy" : "https://ecommerce-server-23.vercel.app"
+  "proxy": "https://ecommerce-server-23.vercel.app"
 }

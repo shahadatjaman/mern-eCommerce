@@ -1,7 +1,6 @@
 import { faLessThanEqual } from "@fortawesome/free-solid-svg-icons";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import Cookies from "universal-cookie";
 import { callApi } from "../../../utils/index";
 import { removeLocalstorage, setLocalstorage } from "../../../utils/";
 const initialState = {
@@ -134,11 +133,6 @@ const loginSlice = createSlice({
     logout: (state, { payload }) => {
       removeLocalstorage("accessToken");
       state.user = null;
-      const cookies = new Cookies();
-      cookies.remove("refreshToken", {
-        path: "/",
-        domain: "localhost",
-      });
     },
 
     clearMsg: (state) => {

@@ -17,12 +17,9 @@ import Logout from "@mui/icons-material/Logout";
 import BadgeAvatar from "../Shared/Avatar";
 
 import { logout } from "../../feature/reducer/user/auth";
-import { useCookies } from "react-cookie";
 
 const AccountMenu = ({ user, setIsOpenCart }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-
-  const [removeCookie] = useCookies(["cookie-name"]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -38,7 +35,6 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
 
   const logoutHandler = () => {
     dispatch(logout());
-    removeCookie("refreshToken");
   };
 
   const authHandler = ({ name }) => {
