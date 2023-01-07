@@ -308,7 +308,6 @@ export const callApi = async (props) => {
   const header = {
     origin: process.env.REACT_APP_SERVER_URL,
     Authorization: "Bearer " + token,
-    "Access-Control-Allow-Credentials": true,
   };
   const headerOption = {
     Credentials: "include",
