@@ -9,6 +9,8 @@ const initialState = {
   errors: null,
   msg: null,
   loading: false,
+  loginLoading: false,
+  isLoading: false,
   errorToLogin: null,
   findLoadAccount: false,
   new_pass_url: false,
@@ -170,10 +172,11 @@ const loginSlice = createSlice({
       })
       // Login user
       .addCase(login.pending, (state) => {
-        state.isLoading = true;
+        state.loginLoading = true;
       })
       .addCase(login.fulfilled, (state, { payload }) => {
-        state.isLoading = false;
+        state.loginLoading = false;
+
         if (payload.accessToken) {
           setLocalstorage("accessToken", payload.accessToken);
         }
@@ -182,12 +185,12 @@ const loginSlice = createSlice({
           state.errorToLogin = payload.data.message;
         }
 
-        if (payload.navigate && payload.status === 200) {
+        if (payload.navigate && payload.accessToken) {
           payload.navigate("/");
         }
       })
       .addCase(login.rejected, (state, payload) => {
-        state.isLoading = false;
+        state.loginLoading = false;
       })
 
       // Get access token
