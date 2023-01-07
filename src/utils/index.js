@@ -303,11 +303,19 @@ export const checkVarintColor = (options, name) => {
 };
 
 export const callApi = async (props) => {
+  const token = getLocalstorage("accessToken");
+
+  const header = {
+    origin: process.env.REACT_APP_SERVER_URL,
+    Authorization: "Bearer " + token,
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Credentials": true,
+  };
   const headerOption = {
     Credentials: "include",
     withCredentials: true,
   };
-  const token = getLocalstorage("accessToken");
+
   try {
     let response = await axios[props.method](
       `${process.env.REACT_APP_SERVER_URL}/${props.pathOne}/${props.pathTwo}${
@@ -321,8 +329,7 @@ export const callApi = async (props) => {
         } else {
           return {
             headers: {
-              origin: process.env.REACT_APP_SERVER_URL,
-              Authorization: "Bearer " + token,
+              ...header,
             },
             ...headerOption,
           };
@@ -332,8 +339,7 @@ export const callApi = async (props) => {
         if (props.method === "post") {
           return {
             headers: {
-              origin: process.env.REACT_APP_SERVER_URL,
-              Authorization: "Bearer " + token,
+              ...header,
             },
 
             ...headerOption,
