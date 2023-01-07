@@ -345,7 +345,6 @@ export const callApi = async (props) => {
 };
 
 export const timeCounter = (start) => {
-  var start = new Date();
   start.setHours(23, 0, 0); // 11pm
 
   function pad(num) {
