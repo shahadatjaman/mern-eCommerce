@@ -320,7 +320,7 @@ export const callApi = async (props) => {
               origin: process.env.REACT_APP_SERVER_URL,
               Authorization: "Bearer " + token,
             },
-            withCredentials: false,
+            Credentials: "include",
           };
         }
       })(),
@@ -331,7 +331,8 @@ export const callApi = async (props) => {
               origin: process.env.REACT_APP_SERVER_URL,
               Authorization: "Bearer " + token,
             },
-            withCredentials: false,
+
+            Credentials: "include",
           };
         }
       })()
