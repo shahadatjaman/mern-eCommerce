@@ -16,12 +16,13 @@ export const HeaderWrapper = styled.div`
   top: ${(props) => (props.isSticky ? "0" : "-100")}%;
   z-index: 999;
   transition: all 0.5s;
-  box-shadow: ${(props) => props.isSticky && "1px 6px 16px 1px #0000001c"};
-
-  background: #ffffff2b;
+  box-shadow: ${(props) =>
+    props.isSticky
+      ? "1px 6px 16px 1px #0000001c"
+      : "0px 4px 8px 0px #00000017"};
 
   backdrop-filter: blur(15px);
-
+  background: ${(props) => (props.isSticky ? "#ffffff2b" : "#fff")};
   @media print {
     display: none;
   }
@@ -106,7 +107,7 @@ export const Count = styled.div`
 `;
 
 export const CategoriesWrapper = styled.div`
-  background: #fff;
+  background: #221ecd;
   border-top: 1px solid #dddddd9e;
   @media (max-width: 1200px) {
     display: none !important;
@@ -154,7 +155,7 @@ export const LinkName = styled(NavLink)`
   font-size: 14px;
   line-height: 16.94px;
   letter-spacing: 1% !important;
-  color: #453b3b !important;
+  color: #fff !important;
   margin: 0px 14px;
   cursor: pointer;
   svg {

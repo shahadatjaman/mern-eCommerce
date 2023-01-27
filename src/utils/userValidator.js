@@ -14,6 +14,9 @@ export const useValidator = (values) => {
   // else if (values.firstName) {
   //   errors.username = "Username is must contain at least one number!";
   // }
+  if (!values.vendorName) {
+    errors.vendorName = "Vendor Name is required";
+  }
   if (!values.email) {
     errors.email = "Email is required";
   }

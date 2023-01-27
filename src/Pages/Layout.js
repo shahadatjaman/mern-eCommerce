@@ -7,8 +7,8 @@ import { Box } from "@mui/material";
 const Layout = ({ children, footer }) => {
   return (
     <Box sx={{ position: "relative" }}>
-      <NavBar />
       <Headercategories />
+      <NavBar />
       {children}
       {footer && <Footer />}
     </Box>

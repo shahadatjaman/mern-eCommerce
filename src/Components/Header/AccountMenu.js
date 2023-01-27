@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
@@ -11,6 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import GradingIcon from "@mui/icons-material/Grading";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
+import StorefrontIcon from "@mui/icons-material/Storefront";
 import LoginIcon from "@mui/icons-material/Login";
 
 import Logout from "@mui/icons-material/Logout";
@@ -45,6 +46,7 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
     }
   };
 
+  console.log(user);
   return (
     <>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
@@ -62,7 +64,7 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
                 Un
               </Avatar>
             ) : (
-              <BadgeAvatar avatar={user?.avatar} />
+              <BadgeAvatar avatar={user?.avatar} name={user.firstName} />
             )}
           </IconButton>
         </Tooltip>
@@ -104,6 +106,13 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
       >
         {user ? (
           <div>
+            <MenuItem>
+              <ListItemIcon>
+                <StorefrontIcon fontSize="small" />
+              </ListItemIcon>
+              <NavLink to={"/dashboard"}>My Vendor</NavLink>
+            </MenuItem>
+
             <MenuItem>
               <Avatar src={user?.avatar} />{" "}
               <NavLink to={`/profile/${user?.firstName}/manageaccount`}>

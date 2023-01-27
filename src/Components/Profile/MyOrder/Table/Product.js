@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { callApi, requestToServerWithGet } from "../../../../utils";
+import { callApi, requestToServerWithGet, shortText } from "../../../../utils";
 import { ImageWrapper, Img } from "../Styles";
 import { Name, SalePrice, Status, StatusWrapper, TableRow, Td } from "./Styles";
 
@@ -19,10 +19,6 @@ const Product = ({ product }) => {
       method: "get",
     });
 
-    // requestToServerWithGet({
-    //   url: `${process.env.REACT_APP_SERVER_URL}/v1/getproduct/${product.product_id}`,
-    // });
-
     const { product: values, variations } = await result;
 
     setValues(values);
@@ -38,7 +34,7 @@ const Product = ({ product }) => {
         </ImageWrapper>
       </Td>
       <Td>
-        <Name> {values?.name} </Name>
+        <Name> {values?.name && shortText(values?.name, 20, 0, 20)} </Name>
       </Td>
       <Td>
         <StatusWrapper>

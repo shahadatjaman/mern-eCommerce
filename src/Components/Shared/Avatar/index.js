@@ -33,7 +33,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-const BadgeAvatar = ({ avatar }) => {
+const BadgeAvatar = ({ avatar, name }) => {
   return (
     <Stack direction="row" spacing={2}>
       <StyledBadge
@@ -41,7 +41,7 @@ const BadgeAvatar = ({ avatar }) => {
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         variant="dot"
       >
-        <Avatar sx={{ width: 32, height: 32 }} alt="Remy Sharp" src={avatar} />
+        <Avatar sx={{ width: 32, height: 32 }} alt={name} src={avatar} />
       </StyledBadge>
     </Stack>
   );

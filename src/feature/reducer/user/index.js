@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { callApi } from "../../../utils/index";
+import { callApi, deepClone } from "../../../utils/index";
 
 const initialState = {
   user: null,
+  userInit: { firstName: "", lastName: "", email: "", password: "" },
   errors: null,
   msg: null,
   isLoading: false,
@@ -61,6 +62,15 @@ const userSlice = createSlice({
     },
     clearMsg: (state) => {
       state.msg = null;
+    },
+    addVendorProperty: (state, { payload }) => {
+      if (payload.isVendor) {
+        state.userInit = { ...state.userInit, vendorName: "" };
+      } else {
+        const oldUserInit = deepClone(state.userInit);
+        delete oldUserInit.vendorName;
+        state.userInit = oldUserInit;
+      }
     },
   },
 
@@ -132,6 +142,7 @@ const userSlice = createSlice({
 
 export const {
   addUser,
+  addVendorProperty,
   addGoogleUser,
   logout,
   checkUserAddressIsValid,

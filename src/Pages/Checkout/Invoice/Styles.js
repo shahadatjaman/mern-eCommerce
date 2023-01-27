@@ -11,10 +11,20 @@ export const Wrapper = styled.div`
 `;
 
 export const HeaderWrapper = styled.div`
-  background: #1976d2;
+  background: #fff;
   padding: 2rem 1rem;
+  border: 2px solid #ddd;
+  margin-bottom: 1rem;
 `;
-export const Logo = styled.div``;
+export const Logo = styled.div`
+  width: 100px;
+  overflow: hidden;
+`;
+
+export const Img = styled.img`
+  width: 100%;
+`;
+
 export const Text = styled.h3`
   font-size: ${(props) => props.font && props.font}px;
   color: ${(props) => (props.color ? props.color : "#fff")};

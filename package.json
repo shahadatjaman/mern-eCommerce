@@ -32,6 +32,7 @@
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
+    "react-quill": "^2.0.0",
     "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
@@ -65,5 +66,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://ecommerce-server-23.vercel.app"
+  "proxy": "http://localhost:8000"
 }

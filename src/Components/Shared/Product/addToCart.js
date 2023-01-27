@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addCartItems } from "../../../feature/reducer/addToCart";
 import { useAddToCart } from "../../../hooks/useAddToCart";
 import { getLocalstorage } from "../../../utils";
@@ -18,6 +18,7 @@ const AddCart = ({ product }) => {
     addToCart({
       _id: product._id,
       price: product.price.$numberDecimal,
+      vendor_id: product.user_id,
     });
 
     const carts = getLocalstorage("carts");

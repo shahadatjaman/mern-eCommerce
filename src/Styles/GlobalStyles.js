@@ -68,7 +68,7 @@ button{
 input:focus{
     /* border: none !important; */
    outline: none;
-   background: transparent !important;
+//    background: transparent !important;
 }
 
 ul{

@@ -16,7 +16,6 @@ const Actions = () => {
               xl={7}
               md={6}
               item
-              xs={6}
               sx={{
                 display: "flex",
                 justifyContent: "start",

@@ -20,6 +20,10 @@ export const useForm = ({ init, validate }) => {
   const [valeus, setValues] = useState(null);
   const [isValidForm, setIsValidForm] = useState(false);
 
+  useEffect(() => {
+    setState(mapValuesToState(deepClone(init)));
+  }, [init]);
+
   const handleChange = (e) => {
     const { name: key, value, type } = e.target;
 

@@ -57,11 +57,11 @@ const Billing = ({ userAddress }) => {
     dispatch(checkUserAddressIsValid({ isValidForm: isValidForm }));
   }, [isValidForm, dispatch]);
 
-  useEffect(() => {
-    if (valeus) {
-      dispatch(getFormState(valeus));
-    }
-  }, [dispatch, valeus]);
+  // useEffect(() => {
+  //   if (valeus) {
+  //     dispatch(getFormState(valeus));
+  //   }
+  // }, [dispatch, valeus]);
 
   return (
     <Wrapper>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Input from "../../Components/Shared/Form/Input";
 import { Error, FormWrape, ShowPassword } from "./Styles";
@@ -11,17 +11,22 @@ import { useForm } from "../../hooks/useForm";
 import { useDispatch } from "react-redux";
 import { register } from "../../feature/reducer/user/auth";
 import { BiX } from "react-icons/bi";
-import { Button, Checkbox, FormControlLabel } from "@mui/material";
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Switch from "@mui/material/Switch";
 
-const initial = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  password: "",
-};
+import { addVendorProperty } from "../../feature/reducer/user";
 
 const Register = () => {
+  const [isVendor, setIsVendor] = useState(false);
+
+  const { userInit } = useSelector((state) => state.user);
   const { errors } = useSelector((state) => state.auth);
 
   const [type, setType] = useState("password");
@@ -30,14 +35,16 @@ const Register = () => {
 
   const { formState, handleChange, handleFocus, handleBlur, isValidForm } =
     useForm({
-      init: initial,
+      init: userInit,
       validate: useValidator,
     });
 
   const dispatch = useDispatch();
-  // const cb = ({ values, hasError }) => {
-  //   dispatch(register(values));
-  // };
+
+  const vendorHandler = (e) => {
+    setIsVendor(e.target.checked);
+    dispatch(addVendorProperty({ isVendor: e.target.checked }));
+  };
 
   // password visibility
   const visibleHandler = (e) => {
@@ -54,24 +61,52 @@ const Register = () => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    dispatch(
-      register({
-        pathOne: "auth",
-        pathTwo: "register",
-        method: "post",
-        values: {
-          firstName: firstName.value,
-          lastName: lastName.value,
-          email: email.value,
-          password: password.value,
-        },
-        navigate,
-      })
-    );
+
+    const commonPath = { pathOne: "auth", pathTwo: "register", method: "post" };
+
+    const commonValue = {
+      firstName: firstName.value,
+      lastName: lastName.value,
+      email: email.value,
+      password: password.value,
+    };
+
+    if (isVendor) {
+      dispatch(
+        register({
+          ...commonPath,
+          values: {
+            ...commonValue,
+            vendorName: formState.vendorName.value,
+            role: "vendor",
+          },
+          navigate,
+        })
+      );
+    } else {
+      dispatch(
+        register({
+          ...commonPath,
+          values: {
+            ...commonValue,
+          },
+          navigate,
+        })
+      );
+    }
   };
 
   return (
     <FormWrape>
+      <Box>
+        <FormGroup>
+          <FormControlLabel
+            control={<Switch onChange={vendorHandler} />}
+            label="I'm a Vendor"
+          />
+        </FormGroup>
+      </Box>
+
       {errors && (
         <resourcesError>
           {errors.email && (
@@ -83,6 +118,19 @@ const Register = () => {
       )}
 
       <Form onSubmit={submitForm}>
+        {isVendor && formState.vendorName && (
+          <Input
+            name="vendorName"
+            type="text"
+            placeHolder="Vendor Name"
+            value={formState.vendorName.value}
+            error={formState.vendorName.error}
+            handleChange={handleChange}
+            handleFocus={handleFocus}
+            handleBlur={handleBlur}
+          />
+        )}
+
         <Input
           name="firstName"
           type="text"

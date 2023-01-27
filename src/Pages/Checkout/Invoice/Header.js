@@ -1,15 +1,17 @@
 import { Grid } from "@mui/material";
 import React from "react";
-import { HeaderWrapper, Logo, Text } from "./Styles";
+import { HeaderWrapper, Img, Logo, Text } from "./Styles";
+
+let logo =
+  "https://res.cloudinary.com/dza2t1htw/image/upload/v1674822152/1000_F_245841615_d7QzRv937jfiC176rmKK60ckNXU9V76z-removebg-preview_vmbfes.png";
 
 const Header = ({ address }) => {
   return (
-    <HeaderWrapper style={{ background: "#1976d2" }}>
+    <HeaderWrapper>
       <Grid container spacing={2}>
         <Grid item xl={6} md={6} xs={6} sm={6}>
           <Logo>
-            <Text font={40}>Xpart</Text>
-            <Text font={30}>Invoice</Text>
+            <Img src={logo} alt={"logo"} />
           </Logo>
         </Grid>
         <Grid item xl={6} md={6} x={6} sm={6} sx={{ textAlign: "right" }}>

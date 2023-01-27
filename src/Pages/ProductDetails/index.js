@@ -1,5 +1,5 @@
 //<=== Hooks ====>
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -25,11 +25,15 @@ import Grid from "@mui/material/Grid";
 
 import Tabs from "../../Components/ProductDetails/Review/Tabs";
 import Gallery from "../../Components/ProductDetails/Gallery";
-import { getRecentVariation } from "../../utils";
+import { callApi, getRecentVariation } from "../../utils";
 import BreadCrumb from "../../Components/Shared/BreadCrumb";
-import HomeIcon from "@mui/icons-material/Home";
+
 import DetailsIcon from "@mui/icons-material/Details";
+import Product from "../../Components/Shared/Product";
+import { Typography } from "@mui/material";
 const Details = () => {
+  const [reletedProducts, setRelatedProducts] = useState(null);
+
   const { variations, product, isLoading, recentVariation, recentColor } =
     useSelector((state) => state.productDetails);
 
@@ -56,6 +60,26 @@ const Details = () => {
       dispatch(addRecentVariation(newVariation));
     }
   }, [recentColor, variations, dispatch]);
+
+  // Get related products
+  useEffect(() => {
+    if (product?.category_id && !isLoading) {
+      (async () => {
+        const relatedShop = await callApi({
+          pathOne: "v1",
+          pathTwo: "getproducts",
+          method: "post",
+          values: {
+            category_id: product?.category_id,
+          },
+          from: 1,
+          to: 5,
+        });
+
+        setRelatedProducts(relatedShop.products);
+      })();
+    }
+  }, [product, isLoading]);
 
   if (!product && !isLoading) {
     return <ResourseNotFound />;
@@ -95,6 +119,19 @@ const Details = () => {
             >
               <Tabs />
             </Box>
+          </Grid>
+
+          <Grid container spacing={2}>
+            <Grid item xl={12}>
+              <Box>
+                <Typography variant="h5">Related Products</Typography>
+              </Box>
+            </Grid>
+            {reletedProducts?.map((product) => (
+              <Grid item xl={12 / 5}>
+                <Product product={product} />
+              </Grid>
+            ))}
           </Grid>
         </Container>
       </Box>

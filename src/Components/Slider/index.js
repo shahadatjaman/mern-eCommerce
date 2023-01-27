@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getCategories } from "../../feature/reducer/categories";
 import { Button } from "@mui/material";
+import { sliders } from "./data";
 
 const Slider = () => {
   const isFluid = useWindowWidth({ width: 1400 });
@@ -32,12 +33,7 @@ const Slider = () => {
           </Col>
           <Col className="col-xl-6 col-md-8 col-sm-12 col-12">
             <CarouselWrapper>
-              {[
-                {
-                  img_url:
-                    "https://s.alicdn.com/@img/imgextra/i4/O1CN01d1QrTp1fDDxpQhBTA_!!6000000003972-0-tps-990-400.jpg",
-                },
-              ].map((item, i) => (
+              {sliders.map((item, i) => (
                 <Carousel.Item key={i}>
                   <img
                     className="d-block w-100"

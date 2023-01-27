@@ -9,6 +9,7 @@ import {
   addRecentSortedQuery,
   addShow,
 } from "../../../feature/reducer/product";
+import { useWindowWidth } from "../../../hooks/userWindowWidth";
 import { callApi } from "../../../utils/";
 import { options } from "./data";
 import { Span, Wrapper } from "./Styles";
@@ -17,6 +18,8 @@ const Sorting = () => {
   const { recentSortedId, recentSortedQuery, show } = useSelector(
     (state) => state.product
   );
+
+  const isSmallDevice = useWindowWidth({ width: 500 });
 
   const dispatch = useDispatch();
 
@@ -86,34 +89,36 @@ const Sorting = () => {
             </Select>
           </FormControl>
         </Grid>
-        <Grid
-          item
-          sm={6}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Span>Show :</Span>
-          <FormControl sx={{ minWidth: 120 }}>
-            <Select
-              value={show}
-              onChange={showChangeHandler}
-              displayEmpty
-              inputProps={{ "aria-label": "Without label" }}
-              size="small"
-            >
-              <MenuItem value={show}>
-                <em>15</em>
-              </MenuItem>
-              <MenuItem value={30}>30</MenuItem>
-              <MenuItem value={50}>50</MenuItem>
-              <MenuItem value={70}>70</MenuItem>
-              <MenuItem value={100}>100</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
+        {!isSmallDevice && (
+          <Grid
+            item
+            sm={6}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Span>Show :</Span>
+            <FormControl sx={{ minWidth: 120 }}>
+              <Select
+                value={show}
+                onChange={showChangeHandler}
+                displayEmpty
+                inputProps={{ "aria-label": "Without label" }}
+                size="small"
+              >
+                <MenuItem value={show}>
+                  <em>15</em>
+                </MenuItem>
+                <MenuItem value={30}>30</MenuItem>
+                <MenuItem value={50}>50</MenuItem>
+                <MenuItem value={70}>70</MenuItem>
+                <MenuItem value={100}>100</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+        )}
       </Box>
     </Wrapper>
   );

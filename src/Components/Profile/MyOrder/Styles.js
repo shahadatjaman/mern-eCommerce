@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
 export const ProducrWrapper = styled.div`
   background: #fff;
   border-radius: 0px 15px 15px 15px;
+  overflow: hidden;
 `;
 
 export const PageHeaderContainer = styled.div`

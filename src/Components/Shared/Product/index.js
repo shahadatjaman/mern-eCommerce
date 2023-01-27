@@ -76,11 +76,11 @@ const Product = ({ product }) => {
       {/* Product Image */}
 
       <ImgWrapper>
-        {/* <NavLink to={`/product/${product._id}`}> */}
-        {variation && (
-          <ShoppingImg src={variation?.variation_img} alt="camera" />
-        )}
-        {/* </NavLink> */}
+        <NavLink to={`/product/${product._id}`}>
+          {variation && (
+            <ShoppingImg src={variation?.variation_img} alt="camera" />
+          )}
+        </NavLink>
       </ImgWrapper>
 
       {/* Product Content */}

@@ -19,10 +19,10 @@ const Shopping = () => {
             <EmptyCart />
           ) : (
             <Grid container spacing={2}>
-              <Grid item xs={12} xl={8} md={8} sm={12}>
+              <Grid item xs={12} xl={8} md={8} sm={12} xxs={12}>
                 <BasicTable />
               </Grid>
-              <Grid item xs={12} xl={4} md={4} sm={12}>
+              <Grid item xs={12} xl={4} md={4} sm={12} xxs={12}>
                 <GrandTotal />
               </Grid>
             </Grid>

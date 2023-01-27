@@ -13,14 +13,14 @@ export const useAddToCart = () => {
 
   // TODO:
   // Add To Cart
-  const addToCart = ({ _id, price }) => {
+  const addToCart = ({ _id, price, vendor_id }) => {
     const carts = getLocalstorage("carts");
 
     const productToCart = mapProductToCart(deepClone({ _id }));
 
     if (carts.length === 0) {
       productToCart.price = price;
-
+      productToCart.vendor_id = vendor_id;
       setItem([...carts, productToCart]);
       setLocalstorage("carts", [productToCart]);
     } else {
@@ -36,6 +36,7 @@ export const useAddToCart = () => {
 
         setLocalstorage("carts", oldCarts);
       } else {
+        productToCart.vendor_id = vendor_id;
         setLocalstorage("carts", [...carts, productToCart]);
       }
     }

@@ -19,15 +19,17 @@ const Checkout = () => {
   const { isLoading, userAddress } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(
-      getUserAddress({
-        pathOne: "auth",
-        pathTwo: "getuseraddress",
-        method: "get",
-      })
-    );
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(
+  //     getUserAddress({
+  //       pathOne: "auth",
+  //       pathTwo: "getuseraddress",
+  //       method: "get",
+  //     })
+  //   );
+  // }, [dispatch]);
+
+  console.log(userAddress);
 
   return (
     !isLoading && (

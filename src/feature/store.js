@@ -32,6 +32,7 @@ import cateReducer from "../feature/reducer/categories/index";
 import queryReducer from "../feature/reducer/Query/";
 
 import authReducer from "../feature/reducer/user/auth";
+import UpdateProdcutsInventory from "../Vendor/feature/reducer/Product/UpdateProdcutsInventory";
 
 export const store = configureStore({
   reducer: {
@@ -46,6 +47,7 @@ export const store = configureStore({
     variation: productVariation,
     getProducts: getProductReducer,
     inventory: getInventoryReducer,
+    updateProduct: UpdateProdcutsInventory,
     order: orderReducer,
     rating: ratingReducer,
     categories: cateReducer,

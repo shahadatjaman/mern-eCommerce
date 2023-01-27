@@ -90,3 +90,14 @@ export const demoData = [
       "https://res.cloudinary.com/dza2t1htw/image/upload/v1668876142/lee-cap_scq8q1.png",
   },
 ];
+
+export const sliders = [
+  {
+    img_url:
+      "https://res.cloudinary.com/dza2t1htw/image/upload/v1674822465/O1CN01CTjHiF1r7WQqq3e5A__6000000005584-2-tps-990-400_uo320e.webp",
+  },
+  {
+    img_url:
+      "https://s.alicdn.com/@img/imgextra/i4/O1CN01d1QrTp1fDDxpQhBTA_!!6000000003972-0-tps-990-400.jpg",
+  },
+];

@@ -7,6 +7,12 @@ import Invoice from "../Pages/Checkout/Invoice";
 import Search from "../Pages/SearchUi";
 
 import { Private, Public } from "./protectRouter";
+import Collection from "../Vendor/Pages/Collection/index.js";
+import CreateProduct from "../Vendor/Pages/CreateProdcut/index.js";
+import Sidebar from "../Vendor/Components/Sidebar/Sidebar.js";
+import UpdateProduct from "../Vendor/Pages/UpdateProduct/index.js";
+import Dashboad from "../Vendor/Pages/Home/index.js";
+import Orders from "../Vendor/Pages/MyOders/";
 
 const Wishlist = lazy(() => import("../Pages/Wishlist"));
 
@@ -171,6 +177,57 @@ export const routes = [
         element: (
           <Private>
             <MyOrders />
+          </Private>
+        ),
+      },
+    ],
+  },
+  // Vendor routes
+  {
+    path: "/dashboard",
+    element: (
+      <Private>
+        <Sidebar />
+      </Private>
+    ),
+    children: [
+      {
+        path: "",
+        element: (
+          <Private>
+            <Dashboad />
+          </Private>
+        ),
+      },
+      {
+        path: "newproduct",
+        element: (
+          <Private>
+            <CreateProduct />
+          </Private>
+        ),
+      },
+      {
+        path: "collections",
+        element: (
+          <Private>
+            <Collection />
+          </Private>
+        ),
+      },
+      {
+        path: "customer_order",
+        element: (
+          <Private>
+            <Orders />
+          </Private>
+        ),
+      },
+      {
+        path: "update_product/:product_id",
+        element: (
+          <Private>
+            <UpdateProduct />
           </Private>
         ),
       },

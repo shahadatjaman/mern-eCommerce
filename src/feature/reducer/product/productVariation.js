@@ -7,6 +7,8 @@ const initialState = {
   productVariations: [],
   loading: false,
   variation: null,
+  options: {},
+  isLoadOption: false,
 };
 
 // Create product files

@@ -10,7 +10,6 @@ const Body = ({ address, order }) => {
 
   const date = useTimeFormat(order.createdAt);
 
-  console.log(user);
   return (
     <BodyWrapper>
       <Grid container spacing={2}>
