@@ -13,6 +13,8 @@ import DeleteAccount from "./removeAccount/DeleteAccount";
 import RemoveAccount from "./removeAccount";
 import UpadatePassword from "../Info/UpdatePassword/";
 import { useWindowWidth } from "../../../../hooks/userWindowWidth";
+import { useEffect } from "react";
+import { getUser } from "../../../../feature/reducer/user";
 
 const Content = () => {
   const windowWidth = useWindowWidth({ width: 850 });
@@ -23,6 +25,23 @@ const Content = () => {
   const closeHandler = () => {
     dispatch(closeModal());
   };
+
+  const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (user) {
+      dispatch(
+        getUser({
+          pathOne: "auth",
+          pathTwo: "getuser",
+          _id: user._id,
+          method: "get",
+        })
+      );
+    }
+  }, [dispatch, user]);
+
+  console.log(user);
 
   return (
     <Wrapper>

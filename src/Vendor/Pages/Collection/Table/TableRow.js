@@ -118,11 +118,11 @@ const TRow = ({ product, addToMark, shouldCheck }) => {
         </ImageWrapper>
       </Td>
       <Td width="200">
-        <Name>{shortText(product.name, 15, 0, 15)} </Name>
+        {product.name && <Name>{shortText(product?.name, 15, 0, 15)} </Name>}
       </Td>
 
       <Td width="220">
-        <Name>{shortText(product.SKU, 15, 0, 15)}</Name>
+        {product.SKU && <Name>{shortText(product.SKU, 15, 0, 15)}</Name>}
       </Td>
       <Td width="150">
         <Name>

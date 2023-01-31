@@ -1,22 +1,24 @@
 import React from "react";
 
-import { H5, Title, Verified, Wrapper } from "./Styles";
+import { H5, Title, Verified } from "./Styles";
 import Slider from "react-slick";
 
 import { useWindowWidth } from "../../../hooks/userWindowWidth";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { mostViewed } from "../../../feature/reducer/product";
 import Product from "./product";
 import { Box, Container, Grid } from "@mui/material";
+import { getMostViewed } from "../../../feature/reducer/getProducts";
 
 const VerifiedCompany = () => {
   const [show, setShow] = useState(3);
 
-  const dispatch = useDispatch();
+  const { mostViewed, loadingMostViewed } = useSelector(
+    (state) => state.getItems
+  );
 
-  const { mostViewed: products } = useSelector((state) => state.product);
+  const dispatch = useDispatch();
 
   const isValid = useWindowWidth({ width: 990 });
   useEffect(() => {
@@ -36,13 +38,7 @@ const VerifiedCompany = () => {
   };
 
   useEffect(() => {
-    dispatch(
-      mostViewed({
-        pathOne: "v1",
-        pathTwo: "most_viewed_products",
-        method: "get",
-      })
-    );
+    dispatch(getMostViewed());
   }, [dispatch]);
 
   return (
@@ -57,9 +53,10 @@ const VerifiedCompany = () => {
           <Grid xs={12} xl={12}>
             <Verified>
               <Slider {...settings}>
-                {products?.map((item, index) => (
-                  <Product product={item} key={index} />
-                ))}
+                {!loadingMostViewed &&
+                  mostViewed?.map((item, index) => (
+                    <Product product={item} key={index} />
+                  ))}
               </Slider>
             </Verified>
           </Grid>

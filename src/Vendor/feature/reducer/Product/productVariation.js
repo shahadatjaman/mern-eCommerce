@@ -97,6 +97,8 @@ const variationSlice = createSlice({
     [uploadFile.fulfilled]: (state, { payload }) => {
       state.loading = false;
 
+      console.log(payload);
+
       if (payload.variation) {
         state.productVariations = [
           ...state.productVariations,

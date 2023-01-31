@@ -61,9 +61,9 @@ export const NavbarBrand = styled.div`
 
 export const HeaderRightWrapper = styled.div`
   display: flex;
-  @media (max-width: 1199px) {
-    display: none !important;
-  }
+  // @media (max-width: 1199px) {
+  //   display: none !important;
+  // }
 `;
 
 export const Item = styled.div`

@@ -54,6 +54,9 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    addUpdatedUser: (state, { payload }) => {
+      state.user = payload;
+    },
     checkUserAddressIsValid: (state, { payload }) => {
       state.isValidAddress = payload.isValidForm;
     },
@@ -107,7 +110,7 @@ const userSlice = createSlice({
       })
       .addCase(getUser.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-
+        console.log(payload);
         if (payload.user) {
           const { firstName, lastName, email, avatar } = payload.user;
           state.user = { firstName, lastName, email, avatar };
@@ -148,6 +151,7 @@ export const {
   checkUserAddressIsValid,
   getFormState,
   clearMsg,
+  addUpdatedUser,
 } = userSlice.actions;
 
 export default userSlice.reducer;

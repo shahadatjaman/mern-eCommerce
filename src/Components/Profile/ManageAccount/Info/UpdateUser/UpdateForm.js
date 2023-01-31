@@ -2,39 +2,48 @@ import { LoadingButton } from "@mui/lab";
 import { Box, Button, FormControl, TextField, Typography } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUser } from "../../../../../feature/reducer/user";
+import {
+  addUpdatedUser,
+  updateUser,
+} from "../../../../../feature/reducer/user";
 import { useForm } from "../../../../../hooks/useForm";
 import { useWindowWidth } from "../../../../../hooks/userWindowWidth";
 import { validation } from "./userValidation";
-import SendIcon from "@mui/icons-material/Send";
-const Form = () => {
+const UpdateForm = () => {
   const { user, loadingUpdatedUser } = useSelector((state) => state.user);
+
+  const isSmall = useWindowWidth({ width: 500 });
 
   const dispatch = useDispatch();
 
-  const windowWidth = useWindowWidth({ width: 500 });
-
   const { formState, handleChange, handleBlur, handleFocus, isValidForm } =
     useForm({
-      init: { ...user },
+      init: user,
       validate: validation,
     });
 
+  console.log("Form rendered", user);
   const { firstName, lastName, email } = formState;
 
   const submitHandler = (e) => {
     e.preventDefault();
-
     dispatch(
       updateUser({
         pathOne: "auth",
         pathTwo: "update_user",
+        method: "post",
         values: {
           firstName: firstName.value,
           lastName: lastName.value,
           email: email.value,
         },
-        method: "post",
+      })
+    );
+    dispatch(
+      addUpdatedUser({
+        firstName: firstName.value,
+        lastName: lastName.value,
+        email: email.value,
       })
     );
   };
@@ -42,27 +51,30 @@ const Form = () => {
   return (
     <Box onSubmit={submitHandler} component={"form"}>
       <FormControl
-        sx={{ width: windowWidth ? "100%" : "50%", mb: windowWidth ? 2 : 0 }}
+        sx={{
+          width: isSmall ? "100%" : "50%",
+          mb: isSmall ? 1 : 0,
+        }}
       >
         <Typography variant="body2" fontWeight="500" mb={1}>
-          Full Name
+          First Name
         </Typography>
         <TextField
           id="demo-helper-text-misaligned"
-          label={firstName.error ? firstName.error : "Name"}
-          error={firstName.error}
           name="firstName"
           onChange={handleChange}
           onFocus={handleFocus}
           onBlur={handleBlur}
           value={firstName.value}
+          error={firstName.error}
+          label={firstName.error ? firstName.error : "Name"}
         />
       </FormControl>
       <FormControl
         sx={{
-          marginLeft: windowWidth ? 0 : 4,
-          width: windowWidth ? "100%" : "40%",
-          mb: windowWidth ? 2 : 0,
+          ml: isSmall ? 0 : 4,
+          width: isSmall ? "100%" : "40%",
+          mb: isSmall ? 1 : 0,
         }}
       >
         <Typography variant="body2" fontWeight="500" mb={1}>
@@ -70,38 +82,41 @@ const Form = () => {
         </Typography>
         <TextField
           id="demo-helper-text-misaligned"
-          label={lastName.error ? lastName.error : "Name"}
-          error={lastName.error}
           name="lastName"
           onChange={handleChange}
           onFocus={handleFocus}
           onBlur={handleBlur}
           value={lastName.value}
+          error={lastName.error}
+          label={lastName.error ? lastName.error : "Name"}
         />
       </FormControl>
       <Box sx={{ width: "100%", my: 2 }}>
         <FormControl
-          sx={{ width: windowWidth ? "100%" : "50%", mb: windowWidth ? 2 : 0 }}
+          sx={{
+            width: isSmall ? "100%" : "50%",
+            mb: isSmall ? 1 : 0,
+          }}
         >
           <Typography variant="body2" fontWeight="500" mb={1}>
             Email address
           </Typography>
           <TextField
             id="demo-helper-text-misaligned"
-            label={email.error ? email.error : "Email"}
-            error={email.error}
             name="email"
             onChange={handleChange}
             onFocus={handleFocus}
             onBlur={handleBlur}
             value={email.value}
+            error={email.error}
+            label={email.error ? email.error : "Email"}
           />
         </FormControl>
         <FormControl
           sx={{
-            width: windowWidth ? "100%" : "40%",
-            marginLeft: windowWidth ? 0 : 4,
-            mb: windowWidth ? 2 : 0,
+            ml: isSmall ? 0 : 4,
+            width: isSmall ? "100%" : "40%",
+            mb: isSmall ? 1 : 0,
           }}
         >
           <Typography variant="body2" fontWeight="500" mb={1}>
@@ -113,15 +128,15 @@ const Form = () => {
       <Box>
         {loadingUpdatedUser ? (
           <LoadingButton
-            endIcon={<SendIcon />}
+            color="secondary"
             loading={true}
-            loadingPosition="end"
+            loadingPosition="start"
             variant="contained"
           >
-            Send
+            <span>Save</span>
           </LoadingButton>
         ) : (
-          <Button variant="contained" disabled={!isValidForm} type={"submit"}>
+          <Button disabled={!isValidForm} variant="contained" type={"submit"}>
             Save Changes
           </Button>
         )}
@@ -130,4 +145,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default UpdateForm;

@@ -1,34 +1,14 @@
 import { Typography } from "@mui/material";
-import { useState } from "react";
-import { useEffect } from "react";
+
 import { Col, Container, Row } from "react-bootstrap";
 import { FcBarChart } from "react-icons/fc";
-import { callApi } from "../../../utils";
+
 import { Body, H4, Item, Title } from "../Styles";
 import Product from "./Product";
 
 import { Wrapper } from "./Styles";
 
-const Products = ({ id, title }) => {
-  const [products, setProducts] = useState(null);
-
-  useEffect(() => {
-    (async () => {
-      const res = await callApi({
-        values: { category_id: id },
-        pathOne: "v1",
-        pathTwo: "getproducts",
-        method: "post",
-        from: 0,
-        to: 3,
-      });
-
-      if (res.products) {
-        setProducts(res.products);
-      }
-    })();
-  }, [id]);
-
+const Products = ({ title, products }) => {
   return (
     <Wrapper>
       <Container fluid className="p-0 msmt-2">

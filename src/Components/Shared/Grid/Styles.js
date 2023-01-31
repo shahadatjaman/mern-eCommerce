@@ -17,7 +17,8 @@ export const Icon = styled.i`
 export const Grid = styled.div`
   width: 50px;
   height: 50px;
-  background: #edf2fd;
+  color: ${(props) => (props.isActive ? "#fff" : "#000")};
+  background: ${(props) => (props.isActive ? "#1976d2" : "#edf2fd")};
   display: inline-block;
   display: flex;
   justify-content: center;

@@ -1,11 +1,14 @@
 import React from "react";
+
 import { useSelector } from "react-redux";
-import Form from "./Form";
+
+import UpdateForm from "./UpdateForm";
 
 const UpdateUser = () => {
   const { user } = useSelector((state) => state.user);
 
-  return user && <Form />;
+  console.log("UpdateUser rendered!");
+  return user && <UpdateForm />;
 };
 
 export default UpdateUser;

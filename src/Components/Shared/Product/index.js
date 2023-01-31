@@ -13,50 +13,21 @@ import {
   Discount,
 } from "./Styles";
 
-import { useEffect, useState } from "react";
-
-import { callApi, shortText } from "../../../utils";
 import { NavLink } from "react-router-dom";
 
 import Prices from "./Price";
 import Rating from "./Rating";
 import Wish from "./Wish";
 import AddCart from "./addToCart";
+import { shortText } from "../../../utils";
 
 const Product = ({ product }) => {
-  const [discount, setDiscount] = useState(null);
-
-  const [variation, setVariation] = useState(null);
-  const [totalRating, setTotalRating] = useState(null);
-
-  // const { rating } = useTotalRating(ratings);
-
-  useEffect(() => {
-    (async () => {
-      const res = await callApi({
-        _id: product._id,
-        pathOne: "v1",
-        pathTwo: "getvariation",
-        method: "get",
-      });
-
-      setVariation(res.variation);
-
-      if (res.totalRating) {
-        setTotalRating(res.totalRating);
-      }
-      if (res.discount) {
-        setDiscount(res.discount);
-      }
-    })();
-  }, [product]);
-
   return (
     <ShoppingWrapper>
       {/* Discount */}
-      {discount && (
+      {product.discount && (
         <DiscountWrapper>
-          <Discount>-{discount.discount_percent.$numberDecimal}%</Discount>
+          <Discount>-{product.discount}%</Discount>
         </DiscountWrapper>
       )}
 
@@ -77,8 +48,11 @@ const Product = ({ product }) => {
 
       <ImgWrapper>
         <NavLink to={`/product/${product._id}`}>
-          {variation && (
-            <ShoppingImg src={variation?.variation_img} alt="camera" />
+          {product?.variation[0] && (
+            <ShoppingImg
+              src={product.variation[0]?.variation_img}
+              alt="camera"
+            />
           )}
         </NavLink>
       </ImgWrapper>
@@ -90,9 +64,9 @@ const Product = ({ product }) => {
             <h6>{shortText(product.name, 15, 0, 15)}</h6>
           </NavLink>
         </ShoppingTitle>
-        <Rating totalRating={totalRating} />
+        <Rating totalRating={product.total_rating} />
 
-        <Prices product={product} discount={discount} />
+        <Prices product={product} salePrie={product.salePrice} />
       </Content>
     </ShoppingWrapper>
   );

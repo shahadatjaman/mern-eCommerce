@@ -1,14 +1,28 @@
 // import { Col, Container, Row } from "react-bootstrap";
 import { Container, Grid } from "@mui/material";
-import { useWindowWidth } from "../../hooks/userWindowWidth";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getNewProducts,
+  getProtectiveProducts,
+} from "../../feature/reducer/getProducts";
 
 import Products from "./Products";
 import { Wrapper } from "./Styles";
 import Timer from "./Timer";
 
 const TimerPart = () => {
-  const isFluid = useWindowWidth({ width: 1400 });
+  const { protective, loading, loadingNewProducts, newProducts } = useSelector(
+    (state) => state.getItems
+  );
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getProtectiveProducts("63ab3df4ba6e5a0fde1ec5f7"));
+    dispatch(getNewProducts());
+  }, [dispatch]);
+
+  console.log(newProducts);
   return (
     <Wrapper>
       <Container maxWidth={"xl"}>
@@ -18,13 +32,12 @@ const TimerPart = () => {
           </Grid>
           <Grid item xl={4} lg={4} md={6} sm={8} xxs={12}>
             <Products
-              id="63ab3df4ba6e5a0fde1ec5f7"
               title={"Personal Protective Equipment"}
+              products={protective}
             />
           </Grid>
           <Grid item xl={4} lg={4} md={6} sm={8} xxs={12}>
-            {/* <Products id="638d718dc57c08cdc0b59ca0" title={"Top Ranking"} /> */}
-            <Products id="63ab3d7fba6e5a0fde1ec5eb" title={"New arrivals"} />
+            <Products title={"New arrivals"} products={newProducts} />
           </Grid>
         </Grid>
       </Container>

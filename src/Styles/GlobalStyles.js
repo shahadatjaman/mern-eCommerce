@@ -15,7 +15,7 @@ export const GlobalStyles = createGlobalStyle`
 body{
     font-family: 'Montserrat', sans-serif;
    // user-select: none;
-    overflow: auto ;
+    overflow: auto !important;
     background: #edf2fd;
 }
 a{
@@ -304,6 +304,10 @@ ul.mb-3.nav.nav-tabs {
     top: 9px;
     right: 24px;
     color: #e65353;
+}
+
+.ql-editor {
+    height: 40vh !important;
 }
 .banner_banner__1jrEf::before {
     left: -151px;

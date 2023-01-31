@@ -7,22 +7,12 @@ import RigthColumn from "./RightColumn";
 import { CarouselWrapper, SliderWrapper, CarouselCaption } from "./Styles";
 
 import { useWindowWidth } from "../../hooks/userWindowWidth";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { getCategories } from "../../feature/reducer/categories";
+
 import { Button } from "@mui/material";
 import { sliders } from "./data";
 
 const Slider = () => {
   const isFluid = useWindowWidth({ width: 1400 });
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(
-      getCategories({ pathOne: "v1", pathTwo: "getcategories", method: "get" })
-    );
-  }, [dispatch]);
 
   return (
     <SliderWrapper>

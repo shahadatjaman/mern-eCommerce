@@ -35,7 +35,7 @@ import { productInitValidation } from "../../Validation/prductInitValid";
 import { useState } from "react";
 import Inventory from "../../Components/Products/Inventory";
 
-import { createInventory } from "../../feature/reducer/Product/inventory";
+import { createInventory } from "../../../feature/reducer/product/inventory";
 import { createProductDiscount } from "../../feature/reducer/Product/productPricing";
 import { useNavigate, useParams } from "react-router-dom";
 import { generateId } from "../../utils";
@@ -157,7 +157,7 @@ const CreateNewProduct = ({ title }) => {
     }
 
     if (isValidForm) {
-      navigate("/collections");
+      navigate("/dashboard/collections");
     }
   };
 

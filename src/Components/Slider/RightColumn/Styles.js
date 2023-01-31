@@ -12,7 +12,7 @@ export const Items = styled.div``;
 export const ImgWrapper = styled.div`
   background: #f5f5f5;
   border-radius: 5px;
-  max-width: 100%;
+  max-width: 85%;
   height: 100%;
   display: flex;
   justify-content: center;

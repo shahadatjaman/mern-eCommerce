@@ -1,7 +1,109 @@
+// import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+// import axios from "axios";
+
+// import { getLocalstorage, requestToServerWithPost } from "../../../utils";
+
+// const initialState = {
+//   productVariations: [],
+//   loading: false,
+//   variation: null,
+//   options: {},
+//   isLoadOption: false,
+// };
+
+// // Create product files
+// export const createFileOrVariation = createAsyncThunk(
+//   "vendor/file",
+//   requestToServerWithPost({
+//     url: `${process.env.REACT_APP_SERVER_URL}/v1/productvariation`,
+//   })
+// );
+
+// // Create product files
+
+// export const removeVariation = createAsyncThunk(
+//   "vendor/removeVariation",
+//   requestToServerWithPost({
+//     url: `${process.env.REACT_APP_SERVER_URL}/v1/removevariation`,
+//   })
+// );
+
+// // Get Inventory
+// export const getVariation = createAsyncThunk(
+//   "vendor/getvariations",
+//   async ({ product_id }) => {
+//     try {
+//       let response = await axios.get(
+//         `${process.env.REACT_APP_SERVER_URL}/v1/getvariations/${product_id}`,
+
+//         {
+//           method: "GET",
+//           headers: {
+//             Authorization: "Bearer " + getLocalstorage("accessToken"),
+//           },
+//         }
+//       );
+
+//       return await response.data;
+//     } catch (error) {
+//       return await error.response.data.errors;
+//     }
+//   }
+// );
+
+// const variationSlice = createSlice({
+//   name: "variation",
+//   initialState,
+//   reducers: {
+//     removeFile: (state, { payload }) => {
+//       state.productVariations = payload;
+//     },
+//   },
+//   extraReducers: {
+//     // Create product variations
+//     [createFileOrVariation.pending]: (state) => {
+//       state.loading = true;
+//     },
+//     [createFileOrVariation.fulfilled]: (state, { payload }) => {
+//       state.productVariations = [...state.productVariations, payload.variation];
+//     },
+//     [createFileOrVariation.rejected]: (state) => {
+//       state.loading = false;
+//     },
+//     // Remove product variations
+//     [removeVariation.pending]: (state) => {
+//       state.loading = true;
+//     },
+//     [removeVariation.fulfilled]: (state, { payload }) => {
+//       state.loading = false;
+//     },
+//     [removeVariation.rejected]: (state) => {
+//       state.loading = false;
+//     },
+
+//     // Get product variations
+//     [getVariation.pending]: (state) => {
+//       state.loading = true;
+//     },
+//     [getVariation.fulfilled]: (state, { payload }) => {
+//       if (payload.variants) {
+//         state.variation = payload.variants;
+//       }
+//     },
+//     [getVariation.rejected]: (state) => {
+//       state.loading = false;
+//     },
+//   },
+// });
+
+// export const { removeFile } = variationSlice.actions;
+
+// export default variationSlice.reducer;
+
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-import { getLocalstorage, requestToServerWithPost } from "../../../utils";
+import { callApi, getLocalstorage } from "../../../utils";
 
 const initialState = {
   productVariations: [],
@@ -11,30 +113,43 @@ const initialState = {
   isLoadOption: false,
 };
 
-// Create product files
+// Create product files by url
 export const createFileOrVariation = createAsyncThunk(
-  "vendor/file",
-  requestToServerWithPost({
-    url: `${process.env.REACT_APP_SERVER_URL}/v1/productvariation`,
-  })
+  "v2/file",
+  async (values) => await callApi(values)
 );
 
-// Create product files
+// Upload product files
+export const uploadFile = createAsyncThunk(
+  "v2/upload",
+  async (values) => await callApi(values)
+);
 
+// Remove product variation
 export const removeVariation = createAsyncThunk(
   "vendor/removeVariation",
-  requestToServerWithPost({
-    url: `${process.env.REACT_APP_SERVER_URL}/v1/removevariation`,
-  })
+  async (values) => await callApi(values)
 );
 
-// Get Inventory
+// Create variation option
+export const createVariationOption = createAsyncThunk(
+  "vendor/createoptions",
+  async (values) => await callApi(values)
+);
+
+// Get variations
 export const getVariation = createAsyncThunk(
   "vendor/getvariations",
-  async ({ product_id }) => {
+  async (values) => await callApi(values)
+);
+
+// Get options
+export const getOptions = createAsyncThunk(
+  "vendor/getoptions",
+  async ({ variation_id }) => {
     try {
       let response = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/v1/getvariations/${product_id}`,
+        `http://localhost:8000/v1/getoptions/${variation_id}`,
 
         {
           method: "GET",
@@ -58,6 +173,13 @@ const variationSlice = createSlice({
     removeFile: (state, { payload }) => {
       state.productVariations = payload;
     },
+    getVariations: (state, { payload }) => {
+      state.productVariations = payload;
+      console.log(payload);
+    },
+    resetVariations: (state) => {
+      state.productVariations = [];
+    },
   },
   extraReducers: {
     // Create product variations
@@ -70,11 +192,33 @@ const variationSlice = createSlice({
     [createFileOrVariation.rejected]: (state) => {
       state.loading = false;
     },
+    // Upload file
+    [uploadFile.pending]: (state) => {
+      state.loading = true;
+    },
+    [uploadFile.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+
+      console.log(payload);
+
+      if (payload.variation) {
+        state.productVariations = [
+          ...state.productVariations,
+          payload.variation,
+        ];
+      } else {
+        console.log(payload);
+      }
+    },
+    [uploadFile.rejected]: (state) => {
+      state.loading = false;
+    },
     // Remove product variations
     [removeVariation.pending]: (state) => {
       state.loading = true;
     },
     [removeVariation.fulfilled]: (state, { payload }) => {
+      console.log(payload);
       state.loading = false;
     },
     [removeVariation.rejected]: (state) => {
@@ -93,9 +237,34 @@ const variationSlice = createSlice({
     [getVariation.rejected]: (state) => {
       state.loading = false;
     },
+    // Create product variation option
+    [createVariationOption.pending]: (state) => {
+      state.isLoadOption = true;
+    },
+    [createVariationOption.fulfilled]: (state, { payload }) => {
+      state.isLoadOption = false;
+      console.log(payload);
+      if (payload.createdOption) {
+        state.options = [...state.options, payload.createdOption];
+      }
+    },
+    [createVariationOption.rejected]: (state) => {
+      state.isLoadOption = false;
+    },
+    [getOptions.pending]: (state) => {
+      state.loading = true;
+    },
+    [getOptions.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.options = payload.options;
+    },
+    [getOptions.rejected]: (state) => {
+      state.loading = false;
+    },
   },
 });
 
-export const { removeFile } = variationSlice.actions;
+export const { removeFile, getVariations, resetVariations } =
+  variationSlice.actions;
 
 export default variationSlice.reducer;

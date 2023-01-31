@@ -10,7 +10,7 @@ const Or = () => {
       <SignWith>
         <Google />
         <Facebook />
-        <GitHub />
+        {/* <GitHub /> */}
       </SignWith>
     </>
   );

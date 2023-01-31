@@ -7,52 +7,37 @@ import { Wrapper } from "./Styles";
 import { MenuItem, Select, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { callApi } from "../../../../utils";
-import {
-  addRecentCategory,
-  clearAction,
-} from "../../../../feature/reducer/product";
 
-const Categories = () => {
-  const [categories, setCategories] = useState(null);
+import { addcategory, getCategory } from "../../../../feature/reducer/category";
 
-  const { recentCategoryId } = useSelector((state) => state.product);
+const Categories = ({ value, handleChange }) => {
+  const [state, setState] = useState("");
+  const { category, loading } = useSelector((state) => state.category);
 
   const dispatch = useDispatch();
 
-  const handleChange = (event) => {
-    dispatch(addRecentCategory({ _id: event.target.value }));
-    dispatch(clearAction({ clear: false }));
-  };
-
-  // Get categories
   useEffect(() => {
-    (async () => {
-      const res = await callApi({
-        pathOne: "v1",
-        pathTwo: "getcategories",
-        method: "get",
-      });
-
-      if (res.category) {
-        setCategories(res.category);
-      }
-    })();
-  }, []);
+    const cate__ = localStorage.getItem("cate__");
+    if (!cate__) {
+      dispatch(getCategory());
+    } else {
+      dispatch(addcategory(JSON.parse(cate__)));
+    }
+  }, [dispatch]);
 
   return (
     <Wrapper>
       <H5>Categories</H5>
       <FormControl sx={{ minWidth: "100%" }}>
         <Select
-          value={recentCategoryId}
+          value={value}
           onChange={handleChange}
           displayEmpty
           inputProps={{ "aria-label": "Without label" }}
           size="small"
         >
           <MenuItem value="">All categories</MenuItem>
-          {categories?.map((cat, index) => {
+          {category?.map((cat, index) => {
             return (
               cat.category_name !== "All categories" && (
                 <MenuItem key={index} value={cat._id}>
@@ -62,7 +47,9 @@ const Categories = () => {
             );
           })}
 
-          {!categories && <Typography>Categories not created yet!</Typography>}
+          {!category && !loading && (
+            <Typography>Categories not created yet!</Typography>
+          )}
         </Select>
       </FormControl>
     </Wrapper>

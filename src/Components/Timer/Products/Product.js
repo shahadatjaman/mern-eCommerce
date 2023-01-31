@@ -9,34 +9,13 @@ import { callApi, shortText } from "../../../utils";
 import { Img, ImgWrapper } from "../Styles";
 
 const Product = ({ product }) => {
-  const [variation, setVariation] = useState(null);
-  const [totalRating, setTotalRating] = useState(null);
-
-  useEffect(() => {
-    (async () => {
-      const res = await callApi({
-        _id: product._id,
-        pathOne: "v1",
-        pathTwo: "getvariation",
-        method: "get",
-      });
-      if (res.variation) {
-        setVariation(res.variation);
-      }
-      if (res.totalRating) {
-        setTotalRating(res.totalRating);
-      }
-    })();
-  }, [product]);
-
+  console.log(product);
   return (
     <Col className="col-4">
       <ImgWrapper>
-        {variation && (
-          <Link to={`/product/${product._id}`}>
-            <Img src={variation.variation_img} alt="mobile" />
-          </Link>
-        )}
+        <Link to={`/product/${product._id}`}>
+          <Img src={product.variation[0]?.variation_img} alt={product.name} />
+        </Link>
       </ImgWrapper>
 
       <Box my={2}>
@@ -46,7 +25,7 @@ const Product = ({ product }) => {
           </Link>
         </Typography>
 
-        {totalRating ? (
+        {product.tot_rating ? (
           <Box
             sx={{
               display: "flex",
@@ -57,21 +36,27 @@ const Product = ({ product }) => {
             <Rating
               size="small"
               name="read-only"
-              value={totalRating}
+              value={product.tot_rating}
               readOnly
             />
-            <Typography fontWeight={600}>({totalRating})</Typography>
+            <Typography fontWeight={600}>({product.tot_rating})</Typography>
           </Box>
         ) : (
           <Box mt={1}>
-            <Rating size="small" name="disabled" value={totalRating} disabled />
+            <Rating
+              size="small"
+              name="disabled"
+              value={product.tot_rating}
+              disabled
+            />
             ( 0)
           </Box>
         )}
         <Box>
-          {product && product.price && (
-            <Typography>$ {product.price.$numberDecimal}</Typography>
-          )}
+          <Typography>$ {product.salePrice} </Typography>
+          <Typography sx={{ textDecoration: "line-through" }}>
+            $ {product.price.$numberDecimal}
+          </Typography>
         </Box>
       </Box>
     </Col>

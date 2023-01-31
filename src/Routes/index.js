@@ -13,6 +13,7 @@ import Sidebar from "../Vendor/Components/Sidebar/Sidebar.js";
 import UpdateProduct from "../Vendor/Pages/UpdateProduct/index.js";
 import Dashboad from "../Vendor/Pages/Home/index.js";
 import Orders from "../Vendor/Pages/MyOders/";
+import Productions from "../Vendor/Pages/Production/index.js";
 
 const Wishlist = lazy(() => import("../Pages/Wishlist"));
 
@@ -219,7 +220,35 @@ export const routes = [
         path: "customer_order",
         element: (
           <Private>
-            <Orders />
+            {/* <Orders /> */}
+            <Productions />
+          </Private>
+        ),
+      },
+      {
+        path: "categories",
+        element: (
+          <Private>
+            {/* <Orders /> */}
+            <Productions />
+          </Private>
+        ),
+      },
+      {
+        path: "analytics",
+        element: (
+          <Private>
+            {/* <Orders /> */}
+            <Productions />
+          </Private>
+        ),
+      },
+      {
+        path: "setting",
+        element: (
+          <Private>
+            {/* <Orders /> */}
+            <Productions />
           </Private>
         ),
       },

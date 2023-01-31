@@ -19,12 +19,13 @@ import AccountMenu from "./AccountMenu";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { getOrders } from "../../feature/reducer/order/";
+import { useWindowWidth } from "../../hooks/userWindowWidth";
 
 const RightContent = () => {
   const [isOpenCart, setIsOpenCart] = useState(false);
   const { carts } = useSelector((state) => state.cart);
   const { wishes } = useSelector((state) => state.wish);
-
+  const isSmall = useWindowWidth({ width: 600 });
   const { user } = useSelector((state) => state.auth);
   const { orders } = useSelector((state) => state.order);
 
@@ -66,7 +67,6 @@ const RightContent = () => {
           </Action>
         )}
       </Item>
-
       <Item>
         <NavLink to={"/wishlist"}>
           <Action>
@@ -74,15 +74,6 @@ const RightContent = () => {
             <span>Wish</span>
           </Action>
           {wishes && <Count>{wishes.length}</Count>}
-        </NavLink>
-      </Item>
-      <Item>
-        <NavLink to={`/profile/${user?.firstName}/myorders`}>
-          <Action>
-            <FaLuggageCart />
-            <span>Order</span>
-          </Action>
-          {orders && <Count>{orders.length}</Count>}
         </NavLink>
       </Item>
       <Item>
@@ -98,6 +89,19 @@ const RightContent = () => {
           </ShoppingCart>
         )}
       </Item>
+      {!isSmall && (
+        <>
+          <Item>
+            <NavLink to={`/profile/${user?.firstName}/myorders`}>
+              <Action>
+                <FaLuggageCart />
+                <span>Order</span>
+              </Action>
+              {orders && <Count>{orders.length}</Count>}
+            </NavLink>
+          </Item>
+        </>
+      )}
     </HeaderRightWrapper>
   );
 };

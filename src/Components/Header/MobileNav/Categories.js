@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 const Categories = ({ categories }) => {
   const navigate = useNavigate();
-  const navigateHandler = () => {
-    navigate("/categories");
+  const navigateHandler = (id) => {
+    navigate(`/categories/${id}`);
   };
   return (
     <Box>
@@ -23,7 +23,11 @@ const Categories = ({ categories }) => {
             return (
               <>
                 {cat.category_name !== "All categories" && (
-                  <ListItem key={index} my={2} onClick={navigateHandler}>
+                  <ListItem
+                    key={index}
+                    my={2}
+                    onClick={() => navigateHandler(cat._id)}
+                  >
                     <Box sx={{ width: "20px", marginRight: 1 }}>
                       <Image src={cat.icon_name} />
                     </Box>

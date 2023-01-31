@@ -31,8 +31,9 @@ import BreadCrumb from "../../Components/Shared/BreadCrumb";
 import DetailsIcon from "@mui/icons-material/Details";
 import Product from "../../Components/Shared/Product";
 import { Typography } from "@mui/material";
+import { getProductsByCategoryId } from "../../feature/reducer/getProducts";
 const Details = () => {
-  const [reletedProducts, setRelatedProducts] = useState(null);
+  const { products, loading } = useSelector((state) => state.getItems);
 
   const { variations, product, isLoading, recentVariation, recentColor } =
     useSelector((state) => state.productDetails);
@@ -63,23 +64,12 @@ const Details = () => {
 
   // Get related products
   useEffect(() => {
-    if (product?.category_id && !isLoading) {
-      (async () => {
-        const relatedShop = await callApi({
-          pathOne: "v1",
-          pathTwo: "getproducts",
-          method: "post",
-          values: {
-            category_id: product?.category_id,
-          },
-          from: 1,
-          to: 5,
-        });
-
-        setRelatedProducts(relatedShop.products);
-      })();
+    if (product?.category_id) {
+      dispatch(
+        getProductsByCategoryId({ category_id: product.category_id, to: 5 })
+      );
     }
-  }, [product, isLoading]);
+  }, [product, dispatch]);
 
   if (!product && !isLoading) {
     return <ResourseNotFound />;
@@ -122,16 +112,17 @@ const Details = () => {
           </Grid>
 
           <Grid container spacing={2}>
-            <Grid item xl={12}>
-              <Box>
+            <Grid item xl={12} md={12} sm={12} xxs={12}>
+              <Box my={2}>
                 <Typography variant="h5">Related Products</Typography>
               </Box>
             </Grid>
-            {reletedProducts?.map((product) => (
-              <Grid item xl={12 / 5}>
-                <Product product={product} />
-              </Grid>
-            ))}
+            {!loading &&
+              products?.map((product) => (
+                <Grid item xl={12 / 5} lg={12 / 5} md={4} sm={6} xxs={12}>
+                  <Product product={product} />
+                </Grid>
+              ))}
           </Grid>
         </Container>
       </Box>

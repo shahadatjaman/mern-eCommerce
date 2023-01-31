@@ -1,27 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-import { getSalePrice } from "../../../utils";
 import { Old, Price, Span } from "./Styles";
 
-const Prices = ({ product, discount }) => {
-  const [salePrice, setSalePrice] = useState(null);
-
-  useEffect(() => {
-    if (discount) {
-      const res = getSalePrice({
-        discount: discount.discount_percent.$numberDecimal,
-        price: product.price.$numberDecimal,
-      });
-
-      setSalePrice(res);
-    }
-  }, [discount, product]);
-
+const Prices = ({ product, salePrie }) => {
   return (
     <Price>
-      {salePrice ? (
+      {salePrie ? (
         <>
-          <Span> {salePrice.toFixed(2)} $</Span>
+          <Span> {salePrie.toFixed(2)} $</Span>
           <Old> {parseFloat(product.price.$numberDecimal).toFixed(2)} </Old>
         </>
       ) : (

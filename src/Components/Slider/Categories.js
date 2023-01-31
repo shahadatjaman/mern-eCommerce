@@ -2,14 +2,27 @@ import React from "react";
 import { CartTitel, CategoriesWrapper, H5, Menubar, Ul } from "./Styles";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Category from "./category";
 import CategoryLoading from "../Shared/Skeleton/Category";
 import { Box, Typography } from "@mui/material";
+import { useEffect } from "react";
+import { addcategory, getCategory } from "../../feature/reducer/category";
 
 const Categories = () => {
-  const { categories, loading } = useSelector((state) => state.categories);
+  const { category, loading } = useSelector((state) => state.category);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const cate__ = localStorage.getItem("cate__");
+    if (!cate__) {
+      dispatch(getCategory());
+    } else {
+      dispatch(addcategory(JSON.parse(cate__)));
+    }
+  }, [dispatch]);
 
   return (
     <CategoriesWrapper className="dispaly-none">
@@ -22,12 +35,17 @@ const Categories = () => {
       </CartTitel>
       <Menubar>
         <Ul>
-          {loading && <CategoryLoading />}
-          {categories?.slice(0, 8).map((cate, index) => (
-            <Category cate={cate} key={index} />
-          ))}
+          {loading ? (
+            <CategoryLoading />
+          ) : (
+            <>
+              {category?.slice(0, 8).map((cate, index) => (
+                <Category cate={cate} key={index} />
+              ))}
+            </>
+          )}
         </Ul>
-        {categories?.length === 0 && (
+        {category?.length === 0 && (
           <Box
             sx={{
               display: "flex",

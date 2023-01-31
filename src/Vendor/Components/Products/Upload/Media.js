@@ -2,7 +2,7 @@ import React from "react";
 import { Actions, AddUrl, Images, MediaWrapper, Span } from "../Styles";
 
 import { useState } from "react";
-
+import SaveIcon from "@mui/icons-material/Save";
 import AddFileURL from "./AddURL";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +10,7 @@ import Img from "./Img";
 import { Button } from "@mui/material";
 import { uploadFile } from "../../../feature/reducer/Product/productVariation";
 import { useParams } from "react-router-dom";
+import { LoadingButton } from "@mui/lab";
 
 const Media = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +21,9 @@ const Media = () => {
 
   const dispatch = useDispatch();
 
-  const { productVariations } = useSelector((state) => state.variation);
+  const { productVariations, loading } = useSelector(
+    (state) => state.variation
+  );
 
   const openModal = () => {
     setIsOpen(true);
@@ -67,10 +70,22 @@ const Media = () => {
   return (
     <MediaWrapper isEmpty={productVariations.length < 0}>
       <Actions>
-        <Button variant="text" component="label">
-          Add files
-          <input type="file" hidden onChange={fileChangeHandler} />
-        </Button>
+        {loading ? (
+          <LoadingButton
+            color="primary"
+            loading={true}
+            loadingPosition="start"
+            variant="text"
+          >
+            Add files
+            <input type="file" hidden onChange={fileChangeHandler} />
+          </LoadingButton>
+        ) : (
+          <Button variant="text" component="label">
+            Add files
+            <input type="file" hidden onChange={fileChangeHandler} />
+          </Button>
+        )}
 
         <AddUrl>
           <Span onClick={openModal}>Add from URL</Span>

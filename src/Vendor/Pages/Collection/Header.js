@@ -24,7 +24,7 @@ const Header = () => {
   );
 
   const navigateHandler = () => {
-    navigate("/newproduct");
+    navigate("/dashboard/newproduct");
   };
 
   const refreshHandler = () => {

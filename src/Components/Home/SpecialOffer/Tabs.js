@@ -4,8 +4,9 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import { useDispatch } from "react-redux";
-import { fetchProducts, getProducts } from "../../../feature/reducer/product";
-import { callApi } from "../../../utils";
+import { getProducts } from "../../../feature/reducer/getProducts/";
+
+import { getProductsByCategoryId } from "../../../feature/reducer/getProducts";
 
 const LabTabs = ({ children }) => {
   const [value, setValue] = React.useState("1");
@@ -16,26 +17,9 @@ const LabTabs = ({ children }) => {
     setValue(newValue);
 
     if (newValue.toString() === "1") {
-      dispatch(
-        fetchProducts({
-          pathOne: "v1",
-          pathTwo: "getproducts",
-          method: "post",
-          from: 0,
-          to: 15,
-        })
-      );
+      dispatch(getProducts());
     } else {
-      const res = await callApi({
-        values: { category_id: newValue },
-        pathOne: "v1",
-        pathTwo: "getproducts",
-        method: "post",
-        from: 0,
-        to: 15,
-      });
-
-      dispatch(getProducts(res.products));
+      dispatch(getProductsByCategoryId({ category_id: newValue, to: 15 }));
     }
   };
 

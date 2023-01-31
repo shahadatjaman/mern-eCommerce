@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { addCartItems } from "../../../feature/reducer/addToCart";
 import { useAddToCart } from "../../../hooks/useAddToCart";
 import { callApi, shortText } from "../../../utils";
@@ -71,16 +72,20 @@ const Cart = ({ cart }) => {
   return (
     <CartWrapper>
       <Left>
-        <ImgWrapper>
-          {variation ? (
-            <Img src={variation.variation_img} alt="img" />
-          ) : (
-            <Img src={defaultImg} alt="image" />
-          )}
-        </ImgWrapper>
+        <Link to={`/product/${product?._id}`}>
+          <ImgWrapper>
+            {variation ? (
+              <Img src={variation.variation_img} alt="img" />
+            ) : (
+              <Img src={defaultImg} alt="image" />
+            )}
+          </ImgWrapper>
+        </Link>
       </Left>
       <Middle>
-        {product && <Name>{shortText(product.name, 40, 0, 40)} </Name>}
+        <Link to={`/product/${product?._id}`}>
+          {product && <Name>{shortText(product.name, 40, 0, 40)} </Name>}
+        </Link>
 
         <Quantity cart={cart} />
         <Price>

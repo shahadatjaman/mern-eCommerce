@@ -1,6 +1,6 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { addNewWish } from "../../../feature/reducer/addWish";
 import { clearCart } from "../../../feature/reducer/wishList";
 import { useWish } from "../../../hooks/useWish";
@@ -12,11 +12,16 @@ const CartTable = ({ items }) => {
   const { clearWish } = useWish();
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   const cleareCartItems = () => {
     dispatch(addNewWish({ wish: null }));
     clearWish();
   };
 
+  const goToHome = () => {
+    navigate("/");
+  };
   return (
     <Box sx={{ padding: 1 }}>
       <Table>
@@ -46,8 +51,8 @@ const CartTable = ({ items }) => {
           margin: "0 auto",
         }}
       >
-        <Button variant="contained">
-          <NavLink to={"/"}>CONTINUE SHOPPING</NavLink>
+        <Button variant="contained" onClick={goToHome}>
+          CONTINUE SHOPPING
         </Button>
         <Button onClick={cleareCartItems} variant="outlined" error>
           CLEAR WISHLIST

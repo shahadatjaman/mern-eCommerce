@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { SeachBarWrapper } from "./Styles";
-import { styled, alpha } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import { H5 } from "../Styles";
-import { useDispatch, useSelector } from "react-redux";
-import { callApi } from "../../../../utils";
-import {
-  addFilterdProducts,
-  addQueryValue,
-} from "../../../../feature/reducer/product";
+import { useDispatch } from "react-redux";
+
+import { getProductsByValues } from "../../../../feature/reducer/getProducts";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -53,26 +50,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Input = () => {
-  const { queryValue } = useSelector((state) => state.product);
+  const [value, setValue] = useState("");
 
   const dispatch = useDispatch();
 
   const changeHandler = (e) => {
-    dispatch(addQueryValue({ value: e.target.value }));
+    const value = e.target.value;
+    setValue(value);
+    if (value) dispatch(getProductsByValues({ queryText: value }));
   };
-
-  useEffect(() => {
-    (async () => {
-      const res = await callApi({
-        pathOne: "v1",
-        pathTwo: "getproducts",
-        method: "get",
-        _id: queryValue,
-      });
-
-      dispatch(addFilterdProducts({ products: res.products }));
-    })();
-  }, [queryValue, dispatch]);
 
   return (
     <SeachBarWrapper>
@@ -85,7 +71,7 @@ const Input = () => {
           placeholder="Search…"
           inputProps={{ "aria-label": "search" }}
           onChange={changeHandler}
-          value={queryValue}
+          value={value}
         />
       </Search>
     </SeachBarWrapper>

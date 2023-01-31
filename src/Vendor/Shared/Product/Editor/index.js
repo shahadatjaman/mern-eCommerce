@@ -30,6 +30,7 @@ function Add({ setLong_desc }) {
         placeholder={"Write something awesome..."}
         modules={modules("t1")}
         formats={formats}
+        style={{ height: "40vh" }}
       />
     </>
   );

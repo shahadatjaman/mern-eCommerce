@@ -35,16 +35,7 @@ const Sidebar = () => {
   return (
     <Layout>
       <Grid container spacing={2} sx={{ padding: 0 }}>
-        <Grid
-          mt={2}
-          item
-          sx={{
-            background: "#131720",
-            paddingLeft: 0,
-            height: "102vh",
-          }}
-          xl={2}
-        >
+        <Grid mt={2} item xl={2} md={2} sm={2}>
           <SidebarWrape className="sidebar">
             <Fixed>
               <TopSection></TopSection>
@@ -57,7 +48,7 @@ const Sidebar = () => {
             </Fixed>
           </SidebarWrape>
         </Grid>
-        <Grid item xl={10}>
+        <Grid item xl={10} md={10} sm={2}>
           <Box sx={{ position: "relative", marginTop: 5 }}>
             {!close && <Alert text={message} ok={ok} />}
 

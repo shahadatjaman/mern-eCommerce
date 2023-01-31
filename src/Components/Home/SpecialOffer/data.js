@@ -76,3 +76,5 @@ export const allproducts = [
       "https://res.cloudinary.com/dza2t1htw/image/upload/v1668924060/prodcut5_73acc5a1-9b3c-49b7-afe7-b398b35cb87c_j0cykm.webp",
   },
 ];
+
+export const placeHolder = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];

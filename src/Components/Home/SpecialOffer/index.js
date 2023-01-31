@@ -3,74 +3,33 @@ import Loading from "../../Shared/Skeleton/Product/Product";
 
 import Product from "../../Shared/Product/";
 import FeatureProdcut from "./Features";
-import Paginations from "../../Shared/Pagination/";
 
-import { useWindowWidth } from "../../../hooks/userWindowWidth";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-
-import {
-  addFilterdProducts,
-  fetchProducts,
-  getProductByCategory,
-} from "../../../feature/reducer/product";
 
 import { Box, Container, Grid, Typography } from "@mui/material";
 import LabTabs from "./Tabs";
 import OffierCounter from "./Timer";
-
-import { useState } from "react";
+import {
+  getProducts,
+  getTopReviewed,
+} from "../../../feature/reducer/getProducts/index";
+import { placeHolder } from "./data";
 
 const SpeOffer = () => {
-  const [recentPage, setRecentPage] = useState(1);
-  // const [paginatedProducts, setPaginatedProducts] = useState(null);
-
-  const { products, featureProduct, isLoading } = useSelector(
-    (state) => state.product
+  const { products, loading, topReviewed, loadingTopReview } = useSelector(
+    (state) => state.getItems
   );
-
-  const [contentPerPage] = useState(15);
-
-  // const isFluid = useWindowWidth({ width: 1400 });
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(
-      fetchProducts({
-        pathOne: "v1",
-        pathTwo: "getproducts",
-        from: 0,
-        to: 15,
-        method: "post",
-      })
-    );
+    dispatch(getTopReviewed());
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(
-      getProductByCategory({
-        category_id: "638d7127c57c08cdc0b59c90",
-        pathOne: "v1",
-        pathTwo: "getproducts",
-        method: "post",
-        from: 0,
-        to: 3,
-      })
-    );
+    dispatch(getProducts());
   }, [dispatch]);
-
-  useEffect(() => {
-    if (products) {
-      const getPaginatedData = (() => {
-        const startIndex = recentPage * contentPerPage - contentPerPage;
-        const endIndex = startIndex + contentPerPage;
-        return products.slice(startIndex, endIndex);
-      })();
-
-      dispatch(addFilterdProducts(getPaginatedData));
-    }
-  }, [contentPerPage, recentPage, products, dispatch]);
 
   return (
     <Wrapper>
@@ -87,11 +46,12 @@ const SpeOffer = () => {
               >
                 Top Review
               </Typography>
-              {featureProduct?.map((item, index) => (
-                <FeatureProdcut value={item} key={index} />
-              ))}
+              {!loadingTopReview &&
+                topReviewed?.map((item, index) => (
+                  <FeatureProdcut product={item} key={index} />
+                ))}
 
-              {featureProduct && featureProduct.length === 0 && (
+              {!topReviewed && loadingTopReview && (
                 <Typography textAlign={"center"} py={5} display={"block"}>
                   No more product!
                 </Typography>
@@ -103,18 +63,32 @@ const SpeOffer = () => {
               <LabTabs />
               <div className="items">
                 <Grid container spacing={2}>
-                  {products?.map((item, index) => (
-                    <Grid
-                      key={index}
-                      item
-                      lg={12 / 5}
-                      xs={12 / 2}
-                      md={4}
-                      sm={12}
-                    >
-                      {isLoading ? <Loading /> : <Product product={item} />}
-                    </Grid>
-                  ))}
+                  {loading &&
+                    placeHolder?.map((item, index) => (
+                      <Grid
+                        key={index}
+                        item
+                        lg={12 / 5}
+                        xs={12 / 2}
+                        md={4}
+                        sm={12}
+                      >
+                        <Loading />
+                      </Grid>
+                    ))}
+                  {!loading &&
+                    products?.map((item, index) => (
+                      <Grid
+                        key={index}
+                        item
+                        lg={12 / 5}
+                        xs={12 / 2}
+                        md={4}
+                        sm={12}
+                      >
+                        <Product product={item} />
+                      </Grid>
+                    ))}
                 </Grid>
               </div>
             </Categoreis>

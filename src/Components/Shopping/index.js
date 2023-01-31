@@ -4,7 +4,7 @@ import Layout from "../../Pages/Layout";
 
 import GrandTotal from "./GrandTotal";
 import Container from "@mui/material/Container";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import BasicTable from "./Tabel";
 import EmptyCart from "./EmptyCart";
 
@@ -19,6 +19,11 @@ const Shopping = () => {
             <EmptyCart />
           ) : (
             <Grid container spacing={2}>
+              <Grid item xl={12}>
+                <Typography variant={"h4"} fontWeight="600">
+                  Shopping Cart
+                </Typography>
+              </Grid>
               <Grid item xs={12} xl={8} md={8} sm={12} xxs={12}>
                 <BasicTable />
               </Grid>

@@ -14,13 +14,16 @@ export const SidebarWrape = styled.div`
 
 export const Fixed = styled.div`
   position: fixed;
-  position: fixed;
   width: 230px;
   // background: #131720;
-  height: 100%;
-  @media (max-width: 1200px) {
-    width: inherit;
-  }
+  //height: 100%;
+
+  background: #131720 !important;
+  paddingleft: 0;
+  height: 102vh !important;
+  // @media (max-width: 1200px) {
+  //   width: inherit;
+  // }
 `;
 
 export const TopSection = styled.div`

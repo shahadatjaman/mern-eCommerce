@@ -33,6 +33,8 @@ import queryReducer from "../feature/reducer/Query/";
 
 import authReducer from "../feature/reducer/user/auth";
 import UpdateProdcutsInventory from "../Vendor/feature/reducer/Product/UpdateProdcutsInventory";
+import categoryReducer from "../feature/reducer/category/";
+import itemsReducer from "../feature/reducer/getProducts/index";
 
 export const store = configureStore({
   reducer: {
@@ -53,6 +55,8 @@ export const store = configureStore({
     categories: cateReducer,
     query: queryReducer,
     wish: wishReducer,
+    getItems: itemsReducer,
+    category: categoryReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

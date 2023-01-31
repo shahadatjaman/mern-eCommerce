@@ -1,54 +1,41 @@
-import { ProductionQuantityLimits } from "@mui/icons-material";
 import { Box, FormControl, Grid, MenuItem, Select } from "@mui/material";
 import React from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addFilterdProducts,
-  addRecentSortedId,
-  addRecentSortedQuery,
-  addShow,
-} from "../../../feature/reducer/product";
+import { useState } from "react";
+
+import { useDispatch } from "react-redux";
+import { getProductsByValues } from "../../../feature/reducer/getProducts";
+
 import { useWindowWidth } from "../../../hooks/userWindowWidth";
-import { callApi } from "../../../utils/";
 import { options } from "./data";
 import { Span, Wrapper } from "./Styles";
 
 const Sorting = () => {
-  const { recentSortedId, recentSortedQuery, show } = useSelector(
-    (state) => state.product
-  );
+  const [state, setState] = useState("");
 
   const isSmallDevice = useWindowWidth({ width: 500 });
 
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
-    dispatch(addRecentSortedId(e.target.value));
-    const queryValues = options.filter((val) => val.id === e.target.value);
+    const value = e.target.value;
+    setState(value);
 
-    dispatch(addRecentSortedQuery(...queryValues));
+    const optionIndex = options.findIndex((option) => option.id === value);
+    console.log(options[optionIndex]);
+    if (optionIndex > -1) {
+      if (options[optionIndex].sortBy === "price") {
+        dispatch(
+          getProductsByValues({ sortByPrice: options[optionIndex].value })
+        );
+      }
+
+      if (options[optionIndex].sortBy === "name") {
+        dispatch(
+          getProductsByValues({ sortByName: options[optionIndex].value })
+        );
+      }
+    }
   };
-
-  const showChangeHandler = (e) => {
-    dispatch(addShow(e.target.value));
-  };
-
-  useEffect(() => {
-    (async () => {
-      const res = await callApi({
-        pathOne: "v1",
-        pathTwo: "getsortedproducts",
-        paramOne: recentSortedQuery ? recentSortedQuery.sortBy : "name",
-        paramWTwo: recentSortedQuery ? recentSortedQuery.value : "1",
-        method: "get",
-        from: 0,
-        to: 15,
-      });
-
-      dispatch(addFilterdProducts({ products: res.products }));
-    })();
-  }, [recentSortedQuery, dispatch]);
 
   return (
     <Wrapper>
@@ -72,8 +59,8 @@ const Sorting = () => {
           <Span>Sort By :</Span>
           <FormControl sx={{ width: 180 }}>
             <Select
-              value={recentSortedId}
               onChange={handleChange}
+              value={state}
               displayEmpty
               inputProps={{ "aria-label": "Without label" }}
               size="small"
@@ -102,13 +89,12 @@ const Sorting = () => {
             <Span>Show :</Span>
             <FormControl sx={{ minWidth: 120 }}>
               <Select
-                value={show}
-                onChange={showChangeHandler}
                 displayEmpty
                 inputProps={{ "aria-label": "Without label" }}
                 size="small"
+                disabled
               >
-                <MenuItem value={show}>
+                <MenuItem value={"15"}>
                   <em>15</em>
                 </MenuItem>
                 <MenuItem value={30}>30</MenuItem>

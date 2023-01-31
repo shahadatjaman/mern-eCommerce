@@ -13,7 +13,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 // Mui Icons
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import HomeIcon from "@mui/icons-material/Home";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { useWish } from "../../hooks/useWish";
 import { useEffect } from "react";
@@ -38,6 +38,7 @@ const Wishlist = () => {
           IconOne={HomeIcon}
           IconTwo={FavoriteIcon}
         />
+
         <CartMain>
           {/* If Wishlist is empty! */}
           {!wishes && (
@@ -55,6 +56,11 @@ const Wishlist = () => {
           )}
 
           <Container>
+            {/* <Box>
+              <Typography variant="h4" fontWeight={"600"}>
+                Wish List
+              </Typography>
+            </Box> */}
             {/* if wishList is not empty */}
             {wishes && wishes?.length !== 0 && <Tabel items={wishes} />}
           </Container>

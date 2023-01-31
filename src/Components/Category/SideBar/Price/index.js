@@ -2,11 +2,11 @@ import React from "react";
 import { Wrapper } from "./Styles";
 import { H5 } from "../Styles";
 import RangeSlider from "./Rang";
-const Price = () => {
+const Price = (props) => {
   return (
     <Wrapper>
       <H5>Price</H5>
-      <RangeSlider />
+      <RangeSlider {...props} />
     </Wrapper>
   );
 };

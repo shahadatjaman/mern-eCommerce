@@ -22,7 +22,7 @@ export const menuItem = [
   },
   {
     path: "/dashboard/newproduct",
-    name: "Products",
+    name: "New Products",
     icon: <BsFillTagFill />,
   },
   {
@@ -36,13 +36,13 @@ export const menuItem = [
     icon: <CategoryIcon />,
   },
   {
-    path: "/",
+    path: "/dashboard/analytics",
     name: "Analytics",
     icon: <GoGraph />,
   },
   {
-    path: "/",
-    name: "Product List",
+    path: "/dashboard/setting",
+    name: "Setting",
     icon: <FaThList />,
   },
 ];
