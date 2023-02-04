@@ -9,7 +9,6 @@ import { callApi, shortText } from "../../../utils";
 import { Img, ImgWrapper } from "../Styles";
 
 const Product = ({ product }) => {
-  console.log(product);
   return (
     <Col className="col-4">
       <ImgWrapper>
