@@ -32,6 +32,7 @@ export const getProducts = createAsyncThunk(
   async () =>
     await callApi({
       ...paramsForProduct,
+
       from: 0,
       to: 15,
     })

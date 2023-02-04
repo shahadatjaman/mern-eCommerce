@@ -27,7 +27,7 @@ const Product = ({ product }) => {
       {/* Discount */}
       {product.discount && (
         <DiscountWrapper>
-          <Discount>-{product.discount}%</Discount>
+          <Discount>-{product.discount.$numberDecimal}%</Discount>
         </DiscountWrapper>
       )}
 
@@ -66,7 +66,7 @@ const Product = ({ product }) => {
         </ShoppingTitle>
         <Rating totalRating={product.total_rating} />
 
-        <Prices product={product} salePrie={product.salePrice} />
+        <Prices product={product} />
       </Content>
     </ShoppingWrapper>
   );

@@ -42,9 +42,9 @@ const FeatureProdcut = ({ product }) => {
             <Rating name="disabled" value={0} disabled />
           )}
 
-          <Typography variant="body1" display="block" fontWeight="600">
+          {/* <Typography variant="body1" display="block" fontWeight="600">
             $ {parseFloat(product.price.$numberDecimal).toFixed(2)}
-          </Typography>
+          </Typography> */}
         </Caption>
       </Grid>
     </Grid>

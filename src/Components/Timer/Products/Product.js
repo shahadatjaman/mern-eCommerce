@@ -52,10 +52,10 @@ const Product = ({ product }) => {
           </Box>
         )}
         <Box>
-          <Typography>$ {product.salePrice} </Typography>
+          {/* <Typography>$ {product.salePrice} </Typography>
           <Typography sx={{ textDecoration: "line-through" }}>
             $ {product.price.$numberDecimal}
-          </Typography>
+          </Typography> */}
         </Box>
       </Box>
     </Col>
