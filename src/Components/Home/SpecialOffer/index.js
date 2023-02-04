@@ -44,7 +44,7 @@ const SpeOffer = () => {
                 mb={2}
                 borderBottom={"1px solid #ddd"}
               >
-                Top Review
+                Recommended For You
               </Typography>
               {!loadingTopReview &&
                 topReviewed?.map((item, index) => (
