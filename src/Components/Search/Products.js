@@ -2,10 +2,9 @@ import { Box, Grid } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 import Product from "../Shared/Product/";
-import ProductNotFound from "../Shared/ProductNotFound";
 
 const Products = ({ products }) => {
-  const { grid } = useSelector((state) => state.query);
+  const { grid } = useSelector((state) => state.getItems);
 
   return (
     <Grid container spacing={2}>

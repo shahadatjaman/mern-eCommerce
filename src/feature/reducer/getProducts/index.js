@@ -111,6 +111,18 @@ export const getTopReviewed = createAsyncThunk(
     })
 );
 
+// Search products by product name and product category
+export const getProductsByTextAndCategory = createAsyncThunk(
+  "get_products_by_name_and_category",
+  async (values) =>
+    await callApi({
+      ...paramsForProduct,
+      values: { ...values },
+      from: 0,
+      to: 14,
+    })
+);
+
 const productSlice = createSlice({
   name: "get_product",
   initialState,
@@ -222,6 +234,18 @@ const productSlice = createSlice({
       })
       .addCase(getTopReviewed.rejected, (state) => {
         state.loadingTopReview = false;
+      })
+
+      // Search products by product name and product category
+      .addCase(getProductsByTextAndCategory.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getProductsByTextAndCategory.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.products = payload.products;
+      })
+      .addCase(getProductsByTextAndCategory.rejected, (state) => {
+        state.loading = false;
       });
   },
 });

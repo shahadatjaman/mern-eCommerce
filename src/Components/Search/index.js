@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getQueryProducts } from "../../feature/reducer/Query";
 import ProductNotFound from "../Shared/ProductNotFound/";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { getProductsByTextAndCategory } from "../../feature/reducer/getProducts";
 
 const SearchForm = () => {
   const [values, setValues] = useState({
@@ -18,8 +19,9 @@ const SearchForm = () => {
     category_id: "",
   });
 
+  const { loading, products } = useSelector((state) => state.getItems);
+
   const { categories } = useSelector((state) => state.categories);
-  const { products } = useSelector((state) => state.query);
 
   const [searchParams] = useSearchParams();
   const queryText = searchParams.get("queryText"); // "testCode"
@@ -49,28 +51,19 @@ const SearchForm = () => {
     e.preventDefault();
     navigate(`/query?queryText=${values.queryText}`);
 
-    const params = {
-      pathOne: "v1",
-      pathTwo: "getproducts",
-      method: "post",
-      from: 0,
-      to: 100,
-    };
-
     if (values.queryText && values.category_id) {
       dispatch(
-        getQueryProducts({
-          values: values,
-          ...params,
+        getProductsByTextAndCategory({
+          queryText: values.queryText,
+          category_id: values.category_id,
         })
       );
     }
 
     if (values.queryText && !values.category_id) {
       dispatch(
-        getQueryProducts({
-          values: { queryText: values.queryText },
-          ...params,
+        getProductsByTextAndCategory({
+          queryText: values.queryText,
         })
       );
     }
@@ -137,10 +130,10 @@ const SearchForm = () => {
         </Grid>
       </Box>
       <Box>
-        <Products products={products} />
+        {!loading && products && <Products products={products} />}
 
-        {products && products.length === 0 && <ProductNotFound />}
-        {!products && <ProductNotFound />}
+        {!loading && products && products.length === 0 && <ProductNotFound />}
+        {/* {!products && <ProductNotFound />} */}
       </Box>
     </Wrapper>
   );
