@@ -44,7 +44,6 @@ const loginSlice = createSlice({
           setLocalstorage("accessToken", payload.accessToken);
           payload.navigate("/");
         }
-        console.log(payload);
       })
       .addCase(login.rejected, (state, { payload }) => {
         state.loading = false;

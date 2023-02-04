@@ -31,7 +31,6 @@ const priceSlice = createSlice({
     },
     [createProductDiscount.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      console.log(payload);
     },
     [createProductDiscount.rejected]: (state) => {
       state.loading = false;

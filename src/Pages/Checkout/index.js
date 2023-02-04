@@ -29,8 +29,6 @@ const Checkout = () => {
   //   );
   // }, [dispatch]);
 
-  console.log(userAddress);
-
   return (
     !isLoading && (
       <Layout footer={false}>

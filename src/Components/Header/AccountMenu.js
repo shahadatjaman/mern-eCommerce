@@ -46,7 +46,6 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
     }
   };
 
-  console.log(user);
   return (
     <>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>

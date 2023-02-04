@@ -16,7 +16,6 @@ const MuiSelect = ({
   name,
   isAdded,
 }) => {
-  console.log(names);
   return (
     <FormControl sx={{ m: 1, minWidth: width }}>
       <InputLabel

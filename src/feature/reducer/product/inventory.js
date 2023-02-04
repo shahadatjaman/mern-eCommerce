@@ -27,9 +27,7 @@ export const inventorySlice = createSlice({
     [createInventory.pending]: (state, { payload }) => {
       state.loading = true;
     },
-    [createInventory.fulfilled]: (state, { payload }) => {
-      console.log(payload);
-    },
+    [createInventory.fulfilled]: (state, { payload }) => {},
     [createInventory.rejected]: (state, { payload }) => {
       state.loading = false;
     },

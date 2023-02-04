@@ -73,7 +73,6 @@ const variationSlice = createSlice({
     },
     getVariations: (state, { payload }) => {
       state.productVariations = payload;
-      console.log(payload);
     },
     resetVariations: (state) => {
       state.productVariations = [];
@@ -97,15 +96,11 @@ const variationSlice = createSlice({
     [uploadFile.fulfilled]: (state, { payload }) => {
       state.loading = false;
 
-      console.log(payload);
-
       if (payload.variation) {
         state.productVariations = [
           ...state.productVariations,
           payload.variation,
         ];
-      } else {
-        console.log(payload);
       }
     },
     [uploadFile.rejected]: (state) => {
@@ -116,7 +111,6 @@ const variationSlice = createSlice({
       state.loading = true;
     },
     [removeVariation.fulfilled]: (state, { payload }) => {
-      console.log(payload);
       state.loading = false;
     },
     [removeVariation.rejected]: (state) => {
@@ -141,7 +135,7 @@ const variationSlice = createSlice({
     },
     [createVariationOption.fulfilled]: (state, { payload }) => {
       state.isLoadOption = false;
-      console.log(payload);
+
       if (payload.createdOption) {
         state.options = [...state.options, payload.createdOption];
       }

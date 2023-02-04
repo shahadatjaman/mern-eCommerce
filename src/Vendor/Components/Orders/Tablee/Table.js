@@ -5,7 +5,6 @@ import { OrderTable as data } from "./data";
 import AvatarChip from "./Chip";
 
 const OrderTable = () => {
-  console.log(data.tableBody);
   return (
     <Box>
       <Table>

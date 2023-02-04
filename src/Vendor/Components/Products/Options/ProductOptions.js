@@ -34,7 +34,7 @@ const ProductOptions = ({ isOpen, variation }) => {
 
   const handleChange = (e) => {
     const val = e.target.value;
-    console.log(val);
+
     if (val.trim().length > -1) {
       setValues({
         ...values,

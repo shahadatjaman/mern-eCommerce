@@ -37,8 +37,6 @@ const Header = () => {
     );
   };
 
-  console.log(products);
-
   return (
     <HeaderWrapper>
       <Container>

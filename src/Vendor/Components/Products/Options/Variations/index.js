@@ -23,7 +23,6 @@ const Variations = ({ variation_id, isOpen }) => {
     dispatch(getOptions({ variation_id }));
   }, [dispatch, variation_id, isOpen]);
 
-  console.log(options);
   return (
     <Wrapper>
       {options?.length !== 0 && (

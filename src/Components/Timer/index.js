@@ -22,7 +22,6 @@ const TimerPart = () => {
     dispatch(getNewProducts());
   }, [dispatch]);
 
-  console.log(newProducts);
   return (
     <Wrapper>
       <Container maxWidth={"xl"}>

@@ -41,8 +41,6 @@ const Content = () => {
     }
   }, [dispatch, user]);
 
-  console.log(user);
-
   return (
     <Wrapper>
       <Typography variant="h5" fontWeight="500" my={3}>

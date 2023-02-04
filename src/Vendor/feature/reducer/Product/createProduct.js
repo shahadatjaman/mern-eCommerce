@@ -47,7 +47,6 @@ export const createInitProduct = createAsyncThunk(
 export const createProduct = createAsyncThunk(
   "v1/newproduct",
   async (values) => {
-    console.log(values);
     return await callApi(values);
   }
 );
@@ -159,9 +158,7 @@ export const productSlice = createSlice({
     [createProduct.pending]: (state) => {
       state.loading = true;
     },
-    [createProduct.fulfilled]: (state, { payload }) => {
-      console.log(payload);
-    },
+    [createProduct.fulfilled]: (state, { payload }) => {},
     [createProduct.rejected]: (state) => {
       state.loading = false;
     },
@@ -171,7 +168,6 @@ export const productSlice = createSlice({
     },
     [createTags.fulfilled]: (state, { payload }) => {
       state.tags = [...state.tags, payload.tag];
-      console.log(payload);
     },
     [createTags.rejected]: (state) => {
       state.loading = false;
@@ -229,8 +225,6 @@ export const productSlice = createSlice({
             ? payload.productVariation
             : null,
         };
-
-        console.log(payload);
       }
     },
     [getProductByProductId.rejected]: (state) => {

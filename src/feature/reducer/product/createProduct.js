@@ -47,7 +47,6 @@ export const createInitProduct = createAsyncThunk(
 export const createProduct = createAsyncThunk(
   "v1/newproduct",
   async (values) => {
-    console.log(values);
     return await callApi(values);
   }
 );
@@ -171,7 +170,6 @@ export const productSlice = createSlice({
     },
     [createTags.fulfilled]: (state, { payload }) => {
       state.tags = [...state.tags, payload.tag];
-      console.log(payload);
     },
     [createTags.rejected]: (state) => {
       state.loading = false;
@@ -179,9 +177,7 @@ export const productSlice = createSlice({
     [deleteTag.pending]: (state) => {
       state.loading = true;
     },
-    [deleteTag.fulfilled]: (state, { payload }) => {
-      console.log(payload);
-    },
+    [deleteTag.fulfilled]: (state, { payload }) => {},
     [deleteTag.pending]: (state) => {
       state.loading = false;
     },

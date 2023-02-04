@@ -7,7 +7,6 @@ import { shortText } from "../../../../utils";
 import { Caption, Img, ImgWrapper } from "./Styles";
 
 const FeatureProdcut = ({ product }) => {
-  console.log(product);
   return (
     <Grid container spacing={2} mb={4}>
       <Grid

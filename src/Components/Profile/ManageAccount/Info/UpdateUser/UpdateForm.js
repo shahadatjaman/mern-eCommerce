@@ -22,7 +22,6 @@ const UpdateForm = () => {
       validate: validation,
     });
 
-  console.log("Form rendered", user);
   const { firstName, lastName, email } = formState;
 
   const submitHandler = (e) => {

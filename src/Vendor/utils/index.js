@@ -267,7 +267,6 @@ export const callApi = async ({
 
     return await response.data;
   } catch (error) {
-    console.log(error);
     return await error.response;
   }
 };
