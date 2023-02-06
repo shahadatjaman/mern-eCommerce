@@ -187,7 +187,9 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
               <ListItemIcon>
                 <StorefrontIcon fontSize="small" />
               </ListItemIcon>
-              <NavLink to={"/dashboard"}>My Vendor</NavLink>
+              <NavLink onClick={() => navigateHandler("/dashboard")}>
+                My Vendor
+              </NavLink>
             </MenuItem>
 
             <MenuItem>
@@ -209,7 +211,11 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
               <ListItemIcon>
                 <GradingIcon fontSize="small" />
               </ListItemIcon>
-              <NavLink to={`/profile/${user.firstName}/myorders`}>
+              <NavLink
+                onClick={() =>
+                  navigateHandler(`/profile/${user.firstName}/myorders`)
+                }
+              >
                 My orders
               </NavLink>
             </MenuItem>
