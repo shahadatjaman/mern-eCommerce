@@ -63,6 +63,7 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
   const navigateHandler = (path) => {
     navigate(path);
     setIsOpenProfile(false);
+    console.log(path);
   };
 
   return (
@@ -183,41 +184,35 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
       >
         {user ? (
           <div>
-            <MenuItem>
+            <MenuItem onClick={() => navigateHandler("/dashboard")}>
               <ListItemIcon>
                 <StorefrontIcon fontSize="small" />
               </ListItemIcon>
-              <NavLink onClick={() => navigateHandler("/dashboard")}>
-                My Vendor
-              </NavLink>
+              <NavLink>My Vendor</NavLink>
             </MenuItem>
 
-            <MenuItem>
+            <MenuItem
+              onClick={() =>
+                navigateHandler(`/profile/${user?.firstName}/manageaccount`)
+              }
+            >
               {/* <Avatar src={user?.avatar} />{" "} */}
 
               <ListItemIcon>
                 <Person2Icon fontSize="small" />
               </ListItemIcon>
-              <NavLink
-                onClick={() =>
-                  navigateHandler(`/profile/${user?.firstName}/manageaccount`)
-                }
-              >
-                My account
-              </NavLink>
+              <NavLink>My account</NavLink>
             </MenuItem>
             <Divider />
-            <MenuItem>
+            <MenuItem
+              onClick={() =>
+                navigateHandler(`/profile/${user.firstName}/myorders`)
+              }
+            >
               <ListItemIcon>
                 <GradingIcon fontSize="small" />
               </ListItemIcon>
-              <NavLink
-                onClick={() =>
-                  navigateHandler(`/profile/${user.firstName}/myorders`)
-                }
-              >
-                My orders
-              </NavLink>
+              <NavLink>My orders</NavLink>
             </MenuItem>
 
             <MenuItem onClick={logoutHandler}>
