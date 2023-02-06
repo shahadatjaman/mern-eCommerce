@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Img from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { uploadAvatar } from "../../../../feature/reducer/user";
 import { LoadingButton } from "@mui/lab";
 import SendIcon from "@mui/icons-material/Send";
 const Avatar = () => {
   const [img, setImg] = useState("");
 
-  const { user, isLoading } = useSelector((state) => state.user);
+  const { user, isLoadingUpload } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
@@ -55,23 +55,31 @@ const Avatar = () => {
           />
         )}
       </Stack>
-
-      {isLoading ? (
-        <LoadingButton
-          color="secondary"
-          loading={true}
-          loadingPosition="start"
-          startIcon={<SendIcon />}
-          variant="outlined"
-        >
-          Uploading...
-        </LoadingButton>
-      ) : (
-        <Button component="label" sx={{ marginTop: "1rem" }} variant="outlined">
-          Upload File
-          <input type="file" hidden onChange={changeHandler} />
-        </Button>
-      )}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          mt: 1,
+        }}
+      >
+        {isLoadingUpload ? (
+          <LoadingButton
+            color="secondary"
+            loading={true}
+            loadingPosition="start"
+            startIcon={<SendIcon />}
+            variant="outlined"
+          >
+            Uploading...
+          </LoadingButton>
+        ) : (
+          <Button component="label" variant="outlined">
+            Upload File
+            <input type="file" hidden onChange={changeHandler} />
+          </Button>
+        )}
+      </Box>
     </>
   );
 };

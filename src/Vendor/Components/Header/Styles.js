@@ -1,20 +1,20 @@
 import styled from "styled-components";
 
 export const HeaderWrapper = styled.div`
-  height: 3rem;
   background: #fff;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
+  height: 4rem;
   z-index: 99;
   box-shadow: 12px 8px 19px -22px #000;
 `;
 
 export const Headerr = styled.div`
-  height: 100%;
-  display: flex;
-  align-items: center;
+  // height: 100%;
+  // display: flex;
+  // align-items: center;
 `;
 
 export const AccountWrapper = styled.div`
@@ -30,6 +30,10 @@ export const AccountWrapper = styled.div`
   i:hover {
     color: #221ecd;
   }
+`;
+
+export const LogoImg = styled.img`
+  width: 100%;
 `;
 
 export const ImageWrapper = styled.div`
@@ -78,11 +82,11 @@ export const Right = styled.div`
 
 export const Left = styled.div`
   margin-left: 1rem;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: start;
-  align-items: center;
+  // width: 100%;
+  // height: 100%;
+  // display: flex;
+  // justify-content: start;
+  // align-items: center;
 `;
 
 export const SiteWrapper = styled.div`
@@ -103,6 +107,7 @@ export const H5 = styled.h5`
 
 export const LogoWrapper = styled.div`
   margin-right: 2rem;
+  width: 100px;
 `;
 
 export const H6 = styled.h6`

@@ -39,9 +39,9 @@ const Header = () => {
 
   return (
     <HeaderWrapper>
-      <Container>
+      <Container maxWidth={"xl"}>
         <Grid container spacing={2}>
-          <Grid item xl={6}>
+          <Grid item xl={6} md={6} sm={6} xxs={6}>
             <Box sx={{ marginBottom: 4 }}>
               <Typography
                 variant="h4"
@@ -61,7 +61,7 @@ const Header = () => {
               </Typography>
             </Box>
           </Grid>
-          <Grid item xl={6}>
+          <Grid item xl={6} md={6} sm={6} xxs={6}>
             <Box sx={{ display: "flex", justifyContent: "end" }}>
               <ActionBar>
                 <Button

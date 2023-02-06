@@ -15,7 +15,7 @@ const Alert = ({ ok = true, text = " " }) => {
           alignItems: "center",
           padding: "1rem 0",
           position: "absolute",
-          top: "1%",
+          top: "0%",
           left: "-1%",
           width: "100%",
         }}

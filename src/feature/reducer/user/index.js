@@ -8,6 +8,7 @@ const initialState = {
   errors: null,
   msg: null,
   isLoading: false,
+  isLoadingUpload: false,
   loadingUpdatedUser: false,
   userAddress: {
     company_name: "",
@@ -121,13 +122,13 @@ const userSlice = createSlice({
       })
       // Upload avatar
       .addCase(uploadAvatar.pending, (state) => {
-        state.isLoading = true;
+        state.isLoadingUpload = true;
       })
       .addCase(uploadAvatar.fulfilled, (state, { payload }) => {
-        state.isLoading = false;
+        state.isLoadingUpload = false;
       })
       .addCase(uploadAvatar.rejected, (state) => {
-        state.isLoading = false;
+        state.isLoadingUpload = false;
       })
 
       // Update user

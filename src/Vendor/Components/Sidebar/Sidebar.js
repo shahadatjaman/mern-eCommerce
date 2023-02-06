@@ -1,17 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-import {
-  SelfContainer,
-  Link,
-  LinkText,
-  Main,
-  SidebarWrape,
-  TopSection,
-  Wrapper,
-  Fixed,
-} from "./Styles";
+import { Link, LinkText, SidebarWrape, TopSection, Fixed } from "./Styles";
 
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Layout from "../../Pages/Layout/Layout";
 import { menuItem } from "./data";
 
@@ -23,6 +14,9 @@ import { closeAlert } from "../../feature/reducer/Product/UpdateProdcutsInventor
 const Sidebar = () => {
   const { message, ok, close } = useSelector((state) => state.updateProduct);
 
+  const location = useLocation();
+  const pathname = location.pathname;
+
   const dispatch = useDispatch();
 
   const closeHandler = () => {
@@ -31,7 +25,7 @@ const Sidebar = () => {
   setTimeout(() => {
     closeHandler();
   }, 10000);
-
+  console.log(pathname);
   return (
     <Layout>
       <Grid container spacing={2} sx={{ padding: 0 }}>
@@ -40,7 +34,11 @@ const Sidebar = () => {
             <Fixed>
               <TopSection></TopSection>
               {menuItem.map((item, index) => (
-                <Link to={item.path} key={index} activeclassName="active">
+                <Link
+                  to={item.path}
+                  key={index}
+                  isActive={pathname === item.path}
+                >
                   <LinkText className="icon">{item.icon}</LinkText>
                   <LinkText>{item.name}</LinkText>
                 </Link>

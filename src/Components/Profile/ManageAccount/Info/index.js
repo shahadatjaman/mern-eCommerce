@@ -57,7 +57,19 @@ const Content = () => {
         <Grid item xl={8} md={8} sm={12} xs={12}>
           <UpdateUser />
         </Grid>
-        <Grid item xl={4} md={4} sm={12} xs={12}>
+        <Grid
+          item
+          xl={4}
+          md={4}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           <Box>
             <Avatar />
           </Box>

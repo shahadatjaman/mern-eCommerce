@@ -18,8 +18,11 @@ import Logout from "@mui/icons-material/Logout";
 import BadgeAvatar from "../Shared/Avatar";
 
 import { logout } from "../../feature/reducer/user/auth";
+import { useEffect } from "react";
+import Person2Icon from "@mui/icons-material/Person2";
 
 const AccountMenu = ({ user, setIsOpenCart }) => {
+  const [isOpenProfile, setIsOpenProfile] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const dispatch = useDispatch();
@@ -29,9 +32,16 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
     setIsOpenCart(false);
+
+    if (isOpenProfile) {
+      setIsOpenProfile(false);
+    } else {
+      setIsOpenProfile(true);
+    }
   };
   const handleClose = () => {
     setAnchorEl(null);
+    setIsOpenProfile(true);
   };
 
   const logoutHandler = () => {
@@ -46,10 +56,19 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
     }
   };
 
+  // useEffect(() => {
+  //   document.getElementsByTagName("body").style.paddingLeft = "1px";
+  // });
+
+  const navigateHandler = (path) => {
+    navigate(path);
+    setIsOpenProfile(false);
+  };
+
   return (
     <>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
-        <Tooltip title={user && "Account settings"}>
+        <Tooltip>
           <IconButton
             onClick={handleClick}
             size="small"
@@ -68,7 +87,7 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
           </IconButton>
         </Tooltip>
       </Box>
-      <Menu
+      {/* <Menu
         anchorEl={anchorEl}
         id="account-menu"
         open={open}
@@ -83,8 +102,6 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
             "& .MuiAvatar-root": {
               width: 32,
               height: 32,
-              ml: -0.5,
-              mr: 1,
             },
             "&:before": {
               content: '""',
@@ -149,7 +166,76 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
             </MenuItem>
           </div>
         )}
-      </Menu>
+      </Menu> */}
+
+      <Box
+        sx={{
+          position: "absolute",
+          background: "#fff",
+          top: "100%",
+          width: isOpenProfile ? "200px" : "0px",
+          height: isOpenProfile ? "200px" : "0px",
+          opacity: isOpenProfile ? "1" : "0",
+          transition: "0.5s",
+          borderRadius: 2,
+          boxShadow: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)",
+        }}
+      >
+        {user ? (
+          <div>
+            <MenuItem>
+              <ListItemIcon>
+                <StorefrontIcon fontSize="small" />
+              </ListItemIcon>
+              <NavLink to={"/dashboard"}>My Vendor</NavLink>
+            </MenuItem>
+
+            <MenuItem>
+              {/* <Avatar src={user?.avatar} />{" "} */}
+
+              <ListItemIcon>
+                <Person2Icon fontSize="small" />
+              </ListItemIcon>
+              <NavLink
+                onClick={() =>
+                  navigateHandler(`/profile/${user?.firstName}/manageaccount`)
+                }
+              >
+                My account
+              </NavLink>
+            </MenuItem>
+            <Divider />
+            <MenuItem>
+              <ListItemIcon>
+                <GradingIcon fontSize="small" />
+              </ListItemIcon>
+              <NavLink to={`/profile/${user.firstName}/myorders`}>
+                My orders
+              </NavLink>
+            </MenuItem>
+
+            <MenuItem onClick={logoutHandler}>
+              <ListItemIcon>
+                <Logout fontSize="small" />
+              </ListItemIcon>
+              Logout
+            </MenuItem>
+          </div>
+        ) : (
+          <div>
+            <MenuItem onClick={() => authHandler({ name: "register" })}>
+              <PersonAddAltIcon sx={{ marginRight: 1 }} /> Sign up
+            </MenuItem>
+            <Divider />
+            <MenuItem onClick={() => authHandler({ name: "login" })}>
+              <ListItemIcon>
+                <LoginIcon fontSize="small" />
+              </ListItemIcon>
+              Login
+            </MenuItem>
+          </div>
+        )}
+      </Box>
     </>
   );
 };

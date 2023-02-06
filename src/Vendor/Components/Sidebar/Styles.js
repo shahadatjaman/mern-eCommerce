@@ -54,6 +54,7 @@ export const Link = styled(NavLink)`
   padding: 10px 15px;
   gap: 15px;
   transition: all 0.5s;
+  background: ${(props) => (props.isActive ? "#42454c" : "")} !important;
   &&:hover {
     background: #42454c;
     color: #fff;
