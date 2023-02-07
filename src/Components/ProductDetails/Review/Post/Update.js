@@ -5,12 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   createRating,
   getRating,
+  updateRating,
+  updateReview,
 } from "../../../../feature/reducer/product/rating";
+import { deepClone } from "../../../../utils";
 import Modal from "../../../Shared/Modal";
 import { UpdateRating } from "./Styles";
 
 const Update = ({ product_id, isOpenUpdate, setIsOpenUpdte }) => {
-  const { rating } = useSelector((state) => state.rating);
+  const { rating, ratings, loading } = useSelector((state) => state.rating);
 
   const [oldRating, setOldRating] = useState(2);
   const [oldText, setOldText] = useState("");
@@ -18,19 +21,12 @@ const Update = ({ product_id, isOpenUpdate, setIsOpenUpdte }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(
-      getRating({
-        pathOne: "v1",
-        pathTwo: "getrating",
-        _id: product_id,
-        method: "get",
-      })
-    );
+    dispatch(getRating(product_id));
   }, [dispatch, product_id]);
 
   useEffect(() => {
     if (rating) {
-      setOldRating(rating.rating.$numberDecimal);
+      setOldRating(rating.rating);
       setOldText(rating.text);
     }
   }, [rating]);
@@ -40,62 +36,73 @@ const Update = ({ product_id, isOpenUpdate, setIsOpenUpdte }) => {
   };
 
   const updateHandler = () => {
-    dispatch(createRating({ product_id, rating: oldRating, text: oldText }));
+    dispatch(
+      updateRating({
+        product_id: product_id,
+        rating: oldRating.toString(),
+        text: oldText,
+      })
+    );
+
     setIsOpenUpdte(false);
   };
 
   return (
-    <Modal
-      isOpen={isOpenUpdate}
-      title="Update rating"
-      width="600"
-      closeModal={closeModal}
-    >
-      <UpdateRating>
-        <Stack spacing={1}>
-          <Rating
-            name="simple-controlled"
-            value={oldRating}
-            onChange={(e) => {
-              setOldRating(e.target.value);
+    !loading && (
+      <Modal
+        isOpen={isOpenUpdate}
+        title="Update Review"
+        width="600"
+        closeModal={closeModal}
+      >
+        <UpdateRating>
+          <Stack spacing={1}>
+            <Box>
+              <Rating
+                name="simple-controlled"
+                value={oldRating}
+                onChange={(e) => {
+                  setOldRating(e.target.value);
+                }}
+              />
+            </Box>
+          </Stack>
+          <Box
+            component="form"
+            sx={{
+              "& > :not(style)": { width: "100%" },
             }}
-          />
-        </Stack>
-        <Box
-          component="form"
-          sx={{
-            "& > :not(style)": { width: "100%" },
-          }}
-          noValidate
-          autoComplete="off"
-        >
-          <TextField
-            id="standard-basic"
-            onChange={(e) => setOldText(e.target.value)}
-            variant="standard"
-            value={oldText}
-          />
-        </Box>
-        <Box sx={{ my: 2 }}>
-          <Button
-            variant="contained"
-            disabled={oldText.length === 0}
-            onClick={updateHandler}
-            sx={{ borderRadius: 50, marginRight: 4 }}
+            noValidate
+            autoComplete="off"
           >
-            Update
-          </Button>
-          <Button
-            variant="outlined"
-            disabled={oldText.length === 0}
-            onClick={() => setIsOpenUpdte(false)}
-            sx={{ borderRadius: 50 }}
-          >
-            Cancle
-          </Button>
-        </Box>
-      </UpdateRating>
-    </Modal>
+            <TextField
+              id="standard-basic"
+              onChange={(e) => setOldText(e.target.value)}
+              variant="standard"
+              value={oldText}
+            />
+          </Box>
+          <Box sx={{ my: 2 }}>
+            <Button
+              variant="contained"
+              disabled={oldText.length === 0}
+              onClick={updateHandler}
+              sx={{ borderRadius: 50, marginRight: 4 }}
+            >
+              Update
+            </Button>
+            <Button
+              variant="outlined"
+              disabled={oldText.length === 0}
+              onClick={() => setIsOpenUpdte(false)}
+              sx={{ borderRadius: 50 }}
+            >
+              Cancle
+            </Button>
+          </Box>
+        </UpdateRating>
+      </Modal>
+    )
   );
 };
 

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { callApi, getLocalstorage } from "../../../utils";
+import { callApi, deepClone, getLocalstorage } from "../../../utils";
 
 const initialState = {
   loading: false,
@@ -11,7 +11,25 @@ const initialState = {
 // Create rating
 export const createRating = createAsyncThunk(
   "vendor/createrating",
-  async (values) => await callApi(values)
+  async (values) =>
+    await callApi({
+      pathOne: "v1",
+      pathTwo: "createrating",
+      values: { ...values },
+      method: "post",
+    })
+);
+
+// Create rating
+export const updateRating = createAsyncThunk(
+  "vendor/updatereview",
+  async (values) =>
+    await callApi({
+      pathOne: "v1",
+      pathTwo: "createrating",
+      values: { ...values },
+      method: "post",
+    })
 );
 
 // Remove rating
@@ -35,18 +53,25 @@ export const getRatings = createAsyncThunk(
 // Create ratings
 export const getRating = createAsyncThunk(
   "v1/getrating",
-  async (values) => await callApi(values)
+  async (product_id) =>
+    await callApi({
+      pathOne: "v1",
+      pathTwo: "getrating",
+      _id: product_id,
+      method: "get",
+    })
 );
 
 const ratingSlice = createSlice({
   name: "rating",
   initialState,
   reducers: {
-    addRating: (state, { payload }) => {
-      // console.log(payload);
+    updateReview: (state, { payload }) => {
+      state.ratings = payload;
     },
   },
   extraReducers: {
+    // Create new review or rating
     [createRating.pending]: (state) => {
       state.loading = true;
     },
@@ -54,10 +79,20 @@ const ratingSlice = createSlice({
       state.loading = false;
 
       if (payload && payload.productRating) {
-        state.ratings = payload.productRating;
+        state.ratings = [...state.ratings, payload.productRating];
       }
     },
     [createRating.rejected]: (state) => {
+      state.loading = false;
+    },
+    // Create new review or rating
+    [updateRating.pending]: (state) => {
+      state.loading = true;
+    },
+    [updateRating.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+    },
+    [updateRating.rejected]: (state) => {
       state.loading = false;
     },
 
@@ -76,7 +111,7 @@ const ratingSlice = createSlice({
       state.loading = false;
     },
 
-    // Get Rating
+    // Get Rating by ratin id
     [getRating.pending]: (state) => {
       state.loading = true;
     },
@@ -110,6 +145,6 @@ const ratingSlice = createSlice({
   },
 });
 
-export const { addRating } = ratingSlice.actions;
+export const { updateReview } = ratingSlice.actions;
 
 export default ratingSlice.reducer;

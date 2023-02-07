@@ -2,7 +2,7 @@ import { Box, Rating } from "@mui/material";
 import React from "react";
 import { useState } from "react";
 import StarIcon from "@mui/icons-material/Star";
-import { labels } from "./data";
+import { labels } from "./config";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
@@ -46,3 +46,6 @@ const Rattings = ({ setRating }) => {
 };
 
 export default Rattings;
+
+// let arr = [{ id: 1 }];
+// arr[1];

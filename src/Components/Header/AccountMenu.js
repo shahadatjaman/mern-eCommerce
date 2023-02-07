@@ -56,10 +56,6 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
     }
   };
 
-  // useEffect(() => {
-  //   document.getElementsByTagName("body").style.paddingLeft = "1px";
-  // });
-
   const navigateHandler = (path) => {
     navigate(path);
     setIsOpenProfile(false);
@@ -173,23 +169,27 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
         sx={{
           position: "absolute",
           background: "#fff",
-          top: "100%",
+          top: isOpenProfile ? "153%" : "100%",
           width: isOpenProfile ? "200px" : "0px",
-          height: isOpenProfile ? "200px" : "0px",
+          // height: isOpenProfile ? "200px" : "0px",
           opacity: isOpenProfile ? "1" : "0",
-          transition: "0.5s",
+          transition: "0.1s",
           borderRadius: 2,
           boxShadow: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)",
+          // display: "flex",
+          // alignItems: "center",
         }}
       >
         {user ? (
-          <div>
-            <MenuItem onClick={() => navigateHandler("/dashboard")}>
-              <ListItemIcon>
-                <StorefrontIcon fontSize="small" />
-              </ListItemIcon>
-              <NavLink>My Vendor</NavLink>
-            </MenuItem>
+          <>
+            {user.role.includes("vendor") && (
+              <MenuItem onClick={() => navigateHandler("/dashboard")}>
+                <ListItemIcon>
+                  <StorefrontIcon fontSize="small" />
+                </ListItemIcon>
+                <NavLink>My Vendor</NavLink>
+              </MenuItem>
+            )}
 
             <MenuItem
               onClick={() =>
@@ -221,9 +221,9 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
               </ListItemIcon>
               Logout
             </MenuItem>
-          </div>
+          </>
         ) : (
-          <div>
+          <>
             <MenuItem onClick={() => authHandler({ name: "register" })}>
               <PersonAddAltIcon sx={{ marginRight: 1 }} /> Sign up
             </MenuItem>
@@ -234,7 +234,7 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
               </ListItemIcon>
               Login
             </MenuItem>
-          </div>
+          </>
         )}
       </Box>
     </>

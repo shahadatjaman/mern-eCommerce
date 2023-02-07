@@ -3,46 +3,32 @@ import { useRoutes } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ThemeProvider } from "@mui/material";
 import { getLocalstorage } from "./utils";
-import jwt from "jwt-decode";
 import "./App.css";
 
 import { routes } from "./Routes";
 
 import Theme from "./Theme";
 
-import { addUser, getNewAccessToken } from "./feature/reducer/user/auth";
+import { addUser } from "./feature/reducer/user/auth";
 
 import theme from "./Theme/muiTheme";
 
 import { Loading } from "./Components/Shared/Loading/";
+import JWTDecoder from "./utils/JwtDecoder";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     const token = getLocalstorage("accessToken");
-    if (token.length !== 0) {
-      const user = jwt(token);
+    const jwtDecoder = new JWTDecoder(
+      process.env.REACT_APP_ACCESS_TOKEN_SECRET_KEY
+    );
 
-      dispatch(addUser(user));
-    }
-  });
-
-  // Get new refresh token
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (token) {
-      var decodedToken = jwt(token, { complete: true });
-      var dateNow = new Date();
-      if (decodedToken.exp < dateNow.getTime()) {
-        dispatch(
-          getNewAccessToken({
-            pathOne: "auth",
-            pathTwo: "refreshtoken",
-            method: "get",
-          })
-        );
-      }
+    if (jwtDecoder.isValid(token)) {
+      dispatch(addUser(jwtDecoder.decode(token)));
+    } else {
+      dispatch(addUser(null));
     }
   }, [dispatch]);
 

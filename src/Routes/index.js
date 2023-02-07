@@ -6,7 +6,7 @@ import Categories from "../Pages/Category";
 import Invoice from "../Pages/Checkout/Invoice";
 import Search from "../Pages/SearchUi";
 
-import { Private, Public } from "./protectRouter";
+import { AuthProtector, UserProtector, VendorProtector } from "./protectRouter";
 import Collection from "../Vendor/Pages/Collection/index.js";
 import CreateProduct from "../Vendor/Pages/CreateProdcut/index.js";
 import Sidebar from "../Vendor/Components/Sidebar/Sidebar.js";
@@ -54,9 +54,9 @@ export const routes = [
   {
     path: "invoice",
     element: (
-      <Private>
+      <UserProtector>
         <Invoice />
-      </Private>
+      </UserProtector>
     ),
   },
   //   const [searchParams] = useSearchParams();
@@ -68,17 +68,17 @@ export const routes = [
   {
     path: "order_success/:order_id",
     element: (
-      <Private>
+      <UserProtector>
         <OrderSuccess />
-      </Private>
+      </UserProtector>
     ),
   },
   {
     path: "wishlist",
     element: (
-      <Private>
+      <UserProtector>
         <Wishlist />
-      </Private>
+      </UserProtector>
     ),
   },
   {
@@ -104,33 +104,33 @@ export const routes = [
   {
     path: "create_new_password",
     element: (
-      <Private>
+      <UserProtector>
         <CreateNewPassword />
-      </Private>
+      </UserProtector>
     ),
   },
   {
     path: "",
     element: (
-      <Private>
+      <UserProtector>
         <Checkout />
-      </Private>
+      </UserProtector>
     ),
     children: [
       {
         path: "billing",
         element: (
-          <Private>
+          <UserProtector>
             <Billing />
-          </Private>
+          </UserProtector>
         ),
       },
       {
         path: "order",
         element: (
-          <Private>
+          <UserProtector>
             <Order />
-          </Private>
+          </UserProtector>
         ),
       },
     ],
@@ -142,17 +142,17 @@ export const routes = [
       {
         path: "register",
         element: (
-          <Public>
+          <AuthProtector>
             <Register />
-          </Public>
+          </AuthProtector>
         ),
       },
       {
         path: "login",
         element: (
-          <Public>
+          <AuthProtector>
             <Login />
-          </Public>
+          </AuthProtector>
         ),
       },
     ],
@@ -160,25 +160,25 @@ export const routes = [
   {
     path: "profile/:username",
     element: (
-      <Private>
+      <UserProtector>
         <Profile />
-      </Private>
+      </UserProtector>
     ),
     children: [
       {
         path: "manageaccount",
         element: (
-          <Private>
+          <UserProtector>
             <ManageAccount />
-          </Private>
+          </UserProtector>
         ),
       },
       {
         path: "myorders",
         element: (
-          <Private>
+          <UserProtector>
             <MyOrders />
-          </Private>
+          </UserProtector>
         ),
       },
     ],
@@ -187,77 +187,77 @@ export const routes = [
   {
     path: "/dashboard",
     element: (
-      <Private>
+      <VendorProtector>
         <Sidebar />
-      </Private>
+      </VendorProtector>
     ),
     children: [
       {
         path: "",
         element: (
-          <Private>
+          <VendorProtector>
             <Dashboad />
-          </Private>
+          </VendorProtector>
         ),
       },
       {
         path: "newproduct",
         element: (
-          <Private>
+          <VendorProtector>
             <CreateProduct />
-          </Private>
+          </VendorProtector>
         ),
       },
       {
         path: "collections",
         element: (
-          <Private>
+          <VendorProtector>
             <Collection />
-          </Private>
+          </VendorProtector>
         ),
       },
       {
         path: "customer_order",
         element: (
-          <Private>
+          <VendorProtector>
             {/* <Orders /> */}
             <Productions />
-          </Private>
+          </VendorProtector>
         ),
       },
       {
         path: "categories",
         element: (
-          <Private>
+          <VendorProtector>
             {/* <Orders /> */}
             <Productions />
-          </Private>
+          </VendorProtector>
         ),
       },
       {
         path: "analytics",
         element: (
-          <Private>
+          <VendorProtector>
             {/* <Orders /> */}
             <Productions />
-          </Private>
+          </VendorProtector>
         ),
       },
       {
         path: "setting",
         element: (
-          <Private>
+          <VendorProtector>
             {/* <Orders /> */}
             <Productions />
-          </Private>
+          </VendorProtector>
         ),
       },
       {
         path: "update_product/:product_id",
         element: (
-          <Private>
+          <VendorProtector>
             <UpdateProduct />
-          </Private>
+          </VendorProtector>
         ),
       },
     ],

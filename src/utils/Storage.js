@@ -1,15 +1,27 @@
-class Storeage {
+export default class Storage {
   constructor() {
-    this.name = null;
-    this.value = null;
+    if (!Storage.isSupported()) {
+      throw new Error("Local storage is not supported in this browser.");
+    }
   }
 
-  setStorage(name, value) {
-    localStorage.setItem(name, JSON.stringify(value));
+  static isSupported() {
+    return (
+      typeof window !== "undefined" &&
+      typeof window.localStorage !== "undefined"
+    );
   }
-  removeStorage(name, value) {
-    localStorage.removeItem(this.name);
+
+  setData(key, value) {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  }
+
+  getData(key) {
+    const value = window.localStorage.getItem(key);
+    return value ? JSON.parse(value) : null;
+  }
+
+  removeData(key) {
+    window.localStorage.removeItem(key);
   }
 }
-
-export default Storeage;

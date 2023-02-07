@@ -86,7 +86,7 @@ const Post = ({ val }) => {
       <Descriptios>{val.text}</Descriptios>
 
       <Helpful>
-        {user?._id !== currentUser?._id ? (
+        {user?._id !== val?.user_id ? (
           <>
             <H6>Did you find this helpful?</H6>
             <Button

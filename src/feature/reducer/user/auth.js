@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { callApi } from "../../../utils/index";
 import { removeLocalstorage, setLocalstorage } from "../../../utils/";
+import JWTDecoder from "../../../utils/JwtDecoder";
 const initialState = {
   user: null,
   errors: null,
@@ -173,6 +174,11 @@ const loginSlice = createSlice({
 
         if (payload.accessToken) {
           setLocalstorage("accessToken", payload.accessToken);
+
+          const { decode } = new JWTDecoder(
+            process.env.REACT_APP_ACCESS_TOKEN_KEY
+          );
+          state.user = decode;
         }
 
         if (payload?.data?.message) {

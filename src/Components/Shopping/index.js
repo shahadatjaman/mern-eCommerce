@@ -19,15 +19,15 @@ const Shopping = () => {
             <EmptyCart />
           ) : (
             <Grid container spacing={2}>
-              <Grid item xl={12}>
+              <Grid item xl={12} md={12} lg={12} sm={12} xxs={12}>
                 <Typography variant={"h4"} fontWeight="600">
                   Shopping Cart
                 </Typography>
               </Grid>
-              <Grid item xs={12} xl={8} md={8} sm={12} xxs={12}>
+              <Grid item xl={8} lg={8} md={8} sm={12} xxs={12}>
                 <BasicTable />
               </Grid>
-              <Grid item xs={12} xl={4} md={4} sm={12} xxs={12}>
+              <Grid item xl={4} lg={4} md={4} sm={12} xxs={12}>
                 <GrandTotal />
               </Grid>
             </Grid>
