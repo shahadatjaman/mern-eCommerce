@@ -197,6 +197,7 @@ const CreateNewProduct = ({ title }) => {
                 handleBlur={handleBlur}
                 handleFocus={handleFocus}
                 value={short_desc.value}
+                error={name.error}
               />
 
               {/* Text Editor */}

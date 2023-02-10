@@ -5,7 +5,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { OptionsAndValues, SubmitForm, Wrapper } from "./Styles";
 import SendIcon from "@mui/icons-material/Send";
 import { Space } from "../../../Shared/Styles/";
-import { names, optionsTypes, sizes } from "./data";
+import { names, optionsTypes, sizes } from "./config";
 import MuiSelect from "../../../Shared/Form/mui/";
 import Input from "../../../Shared/MuiForm/Input";
 import { useEffect, useState } from "react";

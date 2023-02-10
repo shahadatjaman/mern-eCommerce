@@ -47,7 +47,7 @@ export const getOptions = createAsyncThunk(
   async ({ variation_id }) => {
     try {
       let response = await axios.get(
-        `http://localhost:8000/v1/getoptions/${variation_id}`,
+        `${process.env.REACT_APP_SERVER_URL}/v1/getoptions/${variation_id}`,
 
         {
           method: "GET",

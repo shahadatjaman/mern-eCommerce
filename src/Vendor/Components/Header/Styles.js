@@ -107,7 +107,7 @@ export const H5 = styled.h5`
 
 export const LogoWrapper = styled.div`
   margin-right: 2rem;
-  width: 100px;
+  width: 218px;
 `;
 
 export const H6 = styled.h6`

@@ -8,7 +8,7 @@ let logo =
 const Logo = () => {
   return (
     <LogoWrapper>
-      <Link to="https://mern-ecommerce-23.vercel.app/">
+      <Link to="/dashboard">
         {/* <LogoImg src={logo} alt="eShop" /> */}
         <Box sx={{ width: 250 }}>
           <Typography sx={{ color: "#221ecd" }} fontWeight={"600"} variant="h3">

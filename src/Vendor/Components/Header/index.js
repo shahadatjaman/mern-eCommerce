@@ -33,8 +33,7 @@ const Header = () => {
               </Left>
               <Box
                 component={"a"}
-                // href={"https://mern-ecommerce-23.vercel.app/"}
-                href="http://localhost:3000/"
+                href={`${process.env.REACT_APP_CLIENT_URL}`}
                 target={"_blank"}
               >
                 <Typography variant="body1" sx={{ marginRight: 2 }}>

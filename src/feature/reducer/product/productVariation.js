@@ -137,7 +137,11 @@ const variationSlice = createSlice({
       state.isLoadOption = false;
 
       if (payload.createdOption) {
-        state.options = [...state.options, payload.createdOption];
+        if (Object.keys(state.options).length !== 0) {
+          state.options = [...state.options, payload.createdOption];
+        } else {
+          state.options = [payload.createdOption];
+        }
       }
     },
     [createVariationOption.rejected]: (state) => {
