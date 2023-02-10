@@ -17,8 +17,6 @@ import { Box, Grid, Typography } from "@mui/material";
 import Search from "./Search";
 import Category from "./MobileNav/Category";
 import DehazeIcon from "@mui/icons-material/Dehaze";
-let logo =
-  "https://res.cloudinary.com/dza2t1htw/image/upload/v1674822152/1000_F_245841615_d7QzRv937jfiC176rmKK60ckNXU9V76z-removebg-preview_vmbfes.png";
 
 const Header = () => {
   const [isOpenNav, setIsOpenNav] = useState(false);
@@ -70,12 +68,6 @@ const Header = () => {
 
                     <NavLink onClick={() => scrollTop()} to={"/"}>
                       <Box sx={{ width: 250 }}>
-                        {/* <Box
-                          component={"img"}
-                          sx={{ width: "100%" }}
-                          src={logo}
-                          alt={"Logo"}
-                        ></Box> */}
                         <Typography
                           sx={{ color: "#221ecd" }}
                           fontWeight={"600"}
