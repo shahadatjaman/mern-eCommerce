@@ -66,7 +66,7 @@ export const getSliderProdcuts = createAsyncThunk(
     await callApi({
       ...paramsForProduct,
       from: 0,
-      to: 3,
+      to: 4,
     })
 );
 

@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { Container } from "react-bootstrap";
-
+import scrollTop from "../../utils/ScrollHandler";
 import RightContent from "./RightContent";
 
 import { HeaderWrapper, NavbarBrand, Toggler } from "./Styles";
@@ -13,7 +13,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getCategories } from "../../feature/reducer/categories";
 import { useEffect } from "react";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import Search from "./Search";
 import Category from "./MobileNav/Category";
 import DehazeIcon from "@mui/icons-material/Dehaze";
@@ -68,14 +68,28 @@ const Header = () => {
                       <DehazeIcon fontSize={"medium"} />
                     </Toggler>
 
-                    <NavLink to={"/"}>
-                      <Box sx={{ width: 150 }}>
-                        <Box
+                    <NavLink onClick={() => scrollTop()} to={"/"}>
+                      <Box sx={{ width: 250 }}>
+                        {/* <Box
                           component={"img"}
                           sx={{ width: "100%" }}
                           src={logo}
                           alt={"Logo"}
-                        ></Box>
+                        ></Box> */}
+                        <Typography
+                          sx={{ color: "#221ecd" }}
+                          fontWeight={"600"}
+                          variant="h3"
+                        >
+                          Bazaar
+                          <Typography
+                            sx={{ color: "#000", display: "inline-block" }}
+                            fontWeight={"600"}
+                            variant="h4"
+                          >
+                            Hub
+                          </Typography>
+                        </Typography>
                       </Box>
                     </NavLink>
                   </NavbarBrand>

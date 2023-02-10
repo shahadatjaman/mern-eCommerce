@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { addcategory, getCategory } from "../../../../feature/reducer/category";
 
 const Categories = ({ value, handleChange }) => {
-  const [state, setState] = useState("");
   const { category, loading } = useSelector((state) => state.category);
 
   const dispatch = useDispatch();

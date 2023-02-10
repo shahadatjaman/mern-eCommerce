@@ -26,9 +26,7 @@ export const Img = styled.img`
 export const Caption = styled.div``;
 
 export const Title = styled.div`
-  height: 54px;
   padding: 0;
-  margin-bottom: 3.5rem;
 `;
 
 export const H5 = styled.h5`

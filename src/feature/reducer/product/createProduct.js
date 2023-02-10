@@ -158,9 +158,7 @@ export const productSlice = createSlice({
     [createProduct.pending]: (state) => {
       state.loading = true;
     },
-    [createProduct.fulfilled]: (state, { payload }) => {
-      console.log(payload);
-    },
+    [createProduct.fulfilled]: (state, { payload }) => {},
     [createProduct.rejected]: (state) => {
       state.loading = false;
     },
@@ -225,8 +223,6 @@ export const productSlice = createSlice({
             ? payload.productVariation
             : null,
         };
-
-        console.log(payload);
       }
     },
     [getProductByProductId.rejected]: (state) => {

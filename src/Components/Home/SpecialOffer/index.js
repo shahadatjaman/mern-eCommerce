@@ -14,7 +14,7 @@ import {
   getProducts,
   getTopReviewed,
 } from "../../../feature/reducer/getProducts/index";
-import { placeHolder } from "./data";
+import { placeHolder } from "./config";
 
 const SpeOffer = () => {
   const { products, loading, topReviewed, loadingTopReview } = useSelector(

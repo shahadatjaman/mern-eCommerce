@@ -52,7 +52,7 @@ const Invoice = () => {
         </TableWrapper>
         <Bottom></Bottom>
         <Footer>
-          <H4>Powered By E-Shop</H4>
+          <H4>Powered By BazaarHub</H4>
           <Text font={12} fontWeight={400} color={"#000"}>
             See the documentation below for a complete reference to all of the
             props and classes available to the components mentioned here.

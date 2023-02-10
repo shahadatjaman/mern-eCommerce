@@ -37,9 +37,7 @@ const orderSlice = createSlice({
   name: "order",
   initialState,
   reducers: {
-    addOrder: (state) => {
-      console.log(state);
-    },
+    addOrder: (state) => {},
   },
   extraReducers: {
     [createOrder.pending]: (state) => {

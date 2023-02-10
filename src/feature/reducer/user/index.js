@@ -40,6 +40,18 @@ export const getUser = createAsyncThunk("getuser", async (props) => {
   return await callApi(props);
 });
 
+// get user by user id
+export const removeCookie = createAsyncThunk("remove_cookie", async () => {
+  return await callApi({
+    pathOne: "auth",
+    pathTwo: "remove_cookie",
+    values: {
+      cookie_name: "refreshToken",
+    },
+    method: "post",
+  });
+});
+
 // Upload user image
 export const uploadAvatar = createAsyncThunk("uploadavatar", async (props) => {
   return await callApi(props);
@@ -111,7 +123,7 @@ const userSlice = createSlice({
       })
       .addCase(getUser.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        console.log(payload);
+
         if (payload.user) {
           const { firstName, lastName, email, avatar } = payload.user;
           state.user = { firstName, lastName, email, avatar };
@@ -140,6 +152,17 @@ const userSlice = createSlice({
       })
       .addCase(updateUser.rejected, (state) => {
         state.loadingUpdatedUser = false;
+      })
+
+      // Remove refresh token
+      .addCase(removeCookie.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(removeCookie.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+      })
+      .addCase(removeCookie.rejected, (state, { payload }) => {
+        state.isLoading = false;
       });
   },
 });

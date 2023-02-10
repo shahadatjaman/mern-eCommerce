@@ -20,7 +20,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Switch from "@mui/material/Switch";
-
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { addVendorProperty } from "../../feature/reducer/user";
 
 const Register = () => {
@@ -111,7 +111,7 @@ const Register = () => {
         <resourcesError>
           {errors.email && (
             <Error>
-              <BiX /> {`${errors.email.msg}`}
+              <ErrorOutlineIcon /> {`${errors.email.msg}`}
             </Error>
           )}
         </resourcesError>

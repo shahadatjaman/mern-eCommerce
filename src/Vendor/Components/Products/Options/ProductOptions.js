@@ -73,7 +73,6 @@ const ProductOptions = ({ isOpen, variation }) => {
     isExist(values.variation_type);
   }, [values, isExist]);
 
-  console.log(variation_type);
   return (
     <Wrapper>
       <OptionsAndValues>

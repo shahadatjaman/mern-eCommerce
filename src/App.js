@@ -9,26 +9,27 @@ import { routes } from "./Routes";
 
 import Theme from "./Theme";
 
-import { addUser } from "./feature/reducer/user/auth";
+import { addUser, getNewAccessToken } from "./feature/reducer/user/auth";
 
 import theme from "./Theme/muiTheme";
 
 import { Loading } from "./Components/Shared/Loading/";
 import JWTDecoder from "./utils/JwtDecoder";
+import ScrollToTop from "./Components/Shared/ScrollTop";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     const token = getLocalstorage("accessToken");
-    const jwtDecoder = new JWTDecoder(
-      process.env.REACT_APP_ACCESS_TOKEN_SECRET_KEY
-    );
+    const jwtDecoder = new JWTDecoder(process.env.REACT_APP_ACCESS_TOKEN_KEY);
 
-    if (jwtDecoder.isValid(token)) {
+    const isValidJwt = jwtDecoder.checkTokenExpiry(token);
+
+    if (isValidJwt) {
       dispatch(addUser(jwtDecoder.decode(token)));
     } else {
-      dispatch(addUser(null));
+      dispatch(getNewAccessToken());
     }
   }, [dispatch]);
 
@@ -36,6 +37,7 @@ function App() {
     <Theme>
       <ThemeProvider theme={theme}>
         <Suspense fallback={<Loading />}>{useRoutes(routes)}</Suspense>
+        <ScrollToTop />
       </ThemeProvider>
     </Theme>
   );

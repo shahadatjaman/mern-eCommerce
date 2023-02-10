@@ -25,7 +25,7 @@ const Sidebar = () => {
   setTimeout(() => {
     closeHandler();
   }, 10000);
-  console.log(pathname);
+
   return (
     <Layout>
       <Grid container spacing={2} sx={{ padding: 0 }}>

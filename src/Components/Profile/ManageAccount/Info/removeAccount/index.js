@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -25,25 +25,32 @@ const RemoveAccount = () => {
         justifyContent: "space-between",
       }}
     >
-      <Box>
-        <Typography variant="body1" fontWeight={600}>
-          Remove Account
-        </Typography>
-        <Typography variant="caption" display={"block"}>
-          Once you delete your account, There is no going back. Please be
-          certain
-        </Typography>
-      </Box>
-      <Box>
-        <Button
-          variant="outlined"
-          color="error"
-          sx={{ background: "#fff" }}
-          onClick={() => dispatch(openModal("delete_account"))}
-        >
-          Deactive
-        </Button>
-      </Box>
+      <Grid container spacing={2}>
+        <Grid item xl={8}>
+          <Box>
+            <Typography variant="body1" fontWeight={600}>
+              Remove Account
+            </Typography>
+            <Typography fontSize={14} display={"block"}>
+              Once you delete your account, There is no going back. Please be
+              certain
+            </Typography>
+          </Box>
+        </Grid>
+        <Grid item xl={4}>
+          <Box sx={{ display: "flex", justifyContent: "end" }}>
+            <Button
+              variant="outlined"
+              color="error"
+              sx={{ background: "#fff" }}
+              onClick={() => dispatch(openModal("delete_account"))}
+            >
+              Deactive
+            </Button>
+          </Box>
+        </Grid>
+      </Grid>
+
       {modalIsOpen && modalName === "delete_account" && (
         <Modal
           title="Are you absolutely sure?"

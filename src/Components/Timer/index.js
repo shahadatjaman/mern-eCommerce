@@ -31,12 +31,17 @@ const TimerPart = () => {
           </Grid>
           <Grid item xl={4} lg={4} md={6} sm={8} xxs={12}>
             <Products
+              loading={loading}
               title={"Personal Protective Equipment"}
               products={protective}
             />
           </Grid>
           <Grid item xl={4} lg={4} md={6} sm={8} xxs={12}>
-            <Products title={"New arrivals"} products={newProducts} />
+            <Products
+              loading={loadingNewProducts}
+              title={"New arrivals"}
+              products={newProducts}
+            />
           </Grid>
         </Grid>
       </Container>

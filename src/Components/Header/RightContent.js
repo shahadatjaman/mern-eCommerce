@@ -73,7 +73,9 @@ const RightContent = () => {
             <FavoriteIcon fontSize="large" />
             <span>Wish</span>
           </Action>
-          {wishes && <Count>{wishes.length}</Count>}
+          {wishes && user && (
+            <Count>{wishes.length === 0 ? 0 : wishes.length}</Count>
+          )}
         </NavLink>
       </Item>
       <Item>
@@ -97,7 +99,7 @@ const RightContent = () => {
                 <FaLuggageCart />
                 <span>Order</span>
               </Action>
-              {orders && <Count>{orders.length}</Count>}
+              {user && <>{orders && <Count>{orders.length}</Count>}</>}
             </NavLink>
           </Item>
         </>

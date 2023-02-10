@@ -32,6 +32,8 @@ import DetailsIcon from "@mui/icons-material/Details";
 import Product from "../../Components/Shared/Product";
 import { Typography } from "@mui/material";
 import { getProductsByCategoryId } from "../../feature/reducer/getProducts";
+import ProdcutImg from "./ProdcutImg";
+import useScrollTop from "../../hooks/useScrollTop";
 const Details = () => {
   const { products, loading } = useSelector((state) => state.getItems);
 
@@ -82,11 +84,10 @@ const Details = () => {
         <Container maxWidth="xl">
           <Grid container spacing={2}>
             <Grid item xs={12} md={6} sm={12}>
-              <ImageWrapper sx={{ ...largeImg }}>
-                {recentVariation && (
-                  <Image src={recentVariation.variation_img} alt="prodcut" />
-                )}
-              </ImageWrapper>
+              {recentVariation && (
+                <ProdcutImg recentVariation={recentVariation.variation_img} />
+              )}
+
               <Box
                 sx={{
                   ...gallerySm,

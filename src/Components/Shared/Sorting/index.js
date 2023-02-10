@@ -21,7 +21,7 @@ const Sorting = () => {
     setState(value);
 
     const optionIndex = options.findIndex((option) => option.id === value);
-    console.log(options[optionIndex]);
+
     if (optionIndex > -1) {
       if (options[optionIndex].sortBy === "price") {
         dispatch(

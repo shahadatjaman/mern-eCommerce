@@ -17,6 +17,7 @@ body{
    // user-select: none;
     overflow: auto !important;
     background: #edf2fd;
+    padding-right : 0px !important;
 }
 a{
     text-decoration: none;

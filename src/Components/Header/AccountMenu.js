@@ -20,6 +20,7 @@ import BadgeAvatar from "../Shared/Avatar";
 import { logout } from "../../feature/reducer/user/auth";
 import { useEffect } from "react";
 import Person2Icon from "@mui/icons-material/Person2";
+import { removeCookie } from "../../feature/reducer/user";
 
 const AccountMenu = ({ user, setIsOpenCart }) => {
   const [isOpenProfile, setIsOpenProfile] = useState(null);
@@ -46,6 +47,7 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
 
   const logoutHandler = () => {
     dispatch(logout());
+    dispatch(removeCookie());
   };
 
   const authHandler = ({ name }) => {
@@ -59,7 +61,6 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
   const navigateHandler = (path) => {
     navigate(path);
     setIsOpenProfile(false);
-    console.log(path);
   };
 
   return (

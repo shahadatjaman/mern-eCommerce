@@ -58,6 +58,9 @@ export const Gallery = styled.div``;
 
 // Gallery wrapper
 export const ImageWrapper = styled(Box)`
+  overflow: hidden;
+  cursor: crosshair;
+  position: relative;
   @media (max-width: 1200px) {
     width: auto;
     margin: 0;

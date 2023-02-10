@@ -191,9 +191,9 @@ const Footer = () => {
               </PolicyList>
               <Language>
                 <p>
-                  Xpart.com Español - Português - Deutsch - Français - Italiano
-                  - Pусский - 한국어 - 日本語 - ภาษาไทย - Türk - Nederlands -
-                  tiếng Việt - Indonesian
+                  BazaarHub.com Español - Português - Deutsch - Français -
+                  Italiano - Pусский - 한국어 - 日本語 - ภาษาไทย - Türk -
+                  Nederlands - tiếng Việt - Indonesian
                 </p>
               </Language>
             </Col>
@@ -214,7 +214,7 @@ const Footer = () => {
 
       <CopyRight>
         <Container>
-          <p>Copyright © 2021 Xpart. All rights reserved.</p>
+          <p>Copyright © 2021 BazaarHub. All rights reserved.</p>
           <p>
             Privacy / Terms of use / Cookie preferences / Protect my personal
             data / AdChoices

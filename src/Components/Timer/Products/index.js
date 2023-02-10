@@ -2,13 +2,14 @@ import { Typography } from "@mui/material";
 
 import { Col, Container, Row } from "react-bootstrap";
 import { FcBarChart } from "react-icons/fc";
+import ProductSkleton from "../Skleton";
 
 import { Body, H4, Item, Title } from "../Styles";
 import Product from "./Product";
 
 import { Wrapper } from "./Styles";
 
-const Products = ({ title, products }) => {
+const Products = ({ title, products, loading }) => {
   return (
     <Wrapper>
       <Container fluid className="p-0 msmt-2">
@@ -24,6 +25,7 @@ const Products = ({ title, products }) => {
                   {products?.map((item, index) => (
                     <Product product={item} key={index} />
                   ))}
+                  {loading && !products && <ProductSkleton />}
                   {products && products.length === 0 && (
                     <Typography textAlign={"center"} py={5}>
                       No more product!

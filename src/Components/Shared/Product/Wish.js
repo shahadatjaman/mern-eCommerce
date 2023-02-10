@@ -1,37 +1,23 @@
 import React from "react";
-import { AiOutlineHeart } from "react-icons/ai";
-import { Action } from "./Styles";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Action, WishStyle } from "./Styles";
 import { useWish } from "../../../hooks/useWish";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewWish } from "../../../feature/reducer/addWish";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Box } from "@mui/material";
 
-const Wish = ({ product }) => {
-  const { addToWish, state } = useWish();
-
-  const { user } = useSelector((state) => state.auth);
-
-  const navigate = useNavigate();
-
-  const dispatch = useDispatch();
-
-  const addHandler = () => {
-    if (user) {
-      addToWish({ product_id: product._id });
-    } else {
-      navigate("/login");
-    }
-  };
-
-  useEffect(() => {
-    dispatch(addNewWish({ wish: state }));
-  }, [state, dispatch]);
-
+const Wish = ({ product, isLoved, addHandler }) => {
   return (
-    <Action onClick={addHandler}>
-      <AiOutlineHeart />
-    </Action>
+    <Box sx={{ ...WishStyle }} onClick={addHandler}>
+      {isLoved ? (
+        <FavoriteIcon fontSize={"medium"} color={"error"} />
+      ) : (
+        <FavoriteBorderIcon fontSize={"medium"} />
+      )}
+    </Box>
   );
 };
 

@@ -10,6 +10,8 @@ import {
   findAccount,
   verifyCode,
 } from "../../feature/reducer/user/auth";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+
 import Layout from "../Layout";
 import Counter from "./Counter";
 import { Error, ForgetPasswordWrapper, Form, Span } from "./Styles";
@@ -106,7 +108,12 @@ const SendCode = () => {
                   value={value}
                 />
               </FormControl>
-              {msg && <Error style={{ marginTop: "4px" }}>{msg}</Error>}
+              {msg && (
+                <Error style={{ marginTop: "4px" }}>
+                  {" "}
+                  <ErrorOutlineIcon /> {msg}
+                </Error>
+              )}
 
               <Box
                 mt={2}

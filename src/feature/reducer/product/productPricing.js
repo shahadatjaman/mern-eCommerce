@@ -18,9 +18,7 @@ const priceSlice = createSlice({
   name: "Price Slice",
   initialState,
   reducers: {
-    handleDiscount: (state, { payload }) => {
-      console.log(payload);
-    },
+    handleDiscount: (state, { payload }) => {},
     handlePrice: (state, { payload }) => {
       state.price = payload * 1;
     },

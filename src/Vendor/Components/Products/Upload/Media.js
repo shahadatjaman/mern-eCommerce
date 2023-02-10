@@ -67,8 +67,6 @@ const Media = () => {
     }
   };
 
-  console.log(product);
-
   return (
     <MediaWrapper isEmpty={productVariations.length < 0}>
       <Actions>

@@ -123,7 +123,7 @@ export const menuFive = [
   { name: "Request for Quotation", path: "" },
   { name: "Regional Channels", path: "" },
   { name: "Ready to Ship", path: "" },
-  { name: "xpart.com Select", path: "" },
+  { name: "bazzarhub.com Select", path: "" },
 ];
 
 export const menuSix = [
@@ -149,11 +149,11 @@ export const menuSaven = [
 ];
 
 export const policy = [
-  { name: "Xpart Group" },
-  { name: "Xpart Marketplace" },
-  { name: "Xpart.com" },
-  { name: "Xpart Telecom" },
+  { name: "BazaarHub Group" },
+  { name: "BazaarHub Marketplace" },
+  { name: "BazaarHub.com" },
+  { name: "BazaarHub Telecom" },
   { name: "Anagopay" },
   { name: "Lazada" },
-  { name: "Xpart Security" },
+  { name: "BazaarHub Security" },
 ];

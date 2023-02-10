@@ -69,7 +69,6 @@ const ProductOrga = () => {
   }, [dispatch, category]);
 
   useEffect(() => {
-    console.log(status);
     dispatch(
       addProductOrganizeState({
         product_status: status.value ? status.value : "deactive",

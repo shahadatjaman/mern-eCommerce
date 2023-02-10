@@ -7,7 +7,6 @@ import UpdateForm from "./UpdateForm";
 const UpdateUser = () => {
   const { user } = useSelector((state) => state.user);
 
-  console.log("UpdateUser rendered!");
   return user && <UpdateForm />;
 };
 

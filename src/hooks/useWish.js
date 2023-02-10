@@ -18,20 +18,33 @@ export const useWish = () => {
 
       if (cloned.length !== 0) {
         // Check the prodcut is already exist or not!
-        const filtered = cloned.findIndex((val) => val._id === product_id);
+        const indexOfWish = cloned.findIndex((val) => val._id === product_id);
 
-        if (filtered === -1) {
+        if (indexOfWish === -1) {
           setLocalstorage("wish__list", [...cloned, { _id: product_id }]);
+
           setState([...cloned, { _id: product_id }]);
         } else {
-          // setLocalstorage("wish__list", [...cloned, { _id: product_id }]);
-          setState(cloned);
+          const removedWish = cloned.filter((val) => val._id !== product_id);
+
+          setLocalstorage("wish__list", [...removedWish]);
+
+          setState(removedWish);
         }
       } else {
         setLocalstorage("wish__list", [{ _id: product_id }]);
         setState([{ _id: product_id }]);
       }
     }
+  };
+
+  const getWish = (id) => {
+    if (state) {
+      const clonedState = deepClone(state);
+
+      return clonedState.map((val) => val._id === id);
+    }
+    return null;
   };
 
   const removeWish = (product_id) => {
@@ -54,5 +67,5 @@ export const useWish = () => {
     removeLocalstorage("wish__list");
   };
 
-  return { addToWish, removeWish, state, clearWish };
+  return { addToWish, removeWish, state, clearWish, getWish };
 };

@@ -35,7 +35,7 @@ export const Title = styled.div`
 export const ProductAction = styled.div`
   position: absolute;
   right: -20%;
-  top: 9%;
+  top: 18%;
   display: flex;
   flex-direction: column;
   transition: all 0.5s;
@@ -45,7 +45,7 @@ export const ProductAction = styled.div`
 export const Action = styled.button`
   width: 40px;
   height: 40px;
-  background: #fff;
+  background: ${(props) => props.bg};
   border-radius: 50%;
   margin-bottom: 1rem;
   cursor: ${(props) => (props.isAdded ? "no-drop" : "pointer")} !important;
@@ -205,3 +205,12 @@ export const Discount = styled.div`
   font-size: 12px;
   font-weight: 700;
 `;
+
+export const WishStyle = {
+  width: "30px",
+  height: "30px",
+  cursor: "pointer",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+};

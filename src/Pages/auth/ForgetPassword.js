@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Error, ForgetPasswordWrapper, Form } from "./Styles";
 import Layout from "../Layout";
 import { useDispatch, useSelector } from "react-redux";
-
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import SaveIcon from "@mui/icons-material/Save";
 import { clearMsg, findAccount } from "../../feature/reducer/user/auth";
 import { useState } from "react";
@@ -67,7 +67,11 @@ const ForgetPassword = () => {
                   value={value}
                 />
               </FormControl>
-              {msg && <Error style={{ marginTop: "4px" }}>{msg}</Error>}
+              {msg && (
+                <Error style={{ marginTop: "4px" }}>
+                  <ErrorOutlineIcon /> {msg}
+                </Error>
+              )}
 
               <Box
                 mt={2}

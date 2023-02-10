@@ -1,5 +1,5 @@
 // <=== Hooks ====>
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 //<==== Components ====>
 import ProductRatting from "../../Shared/Ratting/";
@@ -24,14 +24,19 @@ import { getSalePrice, shortText } from "../../../utils";
 import Quantityy from "../Quantity";
 
 import ProducrVariation from "../ColorVariation";
-import { Box } from "@mui/material";
+import { Box, Rating } from "@mui/material";
 import SkletonLoad from "./SkletonLoad";
+import { getCategory } from "../../../feature/reducer/category";
 
 const ProductContent = () => {
   const [salePices, setSalePrices] = useState(null);
 
+  const { category, loading } = useSelector((state) => state.category);
+
+  const dispatch = useDispatch();
+
   // get product
-  const { product, discount, tags } = useSelector(
+  const { product, discount, tags, rating } = useSelector(
     (state) => state.productDetails
   );
 
@@ -46,6 +51,10 @@ const ProductContent = () => {
     }
   }, [product, discount]);
 
+  useDispatch(() => {
+    dispatch(getCategory());
+  }, []);
+  console.log(rating && rating);
   return (
     <ProductContentWrapper>
       {!product ? (
@@ -65,7 +74,12 @@ const ProductContent = () => {
             )}
           </ProductPrice>
           {/* Product Ratting */}
-          <ProductRatting />
+          {rating ? (
+            <ProductRatting rating={rating.rating} />
+          ) : (
+            <Rating name="no-value" value={null} />
+          )}
+
           {/* Product Short Description */}
           <Text>{shortText(product.short_desc, 200, 0, 200)}</Text>
           <ProducrVariation />
@@ -75,7 +89,11 @@ const ProductContent = () => {
           <ProductMeta>
             <MetaText>Categories :</MetaText>
             <Ul>
-              <Li>Categories</Li>
+              <Li>
+                {category?.map((val, index) =>
+                  val._id === product.category_id ? val.category_name : ""
+                )}
+              </Li>
             </Ul>
           </ProductMeta>
           {/* Product Tags */}

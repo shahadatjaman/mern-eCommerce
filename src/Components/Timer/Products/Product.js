@@ -24,7 +24,7 @@ const Product = ({ product }) => {
           </Link>
         </Typography>
 
-        {product.tot_rating ? (
+        {product.total_rating ? (
           <Box
             sx={{
               display: "flex",
@@ -35,17 +35,17 @@ const Product = ({ product }) => {
             <Rating
               size="small"
               name="read-only"
-              value={product.tot_rating}
+              value={product.total_rating}
               readOnly
             />
-            <Typography fontWeight={600}>({product.tot_rating})</Typography>
+            <Typography fontWeight={600}>({product.total_rating})</Typography>
           </Box>
         ) : (
           <Box mt={1}>
             <Rating
               size="small"
               name="disabled"
-              value={product.tot_rating}
+              value={product.total_rating}
               disabled
             />
             ( 0)

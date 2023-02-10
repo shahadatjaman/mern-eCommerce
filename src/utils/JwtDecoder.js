@@ -21,4 +21,18 @@ export default class JWTDecoder {
       return null;
     }
   }
+  checkTokenExpiry(token) {
+    try {
+      const decoded = jwt(token);
+      const currentTime = Date.now().valueOf() / 1000;
+
+      if (decoded.exp < currentTime) {
+        return false;
+      } else {
+        return true;
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
 }

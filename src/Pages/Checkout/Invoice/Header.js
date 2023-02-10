@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import React from "react";
 import { HeaderWrapper, Img, Logo, Text } from "./Styles";
 
@@ -10,9 +10,12 @@ const Header = ({ address }) => {
     <HeaderWrapper>
       <Grid container spacing={2}>
         <Grid item xl={6} md={6} xs={6} sm={6}>
-          <Logo>
+          {/* <Logo>
             <Img src={logo} alt={"logo"} />
-          </Logo>
+          </Logo> */}
+          <Typography fontWeight={"600"} variant="h4">
+            BazaarHub
+          </Typography>
         </Grid>
         <Grid item xl={6} md={6} x={6} sm={6} sx={{ textAlign: "right" }}>
           <Text font={20}>{address.company_name}</Text>

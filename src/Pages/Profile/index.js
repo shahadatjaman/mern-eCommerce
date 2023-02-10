@@ -3,8 +3,6 @@ import { useSelector } from "react-redux";
 import UserProfile from "../../Components/Profile";
 import Layout from "../Layout";
 const Profile = () => {
-  const { user } = useSelector((state) => state.auth);
-
   return (
     <Layout footer={false}>
       <UserProfile />

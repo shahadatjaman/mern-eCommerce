@@ -18,6 +18,8 @@ import {
   getFilteredProducts,
 } from "../../../../feature/reducer/Product/products";
 import { useEffect } from "react";
+import Modal from "../../../../Shared/Modal";
+import { Box } from "@mui/material";
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -63,6 +65,8 @@ const StyledMenu = styled((props) => (
 }));
 
 export default function Options({ product_id }) {
+  const [isOpen, setIsOpen] = useState(false);
+
   const { products } = useSelector((state) => state.getProducts);
 
   const dispatch = useDispatch();
@@ -74,6 +78,14 @@ export default function Options({ product_id }) {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const openHandler = () => {
+    setIsOpen(true);
+    setAnchorEl(null);
+  };
+  const closeHandler = () => {
+    setIsOpen(false);
   };
 
   const deleteHandler = () => {
@@ -129,7 +141,7 @@ export default function Options({ product_id }) {
           Duplicate
         </MenuItem>
         <Divider sx={{ my: 0.5 }} />
-        <MenuItem onClick={deleteHandler} disableRipple>
+        <MenuItem onClick={openHandler} disableRipple>
           <DeleteIcon />
           Delete
         </MenuItem>
@@ -138,6 +150,22 @@ export default function Options({ product_id }) {
           More
         </MenuItem>
       </StyledMenu>
+
+      <Modal
+        width={500}
+        isOpen={isOpen}
+        title={"Are you sure you want to delete?"}
+        closeModal={closeHandler}
+      >
+        <Box my={4}>
+          <Button onClick={closeHandler} variant="outlined" sx={{ mr: 2 }}>
+            No
+          </Button>
+          <Button onClick={deleteHandler} variant="contained">
+            Yes
+          </Button>
+        </Box>
+      </Modal>
     </div>
   );
 }

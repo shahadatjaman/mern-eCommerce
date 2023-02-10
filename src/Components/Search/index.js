@@ -12,6 +12,8 @@ import { getQueryProducts } from "../../feature/reducer/Query";
 import ProductNotFound from "../Shared/ProductNotFound/";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { getProductsByTextAndCategory } from "../../feature/reducer/getProducts";
+import Loading from "../Shared/Skeleton/Product/Product";
+import { placeHolder } from "../Home/SpecialOffer/config";
 
 const SearchForm = () => {
   const [values, setValues] = useState({
@@ -130,6 +132,14 @@ const SearchForm = () => {
         </Grid>
       </Box>
       <Box>
+        <Grid container spacing={2}>
+          {loading &&
+            placeHolder?.map((item, index) => (
+              <Grid key={index} item lg={12 / 5} xs={12 / 2} md={4} sm={12}>
+                <Loading />
+              </Grid>
+            ))}
+        </Grid>
         {!loading && products && <Products products={products} />}
 
         {!loading && products && products.length === 0 && <ProductNotFound />}

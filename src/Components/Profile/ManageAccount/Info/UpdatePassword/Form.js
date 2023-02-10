@@ -18,7 +18,7 @@ const Form = ({
 }) => {
   const { password, new_password } = formState;
 
-  const { msg } = useSelector((state) => state.auth);
+  const { msg, user } = useSelector((state) => state.auth);
 
   const { handleChange: checkHandleChange, isChecked } = useCheckbox();
 

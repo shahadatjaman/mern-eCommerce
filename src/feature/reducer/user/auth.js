@@ -31,7 +31,12 @@ export const login = createAsyncThunk("login", async (values) => {
 
 export const getNewAccessToken = createAsyncThunk(
   "refreshToken",
-  async (values) => await callApi(values)
+  async () =>
+    await callApi({
+      pathOne: "auth",
+      pathTwo: "refreshtoken",
+      method: "get",
+    })
 );
 
 export const register = createAsyncThunk("register", async (values) => {
@@ -130,9 +135,10 @@ const loginSlice = createSlice({
       state.user = payload;
     },
 
-    addGoogleUser: (state, { payload }) => {},
-    logout: (state, { payload }) => {
-      removeLocalstorage("accessToken");
+    addGoogleUser: (state) => {},
+
+    logout: (state) => {
+      removeLocalstorage(process.env.REACT_APP_ACCESS_TOKEN_KEY);
       state.user = null;
     },
 
@@ -152,6 +158,9 @@ const loginSlice = createSlice({
 
         if (payload.accessToken) {
           setLocalstorage("accessToken", payload.accessToken);
+          const JWT = new JWTDecoder(process.env.REACT_APP_ACCESS_TOKEN_KEY);
+          const user = JWT.decode(payload.accessToken);
+          state.user = user;
         }
 
         if (payload?.data?.errors) {
@@ -175,10 +184,11 @@ const loginSlice = createSlice({
         if (payload.accessToken) {
           setLocalstorage("accessToken", payload.accessToken);
 
-          const { decode } = new JWTDecoder(
+          const jwtdecode = new JWTDecoder(
             process.env.REACT_APP_ACCESS_TOKEN_KEY
           );
-          state.user = decode;
+
+          state.user = jwtdecode.decode(payload.accessToken);
         }
 
         if (payload?.data?.message) {
