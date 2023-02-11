@@ -24,11 +24,9 @@ const ProductOptions = ({ isOpen, variation }) => {
 
   const [values, setValues] = useState({ ...init });
 
-  const { options } = useSelector((state) => state.variation);
+  const { options, loading } = useSelector((state) => state.variation);
 
-  const { isAdded, isExist } = useIsExist({ values: options });
-
-  const { isLoadOption } = useSelector((state) => state.variation);
+  const { colors, addColor, removeHandler } = useIsExist({ values: options });
 
   const dispatch = useDispatch();
 
@@ -64,14 +62,11 @@ const ProductOptions = ({ isOpen, variation }) => {
         method: "post",
       })
     );
+
     setValues(init);
   };
 
   const { variation_type, value, price } = values;
-
-  useEffect(() => {
-    isExist(values.variation_type);
-  }, [values, isExist]);
 
   return (
     <Wrapper>
@@ -84,6 +79,7 @@ const ProductOptions = ({ isOpen, variation }) => {
           value={variation_type}
           label={"Type"}
           placeHolder={"Select an option"}
+          isMaxColor={colors.length === 1}
         />
 
         {variation_type && variation_type === "Color" && (
@@ -126,7 +122,7 @@ const ProductOptions = ({ isOpen, variation }) => {
       </OptionsAndValues>
 
       <SubmitForm>
-        {!isLoadOption ? (
+        {!loading ? (
           <LoadingButton
             size="small"
             variant="contained"
@@ -147,7 +143,11 @@ const ProductOptions = ({ isOpen, variation }) => {
           </LoadingButton>
         )}
       </SubmitForm>
-      <Variations variation_id={variation._id} isOpen={isOpen} />
+      <Variations
+        removeHandler={removeHandler}
+        variation_id={variation._id}
+        isOpen={isOpen}
+      />
     </Wrapper>
   );
 };

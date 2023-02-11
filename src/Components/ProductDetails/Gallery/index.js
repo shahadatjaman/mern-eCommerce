@@ -5,7 +5,9 @@ import { BoxStyle } from "./Styles";
 import { addRecentVariation } from "../../../feature/reducer/productDetails";
 
 const Gallery = ({ variant }) => {
-  const { recentVariation } = useSelector((state) => state.productDetails);
+  const { recentVariation, isLoading } = useSelector(
+    (state) => state.productDetails
+  );
 
   const dispatch = useDispatch();
 

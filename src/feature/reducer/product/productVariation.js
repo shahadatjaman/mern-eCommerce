@@ -35,6 +35,18 @@ export const createVariationOption = createAsyncThunk(
   async (values) => await callApi(values)
 );
 
+// Remove variation option
+export const removeVariationOption = createAsyncThunk(
+  "v1_removeoptions",
+  async (id) =>
+    await callApi({
+      pathOne: "v1",
+      pathTwo: "deleteoption",
+      _id: id,
+      method: "post",
+    })
+);
+
 // Get variations
 export const getVariation = createAsyncThunk(
   "vendor/getvariations",
@@ -147,6 +159,7 @@ const variationSlice = createSlice({
     [createVariationOption.rejected]: (state) => {
       state.isLoadOption = false;
     },
+
     [getOptions.pending]: (state) => {
       state.loading = true;
     },
@@ -156,6 +169,25 @@ const variationSlice = createSlice({
     },
     [getOptions.rejected]: (state) => {
       state.loading = false;
+    },
+
+    // Remove option by option id
+    [removeVariationOption.pending]: (state) => {
+      state.isLoadOption = true;
+    },
+    [removeVariationOption.fulfilled]: (state, { payload }) => {
+      state.isLoadOption = false;
+
+      if (payload.deletedOption) {
+        const removed = state.options.filter(
+          (val) => val._id !== payload.deletedOption._id
+        );
+
+        state.options = removed;
+      }
+    },
+    [removeVariationOption.rejected]: (state) => {
+      state.isLoadOption = false;
     },
   },
 });

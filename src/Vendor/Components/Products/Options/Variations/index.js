@@ -14,15 +14,23 @@ import {
 } from "./Styles";
 import { useDispatch, useSelector } from "react-redux";
 import { getOptions } from "../../../../feature/reducer/Product/productVariation";
+import { Box } from "@mui/material";
+import { removeVariationOption } from "../../../../../feature/reducer/product/productVariation";
+import LoadingButton from "@mui/lab/LoadingButton";
 
-const Variations = ({ variation_id, isOpen }) => {
-  const { options } = useSelector((state) => state.variation);
+const Variations = ({ variation_id, isOpen, removeHandler }) => {
+  const { options, isLoadOption } = useSelector((state) => state.variation);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getOptions({ variation_id }));
   }, [dispatch, variation_id, isOpen]);
 
+  const optionRemoveHandler = (id) => {
+    // dispatch(removeVariationOptions(id));
+    dispatch(removeVariationOption(id));
+    removeHandler(id);
+  };
   return (
     <Wrapper>
       {options?.length !== 0 && (
@@ -43,9 +51,12 @@ const Variations = ({ variation_id, isOpen }) => {
                       <Price> {val.price.$numberDecimal} $</Price>
                     )}
 
-                    <Action>
+                    <Box
+                      component={"button"}
+                      onClick={() => optionRemoveHandler(val._id)}
+                    >
                       <HighlightOffIcon />
-                    </Action>
+                    </Box>
                   </Li>
                 ))}
             </UL>

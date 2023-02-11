@@ -77,6 +77,11 @@ const variationSlice = createSlice({
     resetVariations: (state) => {
       state.productVariations = [];
     },
+    removeVariationOptions: (state, payload) => {
+      const removedOptions = state.options.filter((val) => val._id === payload);
+      console.log(removedOptions);
+      alert();
+    },
   },
   extraReducers: {
     // Create product variations
@@ -131,18 +136,19 @@ const variationSlice = createSlice({
     },
     // Create product variation option
     [createVariationOption.pending]: (state) => {
-      state.isLoadOption = true;
+      state.loading = true;
     },
     [createVariationOption.fulfilled]: (state, { payload }) => {
-      state.isLoadOption = false;
+      state.loading = false;
 
       if (payload.createdOption) {
         state.options = [...state.options, payload.createdOption];
       }
     },
     [createVariationOption.rejected]: (state) => {
-      state.isLoadOption = false;
+      state.loading = false;
     },
+
     [getOptions.pending]: (state) => {
       state.loading = true;
     },
@@ -156,7 +162,11 @@ const variationSlice = createSlice({
   },
 });
 
-export const { removeFile, getVariations, resetVariations } =
-  variationSlice.actions;
+export const {
+  removeFile,
+  getVariations,
+  resetVariations,
+  removeVariationOptions,
+} = variationSlice.actions;
 
 export default variationSlice.reducer;

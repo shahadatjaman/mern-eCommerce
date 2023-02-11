@@ -15,6 +15,7 @@ const MuiSelect = ({
   label,
   name,
   isAdded,
+  isMaxColor,
 }) => {
   return (
     <FormControl sx={{ m: 1, minWidth: width }}>
@@ -36,12 +37,23 @@ const MuiSelect = ({
         <MenuItem disabled value="">
           <em>{placeHolder}</em>
         </MenuItem>
-        {names?.map((val, index) => (
-          <MenuItem key={index} value={val.value}>
-            <Color bg={val.value} />
-            {val.name}
-          </MenuItem>
-        ))}
+        {names?.map((val, index) => {
+          if (val.name === "Color" && isMaxColor) {
+            return (
+              <MenuItem disabled key={index} value={val.value}>
+                <Color bg={val.value} />
+                {val.name}
+              </MenuItem>
+            );
+          } else {
+            return (
+              <MenuItem key={index} value={val.value}>
+                <Color bg={val.value} />
+                {val.name}
+              </MenuItem>
+            );
+          }
+        })}
       </Select>
       {isAdded && <Error>Color already added!</Error>}
     </FormControl>

@@ -36,7 +36,7 @@ const ProductContent = () => {
   const dispatch = useDispatch();
 
   // get product
-  const { product, discount, tags, rating } = useSelector(
+  const { product, discount, tags, rating, isLoading } = useSelector(
     (state) => state.productDetails
   );
 
@@ -54,10 +54,10 @@ const ProductContent = () => {
   useDispatch(() => {
     dispatch(getCategory());
   }, []);
-  console.log(rating && rating);
+
   return (
     <ProductContentWrapper>
-      {!product ? (
+      {isLoading ? (
         <SkletonLoad />
       ) : (
         <Box>

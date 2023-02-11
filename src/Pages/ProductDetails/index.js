@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-
+import Skeleton from "@mui/material/Skeleton";
 //<====  Redux Toolkit || Reducer functions   ====>
 import {
   addRecentVariation,
@@ -33,12 +33,18 @@ import Product from "../../Components/Shared/Product";
 import { Typography } from "@mui/material";
 import { getProductsByCategoryId } from "../../feature/reducer/getProducts";
 import ProdcutImg from "./ProdcutImg";
-import useScrollTop from "../../hooks/useScrollTop";
+import { BoxStyle } from "../../Components/ProductDetails/Gallery/Styles";
+
 const Details = () => {
   const { products, loading } = useSelector((state) => state.getItems);
 
-  const { variations, product, isLoading, recentVariation, recentColor } =
-    useSelector((state) => state.productDetails);
+  const {
+    variations,
+    product,
+    isLoading: productLoading,
+    recentVariation,
+    recentColor,
+  } = useSelector((state) => state.productDetails);
 
   // Get product id by params ===>
   const { id } = useParams();
@@ -73,61 +79,76 @@ const Details = () => {
     }
   }, [product, dispatch]);
 
-  if (!product && !isLoading) {
-    return <ResourseNotFound />;
-  }
+  setTimeout(() => {
+    if (!product && !productLoading) {
+      return <ResourseNotFound />;
+    }
+  }, [1000]);
 
   return (
-    <Layout footer={true}>
-      <BreadCrumb pathTwo={"Product"} IconTwo={DetailsIcon} />
-      <Box my={8}>
-        <Container maxWidth="xl">
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={6} sm={12}>
-              {recentVariation && (
-                <ProdcutImg recentVariation={recentVariation.variation_img} />
-              )}
+    product && (
+      <Layout footer={true}>
+        <BreadCrumb pathTwo={"Product"} IconTwo={DetailsIcon} />
+        <Box my={8}>
+          <Container maxWidth="xl">
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={6} sm={12}>
+                {recentVariation && (
+                  <ProdcutImg recentVariation={recentVariation.variation_img} />
+                )}
 
+                <Box
+                  sx={{
+                    ...gallerySm,
+                  }}
+                >
+                  {productLoading && (
+                    <BoxStyle>
+                      <Skeleton
+                        sx={{ bgcolor: "grey.400" }}
+                        variant="rectangular"
+                        width={100}
+                        height={118}
+                      />
+                    </BoxStyle>
+                  )}
+                  {!productLoading &&
+                    variations?.map((variant, index) => (
+                      <Gallery variant={variant} key={index} />
+                    ))}
+                </Box>
+              </Grid>
+              <Grid item xs={12} md={6} sm={12}>
+                <ProductContent />
+              </Grid>
+            </Grid>
+            <Grid container spacing={2}>
               <Box
                 sx={{
-                  ...gallerySm,
+                  margin: "5rem auto",
                 }}
               >
-                {variations?.map((variant, index) => (
-                  <Gallery variant={variant} key={index} />
-                ))}
+                <Tabs />
               </Box>
             </Grid>
-            <Grid item xs={12} md={6} sm={12}>
-              <ProductContent />
-            </Grid>
-          </Grid>
-          <Grid container spacing={2}>
-            <Box
-              sx={{
-                margin: "5rem auto",
-              }}
-            >
-              <Tabs />
-            </Box>
-          </Grid>
 
-          <Grid container spacing={2}>
-            <Grid item xl={12} md={12} sm={12} xxs={12}>
-              <Box my={2}>
-                <Typography variant="h5">Related Products</Typography>
-              </Box>
+            <Grid container spacing={2}>
+              <Grid item xl={12} md={12} sm={12} xxs={12}>
+                <Box my={2}>
+                  <Typography variant="h5">Related Products</Typography>
+                </Box>
+              </Grid>
+              {!loading &&
+                products?.map((product) => (
+                  <Grid item xl={12 / 5} lg={12 / 5} md={4} sm={6} xxs={12}>
+                    <Product product={product} />
+                  </Grid>
+                ))}
             </Grid>
-            {!loading &&
-              products?.map((product) => (
-                <Grid item xl={12 / 5} lg={12 / 5} md={4} sm={6} xxs={12}>
-                  <Product product={product} />
-                </Grid>
-              ))}
-          </Grid>
-        </Container>
-      </Box>
-    </Layout>
+          </Container>
+        </Box>
+      </Layout>
+    )
   );
 };
 

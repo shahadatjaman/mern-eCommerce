@@ -1,29 +1,28 @@
+import { useEffect } from "react";
 import { useState } from "react";
 
 export const useIsExist = ({ values }) => {
-  const [isAdded, setIsAdded] = useState(false);
+  const [colors, setColors] = useState([]);
 
-  if (typeof values !== "object") {
-    throw new Error("values must be a array or object");
-  }
-
-  const isExist = (name) => {
-    if (values.length > 0) {
-      values.find((val) => {
-        if (val.variation_type === "Color") {
-          setIsAdded(true);
-        }
-        if (name === "Size") {
-          setIsAdded(false);
-        }
-
-        return val;
-      });
+  useEffect(() => {
+    if (Array.isArray(values)) {
+      let result = [...values]?.filter((val) => val.variation_type === "Color");
+      setColors(result);
+    }
+  }, [values]);
+  const addColor = (options) => {
+    if (Array.isArray(options)) {
+      let result = [...options]?.filter(
+        (val) => val.variation_type === "Color"
+      );
+      setColors(result);
     }
   };
-
-  return {
-    isAdded,
-    isExist,
+  const removeHandler = (id) => {
+    const removed = colors.filter((val) => val._id !== id);
+    console.log(removed);
+    console.log(id);
   };
+
+  return { colors, addColor, removeHandler };
 };
