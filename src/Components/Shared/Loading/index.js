@@ -1,7 +1,7 @@
 import * as React from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-
+import { PropagateLoader } from "react-spinners";
 export const Loading = () => {
   return (
     <Box
@@ -12,7 +12,8 @@ export const Loading = () => {
         alignItems: "center",
       }}
     >
-      <CircularProgress />
+      {/* <CircularProgress /> */}
+      <PropagateLoader color="#221ecd" />
     </Box>
   );
 };

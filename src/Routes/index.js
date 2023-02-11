@@ -14,18 +14,19 @@ import UpdateProduct from "../Vendor/Pages/UpdateProduct/index.js";
 import Dashboad from "../Vendor/Pages/Home/index.js";
 import Orders from "../Vendor/Pages/MyOders/";
 import Productions from "../Vendor/Pages/Production/index.js";
-
+import Register from "../Pages/auth/Register";
+import Login from "../Pages/auth/Login";
 const Wishlist = lazy(() => import("../Pages/Wishlist"));
 
 const Details = lazy(() => import("../Pages/ProductDetails"));
 
 const Cart = lazy(() => import("../Pages/Shopping/"));
 
-const Login = lazy(() => import("../Pages/auth/Login"));
+// const Login = lazy(() => import("../Pages/auth/Login"));
 
 const Auth = lazy(() => import("../Pages/auth"));
 
-const Register = lazy(() => import("../Pages/auth/Register"));
+// const Register = lazy(() => import("../Pages/auth/Register"));
 
 const Billing = lazy(() => import("../Pages/Checkout/Billing"));
 
