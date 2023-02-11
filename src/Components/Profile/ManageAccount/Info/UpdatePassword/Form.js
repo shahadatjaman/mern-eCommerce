@@ -6,6 +6,7 @@ import Input from "../../../../Shared/Form/Input";
 import { useCheckbox } from "../../../../../hooks/useCheckbox";
 import { useSelector } from "react-redux";
 import { Error } from "../../../../Shared/Styles/styles";
+import { LoadingButton } from "@mui/lab";
 
 const Form = ({
   formState,
@@ -18,7 +19,7 @@ const Form = ({
 }) => {
   const { password, new_password } = formState;
 
-  const { msg, user } = useSelector((state) => state.auth);
+  const { msg, user, isLoading } = useSelector((state) => state.auth);
 
   const { handleChange: checkHandleChange, isChecked } = useCheckbox();
 
@@ -62,13 +63,20 @@ const Form = ({
         />
       </Box>
 
-      <Button
-        variant="contained"
-        type="submit"
-        disabled={!password.value || !new_password.value || !isValidForm}
-      >
-        Change
-      </Button>
+      {isLoading ? (
+        <LoadingButton size="small" loading={true} variant="outlined" disabled>
+          <span>disabled</span>
+        </LoadingButton>
+      ) : (
+        <Button
+          variant="contained"
+          type="submit"
+          disabled={!password.value || !new_password.value || !isValidForm}
+        >
+          Change
+        </Button>
+      )}
+
       <Button
         sx={{ marginLeft: "1rem" }}
         variant="outlined"
