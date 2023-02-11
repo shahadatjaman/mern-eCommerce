@@ -247,6 +247,10 @@ const loginSlice = createSlice({
         state.loadSendCode = false;
         if (payload.status === 200) {
           setLocalstorage("accessToken", payload.accessToken);
+          const { decode } = new JWTDecoder(
+            process.env.REACT_APP_ACCESS_TOKEN_KEY
+          );
+          state.user = decode(payload.accessToken);
           if (payload.navigate) {
             payload.navigate("/create_new_password");
           }
