@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { callApi, deepClone } from "../../../utils/index";
-
+import { toast } from "react-toastify";
+import { tostify } from "../../../utils/toastify";
 const initialState = {
   user: null,
   userInit: { firstName: "", lastName: "", email: "", password: "" },
@@ -138,6 +139,12 @@ const userSlice = createSlice({
       })
       .addCase(uploadAvatar.fulfilled, (state, { payload }) => {
         state.isLoadingUpload = false;
+
+        if (payload.status === 200) {
+          tostify("Avatar successfully updated!");
+        } else {
+          tostify("Something went wrong!");
+        }
       })
       .addCase(uploadAvatar.rejected, (state) => {
         state.isLoadingUpload = false;
@@ -149,6 +156,10 @@ const userSlice = createSlice({
       })
       .addCase(updateUser.fulfilled, (state, { payload }) => {
         state.loadingUpdatedUser = false;
+
+        if (payload?.message) {
+          tostify(payload.message);
+        }
       })
       .addCase(updateUser.rejected, (state) => {
         state.loadingUpdatedUser = false;

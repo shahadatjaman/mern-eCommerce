@@ -5,6 +5,7 @@ import {
   getTotalPrice,
   setLocalstorage,
 } from "../utils";
+import { tostify } from "../utils/toastify";
 
 export const useAddToCart = () => {
   const [items, setItem] = useState([]);
@@ -79,6 +80,7 @@ export const useAddToCart = () => {
         const filtered = oldCarts.filter(
           (cart) => cart.product_id.toString() !== _id.toString()
         );
+        tostify("Removed One item", "error");
         setLocalstorage("carts", filtered);
       }
     }

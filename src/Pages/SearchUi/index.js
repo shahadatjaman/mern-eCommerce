@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import SearchForm from "../../Components/Search";
 import { getCategories } from "../../feature/reducer/categories";
+import { getProductsByValues } from "../../feature/reducer/getProducts";
 import { getQueryProducts } from "../../feature/reducer/Query";
 import Layout from "../Layout";
 import { Wrapper } from "./Styles";
@@ -16,13 +17,8 @@ const Search = () => {
 
   useEffect(() => {
     dispatch(
-      getQueryProducts({
-        values: { queryText: code },
-        pathOne: "v1",
-        pathTwo: "getproducts",
-        method: "post",
-        from: 0,
-        to: 500,
+      getProductsByValues({
+        queryText: code,
       })
     );
   }, [dispatch, code]);

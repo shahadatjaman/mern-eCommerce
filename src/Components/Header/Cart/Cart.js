@@ -19,7 +19,8 @@ import {
   Right,
   Close,
 } from "./Styles";
-
+import DeleteIcon from "@mui/icons-material/Delete";
+import { tostify } from "../../../utils/toastify";
 const Cart = ({ cart }) => {
   const [product, setProduct] = useState(null);
   const [variation, setVariation] = useState(null);
@@ -34,6 +35,7 @@ const Cart = ({ cart }) => {
     if (variation) {
       const carts = removeCart({ _id: cart.product_id });
       dispatch(addCartItems(carts));
+      tostify("Remove One Item", "error");
     }
   };
 
@@ -93,7 +95,9 @@ const Cart = ({ cart }) => {
         </Price>
       </Middle>
       <Right>
-        <Close onClick={() => removeHandler(cart.product_id)}>X</Close>
+        <Close onClick={() => removeHandler(cart.product_id)}>
+          <DeleteIcon fontSize="medium" color="error" />
+        </Close>
       </Right>
     </CartWrapper>
   );

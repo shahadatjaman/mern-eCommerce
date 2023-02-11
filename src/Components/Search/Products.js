@@ -7,7 +7,7 @@ const Products = ({ products }) => {
   const { grid } = useSelector((state) => state.getItems);
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} mt={2}>
       {products &&
         products.map((product, index) => (
           <Grid

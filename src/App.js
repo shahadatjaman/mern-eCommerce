@@ -12,7 +12,7 @@ import Theme from "./Theme";
 import { addUser, getNewAccessToken } from "./feature/reducer/user/auth";
 
 import theme from "./Theme/muiTheme";
-
+import "react-toastify/dist/ReactToastify.css";
 import { Loading } from "./Components/Shared/Loading/";
 import JWTDecoder from "./utils/JwtDecoder";
 import ScrollToTop from "./Components/Shared/ScrollTop";

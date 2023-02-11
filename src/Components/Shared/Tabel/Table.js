@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { addNewWish } from "../../../feature/reducer/addWish";
 import { clearCart } from "../../../feature/reducer/wishList";
 import { useWish } from "../../../hooks/useWish";
+import { tostify } from "../../../utils/toastify";
 
 import { Table, TBody, Th, Thead, Tr } from "./Styles";
 import Tdata from "./Tdata";
@@ -17,6 +18,7 @@ const CartTable = ({ items }) => {
   const cleareCartItems = () => {
     dispatch(addNewWish({ wish: null }));
     clearWish();
+    tostify("Cleared wish list!");
   };
 
   const goToHome = () => {

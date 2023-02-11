@@ -77,7 +77,8 @@ const Header = () => {
                           <Typography
                             sx={{ color: "#000", display: "inline-block" }}
                             fontWeight={"600"}
-                            variant="h4"
+                            variant="body2"
+                            fontSize={40}
                           >
                             Hub
                           </Typography>

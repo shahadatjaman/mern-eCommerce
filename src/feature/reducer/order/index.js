@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { callApi, removeLocalstorage } from "../../../utils";
+import { tostify } from "../../../utils/toastify";
 
 const initialState = {
   isLoading: false,
@@ -49,6 +50,7 @@ const orderSlice = createSlice({
       state.newOrder = payload.order;
       removeLocalstorage("carts");
       if (payload.order) {
+        tostify("Your has order has been created!");
         navigate(`/order_success/${payload.order._id}`);
       }
     },

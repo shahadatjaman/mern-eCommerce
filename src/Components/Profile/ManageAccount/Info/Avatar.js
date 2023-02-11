@@ -60,7 +60,7 @@ const Avatar = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          mt: 1,
+          mt: 4,
         }}
       >
         {isLoadingUpload ? (

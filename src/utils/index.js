@@ -147,11 +147,15 @@ export const percentageOfNumber = (price, salePrice, discount) => {
  * @returns
  */
 export const shortText = (value, length, start, end) => {
-  if (value.trim().length > length) {
-    const text = value.slice(start, end);
-    return text + "...";
+  if (value) {
+    if (value.trim().length > length) {
+      const text = value.slice(start, end);
+      return text + "...";
+    } else {
+      return value;
+    }
   } else {
-    return value;
+    return "";
   }
 };
 

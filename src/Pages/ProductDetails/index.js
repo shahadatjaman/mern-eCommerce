@@ -86,69 +86,67 @@ const Details = () => {
   }, [1000]);
 
   return (
-    product && (
-      <Layout footer={true}>
-        <BreadCrumb pathTwo={"Product"} IconTwo={DetailsIcon} />
-        <Box my={8}>
-          <Container maxWidth="xl">
-            <Grid container spacing={2}>
-              <Grid item xs={12} md={6} sm={12}>
-                {recentVariation && (
-                  <ProdcutImg recentVariation={recentVariation.variation_img} />
-                )}
+    <Layout footer={true}>
+      <BreadCrumb pathTwo={"Product"} IconTwo={DetailsIcon} />
+      <Box my={8}>
+        <Container maxWidth="xl">
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={6} sm={12}>
+              {recentVariation && (
+                <ProdcutImg recentVariation={recentVariation.variation_img} />
+              )}
 
-                <Box
-                  sx={{
-                    ...gallerySm,
-                  }}
-                >
-                  {productLoading && (
-                    <BoxStyle>
-                      <Skeleton
-                        sx={{ bgcolor: "grey.400" }}
-                        variant="rectangular"
-                        width={100}
-                        height={118}
-                      />
-                    </BoxStyle>
-                  )}
-                  {!productLoading &&
-                    variations?.map((variant, index) => (
-                      <Gallery variant={variant} key={index} />
-                    ))}
-                </Box>
-              </Grid>
-              <Grid item xs={12} md={6} sm={12}>
-                <ProductContent />
-              </Grid>
-            </Grid>
-            <Grid container spacing={2}>
               <Box
                 sx={{
-                  margin: "5rem auto",
+                  ...gallerySm,
                 }}
               >
-                <Tabs />
+                {productLoading && (
+                  <BoxStyle>
+                    <Skeleton
+                      sx={{ bgcolor: "grey.400" }}
+                      variant="rectangular"
+                      width={100}
+                      height={118}
+                    />
+                  </BoxStyle>
+                )}
+                {!productLoading &&
+                  variations?.map((variant, index) => (
+                    <Gallery variant={variant} key={index} />
+                  ))}
               </Box>
             </Grid>
-
-            <Grid container spacing={2}>
-              <Grid item xl={12} md={12} sm={12} xxs={12}>
-                <Box my={2}>
-                  <Typography variant="h5">Related Products</Typography>
-                </Box>
-              </Grid>
-              {!loading &&
-                products?.map((product) => (
-                  <Grid item xl={12 / 5} lg={12 / 5} md={4} sm={6} xxs={12}>
-                    <Product product={product} />
-                  </Grid>
-                ))}
+            <Grid item xs={12} md={6} sm={12}>
+              <ProductContent loading={productLoading} />
             </Grid>
-          </Container>
-        </Box>
-      </Layout>
-    )
+          </Grid>
+          <Grid container spacing={2}>
+            <Box
+              sx={{
+                margin: "5rem auto",
+              }}
+            >
+              <Tabs />
+            </Box>
+          </Grid>
+
+          <Grid container spacing={2}>
+            <Grid item xl={12} md={12} sm={12} xxs={12}>
+              <Box my={2}>
+                <Typography variant="h5">Related Products</Typography>
+              </Box>
+            </Grid>
+            {!loading &&
+              products?.map((product) => (
+                <Grid item xl={12 / 5} lg={12 / 5} md={4} sm={6} xxs={12}>
+                  <Product product={product} />
+                </Grid>
+              ))}
+          </Grid>
+        </Container>
+      </Box>
+    </Layout>
   );
 };
 

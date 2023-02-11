@@ -16,7 +16,7 @@ const Auth = () => {
               <Tab>
                 <Link to={`/login`} isActive={({ isActive }) => isActive}>
                   login
-                </Link>{" "}
+                </Link>
                 |
                 <Link to={`/register`} isActive={({ isActive }) => isActive}>
                   register

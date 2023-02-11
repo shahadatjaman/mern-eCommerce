@@ -9,16 +9,17 @@ import { Checkmark, Error, FormWrape, Label, P, ShowPassword } from "./Styles";
 import Form from "../../Components/Shared/Form/Form";
 import { login } from "../../feature/reducer/user/auth";
 import Or from "./Or";
-import { Box, Button, Checkbox, FormControlLabel } from "@mui/material";
+import { Box, Button, Checkbox, FormControlLabel, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { LoadingButton } from "@mui/lab";
 
 const Login = () => {
   const [values, setValues] = useState({ email: "", password: "" });
   const [isValidForm, setIsValidForm] = useState(false);
   const [type, setType] = useState("password");
 
-  const { errorToLogin } = useSelector((state) => state.auth);
+  const { errorToLogin, loginLoading } = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
 
@@ -100,9 +101,17 @@ const Login = () => {
           </Box>
         </Box>
 
-        <Button variant="contained" type="submit" disabled={!isValidForm}>
-          Login
-        </Button>
+        {loginLoading ? (
+          <Stack direction="row" spacing={2}>
+            <LoadingButton loading variant="outlined">
+              Loging
+            </LoadingButton>{" "}
+          </Stack>
+        ) : (
+          <Button variant="contained" type="submit" disabled={!isValidForm}>
+            Login
+          </Button>
+        )}
       </Form>
       <Or />
     </FormWrape>

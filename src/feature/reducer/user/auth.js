@@ -4,6 +4,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { callApi } from "../../../utils/index";
 import { removeLocalstorage, setLocalstorage } from "../../../utils/";
 import JWTDecoder from "../../../utils/JwtDecoder";
+import { tostify } from "../../../utils/toastify";
 const initialState = {
   user: null,
   errors: null,
@@ -299,6 +300,7 @@ const loginSlice = createSlice({
         } else {
           state.modalIsOpen = false;
           state.msg = null;
+          tostify("Password successfully updated!");
         }
       })
       .addCase(changePassword.rejected, (state) => {
@@ -318,6 +320,7 @@ const loginSlice = createSlice({
           removeLocalstorage("accessToken");
           state.user = null;
           state.modalIsOpen = false;
+          tostify("Your account hass been deleted!");
           payload.navigate("/");
         }
       })
@@ -333,6 +336,7 @@ const loginSlice = createSlice({
         state.loading = false;
 
         if (payload.navigate) {
+          tostify("You new password has been created");
           payload.navigate("/");
         }
       })

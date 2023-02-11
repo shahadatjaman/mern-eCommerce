@@ -28,15 +28,15 @@ import { Box, Rating } from "@mui/material";
 import SkletonLoad from "./SkletonLoad";
 import { getCategory } from "../../../feature/reducer/category";
 
-const ProductContent = () => {
+const ProductContent = ({ loading }) => {
   const [salePices, setSalePrices] = useState(null);
 
-  const { category, loading } = useSelector((state) => state.category);
+  const { category } = useSelector((state) => state.category);
 
   const dispatch = useDispatch();
 
   // get product
-  const { product, discount, tags, rating, isLoading } = useSelector(
+  const { product, discount, tags, rating } = useSelector(
     (state) => state.productDetails
   );
 
@@ -57,31 +57,31 @@ const ProductContent = () => {
 
   return (
     <ProductContentWrapper>
-      {isLoading ? (
+      {loading ? (
         <SkletonLoad />
       ) : (
         <Box>
-          <H4>{product && product.name}</H4>
+          <H4>{product && product?.name}</H4>
           <ProductPrice>
             {discount ? (
               <>
                 {salePices && <Span>$ {salePices.toFixed(2)}</Span>}
 
-                <OldPrice> $ {product.price.$numberDecimal}</OldPrice>
+                <OldPrice> $ {product?.price?.$numberDecimal}</OldPrice>
               </>
             ) : (
-              <Span>$ {product.price.$numberDecimal}</Span>
+              <Span>$ {product?.price?.$numberDecimal}</Span>
             )}
           </ProductPrice>
           {/* Product Ratting */}
           {rating ? (
-            <ProductRatting rating={rating.rating} />
+            <ProductRatting rating={rating?.rating} />
           ) : (
             <Rating name="no-value" value={null} />
           )}
 
           {/* Product Short Description */}
-          <Text>{shortText(product.short_desc, 200, 0, 200)}</Text>
+          <Text>{shortText(product?.short_desc, 200, 0, 200)}</Text>
           <ProducrVariation />
           {/* Product Quantity */}
           <Quantityy />
@@ -91,7 +91,7 @@ const ProductContent = () => {
             <Ul>
               <Li>
                 {category?.map((val, index) =>
-                  val._id === product.category_id ? val.category_name : ""
+                  val._id === product?.category_id ? val.category_name : ""
                 )}
               </Li>
             </Ul>
@@ -102,7 +102,7 @@ const ProductContent = () => {
 
             <Ul>
               {tags?.map((val, index) => (
-                <Li key={index}> {val.tag_name} </Li>
+                <Li key={index}> {val?.tag_name} </Li>
               ))}
             </Ul>
           </ProductMeta>

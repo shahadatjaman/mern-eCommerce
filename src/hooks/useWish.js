@@ -6,6 +6,7 @@ import {
   removeLocalstorage,
   setLocalstorage,
 } from "../utils";
+import { tostify } from "../utils/toastify";
 
 export const useWish = () => {
   const [state, setState] = useState(null);
@@ -24,12 +25,14 @@ export const useWish = () => {
           setLocalstorage("wish__list", [...cloned, { _id: product_id }]);
 
           setState([...cloned, { _id: product_id }]);
+          tostify("Added to wish list! please continue!");
         } else {
           const removedWish = cloned.filter((val) => val._id !== product_id);
 
           setLocalstorage("wish__list", [...removedWish]);
 
           setState(removedWish);
+          tostify("Removed One!", "error");
         }
       } else {
         setLocalstorage("wish__list", [{ _id: product_id }]);
@@ -54,6 +57,7 @@ export const useWish = () => {
       getWish = getWish.filter((val) => val._id !== product_id);
       setLocalstorage("wish__list", [...getWish]);
       setState(getWish);
+      tostify("Remove One item!", "error");
     }
   };
   useEffect(() => {

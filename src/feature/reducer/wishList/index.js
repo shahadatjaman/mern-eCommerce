@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import { tostify } from "../../../utils/toastify";
 import { removeLocalstorage, setLocalstorage } from "../../../utils/";
 
 const initialState = {
@@ -40,10 +40,11 @@ export const wishListSlice = createSlice({
       state.lists.items = payload;
       removeLocalstorage("wistList");
       setLocalstorage("wistList", payload);
+      tostify("Removed One!");
     },
     clearCart: (state, action) => {
       state.lists.items = [];
-
+      tostify("Your wish list created!");
       localStorage.removeItem("wistList");
     },
   },

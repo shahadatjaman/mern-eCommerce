@@ -21,13 +21,9 @@ const Categories = ({ categories }) => {
         {categories &&
           categories.map((cat, index) => {
             return (
-              <>
+              <Box key={index}>
                 {cat.category_name !== "All categories" && (
-                  <ListItem
-                    key={index}
-                    my={2}
-                    onClick={() => navigateHandler(cat._id)}
-                  >
+                  <ListItem my={2} onClick={() => navigateHandler(cat._id)}>
                     <Box sx={{ width: "20px", marginRight: 1 }}>
                       <Image src={cat.icon_name} />
                     </Box>
@@ -35,7 +31,7 @@ const Categories = ({ categories }) => {
                     {cat.category_name}
                   </ListItem>
                 )}
-              </>
+              </Box>
             );
           })}
       </List>
