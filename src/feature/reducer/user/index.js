@@ -69,7 +69,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     addUpdatedUser: (state, { payload }) => {
-      state.user = payload;
+      state.user = { ...state.user, ...payload };
     },
     checkUserAddressIsValid: (state, { payload }) => {
       state.isValidAddress = payload.isValidForm;
