@@ -41,7 +41,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { generateId } from "../../utils";
 
 // const _id = ObjectId();
-const CreateNewProduct = ({ title }) => {
+const CreateNewProduct = ({ title, type }) => {
   const [long_desc, setLong_desc] = useState("");
   const [inventory, setInventory] = useState({});
 
@@ -113,6 +113,16 @@ const CreateNewProduct = ({ title }) => {
     _param,
   ]);
 
+  // Set long description
+  const addLongDescription = (value) => {
+    setLong_desc(value);
+  };
+  useEffect(() => {
+    if (productInit.optionalValue) {
+      setLong_desc(productInit.optionalValue.long_desc);
+    }
+  }, [productInit]);
+
   // SUBMIT PRODUCT
   const submitForm = ({ stay }) => {
     if (isValidForm) {
@@ -166,7 +176,7 @@ const CreateNewProduct = ({ title }) => {
       <Modal />
       <Container className="p-0">
         <PageHeader>
-          <Back />
+          <Back type={type} />
           <H3>{title}</H3>
         </PageHeader>
         <Row>
@@ -201,7 +211,8 @@ const CreateNewProduct = ({ title }) => {
               />
 
               {/* Text Editor */}
-              <Editor setLong_desc={setLong_desc} />
+
+              <Editor addLongDescription={addLongDescription} />
             </Cart>
 
             {/* Product variations / options */}

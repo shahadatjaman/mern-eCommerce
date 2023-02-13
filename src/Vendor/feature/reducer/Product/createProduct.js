@@ -9,6 +9,7 @@ const requiredValue = {
 };
 
 const optionalValue = {
+  long_desc: "",
   discount: 0,
   checked: false,
   saleprice: 0,
@@ -196,7 +197,9 @@ export const productSlice = createSlice({
           price: price.$numberDecimal,
         };
 
+        console.log("I'm in vendor");
         const optionalValue = {
+          long_desc: payload.product.long_desc ? payload.product.long_desc : "",
           discount: payload.discount?.discount_percent.$numberDecimal
             ? payload.discount?.discount_percent.$numberDecimal
             : 0,

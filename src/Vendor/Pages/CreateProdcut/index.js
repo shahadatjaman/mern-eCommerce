@@ -23,7 +23,7 @@ const CreateProduct = () => {
 
   return (
     !productInit.requiredValue.name && (
-      <CreateNewProduct title={"Create New Product"} />
+      <CreateNewProduct type={"create"} title={"Create New Product"} />
     )
   );
 };

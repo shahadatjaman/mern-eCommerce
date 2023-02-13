@@ -17,13 +17,13 @@ import { Box, Grid, Typography } from "@mui/material";
 import Search from "./Search";
 import Category from "./MobileNav/Category";
 import DehazeIcon from "@mui/icons-material/Dehaze";
+import useStyles from "../../hooks/useMuiStyle";
 
 const Header = () => {
   const [isOpenNav, setIsOpenNav] = useState(false);
 
   const isMatched = useWindowHeight({ height: 400 });
-
-  const isSmallDevice = useWindowWidth({ width: 1200 });
+  // const classes = useStyles();
 
   const isFluid = useWindowWidth({ width: 1400 });
 
@@ -72,6 +72,7 @@ const Header = () => {
                           sx={{ color: "#221ecd" }}
                           fontWeight={"600"}
                           variant="h3"
+                          // className={classes.root}
                         >
                           Bazaar
                           <Typography

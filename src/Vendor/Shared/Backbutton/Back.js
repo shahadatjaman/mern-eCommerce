@@ -2,12 +2,18 @@ import React from "react";
 
 import { Button, Link } from "./Styles";
 import { FiArrowLeft } from "react-icons/fi";
-const Back = () => {
+const Back = ({ type }) => {
   return (
     <Button>
-      <Link to={"/admin/username"}>
-        <FiArrowLeft />
-      </Link>
+      {(type === "create") | "update" ? (
+        <Link to={"/dashboard/collections"}>
+          <FiArrowLeft />
+        </Link>
+      ) : (
+        <Link to={"/dashboard/collections"}>
+          <FiArrowLeft />
+        </Link>
+      )}
     </Button>
   );
 };

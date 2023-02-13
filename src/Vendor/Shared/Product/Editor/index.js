@@ -3,8 +3,9 @@ import ReactQuill from "react-quill";
 import EditorToolbar, { modules, formats } from "./EditorToolbar";
 import "react-quill/dist/quill.snow.css";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
-function Add({ setLong_desc }) {
+function Add({ addLongDescription }) {
   // let history = useHistory();
   const [userInfo, setuserInfo] = useState({
     title: "",
@@ -12,13 +13,24 @@ function Add({ setLong_desc }) {
     information: "",
   });
 
+  const { productInit } = useSelector((state) => state.createproduct);
+
   const ondescription = (value) => {
     setuserInfo({ ...userInfo, description: value });
+    addLongDescription(value);
   };
 
   useEffect(() => {
-    setLong_desc(userInfo.description);
-  }, [setLong_desc, userInfo]);
+    if (userInfo.description) {
+      addLongDescription(userInfo.description);
+    }
+  }, [addLongDescription, userInfo]);
+
+  useEffect(() => {
+    setuserInfo((prev) => {
+      return { ...prev, description: productInit.optionalValue.long_desc };
+    });
+  }, [productInit]);
 
   return (
     <>

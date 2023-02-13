@@ -36,7 +36,7 @@ const UpdateProduct = () => {
 
   return (
     productInit.requiredValue.name && (
-      <CreateNewProduct title={"Update Product"} />
+      <CreateNewProduct type={"update"} title={"Update Product"} />
     )
   );
 };

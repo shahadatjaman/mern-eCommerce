@@ -100,10 +100,11 @@ export const BasicTabs = () => {
         {product && product.short_desc}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        {!isCreated && user && <CreateReview />}
+        {/* {!isCreated && user && <CreateReview />} */}
 
-        {ratings.length > 0 &&
-          sorted?.map((val, index) => <Post val={val} key={index} />)}
+        {ratings.length > 0
+          ? sorted?.map((val, index) => <Post val={val} key={index} />)
+          : "This product has no reviews."}
       </TabPanel>
     </Box>
   );

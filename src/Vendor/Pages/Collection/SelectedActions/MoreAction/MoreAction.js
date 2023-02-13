@@ -33,7 +33,7 @@ const Action = ({ handleClose }) => {
 
     dispatch(addSelelectedPorducts(null));
     dispatch(isAllProductChecked(false));
-    navigate("/collections");
+    navigate("/dashboard/collections");
     handleClose();
   };
 
