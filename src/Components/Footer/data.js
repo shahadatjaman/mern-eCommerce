@@ -150,10 +150,10 @@ export const menuSaven = [
 
 export const policy = [
   { name: "BazaarHub Group" },
-  { name: "BazaarHub Marketplace" },
-  { name: "BazaarHub.com" },
-  { name: "BazaarHub Telecom" },
-  { name: "Anagopay" },
-  { name: "Lazada" },
+  // { name: "BazaarHub Marketplace" },
+  // { name: "BazaarHub.com" },
+  // { name: "BazaarHub Telecom" },
+  // { name: "Anagopay" },
+  // { name: "Lazada" },
   { name: "BazaarHub Security" },
 ];

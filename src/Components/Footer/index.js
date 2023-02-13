@@ -184,18 +184,9 @@ const Footer = () => {
             <Col className="col-lg-8">
               <PolicyList>
                 <Lists>
-                  {policy.map((item, index) => (
-                    <List key={index}>{item.name}</List>
-                  ))}
+                  <List>Abu Jafor || Shahadat Jaman</List>
                 </Lists>
               </PolicyList>
-              <Language>
-                <p>
-                  BazaarHub.com Español - Português - Deutsch - Français -
-                  Italiano - Pусский - 한국어 - 日本語 - ภาษาไทย - Türk -
-                  Nederlands - tiếng Việt - Indonesian
-                </p>
-              </Language>
             </Col>
             <Col className="col-lg-2">
               <SocialIcons>
