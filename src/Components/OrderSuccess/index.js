@@ -1,7 +1,7 @@
 import { Box, Container, Grid } from "@mui/material";
 import React from "react";
 import { boxStyles, Wrapper } from "./Styles";
-import CheckIcon from "@mui/icons-material/Check";
+
 import Icon from "./IconMessage";
 import OrderSummary from "./OrderSummary";
 const OrderContent = () => {

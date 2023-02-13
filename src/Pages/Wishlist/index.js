@@ -18,6 +18,7 @@ import { NavLink } from "react-router-dom";
 import { useWish } from "../../hooks/useWish";
 import { useEffect } from "react";
 import { addNewWish } from "../../feature/reducer/addWish";
+import CustomizedTables from "./Tabel";
 const Wishlist = () => {
   const { state } = useWish();
   const { wishes } = useSelector((state) => state.wish);
@@ -62,7 +63,8 @@ const Wishlist = () => {
               </Typography>
             </Box> */}
             {/* if wishList is not empty */}
-            {wishes && wishes?.length !== 0 && <Tabel items={wishes} />}
+            {/* {wishes && wishes?.length !== 0 && <Tabel items={wishes} />} */}
+            {wishes && wishes?.length !== 0 && <CustomizedTables />}
           </Container>
         </CartMain>
       </Wrapper>

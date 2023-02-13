@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 
 export const useWindowWidth = ({ width }) => {
-  const [isMatched, setIsMatched] = useState(false);
+  const [isMatched, setIsMatched] = useState(true);
 
   useEffect(() => {
     window.addEventListener("resize", () => {

@@ -17,13 +17,13 @@ const OrderSummary = () => {
     newOrder && (
       <Box my={8} sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
-          <Grid item xs={12} xxs={12} mb={2}>
+          <Grid item xl={12} md={12} lg={12} sm={12} xxs={12} mb={2}>
             <H5>Order Summary</H5>
           </Grid>
           <Grid
             item
-            xs={7}
             xl={7}
+            lg={7}
             md={7}
             sm={12}
             xxs={12}
@@ -50,7 +50,7 @@ const OrderSummary = () => {
               Print Invoice
             </Button>
           </Grid>
-          <Grid item xs={5} xl={5} md={5} sm={12} xxs={12}>
+          <Grid item xl={5} lg={5} md={5} sm={12} xxs={12}>
             <Values>
               <Property>Order ID :</Property>
               <Value># {newOrder._id}</Value>

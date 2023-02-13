@@ -157,3 +157,11 @@ export const Button = styled.div`
     color: #fff;
   }
 `;
+
+export const TabelWrapper = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  @media (max-width: 800px) {
+    max-width: 100%;
+  }
+`;
