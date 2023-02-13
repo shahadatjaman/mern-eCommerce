@@ -1,8 +1,12 @@
 import React from "react";
+import { useLocation, useParams } from "react-router-dom";
 import { menu } from "./data";
 import { Li, LinkName, Menu, Ul, Wrapper } from "./styles";
 
 const SideBar = ({ closeHandler }) => {
+  const params = useLocation();
+
+  console.log(params);
   return (
     <Wrapper>
       <Menu>
@@ -11,6 +15,7 @@ const SideBar = ({ closeHandler }) => {
             <Li key={i}>
               <LinkName
                 to={`${val.path}`}
+                isActive={val.path === params.pathname}
                 onClick={closeHandler && closeHandler}
               >
                 {val.name}

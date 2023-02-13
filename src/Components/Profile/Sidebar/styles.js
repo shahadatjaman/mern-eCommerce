@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const Wrapper = styled.div`
   background: #fff;
@@ -15,12 +15,13 @@ export const Li = styled.li`
   margin: 0.5rem 0;
 `;
 
-export const LinkName = styled(NavLink)`
+export const LinkName = styled(Link)`
   color: #000;
   font-weight: 600;
   font-size: 16px;
   display: block;
   transition: all 0.5s;
+  color: ${(props) => (props.isActive ? "#221ecd" : "#000")} !important;
   &&.active {
     color: #221ecd !important;
     background: #dddddd3b;
