@@ -329,13 +329,13 @@ ul.mb-3.nav.nav-tabs {
 
 .css-96uuyl {
     @media (max-width: 767px) {
-        display: none;
+        display: none !important;
       }
     
 }
 ul.sc-jQHtVU.iZZEdx {
     @media (max-width: 767px) {
-        display: none;
+        display: none !important;
       }
 }
 `;
