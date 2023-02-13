@@ -17,7 +17,7 @@ const Category = ({ isOpenNav, closeHandler }) => {
   return (
     <>
       <Drawer isOpenNav={isOpenNav} closeHandler={closeHandler}>
-        {cate && <Categories categories={cate} />}
+        {cate && <Categories categories={cate} closeHandler={closeHandler} />}
       </Drawer>
     </>
   );

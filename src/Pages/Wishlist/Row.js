@@ -1,20 +1,16 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
+
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
+
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { useDispatch, useSelector } from "react-redux";
+
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { Box, Button, Typography } from "@mui/material";
-import { Link, TabelWrapper } from "./Styles";
+import { Box } from "@mui/material";
+import { Link } from "./Styles";
 import { useWish } from "../../hooks/useWish";
-import { useNavigate } from "react-router-dom";
 import { addNewWish } from "../../feature/reducer/addWish";
-import { tostify } from "../../utils/toastify";
 import { useState } from "react";
 import { callApi } from "../../utils";
 import DeleteIcon from "@mui/icons-material/Delete";

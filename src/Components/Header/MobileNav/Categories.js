@@ -4,10 +4,11 @@ import { Box, List, ListItem, Typography } from "@mui/material";
 import { Image } from "./Styles";
 import { useNavigate } from "react-router-dom";
 
-const Categories = ({ categories }) => {
+const Categories = ({ categories, closeHandler }) => {
   const navigate = useNavigate();
   const navigateHandler = (id) => {
     navigate(`/categories/${id}`);
+    closeHandler();
   };
   return (
     <Box>
