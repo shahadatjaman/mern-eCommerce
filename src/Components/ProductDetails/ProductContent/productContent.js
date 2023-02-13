@@ -77,7 +77,7 @@ const ProductContent = ({ loading }) => {
           {rating ? (
             <ProductRatting rating={rating?.rating} />
           ) : (
-            <Rating name="no-value" value={null} />
+            <Rating name="read-only" value={0} readOnly />
           )}
 
           {/* Product Short Description */}
