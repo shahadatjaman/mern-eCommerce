@@ -58,9 +58,12 @@ const SpeOffer = () => {
               )}
             </Box>
           </Grid>
-          <Grid item xl={9} xs={12} md={9}>
+          <Grid sx={{ overflow: "hidden" }} item xl={9} xs={12} md={9}>
             <Categoreis>
-              <LabTabs />
+              <Box sx={{ overflow: "hidden" }}>
+                <LabTabs />
+              </Box>
+
               <div className="items">
                 <Grid container spacing={2}>
                   {loading &&

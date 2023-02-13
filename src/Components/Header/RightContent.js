@@ -75,6 +75,23 @@ const RightContent = () => {
           </Action>
         )}
       </Item>
+
+      {isSmall && !user && (
+        <Item>
+          <Action onClick={toggleCartHandler}>
+            <FaShoppingCart />
+            <span>Cart</span>
+          </Action>
+          {carts?.length > 0 ? <Count>{carts.length}</Count> : <Count>0</Count>}
+
+          {isOpenCart && (
+            <ShoppingCart height={"450"}>
+              <Cart />
+            </ShoppingCart>
+          )}
+        </Item>
+      )}
+
       {!isSmall && (
         <Item>
           <NavLink to={"/wishlist"}>

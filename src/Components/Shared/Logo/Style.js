@@ -9,6 +9,9 @@ export const H4 = styled.h4`
   @media (max-width: 768px) {
     font-size: 1.5rem !important;
   }
+  @media (max-width: 250px) {
+    font-size: 1rem !important;
+  }
 `;
 
 export const Span = styled.span`

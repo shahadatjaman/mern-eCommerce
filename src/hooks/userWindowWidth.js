@@ -6,9 +6,15 @@ export const useWindowWidth = ({ width }) => {
 
   useEffect(() => {
     window.addEventListener("resize", () => {
+      console.log("Window width", window.innerWidth);
+      console.log("Targeted  width", width);
       if (width > window.innerWidth) {
         setIsMatched(true);
-      } else {
+      }
+      if (window.innerWidth < 328) {
+        setIsMatched(true);
+      }
+      if (width < window.innerWidth) {
         setIsMatched(false);
       }
     });

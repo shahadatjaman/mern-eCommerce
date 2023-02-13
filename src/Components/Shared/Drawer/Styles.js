@@ -25,8 +25,8 @@ export const Content = styled.div`
   z-index: 9;
   transition: all 0.8s;
 
-  @media (max-width: 400px) {
-    width: 100%;
+  @media (max-width: 500px) {
+    width: auto !important;
   }
 `;
 

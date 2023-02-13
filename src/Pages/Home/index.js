@@ -18,7 +18,6 @@ const Home = () => {
       <TopBrand />
       {/* <Categories /> */}
       <VerifiedCompany />
-      {/* <Support />*/}
       {/* <Products /> */}
     </Layout>
   );

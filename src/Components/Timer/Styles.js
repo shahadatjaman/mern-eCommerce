@@ -26,6 +26,9 @@ export const H4 = styled.h4`
   font-weight: 700;
   font-style: normal;
   font-size: 20px;
+  @media (max-width: 300px) {
+    font-size: 14px;
+  }
 `;
 
 export const Body = styled.div`
@@ -145,7 +148,7 @@ export const Counter = styled.div`
   margin-bottom: 2rem;
   span {
     span {
-      background: #2b88de;
+      background: #221ecd;
       border-radius: 20px;
       color: #fff;
       padding: 4px 14px;
@@ -184,7 +187,7 @@ export const Price = styled.div`
   display: flex;
   margin-bottom: 12px;
   span {
-    background: #2b88de;
+    background: #221ecd;
     border-radius: 20px;
     color: #fff;
     padding: 8px 12px;

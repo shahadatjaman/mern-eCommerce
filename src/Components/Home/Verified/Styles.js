@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
@@ -58,5 +59,11 @@ export const Caption = styled.div`
     font-size: 14px;
     font-weight: 400;
     color: #9b9b9b;
+  }
+`;
+
+export const MostWrapper = styled(Box)`
+  @media (max-width: 500px) {
+    display: none !important;
   }
 `;

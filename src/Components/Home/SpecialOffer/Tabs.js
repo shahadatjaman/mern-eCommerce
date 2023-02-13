@@ -30,6 +30,7 @@ const LabTabs = ({ children }) => {
         typography: "body1",
         backgroundColor: "white",
         padding: 1,
+        overflow: "hidden",
       }}
     >
       <TabContext value={value}>

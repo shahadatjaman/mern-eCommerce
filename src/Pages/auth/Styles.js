@@ -42,6 +42,8 @@ export const FormWrape = styled.div`
   margin: auto;
 
   @media (max-width: 768px) {
+    max-width: auto;
+    padding: 0px;
   }
 `;
 

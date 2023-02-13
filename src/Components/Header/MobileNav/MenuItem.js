@@ -6,10 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../feature/reducer/user/auth";
 import { removeCookie } from "../../../feature/reducer/user";
+import { useWindowWidth } from "../../../hooks/userWindowWidth";
 const MenuLi = ({ anchorElUser, handleCloseUserMenu, user }) => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
+
+  const isSmall = useWindowWidth({ width: 600 });
 
   const navigateHandler = (path) => {
     navigate(path);
@@ -48,6 +51,11 @@ const MenuLi = ({ anchorElUser, handleCloseUserMenu, user }) => {
               </MenuItem>
             )}
           </>
+        )}
+        {!user && isSmall && (
+          <MenuItem onClick={() => navigateHandler(`/cartitems`)}>
+            <Typography textAlign="center">My Cart</Typography>
+          </MenuItem>
         )}
         {user && (
           <>

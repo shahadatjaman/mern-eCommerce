@@ -1,6 +1,6 @@
 import React from "react";
 
-import { H5, Title, Verified } from "./Styles";
+import { H5, MostWrapper, Title, Verified } from "./Styles";
 import Slider from "react-slick";
 
 import { useWindowWidth } from "../../../hooks/userWindowWidth";
@@ -21,6 +21,7 @@ const VerifiedCompany = () => {
   const dispatch = useDispatch();
 
   const isValid = useWindowWidth({ width: 990 });
+
   useEffect(() => {
     if (isValid) {
       setShow(1);
@@ -42,7 +43,7 @@ const VerifiedCompany = () => {
   }, [dispatch]);
 
   return (
-    <Box my={5}>
+    <MostWrapper my={5}>
       <Container maxWidth={"xl"} sx={{ background: "#fff" }}>
         <Grid container spacing={2}>
           <Grid item xs={12} xl={12} xx={12}>
@@ -50,7 +51,7 @@ const VerifiedCompany = () => {
               <H5>Most Viewed</H5>
             </Title>
           </Grid>
-          <Grid xs={12} xl={12}>
+          <Grid xs={12} xl={12} md={12} lg={12} sm={12} xxs={12}>
             <Verified>
               <Slider {...settings}>
                 {!loadingMostViewed &&
@@ -65,7 +66,7 @@ const VerifiedCompany = () => {
       
         </Grid> */}
       </Container>
-    </Box>
+    </MostWrapper>
   );
 };
 
