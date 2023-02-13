@@ -14,7 +14,7 @@ import { useAddToCart } from "../../../hooks/useAddToCart";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 //<==== Styled components ====>
-import { QtyWrapper } from "./Styles";
+import { ButtonWraaper, QTYWraper, QtyWrapper } from "./Styles";
 import Quantity from "./IncrementDecrement";
 import { getLocalstorage } from "../../../utils";
 import { useNavigate } from "react-router-dom";
@@ -65,17 +65,23 @@ const Quantityy = () => {
 
   return (
     <QtyWrapper>
-      <Quantity cb={cb} />
-      <Box mx={2}>
-        <Button variant="contained" onClick={() => addTocartHandler("add")}>
+      <QTYWraper>
+        <Quantity cb={cb} />
+      </QTYWraper>
+
+      <ButtonWraaper>
+        <Button
+          sx={{ mx: 1 }}
+          variant="contained"
+          onClick={() => addTocartHandler("add")}
+        >
           Add To Cart
         </Button>
-      </Box>
-      <Box>
+
         <Button variant="contained" onClick={() => addTocartHandler("buy")}>
           Buy now
         </Button>
-      </Box>
+      </ButtonWraaper>
     </QtyWrapper>
   );
 };

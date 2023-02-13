@@ -323,4 +323,19 @@ ul.mb-3.nav.nav-tabs {
   .carousel-inner {
     background: #fff;
 }
+
+
+// Footer
+
+.css-96uuyl {
+    @media (max-width: 767px) {
+        display: none;
+      }
+    
+}
+ul.sc-jQHtVU.iZZEdx {
+    @media (max-width: 767px) {
+        display: none;
+      }
+}
 `;

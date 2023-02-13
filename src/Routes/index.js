@@ -159,7 +159,7 @@ export const routes = [
     ],
   },
   {
-    path: "profile/:username",
+    path: "profile",
     element: (
       <UserProtector>
         <Profile />
@@ -167,7 +167,7 @@ export const routes = [
     ),
     children: [
       {
-        path: "manageaccount",
+        path: "",
         element: (
           <UserProtector>
             <ManageAccount />

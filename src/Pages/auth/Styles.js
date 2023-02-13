@@ -117,4 +117,7 @@ export const ForgetPasswordWrapper = styled.div`
   max-width: 650px;
   margin: 4rem auto;
   border-radius: 4px;
+  @media (max-width: 500px) {
+    max-width: 100%;
+  }
 `;

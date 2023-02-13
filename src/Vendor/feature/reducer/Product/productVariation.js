@@ -79,7 +79,7 @@ const variationSlice = createSlice({
     },
     removeVariationOptions: (state, payload) => {
       const removedOptions = state.options.filter((val) => val._id === payload);
-      console.log(removedOptions);
+
       alert();
     },
   },

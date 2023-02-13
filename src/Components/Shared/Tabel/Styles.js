@@ -159,3 +159,5 @@ export const Button = styled.div`
     background: #fed700;
   }
 `;
+
+export const TableWrapper = styled.div``;

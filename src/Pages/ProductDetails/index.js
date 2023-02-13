@@ -14,7 +14,13 @@ import Layout from "../Layout";
 import ProductContent from "../../Components/ProductDetails/ProductContent/productContent";
 
 //<==== Styled Components  ====>
-import { gallerySm, Image, ImageWrapper, largeImg } from "./styles";
+import {
+  gallerySm,
+  GelleryWrapper,
+  Image,
+  ImageWrapper,
+  largeImg,
+} from "./styles";
 import ResourseNotFound from "../NotFound";
 
 // <=== MUI  ====>
@@ -96,11 +102,7 @@ const Details = () => {
                 <ProdcutImg recentVariation={recentVariation.variation_img} />
               )}
 
-              <Box
-                sx={{
-                  ...gallerySm,
-                }}
-              >
+              <GelleryWrapper>
                 {productLoading && (
                   <BoxStyle>
                     <Skeleton
@@ -115,7 +117,7 @@ const Details = () => {
                   variations?.map((variant, index) => (
                     <Gallery variant={variant} key={index} />
                   ))}
-              </Box>
+              </GelleryWrapper>
             </Grid>
             <Grid item xs={12} md={6} sm={12}>
               <ProductContent loading={productLoading} />

@@ -4,9 +4,23 @@ import styled from "styled-components";
 
 export const ColorSizeWrapper = styled.div`
   display: flex;
+  @media (max-width: 767px) {
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+  }
 `;
 
-export const Color = styled.div``;
+export const Color = styled.div`
+  @media (max-width: 767px) {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+  }
+`;
 
 export const Small = styled.span`
   font-weight: 600;
@@ -81,6 +95,14 @@ export const Colored = styled.span`
 export const SizeWrapper = styled.div`
   margin-left: 1rem;
   transition: all 0.5s ease 0s;
+  @media (max-width: 767px) {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
 `;
 
 export const SizeContent = styled.div`

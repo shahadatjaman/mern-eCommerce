@@ -46,6 +46,9 @@ export const Menu = styled.div`
   display: flex;
   justify-content: space-around;
   position: relative;
+  @media (max-width: 767px) {
+    width: 50%;
+  }
 `;
 export const Text = styled.span`
   font-weight: 600;

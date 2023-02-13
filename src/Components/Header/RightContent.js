@@ -20,6 +20,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 import { getOrders } from "../../feature/reducer/order/";
 import { useWindowWidth } from "../../hooks/userWindowWidth";
+import { Avatar } from "@mui/material";
+import MobileMenu from "./MobileNav/MobileMenu";
 
 const RightContent = () => {
   const [isOpenCart, setIsOpenCart] = useState(false);
@@ -59,7 +61,13 @@ const RightContent = () => {
     <HeaderRightWrapper>
       <Item>
         {user ? (
-          <AccountMenu user={user} setIsOpenCart={setIsOpenCart} />
+          <>
+            {isSmall ? (
+              <MobileMenu user={user} />
+            ) : (
+              <AccountMenu user={user} setIsOpenCart={setIsOpenCart} />
+            )}
+          </>
         ) : (
           <Action onClick={authHandler}>
             <FaUserAlt />
@@ -67,34 +75,46 @@ const RightContent = () => {
           </Action>
         )}
       </Item>
-      <Item>
-        <NavLink to={"/wishlist"}>
-          <Action>
-            <FavoriteIcon fontSize="large" />
-            <span>Wish</span>
-          </Action>
-          {wishes && user && (
-            <Count>{wishes.length === 0 ? 0 : wishes.length}</Count>
-          )}
-        </NavLink>
-      </Item>
-      <Item>
-        <Action onClick={toggleCartHandler}>
-          <FaShoppingCart />
-          <span>Cart</span>
-        </Action>
+      {!isSmall && (
+        <Item>
+          <NavLink to={"/wishlist"}>
+            <Action>
+              <FavoriteIcon fontSize="large" />
+              <span>Wish</span>
+            </Action>
+            {wishes && user && (
+              <Count>{wishes.length === 0 ? 0 : wishes.length}</Count>
+            )}
+          </NavLink>
+        </Item>
+      )}
 
-        {carts?.length > 0 ? <Count>{carts.length}</Count> : <Count>0</Count>}
-        {isOpenCart && (
-          <ShoppingCart height={"450"}>
-            <Cart />
-          </ShoppingCart>
-        )}
-      </Item>
+      {!isSmall && (
+        <Item>
+          <>
+            <Action onClick={toggleCartHandler}>
+              <FaShoppingCart />
+              <span>Cart</span>
+            </Action>
+            {carts?.length > 0 ? (
+              <Count>{carts.length}</Count>
+            ) : (
+              <Count>0</Count>
+            )}
+          </>
+
+          {isOpenCart && (
+            <ShoppingCart height={"450"}>
+              <Cart />
+            </ShoppingCart>
+          )}
+        </Item>
+      )}
+
       {!isSmall && (
         <>
           <Item>
-            <NavLink to={`/profile/${user?.firstName}/myorders`}>
+            <NavLink to={`/profile/myorders`}>
               <Action>
                 <FaLuggageCart />
                 <span>Order</span>

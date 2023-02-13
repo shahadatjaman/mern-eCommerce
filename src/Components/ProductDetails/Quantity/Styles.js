@@ -59,4 +59,17 @@ export const QtyWrapper = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
+  @media (max-width: 767px) {
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+  }
+`;
+export const QTYWraper = styled.div``;
+
+export const ButtonWraaper = styled.div`
+  display: flex;
+  @media (max-width: 767px) {
+    margin-bottom: 1rem;
+  }
 `;

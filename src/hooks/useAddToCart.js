@@ -97,7 +97,7 @@ export const useAddToCart = () => {
         const oldCart = deepClone(carts);
         oldCart[indexOfCart].qty += qty;
         setLocalstorage("carts", oldCart);
-
+        tostify(`Added One item increased ${qty} qty.`);
         return oldCart[indexOfCart];
       } else {
         return addToCart({ _id, price });

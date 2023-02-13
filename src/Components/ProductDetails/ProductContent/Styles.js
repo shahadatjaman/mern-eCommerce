@@ -11,6 +11,8 @@ export const H4 = styled.h4`
   color: #010101;
   @media (max-width: 768px) {
     margin-top: 2rem;
+    font-size: 20px;
+    font-weight: 700;
   }
 `;
 

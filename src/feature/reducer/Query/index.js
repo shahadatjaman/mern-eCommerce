@@ -34,7 +34,7 @@ const querySlice = createSlice({
     },
     [getQueryProducts.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      console.log(payload);
+
       state.products = payload.products;
     },
     [getQueryProducts.rejected]: (state) => {

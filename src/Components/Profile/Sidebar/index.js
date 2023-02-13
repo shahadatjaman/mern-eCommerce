@@ -13,7 +13,7 @@ const SideBar = ({ closeHandler }) => {
                 to={`${val.path}`}
                 onClick={closeHandler && closeHandler}
               >
-                {val.name}{" "}
+                {val.name}
               </LinkName>
             </Li>
           ))}

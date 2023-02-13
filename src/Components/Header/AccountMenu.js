@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
-import Menu from "@mui/material/Menu";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
@@ -18,9 +18,10 @@ import Logout from "@mui/icons-material/Logout";
 import BadgeAvatar from "../Shared/Avatar";
 
 import { logout } from "../../feature/reducer/user/auth";
-import { useEffect } from "react";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Person2Icon from "@mui/icons-material/Person2";
 import { removeCookie } from "../../feature/reducer/user";
+import { useWindowWidth } from "../../hooks/userWindowWidth";
 
 const AccountMenu = ({ user, setIsOpenCart }) => {
   const [isOpenProfile, setIsOpenProfile] = useState(null);
@@ -28,6 +29,8 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const isSmall = useWindowWidth({ width: 600 });
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -39,10 +42,6 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
     } else {
       setIsOpenProfile(true);
     }
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-    setIsOpenProfile(true);
   };
 
   const logoutHandler = () => {
@@ -85,86 +84,6 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
           </IconButton>
         </Tooltip>
       </Box>
-      {/* <Menu
-        anchorEl={anchorEl}
-        id="account-menu"
-        open={open}
-        onClose={handleClose}
-        onClick={handleClose}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: "visible",
-            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-            mt: 1.5,
-            "& .MuiAvatar-root": {
-              width: 32,
-              height: 32,
-            },
-            "&:before": {
-              content: '""',
-              display: "block",
-              position: "absolute",
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: "background.paper",
-              transform: "translateY(-50%) rotate(45deg)",
-              zIndex: 0,
-            },
-          },
-        }}
-        transformOrigin={{ horizontal: "right", vertical: "top" }}
-        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-      >
-        {user ? (
-          <div>
-            <MenuItem>
-              <ListItemIcon>
-                <StorefrontIcon fontSize="small" />
-              </ListItemIcon>
-              <NavLink to={"/dashboard"}>My Vendor</NavLink>
-            </MenuItem>
-
-            <MenuItem>
-              <Avatar src={user?.avatar} />{" "}
-              <NavLink to={`/profile/${user?.firstName}/manageaccount`}>
-                My account
-              </NavLink>
-            </MenuItem>
-            <Divider />
-            <MenuItem>
-              <ListItemIcon>
-                <GradingIcon fontSize="small" />
-              </ListItemIcon>
-              <NavLink to={`/profile/${user.firstName}/myorders`}>
-                My orders
-              </NavLink>
-            </MenuItem>
-
-            <MenuItem onClick={logoutHandler}>
-              <ListItemIcon>
-                <Logout fontSize="small" />
-              </ListItemIcon>
-              Logout
-            </MenuItem>
-          </div>
-        ) : (
-          <div>
-            <MenuItem onClick={() => authHandler({ name: "register" })}>
-              <PersonAddAltIcon sx={{ marginRight: 1 }} /> Sign up
-            </MenuItem>
-            <Divider />
-            <MenuItem onClick={() => authHandler({ name: "login" })}>
-              <ListItemIcon>
-                <LoginIcon fontSize="small" />
-              </ListItemIcon>
-              Login
-            </MenuItem>
-          </div>
-        )}
-      </Menu> */}
 
       <Box
         sx={{
@@ -183,7 +102,7 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
       >
         {user ? (
           <>
-            {user.role.includes("vendor") && (
+            {user?.role.includes("vendor") && (
               <MenuItem onClick={() => navigateHandler("/dashboard")}>
                 <ListItemIcon>
                   <StorefrontIcon fontSize="small" />
@@ -192,11 +111,7 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
               </MenuItem>
             )}
 
-            <MenuItem
-              onClick={() =>
-                navigateHandler(`/profile/${user?.firstName}/manageaccount`)
-              }
-            >
+            <MenuItem onClick={() => navigateHandler(`/profile`)}>
               {/* <Avatar src={user?.avatar} />{" "} */}
 
               <ListItemIcon>
@@ -205,16 +120,28 @@ const AccountMenu = ({ user, setIsOpenCart }) => {
               <NavLink>My account</NavLink>
             </MenuItem>
             <Divider />
-            <MenuItem
-              onClick={() =>
-                navigateHandler(`/profile/${user.firstName}/myorders`)
-              }
-            >
+            <MenuItem onClick={() => navigateHandler(`/profile/myorders`)}>
               <ListItemIcon>
                 <GradingIcon fontSize="small" />
               </ListItemIcon>
               <NavLink>My orders</NavLink>
             </MenuItem>
+            {isSmall && (
+              <>
+                <MenuItem onClick={() => navigateHandler(`/cartitems`)}>
+                  <ListItemIcon>
+                    <ShoppingCartIcon fontSize="small" />
+                  </ListItemIcon>
+                  <NavLink>Cart</NavLink>
+                </MenuItem>
+                <MenuItem onClick={() => navigateHandler(`/wishlist`)}>
+                  <ListItemIcon>
+                    <FavoriteBorderIcon fontSize="small" />
+                  </ListItemIcon>
+                  <NavLink>wishlist</NavLink>
+                </MenuItem>
+              </>
+            )}
 
             <MenuItem onClick={logoutHandler}>
               <ListItemIcon>

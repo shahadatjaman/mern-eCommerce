@@ -27,6 +27,9 @@ export const LargeImageWrapper = styled.div`
 export const Image = styled.img`
   max-width: 100%;
   height: 100%;
+  @media (max-width: 767px) {
+    height: auto;
+  }
 `;
 
 export const SmallImageWrapper = styled.div`
@@ -65,6 +68,9 @@ export const ImageWrapper = styled(Box)`
     width: auto;
     margin: 0;
   }
+  @media (max-width: 767px) {
+    height: auto;
+  }
 `;
 
 export const largeImg = {
@@ -80,6 +86,17 @@ export const largeImg = {
   alignItems: "center",
 };
 
+export const GelleryWrapper = styled.div`
+  width: 400px;
+  display: flex;
+  justifycontent: start;
+  height: 100px;
+  margin: 1rem auto;
+  flexdirection: row-reverse;
+  @media (max-width: 767px) {
+    width: 100%;
+  }
+`;
 export const gallerySm = {
   width: "400px",
   display: "flex",
@@ -88,6 +105,14 @@ export const gallerySm = {
   margin: "1rem auto",
   flexDirection: "row-reverse",
 };
+
+// export const GelleryWrapper = styled(Box)`
+// width: "32.55%",
+// height: 100,
+// backgroundColor: "white",
+// borderRadius: 2,
+// margin: "0 4px ",
+// `;
 
 export const imgBox = {
   width: "32.55%",

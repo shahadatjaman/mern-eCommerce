@@ -197,7 +197,6 @@ export const productSlice = createSlice({
           price: price.$numberDecimal,
         };
 
-        console.log("I'm in vendor");
         const optionalValue = {
           long_desc: payload.product.long_desc ? payload.product.long_desc : "",
           discount: payload.discount?.discount_percent.$numberDecimal

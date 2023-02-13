@@ -20,8 +20,6 @@ export const useIsExist = ({ values }) => {
   };
   const removeHandler = (id) => {
     const removed = colors.filter((val) => val._id !== id);
-    console.log(removed);
-    console.log(id);
   };
 
   return { colors, addColor, removeHandler };

@@ -18,6 +18,7 @@ import Search from "./Search";
 import Category from "./MobileNav/Category";
 import DehazeIcon from "@mui/icons-material/Dehaze";
 import useStyles from "../../hooks/useMuiStyle";
+import Logo from "../Shared/Logo";
 
 const Header = () => {
   const [isOpenNav, setIsOpenNav] = useState(false);
@@ -67,23 +68,8 @@ const Header = () => {
                     </Toggler>
 
                     <NavLink onClick={() => scrollTop()} to={"/"}>
-                      <Box sx={{ width: 250 }}>
-                        <Typography
-                          sx={{ color: "#221ecd" }}
-                          fontWeight={"600"}
-                          variant="h3"
-                          // className={classes.root}
-                        >
-                          Bazaar
-                          <Typography
-                            sx={{ color: "#000", display: "inline-block" }}
-                            fontWeight={"600"}
-                            variant="body2"
-                            fontSize={40}
-                          >
-                            Hub
-                          </Typography>
-                        </Typography>
+                      <Box>
+                        <Logo />
                       </Box>
                     </NavLink>
                   </NavbarBrand>

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { checkCreatePassUrl } from "../../../feature/reducer/user/auth";
 import Layout from "../../Layout";
 import Form from "./Form";
-import { BoxStyle } from "./Styles";
+import { Wraaper } from "./Styles";
 const CreateNewPassword = () => {
   const { new_pass_url, loading } = useSelector((state) => state.auth);
 
@@ -32,7 +32,7 @@ const CreateNewPassword = () => {
       <Box>
         <Container maxWidth={"xl"}>
           {!loading && !new_pass_url && (
-            <Box sx={{ ...BoxStyle }}>
+            <Wraaper>
               <Typography variant="h6">Invalid URL</Typography>
               <Typography variant="body1">
                 The link you used is invalid. Please try again.
@@ -42,15 +42,11 @@ const CreateNewPassword = () => {
                   Try again
                 </Button>
               </Box>
-            </Box>
+            </Wraaper>
           )}
 
           {new_pass_url && (
-            <Box
-              sx={{
-                ...BoxStyle,
-              }}
-            >
+            <Wraaper>
               <Box sx={{ textAlign: "left" }}>
                 <Typography variant="h5" fontWeight={600}>
                   Choose a new password
@@ -65,7 +61,7 @@ const CreateNewPassword = () => {
               <Box>
                 <Form />
               </Box>
-            </Box>
+            </Wraaper>
           )}
         </Container>
       </Box>
