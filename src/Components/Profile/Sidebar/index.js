@@ -6,7 +6,6 @@ import { Li, LinkName, Menu, Ul, Wrapper } from "./styles";
 const SideBar = ({ closeHandler }) => {
   const params = useLocation();
 
-  console.log(params);
   return (
     <Wrapper>
       <Menu>

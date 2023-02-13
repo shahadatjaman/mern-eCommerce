@@ -70,7 +70,7 @@ const Row = ({ value }) => {
       dispatch(addNewWish({ wish: state }));
     }
   }, [state, dispatch]);
-  console.log("Rendered");
+
   return (
     product &&
     variation && (
