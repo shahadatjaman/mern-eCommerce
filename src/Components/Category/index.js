@@ -91,7 +91,7 @@ const SideBarAndMain = () => {
         </Grid>
       </Container>
       <Drawer isOpenNav={isOpenNav} closeHandler={closeHandler}>
-        <SideBar />
+        <SideBar closeHandler={closeHandler} />
       </Drawer>
     </Box>
   );

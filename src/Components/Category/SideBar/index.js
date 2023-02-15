@@ -16,7 +16,7 @@ const INIT = {
   price: [0, 500],
 };
 
-const SideBar = () => {
+const SideBar = ({ closeHandler }) => {
   const [state, setState] = useState(INIT);
 
   const dispatch = useDispatch();
@@ -39,6 +39,7 @@ const SideBar = () => {
 
   const applyHandler = () => {
     if (state.category_id) {
+      closeHandler();
       dispatch(
         getProductsByValues({
           category_id: state.category_id,
@@ -47,6 +48,7 @@ const SideBar = () => {
         })
       );
     } else {
+      closeHandler();
       dispatch(
         getProductsByValues({
           minPrice: state.price[0],
