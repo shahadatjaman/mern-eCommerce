@@ -1,4 +1,4 @@
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button, Grid, Skeleton } from "@mui/material";
 import React, { useEffect } from "react";
 import SearchField from "./SearchField";
 import SelectField from "../Shared/Form/MuiSelect/index";
@@ -21,7 +21,7 @@ const SearchForm = () => {
     category_id: "",
   });
 
-  const { loading, products } = useSelector((state) => state.getItems);
+  const { loading, products, grid } = useSelector((state) => state.getItems);
 
   const { categories } = useSelector((state) => state.categories);
 
@@ -134,9 +134,16 @@ const SearchForm = () => {
       <Box>
         <Grid container spacing={2}>
           {loading &&
-            placeHolder?.map((item, index) => (
-              <Grid key={index} item lg={12 / 5} xs={12 / 2} md={4} sm={12}>
-                <Loading />
+            placeHolder?.map((_, index) => (
+              <Grid
+                key={index}
+                item
+                lg={12 / grid}
+                xs={12 / grid}
+                md={4}
+                sm={12}
+              >
+                <Skeleton />
               </Grid>
             ))}
         </Grid>

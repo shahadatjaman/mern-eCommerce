@@ -62,7 +62,7 @@ export const useAddToCart = () => {
       return oldCarts[oldIndex].cart;
     }
   };
-  // Increment
+  // Decrement
   const decrement = ({ _id }) => {
     const carts = getLocalstorage("carts");
 

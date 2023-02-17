@@ -1,6 +1,5 @@
 import axios from "axios";
 import { getLocalstorage } from "../utils";
-import jwtDecode from "jwt-decode";
 
 export const callApi = async (props) => {
   const token = getLocalstorage("accessToken");
