@@ -99,7 +99,6 @@ $ npm start (to start the client)
 
 
 
-```
 
 Please follow [This tutorial](https://dev.to/dalalrohit/how-to-connect-to-mongodb-atlas-using-node-js-k9i) to create your mongoDB connection url, which you'll use as your DB_URL
 
