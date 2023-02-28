@@ -12,48 +12,60 @@
 - [Author](#author)
 ## Introduction
 
-This is a site project I've been working on. A full stack social media application made using the MERN stack (MongoDB, Express, React & Nodejs), With this application, where people can connect with other people. Jump right off the [Live App](https://ssociall.herokuapp.com/login) or download the entire [Client source code](https://github.com/abuhuraira24/socialClient), [Server source code](https://github.com/abuhuraira24/socialServer), [SocketIo Server soutce code](https://github.com/abuhuraira24/socketIo_server) and run it on your server. This project is something I've been working on in my free time so I cannot be sure that everything will work out correctly. But I'll appreciate you if can report any issue.
+The goal of this project is to develop a #multi-#vendor #eCommerce(RBAC) platform that allows multiple sellers to create their own online stores. The platform will be built using modern web technologies.
 
 ![Profile](https://res.cloudinary.com/dza2t1htw/image/upload/v1677583302/home_dekwir.jpg)
 ![Profile](https://res.cloudinary.com/dza2t1htw/image/upload/v1677583583/details_g5tbrp.jpg)
 
-## Key Features
+## Vendor Features :
 
-- Email verification  via nodemailer
--Account creation and forgot password via email
-- User can create post, upload photos, deletion and update post.
-- Real time push notification, Comment and like/unlike.
-- User can follow and unfollow others.
-- User can see tottal followers and others posts
-- User registration and Login/logout system.
-- Authentication using jsonwebtoken (jwt).
+- Users can create two account types: customer and vendor.
+- A vendor can create products with various attributes such as variable products, product categories, sizes/colors, and discounts etc.
+- Vendors have the ability to update various attributes of their products, such as pricing, descriptions, images, and inventory levels.
+- Vendors have the ability to update or delete product prices by either incrementing or decrementing the price, and they can also mark products for deletion.
+- Vendors have the ability to update their profile information, including their avatar, name, email address, and password. They also have the option to delete their account if needed.
 
-## Technologies used
+## Customer Features :
+
+- Users have the ability to add items to their cart, add products to their wish list, and adjust the quantity of items by incrementing or decrementing the quantity.
+- Users can view the details of a product, select the desired variations such as color or size, and create an order based on their choices.
+- After creating an order, the customer can add their delivery address and choose cash on delivery as the payment method. Once the order is confirmed, the customer will receive a PDF containing details of the ordered products.
+- Customers have the ability to update their profile information, including their avatar, name, email address, and password. They also have the option to delete their account if needed.
+- Vendors have the ability to update their profile information, including their avatar, name, email address, and password. They also have the option to delete their account if needed.
+
+## Authentication features  :
+
+- If a user forgets their password, they can request a password reset link via email, and use that link to create a new password.
+- Access tokens and refresh tokens are implemented in the authentication process.
+- After creating an order, the customer can add their delivery address and choose cash on delivery as the payment method. Once the order is confirmed, the customer will receive a PDF containing details of the ordered products.
+- Customers have the ability to update their profile information, including their avatar, name, email address, and password. They also have the option to delete their account if needed.
+- Vendors have the ability to update their profile information, including their avatar, name, email address, and password. They also have the option to delete their account if needed.
+
+
+## Front-end Technologies :
 
 This project was created using the following technologies.
 
 #### Client
 
 - React JS
-- Context API (for managing and centralizing application state)
-- React-router-dom (To handle routing)
+- Redux toolkit
+- React-router-dom 6(To handle routing)
 - Axios (for making api calls)
-- Styled Commponents & SCSS Module (for User Interface)
-- React toastify  (To display success/error notifications)
-- Cloudinary (to allows users to upload their business logo)
-- React-google-login (To enable authentication using Google)
-- Apollo Clien (to data fetching)
+- Styled Commponents
+- Material UI
 
 #### Server
 
-- Express
+- NodeJS
+- ExpressJS
 - Mongoose
 - JWT (For authentication)
 - bcryptjs (for data encryption)
-- Nodemailer (for sending invoice via email)
-- SocketIo
-- GraphQL/Apollo Server
+- Nodemailer
 - multer
+- Cookie parser
+- Passport
 
 #### Database
 
@@ -75,8 +87,6 @@ In the first terminal
 ```
 REACT_APP_SERVER_URL =
 REACT_APP_CLIENT_URL = 
-REACT_APP_SOCKETIO_SERVER_URL = 
-REACT_APP_CLOUDINRY_UPLOAD_API =
 
 ```
 
@@ -86,20 +96,8 @@ $ npm install (to install client-side dependencies)
 $ npm start (to start the client)
 ```
 
-In the second terminal
 
-- cd server and create a .env file in the root of your server directory.
-- Supply the following credentials
 
-```
-MONGODB  = URL
-PORT = 5000
-AUTH_EMAIL = (to send email via nodemailer)
-AUTH_PASS = (nodemailer pass)
-SECRET_KEY = 
-SECURE = Boolean
-SERVICE = gmail
-COVER = (default user profile cover photo url)
 ```
 
 Please follow [This tutorial](https://dev.to/dalalrohit/how-to-connect-to-mongodb-atlas-using-node-js-k9i) to create your mongoDB connection url, which you'll use as your DB_URL
@@ -119,6 +117,6 @@ to keep improving the project.
 ## Author
 
 - Github: [@shahadat](https://github.com/abuhuraira24)
-- Linkedin: [@shahadat](https://www.linkedin.com/in/abu-huraira-34423821b/)
+- Linkedin: [@shahadat](https://www.linkedin.com/in/shahadat-jaman-1027b7263/)
 - Email: [@shahadat](mailto:shahadatjaman23@gmail.com)
 
