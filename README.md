@@ -15,6 +15,7 @@
 This is a site project I've been working on. A full stack social media application made using the MERN stack (MongoDB, Express, React & Nodejs), With this application, where people can connect with other people. Jump right off the [Live App](https://ssociall.herokuapp.com/login) or download the entire [Client source code](https://github.com/abuhuraira24/socialClient), [Server source code](https://github.com/abuhuraira24/socialServer), [SocketIo Server soutce code](https://github.com/abuhuraira24/socketIo_server) and run it on your server. This project is something I've been working on in my free time so I cannot be sure that everything will work out correctly. But I'll appreciate you if can report any issue.
 
 ![Profile](https://res.cloudinary.com/dza2t1htw/image/upload/v1677583302/home_dekwir.jpg)
+![Profile](https://res.cloudinary.com/dza2t1htw/image/upload/v1677583583/details_g5tbrp.jpg)
 
 ## Key Features
 
