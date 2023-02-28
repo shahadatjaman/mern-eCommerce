@@ -19,6 +19,8 @@
 ## Introduction
 The goal of this project is to develop a multi-vendor eCommerce(RBAC) platform that allows multiple sellers to create their own online stores. The platform will be built using modern web technologies.
 
+### Component Tree : [@Download](https://drive.google.com/file/d/11bORKDQ_-81E3G1Zrk8M7Nu--G3zzfR0/view?usp=share_link)
+
 ### Vendor Features :
 
 - Users can create two account types: customer and vendor.
