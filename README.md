@@ -17,7 +17,7 @@ The goal of this project is to develop a #multi-#vendor #eCommerce(RBAC) platfor
 ![Profile](https://res.cloudinary.com/dza2t1htw/image/upload/v1677583302/home_dekwir.jpg)
 ![Profile](https://res.cloudinary.com/dza2t1htw/image/upload/v1677583583/details_g5tbrp.jpg)
 
-## Vendor Features :
+### Vendor Features :
 
 - Users can create two account types: customer and vendor.
 - A vendor can create products with various attributes such as variable products, product categories, sizes/colors, and discounts etc.
@@ -25,7 +25,7 @@ The goal of this project is to develop a #multi-#vendor #eCommerce(RBAC) platfor
 - Vendors have the ability to update or delete product prices by either incrementing or decrementing the price, and they can also mark products for deletion.
 - Vendors have the ability to update their profile information, including their avatar, name, email address, and password. They also have the option to delete their account if needed.
 
-## Customer Features :
+### Customer Features :
 
 - Users have the ability to add items to their cart, add products to their wish list, and adjust the quantity of items by incrementing or decrementing the quantity.
 - Users can view the details of a product, select the desired variations such as color or size, and create an order based on their choices.
@@ -33,7 +33,7 @@ The goal of this project is to develop a #multi-#vendor #eCommerce(RBAC) platfor
 - Customers have the ability to update their profile information, including their avatar, name, email address, and password. They also have the option to delete their account if needed.
 - Vendors have the ability to update their profile information, including their avatar, name, email address, and password. They also have the option to delete their account if needed.
 
-## Authentication features  :
+### Authentication features  :
 
 - If a user forgets their password, they can request a password reset link via email, and use that link to create a new password.
 - Access tokens and refresh tokens are implemented in the authentication process.
@@ -86,7 +86,6 @@ In the first terminal
 
 ```
 REACT_APP_SERVER_URL =
-REACT_APP_CLIENT_URL = 
 
 ```
 
