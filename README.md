@@ -10,12 +10,14 @@
   - [Database](#database)
 - [Configuration and Setup](#configuration-and-setup)
 - [Author](#author)
-## Introduction
 
-The goal of this project is to develop a #multi-#vendor #eCommerce(RBAC) platform that allows multiple sellers to create their own online stores. The platform will be built using modern web technologies.
+
 
 ![Profile](https://res.cloudinary.com/dza2t1htw/image/upload/v1677583302/home_dekwir.jpg)
 ![Profile](https://res.cloudinary.com/dza2t1htw/image/upload/v1677583583/details_g5tbrp.jpg)
+
+## Introduction
+The goal of this project is to develop a multi-vendor eCommerce(RBAC) platform that allows multiple sellers to create their own online stores. The platform will be built using modern web technologies.
 
 ### Vendor Features :
 
